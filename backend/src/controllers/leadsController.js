@@ -1,7 +1,8 @@
 // Diagnostic Leads Controller (API v1)
+const resendService = require('../services/resendService');
 
-const submitDiagnostic = (req, res) => {
-  const { company, contactName, email, mobile, category, gmvBand, intent, timeline, challenges } = req.body;
+const submitDiagnostic = async (req, res) => {
+  const { company, contactName, designation, email, mobile, category, revenueBand, gmvBand, intent, timeline, challenges } = req.body;
   
   let score = 70;
   const tags = [];
@@ -14,14 +15,19 @@ const submitDiagnostic = (req, res) => {
     score += 10;
     tags.push('High-Volume Scale Candidate');
   }
+  if (challenges && (challenges.includes('returns') || challenges.includes('reconciliation'))) {
+    tags.push('Revenue Assurance Candidate');
+  }
 
   const lead = {
     id: `GL-${Math.floor(1000 + Math.random() * 9000)}`,
     company: company || "Enterprise Prospect",
     contactName: contactName || "Representative",
+    designation: designation || "Executive",
     email: email || "contact@prospect.com",
     mobile: mobile || "+91 98000 00000",
     category: category || "Commerce Growth",
+    revenueBand: revenueBand || "₹10 Cr - ₹50 Cr",
     gmvBand: gmvBand || "₹2 Cr - ₹10 Cr",
     intent: intent || "Scale Pan-India",
     timeline: timeline || "Immediate",
@@ -31,9 +37,14 @@ const submitDiagnostic = (req, res) => {
     createdAt: new Date().toISOString()
   };
 
+  // Trigger Resend email delivery asynchronously
+  resendService.sendDiagnosticLeadEmails(lead).catch(err => {
+    console.error('[EMAIL TRIGGER ERROR]', err);
+  });
+
   return res.status(200).json({
     success: true,
-    message: "Diagnostic submitted and lead fit scored successfully.",
+    message: "Diagnostic submitted, fit score calculated, and email notifications triggered via Resend.",
     data: lead
   });
 };

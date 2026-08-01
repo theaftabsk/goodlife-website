@@ -43,9 +43,34 @@ export default function CommerceDiagnosticModal({ onClose }: CommerceDiagnosticM
     return tags;
   };
 
-  const handleNext = () => {
-    if (step < 10) setStep(step + 1);
-    else setCompleted(true);
+  const handleNext = async () => {
+    if (step < 10) {
+      setStep(step + 1);
+    } else {
+      setCompleted(true);
+      try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+        await fetch(`${apiUrl}/api/v1/leads/diagnostic`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            company: formData.companyName,
+            contactName: formData.contactName,
+            designation: formData.designation,
+            email: formData.email,
+            mobile: formData.mobile,
+            category: formData.category,
+            revenueBand: formData.annualRevenue,
+            gmvBand: formData.monthlyGmv,
+            intent: formData.intent,
+            timeline: formData.timeline,
+            challenges: formData.challenges
+          })
+        });
+      } catch (e) {
+        console.log("[DIAGNOSTIC SUBMIT API EXCEPTION]", e);
+      }
+    }
   };
 
   const toggleArrayItem = (field: "marketplaces" | "challenges", item: string) => {
