@@ -25,11 +25,11 @@
   --clr-navy-100:      #DBEAFE;
   --clr-navy-050:      #EFF6FF;
 
-  /* Accent — signature coral/orange (used ONLY for CTA & key highlights) */
-  --clr-accent:        #FF5F37;
-  --clr-accent-hover:  #E8501F;
-  --clr-accent-glow:   rgba(255, 95, 55, 0.12);
-  --clr-accent-border: rgba(255, 95, 55, 0.22);
+  /* Accent — signature electric blue & cyan highlights */
+  --clr-accent:        #2563EB;
+  --clr-accent-hover:  #1D4ED8;
+  --clr-accent-glow:   rgba(37, 99, 235, 0.20);
+  --clr-accent-border: rgba(96, 165, 250, 0.30);
 
   /* Neutrals */
   --clr-gray-900:      #111827;
@@ -44,9 +44,9 @@
   --foreground:        var(--clr-fg);
   --text-muted:        var(--clr-gray-500);
   --text-soft:         var(--clr-gray-700);
-  --signal-yellow:     var(--clr-accent);
-  --yellow-glow:       var(--clr-accent-glow);
-  --yellow-border:     var(--clr-accent-border);
+  --signal-yellow:     #38BDF8;
+  --yellow-glow:       rgba(56, 189, 248, 0.15);
+  --yellow-border:     rgba(56, 189, 248, 0.30);
   --trust-blue:        var(--clr-fg);
   --deep-navy:         var(--clr-navy-950);
   --navy-2:            var(--clr-navy-900);
@@ -86,12 +86,21 @@
    ═══════════════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+html { 
+  scroll-behavior: smooth; 
+  scroll-padding-top: 90px;
+  -webkit-font-smoothing: antialiased; 
+}
+
+[id] {
+  scroll-margin-top: 90px;
+}
 
 body {
   min-height: 100vh;
   line-height: 1.65;
   overflow-x: hidden;
+  width: 100%;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-body);

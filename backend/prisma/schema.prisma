@@ -1,0 +1,216 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum RoleType {
+  SUPER_ADMIN
+  CONTENT_ADMIN
+  EDITOR
+  MARKETING
+  SALES
+  SUPPORT
+}
+
+model User {
+  id           String        @id @default(uuid())
+  email        String        @unique
+  name         String
+  passwordHash String
+  role         RoleType      @default(EDITOR)
+  sessions     Session[]
+  auditLogs    AuditLog[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token        String   @unique
+  expiresAt    DateTime
+  ipAddress    String?
+  userAgent    String?
+  createdAt    DateTime @default(now())
+}
+
+model Permission {
+  id          String   @id @default(uuid())
+  role        RoleType
+  resource    String
+  action      String   // create, read, update, delete
+  createdAt   DateTime @default(now())
+}
+
+model DiagnosticLead {
+  id          String             @id @default(uuid())
+  leadCode    String             @unique
+  company     String
+  contactName String
+  designation String
+  email       String
+  mobile      String
+  category    String
+  revenueBand String
+  gmvBand     String
+  intent      String
+  timeline    String
+  fitScore    Int
+  fitLabel    String
+  tags        String[]
+  utmSource   String?
+  utmCampaign String?
+  answers     DiagnosticAnswer[]
+  results     DiagnosticResult[]
+  createdAt   DateTime           @default(now())
+}
+
+model DiagnosticAnswer {
+  id          String         @id @default(uuid())
+  leadId      String
+  lead        DiagnosticLead @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  stepNumber  Int
+  question    String
+  answer      String
+  createdAt   DateTime       @default(now())
+}
+
+model DiagnosticResult {
+  id          String         @id @default(uuid())
+  leadId      String
+  lead        DiagnosticLead @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  resultTag   String
+  scoreBand   String
+  createdAt   DateTime       @default(now())
+}
+
+model ContactSubmission {
+  id          String   @id @default(uuid())
+  name        String
+  email       String
+  phone       String?
+  company     String?
+  message     String
+  status      String   @default("New") // New, Contacted, Closed
+  createdAt   DateTime @default(now())
+}
+
+model Article {
+  id          String    @id @default(uuid())
+  slug        String    @unique
+  title       String
+  body        String
+  categoryId  String?
+  category    Category? @relation(fields: [categoryId], references: [id])
+  authorId    String?
+  author      Author?   @relation(fields: [authorId], references: [id])
+  status      String    @default("Draft") // Draft, Published
+  seoTitle    String?
+  seoDesc     String?
+  coverImage  String?
+  tags        Tag[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model CaseStudy {
+  id          String    @id @default(uuid())
+  slug        String    @unique
+  clientName  String
+  categoryId  String?
+  category    Category? @relation(fields: [categoryId], references: [id])
+  title       String
+  stats       String
+  description String
+  coverImage  String?
+  createdAt   DateTime  @default(now())
+}
+
+model FAQ {
+  id          String    @id @default(uuid())
+  question    String
+  answer      String
+  categoryId  String?
+  category    Category? @relation(fields: [categoryId], references: [id])
+  isPublished Boolean   @default(true)
+  orderIndex  Int       @default(0)
+  createdAt   DateTime  @default(now())
+}
+
+model Category {
+  id          String      @id @default(uuid())
+  name        String      @unique
+  slug        String      @unique
+  description String?
+  articles    Article[]
+  caseStudies CaseStudy[]
+  faqs        FAQ[]
+  createdAt   DateTime    @default(now())
+}
+
+model Tag {
+  id        String    @id @default(uuid())
+  name      String    @unique
+  articles  Article[]
+  createdAt DateTime  @default(now())
+}
+
+model Author {
+  id        String    @id @default(uuid())
+  name      String
+  title     String
+  bio       String?
+  avatarUrl String?
+  articles  Article[]
+  createdAt DateTime  @default(now())
+}
+
+model Media {
+  id        String   @id @default(uuid())
+  filename  String
+  url       String
+  mimeType  String
+  sizeBytes Int
+  storage   String   @default("Cloudflare_R2") // Cloudflare_R2, AWS_S3, Local
+  createdAt DateTime @default(now())
+}
+
+model Redirect {
+  id         String   @id @default(uuid())
+  fromUrl    String   @unique
+  toUrl      String
+  statusCode Int      @default(301)
+  createdAt  DateTime @default(now())
+}
+
+model AnalyticsEvent {
+  id         String   @id @default(uuid())
+  eventName  String
+  pageUrl    String
+  utmSource  String?
+  sessionId  String?
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+}
+
+model Setting {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  action    String
+  target    String
+  ipAddress String?
+  createdAt DateTime @default(now())
+}
