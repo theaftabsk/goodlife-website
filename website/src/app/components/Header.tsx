@@ -63,13 +63,10 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
     }}>
       <div className="container" style={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         
-        {/* Brand Logo */}
-        <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.75rem", textDecoration: "none" }}>
-          <Image src="/gl-icon.svg" alt="Good Life Logo" width={34} height={34} priority />
-          <div>
-            <span style={{ fontSize: "1.2rem", fontWeight: 800, letterSpacing: "0.5px", color: "#FFF", display: "block", lineHeight: 1 }}>GOOD LIFE</span>
-            <span style={{ fontSize: "0.62rem", letterSpacing: "1.8px", color: "#38BDF8", textTransform: "uppercase", fontWeight: 700 }}>Commerce Partner</span>
-          </div>
+        {/* Brand Logo - Clean Typography */}
+        <Link href="/" style={{ textDecoration: "none" }}>
+          <span style={{ fontSize: "1.3rem", fontWeight: 900, letterSpacing: "0.8px", color: "#FFF", display: "block", lineHeight: 1 }}>GOOD LIFE</span>
+          <span style={{ fontSize: "0.62rem", letterSpacing: "1.8px", color: "#38BDF8", textTransform: "uppercase", fontWeight: 700 }}>Commerce Partner</span>
         </Link>
 
         {/* Desktop Navigation Links */}
