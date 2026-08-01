@@ -1,25 +1,10 @@
 {
-  "name": "goodlife-monorepo",
-  "version": "3.0.0",
-  "description": "Good Life Sutra — Enterprise Commerce Platform (Turborepo Monorepo)",
+  "name": "goodlife-website-root",
+  "version": "4.0.0",
   "private": true,
-  "workspaces": [
-    "website",
-    "admin",
-    "backend",
-    "packages/*"
-  ],
   "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build",
-    "start": "turbo run start",
-    "lint": "turbo run lint",
-    "db:generate": "prisma generate",
-    "db:push": "prisma db push",
-    "db:migrate": "prisma migrate dev",
-    "db:studio": "prisma studio"
-  },
-  "devDependencies": {
-    "turbo": "^2.0.0"
+    "dev": "npm --prefix website run dev",
+    "build": "cd website && npm install && npm run build",
+    "start": "npm --prefix website run start"
   }
 }
