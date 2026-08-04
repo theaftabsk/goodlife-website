@@ -55,18 +55,19 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
       left: 0,
       right: 0,
       height: "76px",
-      background: "rgba(6, 11, 26, 0.94)",
+      background: "rgba(255, 255, 255, 0.95)",
       backdropFilter: "blur(20px)",
       WebkitBackdropFilter: "blur(20px)",
-      borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+      borderBottom: "1px solid #E2E8F0",
+      boxShadow: "0 2px 15px rgba(0, 0, 0, 0.04)",
       zIndex: 9999
     }}>
       <div className="container" style={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         
-        {/* Brand Logo - Clean Typography */}
+        {/* Brand Logo - Clean Typography & Subtitle */}
         <Link href="/" style={{ textDecoration: "none" }}>
-          <span style={{ fontSize: "1.3rem", fontWeight: 900, letterSpacing: "0.8px", color: "#FFF", display: "block", lineHeight: 1 }}>GOOD LIFE</span>
-          <span style={{ fontSize: "0.62rem", letterSpacing: "1.8px", color: "#38BDF8", textTransform: "uppercase", fontWeight: 700 }}>Commerce Partner</span>
+          <span style={{ fontSize: "1.35rem", fontWeight: 900, letterSpacing: "-0.5px", color: "#0F172A", display: "block", lineHeight: 1 }}>GOOD LIFE</span>
+          <span style={{ fontSize: "0.65rem", letterSpacing: "1.5px", color: "#0284C7", textTransform: "uppercase", fontWeight: 800, marginTop: "2px", display: "block" }}>Commerce Operating Partner</span>
         </Link>
 
         {/* Desktop Navigation Links */}
@@ -76,7 +77,7 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
             onMouseLeave={() => setActiveMenu(null)}
             style={{ position: "relative", padding: "1.5rem 0" }}
           >
-            <span style={{ fontSize: "0.92rem", fontWeight: 600, color: activeMenu === "solutions" ? "#38BDF8" : "#E5E7EB", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem" }}>
+            <span style={{ fontSize: "0.92rem", fontWeight: 600, color: activeMenu === "solutions" ? "#0284C7" : "#334155", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem" }}>
               Solutions <span style={{ fontSize: "0.7rem", opacity: 0.7 }}>▾</span>
             </span>
           </div>
@@ -86,7 +87,7 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
             onMouseLeave={() => setActiveMenu(null)}
             style={{ position: "relative", padding: "1.5rem 0" }}
           >
-            <span style={{ fontSize: "0.92rem", fontWeight: 600, color: activeMenu === "capabilities" ? "#38BDF8" : "#E5E7EB", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem" }}>
+            <span style={{ fontSize: "0.92rem", fontWeight: 600, color: activeMenu === "capabilities" ? "#0284C7" : "#334155", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem" }}>
               Capabilities <span style={{ fontSize: "0.7rem", opacity: 0.7 }}>▾</span>
             </span>
           </div>
@@ -96,7 +97,7 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
             onMouseLeave={() => setActiveMenu(null)}
             style={{ position: "relative", padding: "1.5rem 0" }}
           >
-            <span style={{ fontSize: "0.92rem", fontWeight: 600, color: activeMenu === "specialised" ? "#38BDF8" : "#E5E7EB", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem" }}>
+            <span style={{ fontSize: "0.92rem", fontWeight: 600, color: activeMenu === "specialised" ? "#0284C7" : "#334155", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem" }}>
               Specialised <span style={{ fontSize: "0.7rem", opacity: 0.7 }}>▾</span>
             </span>
           </div>
@@ -106,7 +107,7 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
             onMouseLeave={() => setActiveMenu(null)}
             style={{ position: "relative", padding: "1.5rem 0" }}
           >
-            <span style={{ fontSize: "0.92rem", fontWeight: 600, color: activeMenu === "proof" ? "#38BDF8" : "#E5E7EB", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem" }}>
+            <span style={{ fontSize: "0.92rem", fontWeight: 600, color: activeMenu === "proof" ? "#0284C7" : "#334155", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem" }}>
               Proof & Knowledge <span style={{ fontSize: "0.7rem", opacity: 0.7 }}>▾</span>
             </span>
           </div>
@@ -114,7 +115,23 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
 
         {/* Primary CTA + Hamburger */}
         <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-          <button onClick={onOpenDiagnostic} className="hero-cta-btn desktop-cta-only" style={{ height: "44px", fontSize: "0.85rem", padding: "0 1.25rem", borderRadius: "10px" }}>
+          <button
+            onClick={onOpenDiagnostic}
+            className="desktop-cta-only"
+            style={{
+              height: "44px",
+              fontSize: "0.88rem",
+              fontWeight: 700,
+              padding: "0 1.35rem",
+              borderRadius: "10px",
+              background: "#2563EB",
+              color: "#FFFFFF",
+              border: "none",
+              cursor: "pointer",
+              boxShadow: "0 4px 14px rgba(37, 99, 235, 0.25)",
+              transition: "all 0.2s ease"
+            }}
+          >
             Request a Commerce Diagnostic
           </button>
 
@@ -125,9 +142,9 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
             aria-label="Toggle menu"
             style={{
               display: "none",
-              background: "rgba(255, 255, 255, 0.08)",
-              border: "1px solid rgba(255, 255, 255, 0.15)",
-              color: "#FFF",
+              background: "#F1F5F9",
+              border: "1px solid #CBD5E1",
+              color: "#0F172A",
               padding: "0.5rem 0.75rem",
               borderRadius: "8px",
               cursor: "pointer"
@@ -150,11 +167,11 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
             top: "76px",
             left: 0,
             right: 0,
-            background: "rgba(6, 11, 26, 0.96)",
+            background: "rgba(255, 255, 255, 0.98)",
             backdropFilter: "blur(24px)",
             WebkitBackdropFilter: "blur(24px)",
-            borderBottom: "1px solid rgba(56, 189, 248, 0.2)",
-            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.8)",
+            borderBottom: "1px solid #E2E8F0",
+            boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.08)",
             padding: "2rem 0 2.5rem"
           }}
         >
@@ -168,23 +185,23 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    padding: "0.85rem 1rem",
+                    padding: "0.9rem 1.1rem",
                     borderRadius: "10px",
-                    background: "rgba(255, 255, 255, 0.03)",
-                    border: "1px solid rgba(255, 255, 255, 0.06)",
+                    background: "#F8FAFC",
+                    border: "1px solid #E2E8F0",
                     textDecoration: "none",
                     transition: "all 0.2s ease"
                   }}
                 >
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <span style={{ fontSize: "0.95rem", fontWeight: 700, color: "#FFFFFF" }}>{item.name}</span>
+                    <span style={{ fontSize: "0.95rem", fontWeight: 700, color: "#0F172A" }}>{item.name}</span>
                     {item.tag && (
-                      <span style={{ fontSize: "0.68rem", fontWeight: 800, padding: "0.15rem 0.4rem", borderRadius: "4px", background: "rgba(56, 189, 248, 0.2)", color: "#38BDF8" }}>
+                      <span style={{ fontSize: "0.68rem", fontWeight: 800, padding: "0.15rem 0.4rem", borderRadius: "4px", background: "rgba(37, 99, 235, 0.1)", color: "#2563EB" }}>
                         {item.tag}
                       </span>
                     )}
                   </div>
-                  <span style={{ fontSize: "0.8rem", color: "#9CA3AF", marginTop: "0.3rem", lineHeight: 1.4 }}>{item.desc}</span>
+                  <span style={{ fontSize: "0.82rem", color: "#64748B", marginTop: "0.3rem", lineHeight: 1.4 }}>{item.desc}</span>
                 </Link>
               ))}
             </div>
@@ -200,7 +217,7 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
           left: 0,
           right: 0,
           bottom: 0,
-          background: "#060B1A",
+          background: "#FFFFFF",
           zIndex: 9998,
           overflowY: "auto",
           padding: "1.5rem 1.25rem 3rem",
@@ -209,14 +226,14 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
           gap: "1rem"
         }}>
           {["solutions", "capabilities", "specialised", "proof"].map((catKey) => (
-            <div key={catKey} style={{ borderBottom: "1px solid rgba(255,255,255,0.08)", paddingBottom: "0.8rem" }}>
+            <div key={catKey} style={{ borderBottom: "1px solid #E2E8F0", paddingBottom: "0.8rem" }}>
               <button
                 onClick={() => toggleMobileCategory(catKey)}
                 style={{
                   width: "100%",
                   background: "none",
                   border: "none",
-                  color: "#38BDF8",
+                  color: "#0284C7",
                   fontSize: "0.95rem",
                   fontWeight: 800,
                   textTransform: "uppercase",
@@ -239,7 +256,7 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
                       key={idx}
                       href={item.href}
                       onClick={() => setMobileOpen(false)}
-                      style={{ color: "#E5E7EB", textDecoration: "none", fontSize: "0.92rem", fontWeight: 500 }}
+                      style={{ color: "#334155", textDecoration: "none", fontSize: "0.92rem", fontWeight: 600 }}
                     >
                       ✦ {item.name}
                     </Link>
@@ -251,8 +268,18 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
 
           <button
             onClick={() => { setMobileOpen(false); onOpenDiagnostic(); }}
-            className="hero-cta-btn"
-            style={{ width: "100%", marginTop: "1rem", justifyContent: "center" }}
+            style={{
+              width: "100%",
+              marginTop: "1rem",
+              height: "48px",
+              borderRadius: "10px",
+              background: "#2563EB",
+              color: "#FFF",
+              fontWeight: 700,
+              fontSize: "0.95rem",
+              border: "none",
+              cursor: "pointer"
+            }}
           >
             Request a Commerce Diagnostic
           </button>

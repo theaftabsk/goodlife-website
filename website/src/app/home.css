@@ -422,18 +422,19 @@
 
 /* Individual card */
 .ptn-card {
-  background: linear-gradient(160deg, #1B2A6B 0%, #0F1C4D 55%, #0A1138 100%);
+  background: #FFFFFF;
   border-radius: 20px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
   transition: transform 0.35s var(--ease-out-expo), box-shadow 0.35s ease;
   cursor: pointer;
 }
 .ptn-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 24px 48px rgba(10,20,80,0.28);
+  box-shadow: 0 20px 40px -10px rgba(37, 99, 235, 0.15);
 }
 
 /* Isometric SVG header panel */
@@ -446,12 +447,12 @@
   overflow: hidden;
   position: relative;
 }
-.ptn-card-graphic-1 { background: linear-gradient(145deg, #1C3A8A 0%, #2860D8 60%, #5B9EFF 100%); }
-.ptn-card-graphic-2 { background: linear-gradient(145deg, #0F2060 0%, #1A3FA0 55%, #2D6EDB 100%); }
-.ptn-card-graphic-3 { background: linear-gradient(145deg, #142B70 0%, #2350B5 55%, #4A86F0 100%); }
-.ptn-card-graphic-4 { background: linear-gradient(145deg, #1A2E75 0%, #2A56C8 55%, #5C9AFF 100%); }
+.ptn-card-graphic-1 { background: linear-gradient(145deg, #EFF6FF 0%, #DBEAFE 60%, #BFDBFE 100%); }
+.ptn-card-graphic-2 { background: linear-gradient(145deg, #F0F9FF 0%, #E0F2FE 55%, #BAE6FD 100%); }
+.ptn-card-graphic-3 { background: linear-gradient(145deg, #EEF2FF 0%, #E0E7FF 55%, #C7D2FE 100%); }
+.ptn-card-graphic-4 { background: linear-gradient(145deg, #F5F3FF 0%, #EDE9FE 55%, #DDD6FE 100%); }
 .ptn-card-graphic svg {
-  filter: drop-shadow(0 8px 18px rgba(0,0,80,0.3));
+  filter: drop-shadow(0 8px 18px rgba(37, 99, 235, 0.15));
   transition: transform 0.4s var(--ease-out-expo);
 }
 .ptn-card:hover .ptn-card-graphic svg {
@@ -468,16 +469,16 @@
 }
 .ptn-card-title {
   font-family: var(--font-head);
-  font-size: 1rem;
-  font-weight: 700;
-  color: #FFFFFF;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0F172A;
   line-height: 1.25;
   letter-spacing: -0.02em;
 }
 .ptn-card-desc {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   line-height: 1.65;
-  color: rgba(255,255,255,0.55);
+  color: #475569;
   flex: 1;
   margin: 0;
 }
@@ -485,13 +486,13 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   font-weight: 700;
-  color: rgba(255,255,255,0.65) !important;
+  color: #2563EB !important;
   margin-top: 0.6rem;
   transition: color 0.25s ease, gap 0.25s ease;
 }
-.ptn-card-cta:hover { color: #FFFFFF !important; gap: 0.7rem; }
+.ptn-card-cta:hover { color: #1D4ED8 !important; gap: 0.7rem; }
 
 /* Bottom "View all" link */
 .ptn-do-footer {
