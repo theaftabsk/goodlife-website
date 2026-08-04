@@ -58,11 +58,18 @@ model DiagnosticLead {
   category    String
   revenueBand String
   gmvBand     String
+  orderVolume String?
+  opModel     String?
+  warehouses  String?
+  challenges  String[]
+  reconciled  Boolean            @default(false)
   intent      String
   timeline    String
   fitScore    Int
   fitLabel    String
   tags        String[]
+  crmStatus   String             @default("PENDING")
+  crmLeadId   String?
   utmSource   String?
   utmCampaign String?
   answers     DiagnosticAnswer[]
@@ -97,6 +104,7 @@ model ContactSubmission {
   company     String?
   message     String
   status      String   @default("New") // New, Contacted, Closed
+  crmSynced   Boolean  @default(false)
   createdAt   DateTime @default(now())
 }
 
@@ -127,6 +135,9 @@ model CaseStudy {
   title       String
   stats       String
   description String
+  challenge   String?
+  solution    String?
+  result      String?
   coverImage  String?
   createdAt   DateTime  @default(now())
 }
