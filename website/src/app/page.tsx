@@ -91,8 +91,8 @@ export default function Home() {
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
 
-    const rotateX = -(y / rect.height) * 15;
-    const rotateY = (x / rect.width) * 15;
+    const rotateX = -(y / rect.height) * 12;
+    const rotateY = (x / rect.width) * 12;
     setTilt({ rx: rotateX, ry: rotateY });
   };
   const handleMouseLeave = () => {
@@ -261,7 +261,7 @@ export default function Home() {
     },
   ];
 
-  // Client portfolio logos from feedback document
+  // Client portfolio logos (Grayscale style like GrowthPartners)
   const portfolioLogos = [
     "THORNE",
     "PURA",
@@ -272,141 +272,173 @@ export default function Home() {
     "MAMAEARTH",
     "boAt",
     "GOLF PRIDE",
+    "GRAPHY",
+    "IRON LADY",
+    "COOKD",
+  ];
+
+  // Eshopbox-style channel integrations list
+  const channelIntegrations = [
+    { name: "Shopify", color: "#96BF48", icon: "🛍️" },
+    { name: "WooCommerce", color: "#96588A", icon: "📦" },
+    { name: "Amazon", color: "#FF9900", icon: "a" },
+    { name: "Flipkart", color: "#2874F0", icon: "f" },
+    { name: "Blinkit", color: "#F7C325", icon: "⚡" },
+    { name: "Myntra", color: "#E42B78", icon: "M" },
+    { name: "JioMart", color: "#0A85EA", icon: "J" },
+    { name: "Moglix", color: "#E31E24", icon: "m" },
+    { name: "Zepto", color: "#8E24AA", icon: "z" },
+    { name: "Meesho", color: "#5F259F", icon: "m" },
+    { name: "35+ Channels", color: "#0F172A", icon: "+" },
   ];
 
   return (
-    <div style={{ background: "#F8FAFC", color: "#0F172A", minHeight: "100vh" }}>
+    <div style={{ background: "#FFFFFF", color: "#0F172A", minHeight: "100vh" }}>
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
-      {/* ── HERO SECTION (Eshopbox & GrowthPartners Light Aesthetic) ── */}
+      {/* ── HERO SECTION (GrowthPartners & Eshopbox Combined Design System) ── */}
       <section
-        className="hero-light-section"
         id="hero-home"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{
           paddingTop: "140px",
           paddingBottom: "4rem",
-          background: "radial-gradient(circle at 50% 10%, rgba(37, 99, 235, 0.06) 0%, rgba(248, 250, 252, 1) 100%)",
+          background: "radial-gradient(ellipse at 50% -10%, rgba(219, 234, 254, 0.7) 0%, rgba(237, 233, 254, 0.4) 45%, rgba(255, 255, 255, 1) 85%)",
           position: "relative",
           overflow: "hidden",
         }}
       >
+        {/* Soft background ambient blur orbs */}
         <div
           style={{
             position: "absolute",
-            top: "-100px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "600px",
-            height: "400px",
-            background: "radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(255,255,255,0) 70%)",
-            filter: "blur(50px)",
+            top: "-120px",
+            left: "-100px",
+            width: "500px",
+            height: "500px",
+            borderRadius: "50%",
+            background: "rgba(37, 99, 235, 0.12)",
+            filter: "blur(90px)",
+            pointerEvents: "none",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            top: "60px",
+            right: "-120px",
+            width: "550px",
+            height: "550px",
+            borderRadius: "50%",
+            background: "rgba(147, 51, 234, 0.12)",
+            filter: "blur(90px)",
             pointerEvents: "none",
           }}
         />
 
         <div className="container text-center" style={{ position: "relative", zIndex: 2 }}>
-          {/* Prominent High-Legibility Announcement Banner (Point #2) */}
+          {/* Top Pill Badge (GrowthPartners Style) */}
           <div
             style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: "0.6rem",
-              padding: "0.65rem 1.4rem",
+              gap: "0.5rem",
+              padding: "0.45rem 1.1rem",
               borderRadius: "50px",
-              background: "rgba(239, 246, 255, 0.95)",
-              border: "1px solid rgba(191, 219, 254, 0.9)",
-              boxShadow: "0 4px 15px rgba(37, 99, 235, 0.08)",
+              background: "#FFFFFF",
+              border: "1px solid #E2E8F0",
+              boxShadow: "0 2px 10px rgba(0, 0, 0, 0.04)",
               marginBottom: "1.8rem",
             }}
           >
             <span
               style={{
-                fontSize: "0.75rem",
-                fontWeight: 800,
-                padding: "0.2rem 0.5rem",
-                borderRadius: "20px",
-                background: "#2563EB",
-                color: "#FFF",
-                textTransform: "uppercase",
-                letterSpacing: "0.5px",
+                width: "8px",
+                height: "8px",
+                borderRadius: "50%",
+                background: "#10B981",
+                display: "inline-block",
               }}
-            >
-              Proven Leader
-            </span>
+            />
             <span
               style={{
-                fontSize: "0.92rem",
+                fontSize: "0.85rem",
                 fontWeight: 700,
-                color: "#1E40AF",
-                lineHeight: 1.3,
+                color: "#475569",
+                letterSpacing: "0.2px",
               }}
             >
-              India&apos;s Premier Commerce Operating Partner • Managing 13+ National Brands Across 12 States
+              India&apos;s Premier Commerce Operating Partner • 12 States Network
             </span>
           </div>
 
+          {/* Huge Main Headline with Colorful Gradient Text (GrowthPartners & Eshopbox Style) */}
           <h1
             style={{
-              fontSize: "clamp(2.4rem, 5.5vw, 4rem)",
+              fontSize: "clamp(2.8rem, 6vw, 4.5rem)",
               fontWeight: 900,
               color: "#0F172A",
-              lineHeight: 1.12,
-              letterSpacing: "-1px",
-              maxWidth: "950px",
+              lineHeight: 1.08,
+              letterSpacing: "-1.5px",
+              maxWidth: "1000px",
               margin: "0 auto",
             }}
           >
-            India&apos;s Commerce Operating Partner<br />
-            for Brands Across{" "}
+            Sell anywhere, Scale everywhere.<br />
+            One Operating Partner for{" "}
             <span
               id="typewriter-word"
               className={transitionClass}
-              style={{ color: "#2563EB" }}
+              style={{
+                background: "linear-gradient(135deg, #2563EB 0%, #7C3AED 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                display: "inline-block",
+              }}
             >
               {words[wordIdx]}
             </span>
           </h1>
 
+          {/* Subtitle (Eshopbox & GrowthPartners Style) */}
           <p
             style={{
-              maxWidth: "800px",
-              fontSize: "1.15rem",
+              maxWidth: "760px",
+              fontSize: "1.18rem",
               color: "#475569",
-              margin: "1.5rem auto 2.2rem",
+              margin: "1.6rem auto 2.4rem",
               lineHeight: 1.65,
               fontWeight: 450,
             }}
           >
-            Good Life helps national brands launch, operate and scale across marketplaces,
-            D2C, B2B and institutional channels—backed by 12-state warehousing, performance ads,
-            and 100% automated settlement reconciliation.
+            Good Life operates your complete e-commerce stack—managing catalogue listings,
+            performance ads, 12-state warehousing, dispatch SLAs, and 100% automated settlement audits.
           </p>
 
-          {/* Action CTAs */}
+          {/* Action CTAs (GrowthPartners Dual Button Style) */}
           <div
             style={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              gap: "1.2rem",
+              gap: "1rem",
               flexWrap: "wrap",
             }}
           >
             <button
               onClick={() => setDiagOpen(true)}
               style={{
-                height: "52px",
-                padding: "0 2rem",
+                height: "54px",
+                padding: "0 2.2rem",
                 borderRadius: "12px",
                 background: "#2563EB",
-                color: "#FFF",
+                color: "#FFFFFF",
                 fontWeight: 700,
-                fontSize: "1rem",
+                fontSize: "1.05rem",
                 border: "none",
                 cursor: "pointer",
-                boxShadow: "0 8px 24px rgba(37, 99, 235, 0.3)",
+                boxShadow: "0 10px 25px -5px rgba(37, 99, 235, 0.35)",
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "0.6rem",
@@ -418,13 +450,13 @@ export default function Home() {
             <button
               onClick={() => setVideoOpen(true)}
               style={{
-                height: "52px",
-                padding: "0 1.8rem",
+                height: "54px",
+                padding: "0 2rem",
                 borderRadius: "12px",
                 background: "#FFFFFF",
                 color: "#2563EB",
                 fontWeight: 700,
-                fontSize: "0.98rem",
+                fontSize: "1.02rem",
                 border: "2px solid #2563EB",
                 cursor: "pointer",
                 display: "inline-flex",
@@ -433,74 +465,98 @@ export default function Home() {
                 transition: "all 0.2s ease",
               }}
             >
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                <path d="M8 5v14l11-7z" />
-              </svg>
               Watch Our Story
             </button>
           </div>
 
-          {/* Key Stats Strip */}
+          {/* Star Rating Badge (GrowthPartners Style) */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "0.4rem",
+              marginTop: "1.4rem",
+              fontSize: "0.9rem",
+              color: "#64748B",
+              fontWeight: 600,
+            }}
+          >
+            <span style={{ color: "#F59E0B", fontSize: "1.1rem" }}>★★★★★</span>
+            <span>4.9 average client rating across 13+ national brands</span>
+          </div>
+
+          {/* ── ESHOPBOX STYLE CONNECTED CHANNEL INTEGRATION STRIP ── */}
           <div
             style={{
               marginTop: "3.5rem",
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-              gap: "1.5rem",
-              background: "#FFFFFF",
-              padding: "1.5rem 2rem",
-              borderRadius: "16px",
-              border: "1px solid #E2E8F0",
-              boxShadow: "0 10px 30px -10px rgba(0,0,0,0.05)",
-              maxWidth: "960px",
+              position: "relative",
+              maxWidth: "1000px",
               marginLeft: "auto",
               marginRight: "auto",
+              padding: "1rem 0",
             }}
           >
-            <div>
-              <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "#0F172A" }}>
-                <Counter target="₹200 Cr" />
-              </div>
-              <div style={{ fontSize: "0.85rem", color: "#64748B", fontWeight: 600 }}>
-                Gross Turnover
-              </div>
-            </div>
-            <div>
-              <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "#0F172A" }}>
-                <Counter target="140+" />
-              </div>
-              <div style={{ fontSize: "0.85rem", color: "#64748B", fontWeight: 600 }}>
-                Ops Team Members
-              </div>
-            </div>
-            <div>
-              <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "#0F172A" }}>
-                <Counter target="12" />
-              </div>
-              <div style={{ fontSize: "0.85rem", color: "#64748B", fontWeight: 600 }}>
-                States Fulfilment
-              </div>
-            </div>
-            <div>
-              <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "#0F172A" }}>
-                <Counter target="13+" />
-              </div>
-              <div style={{ fontSize: "0.85rem", color: "#64748B", fontWeight: 600 }}>
-                National Brand Partners
-              </div>
+            {/* Dashed connecting line */}
+            <div
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "40px",
+                right: "40px",
+                height: "2px",
+                borderTop: "2px dashed #CBD5E1",
+                zIndex: 1,
+              }}
+            />
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                position: "relative",
+                zIndex: 2,
+                overflowX: "auto",
+                padding: "0.5rem 0",
+                gap: "0.8rem",
+              }}
+            >
+              {channelIntegrations.map((ch, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    width: "52px",
+                    height: "52px",
+                    borderRadius: "14px",
+                    background: "#FFFFFF",
+                    border: "1px solid #E2E8F0",
+                    boxShadow: "0 6px 16px rgba(0,0,0,0.06)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontWeight: 900,
+                    fontSize: "1.1rem",
+                    color: ch.color,
+                    flexShrink: 0,
+                  }}
+                  title={ch.name}
+                >
+                  {ch.icon}
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* ── PORTFOLIO CLIENT LOGO MARQUEE STRIP (Point #4) ── */}
+        {/* ── GROWTHPARTNERS STYLE GRAYSCALE CLIENT LOGO MARQUEE STRIP ── */}
         <div
           style={{
-            marginTop: "4rem",
-            background: "#F1F5F9",
+            marginTop: "3rem",
+            background: "#FFFFFF",
             borderTop: "1px solid #E2E8F0",
             borderBottom: "1px solid #E2E8F0",
-            padding: "1.4rem 0",
-            overflow: "hidden",
+            padding: "2rem 0",
           }}
         >
           <div className="container">
@@ -509,13 +565,13 @@ export default function Home() {
                 textAlign: "center",
                 fontSize: "0.75rem",
                 textTransform: "uppercase",
-                letterSpacing: "2px",
-                color: "#64748B",
+                letterSpacing: "2.5px",
+                color: "#94A3B8",
                 fontWeight: 800,
-                marginBottom: "1rem",
+                marginBottom: "1.4rem",
               }}
             >
-              Trusted by Premier Client Brands & Industry Leaders
+              TRUSTED BY BRANDS ACROSS E-COMMERCE, B2B & RETAIL
             </p>
           </div>
 
@@ -525,15 +581,14 @@ export default function Home() {
                 <span
                   key={idx}
                   style={{
-                    fontSize: "1.05rem",
-                    fontWeight: 800,
-                    color: "#1E293B",
-                    letterSpacing: "1.5px",
-                    padding: "0.5rem 1.8rem",
-                    background: "#FFFFFF",
-                    borderRadius: "8px",
-                    border: "1px solid #CBD5E1",
-                    boxShadow: "0 2px 6px rgba(0,0,0,0.03)",
+                    fontSize: "1.15rem",
+                    fontWeight: 900,
+                    color: "#64748B",
+                    letterSpacing: "1.8px",
+                    padding: "0 2.2rem",
+                    textTransform: "uppercase",
+                    opacity: 0.85,
+                    filter: "grayscale(100%)",
                   }}
                 >
                   {logo}
@@ -543,15 +598,14 @@ export default function Home() {
                 <span
                   key={`dup-${idx}`}
                   style={{
-                    fontSize: "1.05rem",
-                    fontWeight: 800,
-                    color: "#1E293B",
-                    letterSpacing: "1.5px",
-                    padding: "0.5rem 1.8rem",
-                    background: "#FFFFFF",
-                    borderRadius: "8px",
-                    border: "1px solid #CBD5E1",
-                    boxShadow: "0 2px 6px rgba(0,0,0,0.03)",
+                    fontSize: "1.15rem",
+                    fontWeight: 900,
+                    color: "#64748B",
+                    letterSpacing: "1.8px",
+                    padding: "0 2.2rem",
+                    textTransform: "uppercase",
+                    opacity: 0.85,
+                    filter: "grayscale(100%)",
                   }}
                 >
                   {logo}
@@ -562,8 +616,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── REAL-TIME OPERATIONS CONSOLE BAND ── */}
-      <section style={{ padding: "5rem 0", background: "#FFFFFF" }}>
+      {/* ── REAL-TIME OPERATIONS CONSOLE BAND (ESHOPBOX DASHBOARD MOCKUP STYLE) ── */}
+      <section style={{ padding: "5rem 0", background: "#F8FAFC" }}>
         <div className="container">
           <div className="section-header text-center" style={{ marginBottom: "3rem" }}>
             <span
@@ -575,20 +629,20 @@ export default function Home() {
                 letterSpacing: "1.5px",
               }}
             >
-              REAL-TIME ENGINE
+              UNIFIED SOFTWARE &amp; OPERATIONS
             </span>
             <h2
               style={{
-                fontSize: "2.3rem",
+                fontSize: "2.4rem",
                 fontWeight: 900,
                 color: "#0F172A",
                 marginTop: "0.4rem",
               }}
             >
-              GOODLIFE GROWTH CONSOLE
+              Good Life Growth Engine Console
             </h2>
             <p style={{ color: "#64748B", fontSize: "1.05rem", maxWidth: "650px", margin: "0.4rem auto 0" }}>
-              Live channel status and automated settlement audits under a single dashboard.
+              Control inventory, order feeds, and settlement audits under one clean operating dashboard.
             </p>
           </div>
 
@@ -598,77 +652,133 @@ export default function Home() {
               style={{
                 transform: `rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`,
                 transition: "transform 0.15s ease-out",
-                background: "#0F172A",
+                background: "#FFFFFF",
                 borderRadius: "20px",
-                border: "1px solid #334155",
-                boxShadow: "0 25px 60px -15px rgba(15, 23, 42, 0.4)",
+                border: "1px solid #E2E8F0",
+                boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.08)",
               }}
             >
-              <div className="dash-content-container">
-                <div className="dash-top-bar" style={{ borderBottom: "1px solid #334155" }}>
-                  <div className="dash-dots">
-                    <span className="dash-dot" style={{ background: "#EF4444" }}></span>
-                    <span className="dash-dot" style={{ background: "#F59E0B" }}></span>
-                    <span className="dash-dot" style={{ background: "#10B981" }}></span>
+              <div className="dash-content-container" style={{ padding: "1.8rem" }}>
+                {/* Eshopbox style dashboard top navbar */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    borderBottom: "1px solid #E2E8F0",
+                    paddingBottom: "1rem",
+                    marginBottom: "1.5rem",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: "1.8rem" }}>
+                    <span style={{ fontWeight: 900, fontSize: "1.1rem", color: "#0F172A" }}>
+                      GOOD LIFE ENGINE
+                    </span>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "1.2rem",
+                        fontSize: "0.88rem",
+                        fontWeight: 600,
+                        color: "#64748B",
+                      }}
+                    >
+                      <span style={{ color: "#2563EB", borderBottom: "2px solid #2563EB", paddingBottom: "0.4rem" }}>
+                        Overview
+                      </span>
+                      <span>Inventory</span>
+                      <span>Orders</span>
+                      <span>Reports</span>
+                      <span>Claims &amp; COD</span>
+                      <span>Shipping</span>
+                    </div>
                   </div>
-                  <div className="dash-title" style={{ color: "#E2E8F0", fontWeight: 700 }}>
-                    GOODLIFE ENGINE OPERATIONAL CONSOLE
-                  </div>
-                  <div className="dash-status" style={{ color: "#10B981" }}>
-                    <span className="dash-status-dot" style={{ background: "#10B981" }}></span>
-                    LIVE ENGINE
+
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                      background: "#ECFDF5",
+                      border: "1px solid #A7F3D0",
+                      padding: "0.3rem 0.8rem",
+                      borderRadius: "20px",
+                      color: "#059669",
+                      fontSize: "0.8rem",
+                      fontWeight: 700,
+                    }}
+                  >
+                    <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#10B981" }} />
+                    Live Syncing
                   </div>
                 </div>
 
                 <div className="dash-kpi-row">
-                  <div className={`dash-kpi ${flashOrders ? "flash-highlight" : ""}`}>
-                    <div className="dash-kpi-label">Today&apos;s Orders</div>
-                    <div className="dash-kpi-value" style={{ color: "#FFF" }}>
+                  <div
+                    className={`dash-kpi ${flashOrders ? "flash-highlight" : ""}`}
+                    style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}
+                  >
+                    <div className="dash-kpi-label" style={{ color: "#64748B" }}>
+                      Today&apos;s Live Orders
+                    </div>
+                    <div className="dash-kpi-value" style={{ color: "#0F172A" }}>
                       {ordersCount.toLocaleString()}
                     </div>
-                    <div className="dash-kpi-delta" style={{ color: "#10B981" }}>
+                    <div className="dash-kpi-delta" style={{ color: "#059669" }}>
                       ↑ 18.4% vs yesterday
                     </div>
                   </div>
-                  <div className="dash-kpi">
-                    <div className="dash-kpi-label">Active Marketplaces</div>
-                    <div className="dash-kpi-value" style={{ color: "#FFF" }}>
-                      4 Channels
+
+                  <div className="dash-kpi" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+                    <div className="dash-kpi-label" style={{ color: "#64748B" }}>
+                      Active Channels
                     </div>
-                    <div className="dash-kpi-delta" style={{ color: "#38BDF8" }}>
+                    <div className="dash-kpi-value" style={{ color: "#0F172A" }}>
+                      4 Markets
+                    </div>
+                    <div className="dash-kpi-delta" style={{ color: "#2563EB" }}>
                       ↑ 100% Synced
                     </div>
                   </div>
-                  <div className="dash-kpi">
-                    <div className="dash-kpi-label">GMV This Month</div>
-                    <div className="dash-kpi-value" style={{ color: "#FFF" }}>
+
+                  <div className="dash-kpi" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+                    <div className="dash-kpi-label" style={{ color: "#64748B" }}>
+                      GMV This Month
+                    </div>
+                    <div className="dash-kpi-value" style={{ color: "#0F172A" }}>
                       ₹16.8 Cr
                     </div>
-                    <div className="dash-kpi-delta" style={{ color: "#10B981" }}>
+                    <div className="dash-kpi-delta" style={{ color: "#059669" }}>
                       ↑ On Target
                     </div>
                   </div>
-                  <div className="dash-kpi">
-                    <div className="dash-kpi-label">Fill Rate SLA</div>
-                    <div className="dash-kpi-value" style={{ color: "#FFF" }}>
+
+                  <div className="dash-kpi" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+                    <div className="dash-kpi-label" style={{ color: "#64748B" }}>
+                      Fill Rate SLA
+                    </div>
+                    <div className="dash-kpi-value" style={{ color: "#0F172A" }}>
                       98.2%
                     </div>
-                    <div className="dash-kpi-delta" style={{ color: "#10B981" }}>
+                    <div className="dash-kpi-delta" style={{ color: "#059669" }}>
                       ↑ 3.1% MoM
                     </div>
                   </div>
                 </div>
 
-                <div className="sim-log-wrap" style={{ background: "rgba(15, 23, 42, 0.8)", border: "1px solid #1E293B" }}>
-                  <div className="sim-log-header" style={{ color: "#38BDF8" }}>
+                <div
+                  className="sim-log-wrap"
+                  style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "12px" }}
+                >
+                  <div className="sim-log-header" style={{ color: "#2563EB" }}>
                     Settlement &amp; Payout Audit Stream
                   </div>
                   {heroLogs.map((log, index) => (
                     <div key={index} className="sim-log-line">
-                      <span className="sim-log-text" style={{ color: "#CBD5E1" }}>
+                      <span className="sim-log-text" style={{ color: "#334155" }}>
                         {log}
                       </span>
-                      <span className="sim-log-success" style={{ color: "#10B981" }}>
+                      <span className="sim-log-success" style={{ color: "#059669", fontWeight: 700 }}>
                         ✓ RECONCILED
                       </span>
                     </div>
@@ -680,12 +790,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── THREE TAILORED OPERATING PATHS ── */}
+      {/* ── THREE TAILORED OPERATING PATHS (GROWTHPARTNERS STYLE CARDS) ── */}
       <section
         id="three-situations"
         style={{
           padding: "5rem 0",
-          background: "#F8FAFC",
+          background: "#FFFFFF",
           borderTop: "1px solid #E2E8F0",
           borderBottom: "1px solid #E2E8F0",
         }}
@@ -703,12 +813,11 @@ export default function Home() {
             >
               TAILORED OPERATING PATHS
             </span>
-            <h2 style={{ fontSize: "2.2rem", fontWeight: 900, color: "#0F172A", marginTop: "0.4rem" }}>
+            <h2 style={{ fontSize: "2.3rem", fontWeight: 900, color: "#0F172A", marginTop: "0.4rem" }}>
               Where Is Your Business Today?
             </h2>
-            <p style={{ color: "#64748B", fontSize: "1rem", maxWidth: "750px", margin: "0.5rem auto 0" }}>
-              Choose Launch Online, Fix & Grow, or Scale Pan-India as your primary entry route—backed
-              by connected capability across D2C, B2B, and OEM incubation.
+            <p style={{ color: "#64748B", fontSize: "1.02rem", maxWidth: "750px", margin: "0.5rem auto 0" }}>
+              Choose Launch Online, Fix &amp; Grow, or Scale Pan-India as your primary entry route.
             </p>
           </div>
 
@@ -720,23 +829,22 @@ export default function Home() {
               marginTop: "3rem",
             }}
           >
-            {/* Card 01 */}
             <div
               style={{
                 background: "#FFFFFF",
-                borderRadius: "16px",
+                borderRadius: "20px",
                 border: "1px solid #E2E8F0",
-                padding: "2rem",
-                boxShadow: "0 10px 25px -5px rgba(0,0,0,0.04)",
+                padding: "2.2rem",
+                boxShadow: "0 10px 30px -10px rgba(0,0,0,0.05)",
               }}
             >
-              <div style={{ color: "#0284C7", fontWeight: 800, fontSize: "1.1rem", marginBottom: "0.4rem" }}>
+              <div style={{ color: "#2563EB", fontWeight: 800, fontSize: "1.1rem", marginBottom: "0.4rem" }}>
                 01. LAUNCH ONLINE
               </div>
               <h3 style={{ color: "#0F172A", fontSize: "1.3rem", fontWeight: 800, marginBottom: "0.8rem" }}>
                 Offline Brand / Manufacturer
               </h3>
-              <p style={{ color: "#64748B", fontSize: "0.92rem", lineHeight: 1.65, marginBottom: "1.4rem" }}>
+              <p style={{ color: "#64748B", fontSize: "0.93rem", lineHeight: 1.65, marginBottom: "1.4rem" }}>
                 Entering e-commerce for the first time across Amazon, Flipkart, Myntra, category portals, and direct D2C store.
               </p>
               <button
@@ -755,23 +863,22 @@ export default function Home() {
               </button>
             </div>
 
-            {/* Card 02 */}
             <div
               style={{
                 background: "#FFFFFF",
-                borderRadius: "16px",
+                borderRadius: "20px",
                 border: "1px solid #E2E8F0",
-                padding: "2rem",
-                boxShadow: "0 10px 25px -5px rgba(0,0,0,0.04)",
+                padding: "2.2rem",
+                boxShadow: "0 10px 30px -10px rgba(0,0,0,0.05)",
               }}
             >
               <div style={{ color: "#2563EB", fontWeight: 800, fontSize: "1.1rem", marginBottom: "0.4rem" }}>
-                02. FIX & GROW
+                02. FIX &amp; GROW
               </div>
               <h3 style={{ color: "#0F172A", fontSize: "1.3rem", fontWeight: 800, marginBottom: "0.8rem" }}>
                 Active Marketplace Brand
               </h3>
-              <p style={{ color: "#64748B", fontSize: "0.92rem", lineHeight: 1.65, marginBottom: "1.4rem" }}>
+              <p style={{ color: "#64748B", fontSize: "0.93rem", lineHeight: 1.65, marginBottom: "1.4rem" }}>
                 Stuck with stagnant GMV, rising ACOS, un-audited settlement losses, or high customer returns.
               </p>
               <button
@@ -786,33 +893,32 @@ export default function Home() {
                   padding: 0,
                 }}
               >
-                Explore Fix & Grow Audit →
+                Explore Fix &amp; Grow Audit →
               </button>
             </div>
 
-            {/* Card 03 */}
             <div
               style={{
                 background: "#FFFFFF",
-                borderRadius: "16px",
+                borderRadius: "20px",
                 border: "1px solid #E2E8F0",
-                padding: "2rem",
-                boxShadow: "0 10px 25px -5px rgba(0,0,0,0.04)",
+                padding: "2.2rem",
+                boxShadow: "0 10px 30px -10px rgba(0,0,0,0.05)",
               }}
             >
-              <div style={{ color: "#1D4ED8", fontWeight: 800, fontSize: "1.1rem", marginBottom: "0.4rem" }}>
+              <div style={{ color: "#7C3AED", fontWeight: 800, fontSize: "1.1rem", marginBottom: "0.4rem" }}>
                 03. SCALE PAN-INDIA
               </div>
               <h3 style={{ color: "#0F172A", fontSize: "1.3rem", fontWeight: 800, marginBottom: "0.8rem" }}>
                 Established Enterprise Brand
               </h3>
-              <p style={{ color: "#64748B", fontSize: "0.92rem", lineHeight: 1.65, marginBottom: "1.4rem" }}>
+              <p style={{ color: "#64748B", fontSize: "0.93rem", lineHeight: 1.65, marginBottom: "1.4rem" }}>
                 Scaling 12-state warehouse inventory, regional dealer fulfilment, B2B portals, and D2C channel sync.
               </p>
               <Link
                 href="/b2b-institutional-commerce"
                 style={{
-                  color: "#1D4ED8",
+                  color: "#7C3AED",
                   fontWeight: 700,
                   fontSize: "0.92rem",
                   textDecoration: "none",
@@ -826,7 +932,7 @@ export default function Home() {
       </section>
 
       {/* ── EXPANDED 10-PILLAR CAPABILITIES GRID ── */}
-      <section id="capabilities" style={{ padding: "5rem 0", background: "#FFFFFF" }}>
+      <section id="capabilities" style={{ padding: "5rem 0", background: "#F8FAFC" }}>
         <div className="container">
           <div className="section-header text-center">
             <span
@@ -843,7 +949,7 @@ export default function Home() {
             <h2 style={{ fontSize: "2.3rem", fontWeight: 900, color: "#0F172A", marginTop: "0.4rem" }}>
               End-to-End Commerce Capabilities Grid
             </h2>
-            <p style={{ color: "#64748B", fontSize: "1.05rem" }}>
+            <p style={{ color: "#64748B", fontSize: "1.02rem" }}>
               Single-point operational accountability across all critical commerce building blocks.
             </p>
           </div>
@@ -871,10 +977,11 @@ export default function Home() {
               <div
                 key={idx}
                 style={{
-                  background: "#F8FAFC",
-                  borderRadius: "12px",
+                  background: "#FFFFFF",
+                  borderRadius: "14px",
                   border: "1px solid #E2E8F0",
-                  padding: "1.4rem",
+                  padding: "1.5rem",
+                  boxShadow: "0 4px 15px rgba(0,0,0,0.02)",
                   transition: "all 0.2s ease",
                 }}
               >
@@ -884,7 +991,7 @@ export default function Home() {
                 <h3 style={{ fontSize: "1.1rem", color: "#0F172A", fontWeight: 800, marginBottom: "0.4rem" }}>
                   {cap.name}
                 </h3>
-                <p style={{ color: "#64748B", fontSize: "0.85rem", lineHeight: 1.5, margin: 0 }}>
+                <p style={{ color: "#64748B", fontSize: "0.85rem", lineHeight: 1.55, margin: 0 }}>
                   {cap.desc}
                 </p>
               </div>
@@ -894,7 +1001,7 @@ export default function Home() {
       </section>
 
       {/* ── FAQ SECTION ── */}
-      <section style={{ padding: "5rem 0", background: "#F8FAFC", borderTop: "1px solid #E2E8F0" }}>
+      <section style={{ padding: "5rem 0", background: "#FFFFFF", borderTop: "1px solid #E2E8F0" }}>
         <div className="container" style={{ maxWidth: "800px" }}>
           <div className="section-header text-center">
             <span
@@ -918,11 +1025,10 @@ export default function Home() {
               <div
                 key={idx}
                 style={{
-                  background: "#FFFFFF",
+                  background: "#F8FAFC",
                   border: "1px solid #E2E8F0",
                   borderRadius: "14px",
                   overflow: "hidden",
-                  boxShadow: "0 2px 10px rgba(0,0,0,0.02)",
                 }}
               >
                 <button
@@ -958,35 +1064,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FINAL CTA STRIP ── */}
+      {/* ── FINAL CTA STRIP (GROWTHPARTNERS STYLE CTA) ── */}
       <section
         style={{
-          padding: "5rem 0",
-          background: "linear-gradient(135deg, #1E40AF 0%, #1E3A8A 100%)",
+          padding: "5.5rem 0",
+          background: "linear-gradient(135deg, #1E40AF 0%, #3B82F6 50%, #6D28D9 100%)",
           color: "#FFFFFF",
           textAlign: "center",
         }}
       >
         <div className="container">
-          <h2 style={{ fontSize: "2.4rem", fontWeight: 900, marginBottom: "1rem", color: "#FFFFFF" }}>
+          <h2 style={{ fontSize: "2.5rem", fontWeight: 900, marginBottom: "1rem", color: "#FFFFFF" }}>
             Scale Your Brand With India&apos;s Premier Commerce Operating Partner
           </h2>
-          <p style={{ color: "#93C5FD", marginBottom: "2rem", maxWidth: "640px", margin: "0 auto 2rem", fontSize: "1.05rem" }}>
+          <p style={{ color: "#E0E7FF", marginBottom: "2.2rem", maxWidth: "640px", margin: "0 auto 2.2rem", fontSize: "1.1rem" }}>
             Request our complimentary Commerce Diagnostic to identify leakage points, unlock new channel growth, and optimize multi-state fulfilment.
           </p>
           <button
             onClick={() => setDiagOpen(true)}
             style={{
-              height: "52px",
-              padding: "0 2.2rem",
+              height: "54px",
+              padding: "0 2.4rem",
               borderRadius: "12px",
               background: "#FFFFFF",
-              color: "#1E3A8A",
+              color: "#1E40AF",
               fontWeight: 800,
-              fontSize: "1rem",
+              fontSize: "1.05rem",
               border: "none",
               cursor: "pointer",
-              boxShadow: "0 10px 25px rgba(0,0,0,0.2)",
+              boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
             }}
           >
             Request a Free Audit →
