@@ -175,7 +175,7 @@ html { scroll-behavior: smooth; }
     rgba(219,234,254,0.9) 0%,
     rgba(237,233,254,0.5) 40%,
     #FFFFFF 80%);
-  padding-top: 110px;
+  padding-top: 124px;
 }
 
 /* Ambient blobs */
@@ -2696,29 +2696,54 @@ html { scroll-behavior: smooth; }
   }
 }
 
-/* ── CHANNEL ICON STRIP MOBILE ─────────────────── */
-@media (max-width: 640px) {
-  .channel-strip-row {
-    gap: 0.4rem !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-  }
-  .channel-icon {
-    width: 58px !important;
-    height: 36px !important;
-    border-radius: 8px !important;
-    padding: 0 !important;
-  }
-  .channel-icon svg {
-    width: auto !important;
-    max-width: 52px !important;
-    height: 20px !important;
-  }
+/* ── CHANNEL LOGOS INFINITE AUTO-SCROLL MARQUEE ── */
+.channel-marquee-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  margin-top: 2.2rem;
+  padding: 0.75rem 0;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
 }
 
-@media (max-width: 400px) {
-  .channel-icon { width: 52px !important; height: 32px !important; }
-  .channel-icon svg { max-width: 46px !important; height: 17px !important; }
+.channel-marquee-track {
+  display: flex;
+  gap: 1.25rem;
+  width: max-content;
+  animation: channelScroll 22s linear infinite;
+}
+
+.channel-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes channelScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.channel-card-lg {
+  width: 136px !important;
+  height: 64px !important;
+  border-radius: 18px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.16);
+  transition: transform 0.3s var(--ease-spring), box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.channel-card-lg:hover {
+  transform: translateY(-6px) scale(1.06) !important;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.26) !important;
+}
+
+@media (max-width: 640px) {
+  .channel-card-lg { width: 110px !important; height: 52px !important; border-radius: 14px !important; }
+  .channel-card-lg svg { max-width: 80px !important; height: 22px !important; }
 }
 
 /* ═══════════════════════════════════════════════════════════════

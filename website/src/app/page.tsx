@@ -644,17 +644,6 @@ export default function HomePage() {
         </svg>
       ),
     },
-    {
-      name: "8+ More Platforms",
-      bg: "#0F172A",
-      svg: (
-        <svg viewBox="0 0 90 32" width="76" height="26" fill="none">
-          <circle cx="14" cy="16" r="10" fill="#2563EB" />
-          <text x="8" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="12" fill="#FFFFFF">8+</text>
-          <text x="28" y="21" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="14" fill="#FFFFFF">More</text>
-        </svg>
-      ),
-    },
   ];
 
   // Section 7: Ten Capabilities (Links into each capability page)
@@ -717,15 +706,21 @@ export default function HomePage() {
               <span>4.9 average client rating across 13+ national brands</span>
             </div>
 
-            {/* ── SECTION 3: CREDIBILITY STRIP (Approved facts only) ── */}
+            {/* ── SECTION 3: CREDIBILITY STRIP (Channel Logos Infinite Auto-Scroll Marquee) ── */}
             <div className="channel-strip">
-              <div className="channel-strip-line" />
-              <div className="channel-strip-row">
-                {channelSVGs.map((ch, idx) => (
-                  <div key={idx} className="channel-icon" title={ch.name} style={{ background: ch.bg, border: "none", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "16px", width: "108px", height: "56px", boxShadow: "0 4px 14px rgba(0,0,0,0.15)" }}>
-                    {ch.svg}
-                  </div>
-                ))}
+              <div className="channel-marquee-container">
+                <div className="channel-marquee-track">
+                  {[...channelSVGs, ...channelSVGs].map((ch, idx) => (
+                    <div
+                      key={idx}
+                      className="channel-card-lg"
+                      title={ch.name}
+                      style={{ background: ch.bg }}
+                    >
+                      {ch.svg}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
