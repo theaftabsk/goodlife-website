@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import Logo from "./Logo";
 
 interface HeaderProps {
   onOpenDiagnostic: () => void;
@@ -64,17 +65,9 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
     }}>
       <div className="container" style={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         
-        {/* Brand Logo — wordmark only */}
-        <Link href="/" style={{ textDecoration: "none" }} className="header-logo-container">
-          <span style={{
-            fontSize: "1.45rem",
-            fontWeight: 900,
-            letterSpacing: "-0.8px",
-            color: "#0F172A",
-            lineHeight: 1
-          }}>
-            GOOD LIFE
-          </span>
+        {/* Brand Logo */}
+        <Link href="/" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center" }} className="header-logo-container">
+          <Logo height={32} mode="light" />
         </Link>
 
         {/* Desktop Navigation Links */}

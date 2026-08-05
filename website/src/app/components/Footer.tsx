@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Logo from "./Logo";
 
 export default function Footer() {
   return (
@@ -11,8 +12,8 @@ export default function Footer() {
           
           {/* Brand Info */}
           <div className="footer-brand-col">
-            <Link href="/" style={{ textDecoration: "none", display: "inline-block", marginBottom: "1.2rem" }}>
-              <span style={{ fontSize: "1.35rem", fontWeight: 900, letterSpacing: "0.8px", color: "#FFF", display: "block" }}>GOOD LIFE</span>
+            <Link href="/" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", marginBottom: "1.2rem" }}>
+              <Logo height={34} mode="dark" />
             </Link>
             <p style={{ fontSize: "0.9rem", lineHeight: 1.6, color: "#9CA3AF", maxWidth: "360px", marginBottom: "1.5rem" }}>
               India&apos;s premier Commerce Operating Partner helping brands launch, operate and scale across marketplaces, D2C, B2B, and institutional channels.
