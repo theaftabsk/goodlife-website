@@ -2353,6 +2353,303 @@ html { scroll-behavior: smooth; }
   .btn-primary-hero, .btn-ghost-hero { height: 46px !important; font-size: 0.88rem !important; }
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   BOTTOM SECTIONS FULL MOBILE FIX
+   Warehouse · Calculator · Insights · FAQ · Footer · Sticky
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── WAREHOUSE HUBS MOBILE ─────────────────────── */
+@media (max-width: 900px) {
+  .warehouse-layout {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+    margin-top: 2rem !important;
+  }
+  .warehouse-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+  .warehouse-detail {
+    padding: 1.5rem !important;
+    border-radius: 16px !important;
+  }
+  .warehouse-detail-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.6rem !important;
+  }
+  .warehouse-metrics {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr !important;
+    gap: 0.6rem !important;
+    margin-bottom: 1.2rem !important;
+  }
+  .warehouse-metric {
+    padding: 0.7rem 0.8rem !important;
+    border-radius: 10px !important;
+    flex-direction: column !important;
+    gap: 0.4rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .warehouse-section { padding: 3.5rem 0 !important; }
+  .warehouse-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.4rem !important;
+  }
+  .warehouse-hub-btn {
+    padding: 0.6rem 0.65rem !important;
+    border-radius: 10px !important;
+  }
+  .hub-city { font-size: 0.76rem !important; }
+  .hub-state { font-size: 0.62rem !important; }
+  .hub-badge { font-size: 0.54rem !important; padding: 0.08rem 0.35rem !important; }
+  .warehouse-metrics {
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem !important;
+  }
+  .warehouse-metric { flex-direction: row !important; gap: 0.75rem !important; }
+  .warehouse-city-name { font-size: 1.3rem !important; }
+  .warehouse-detail { padding: 1.25rem !important; }
+  .warehouse-sla-bar-label { font-size: 0.68rem !important; }
+  .warehouse-sla-bar-pct { font-size: 0.78rem !important; }
+}
+
+@media (max-width: 420px) {
+  .warehouse-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .hub-city { font-size: 0.72rem !important; }
+  .warehouse-metrics { grid-template-columns: 1fr !important; }
+}
+
+/* ── SAVINGS CALCULATOR MOBILE ─────────────────── */
+@media (max-width: 900px) {
+  .calc-wrapper {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .calc-section { padding: 3.5rem 0 !important; }
+  .calc-wrapper {
+    padding: 1.4rem !important;
+    border-radius: 18px !important;
+    gap: 1.75rem !important;
+  }
+  .calc-slider-group { gap: 0.5rem !important; }
+  .calc-slider-label { font-size: 0.84rem !important; }
+  .calc-slider-label strong { font-size: 0.96rem !important; }
+  .calc-slider-ticks { font-size: 0.65rem !important; }
+  .calc-result-card { padding: 1rem !important; border-radius: 14px !important; }
+  .calc-result-main { padding: 1.2rem !important; }
+  .calc-result-label { font-size: 0.72rem !important; }
+  .calc-result-value { font-size: 1.7rem !important; }
+  .calc-result-sub { font-size: 0.72rem !important; }
+  .calc-small-grid { grid-template-columns: 1fr 1fr !important; gap: 0.65rem !important; }
+  .calc-badge { font-size: 0.76rem !important; padding: 0.75rem 1rem !important; }
+}
+
+@media (max-width: 400px) {
+  .calc-small-grid { grid-template-columns: 1fr !important; }
+  .calc-wrapper { padding: 1.1rem !important; }
+}
+
+/* ── INSIGHTS SECTION MOBILE ───────────────────── */
+@media (max-width: 900px) {
+  .insights-section .container > div:last-child {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .insights-section { padding: 3.5rem 0 !important; }
+  .insights-section .container > div:last-child {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  .insights-section .container > div:first-child {
+    margin-bottom: 1.75rem !important;
+    text-align: left !important;
+  }
+}
+
+/* ── FAQ SECTION MOBILE ─────────────────────────── */
+@media (max-width: 900px) {
+  .faq-section { padding: 4rem 0 !important; }
+  .faq-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .faq-section { padding: 3.5rem 0 !important; }
+  .faq-item {
+    border-radius: 10px !important;
+    margin-bottom: 0.4rem !important;
+  }
+  .faq-question {
+    font-size: 0.88rem !important;
+    padding: 0.95rem 1rem !important;
+    line-height: 1.45 !important;
+  }
+  .faq-answer {
+    font-size: 0.84rem !important;
+    padding: 0 1rem 0.95rem !important;
+    line-height: 1.6 !important;
+  }
+  .faq-toggle {
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 0.9rem !important;
+    flex-shrink: 0 !important;
+  }
+}
+
+/* ── FINAL CTA SECTION MOBILE ──────────────────── */
+.cta-br { display: inline; }
+
+@media (min-width: 901px) {
+  .footer-brand-col { grid-column: span 2; }
+}
+
+@media (max-width: 900px) {
+  .final-cta-section { padding: 4.5rem 0 !important; }
+  .final-cta-inner { padding: 3rem 1.5rem !important; }
+  .footer-brand-col { grid-column: span 1 !important; }
+}
+
+@media (max-width: 640px) {
+  .cta-br { display: none !important; }
+  .final-cta-section { padding: 3.5rem 0 !important; }
+  .final-cta-inner {
+    padding: 2.2rem 1.25rem !important;
+    border-radius: 20px !important;
+  }
+  .final-cta-title {
+    font-size: clamp(1.45rem, 6vw, 1.85rem) !important;
+    letter-spacing: -0.5px !important;
+    line-height: 1.25 !important;
+    margin-bottom: 0.85rem !important;
+  }
+  .final-cta-subtitle {
+    font-size: 0.86rem !important;
+    line-height: 1.65 !important;
+    margin-bottom: 1.8rem !important;
+    padding: 0 0.2rem !important;
+  }
+  .final-cta-btn-wrap {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+  .btn-final-cta {
+    width: 100% !important;
+    max-width: 360px !important;
+    justify-content: center !important;
+    height: 48px !important;
+    font-size: 0.88rem !important;
+    padding: 0 1rem !important;
+    white-space: normal !important;
+    text-align: center !important;
+    border-radius: 12px !important;
+  }
+}
+
+/* ── FOOTER MOBILE ─────────────────────────────── */
+@media (max-width: 900px) {
+  .footer-inner {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 2rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer-inner {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+    padding: 2.5rem 0 !important;
+  }
+  .footer-brand { max-width: 100% !important; }
+  .footer-brand-name { font-size: 1.2rem !important; }
+  .footer-tagline { font-size: 0.82rem !important; }
+  .footer-col-title { font-size: 0.72rem !important; margin-bottom: 0.85rem !important; }
+  .footer-col a { font-size: 0.84rem !important; }
+  .footer-bottom {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+    text-align: center !important;
+    padding: 1.25rem 0 !important;
+    font-size: 0.75rem !important;
+  }
+  .footer-bottom-links { flex-wrap: wrap !important; justify-content: center !important; gap: 0.75rem !important; }
+}
+
+/* ── AGENCY STRIP MOBILE ───────────────────────── */
+@media (max-width: 640px) {
+  .agency-strip {
+    padding: 2rem 0 !important;
+    text-align: center !important;
+  }
+  .agency-strip .container p {
+    font-size: 0.84rem !important;
+    line-height: 1.6 !important;
+  }
+}
+
+/* ── STICKY BAR MOBILE ─────────────────────────── */
+@media (max-width: 640px) {
+  .sticky-bar { left: 0.75rem !important; right: 0.75rem !important; bottom: 0.75rem !important; }
+  .sticky-bar-inner {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.6rem !important;
+    padding: 0.85rem 1rem !important;
+    border-radius: 14px !important;
+  }
+  .sticky-bar-text { font-size: 0.78rem !important; line-height: 1.45 !important; }
+  .sticky-bar-btn {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+    height: 38px !important;
+    font-size: 0.8rem !important;
+  }
+  .sticky-bar-close {
+    position: absolute !important;
+    top: 0.6rem !important;
+    right: 0.75rem !important;
+  }
+}
+
+/* ── CHANNEL ICON STRIP MOBILE ─────────────────── */
+@media (max-width: 640px) {
+  .channel-strip-row {
+    gap: 0.4rem !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+  .channel-icon {
+    width: 58px !important;
+    height: 36px !important;
+    border-radius: 8px !important;
+    padding: 0 !important;
+  }
+  .channel-icon svg {
+    width: auto !important;
+    max-width: 52px !important;
+    height: 20px !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .channel-icon { width: 52px !important; height: 32px !important; }
+  .channel-icon svg { max-width: 46px !important; height: 17px !important; }
+}
+
+
 
 
 

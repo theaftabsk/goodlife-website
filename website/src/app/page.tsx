@@ -545,10 +545,10 @@ export default function HomePage() {
       name: "Amazon",
       bg: "#232F3E",
       svg: (
-        <svg viewBox="0 0 100 32" width="48" height="20" fill="none">
-          <text x="0" y="20" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="18" fill="#FFFFFF">amazon</text>
-          <path d="M12 23 Q36 31 60 22" stroke="#FF9900" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-          <path d="M56 19 L62 22 L57 26 Z" fill="#FF9900" />
+        <svg viewBox="0 0 120 38" width="72" height="24" fill="none">
+          <text x="4" y="24" fontFamily="Arial Black,sans-serif" fontWeight="900" fontSize="22" fill="#FFFFFF">amazon</text>
+          <path d="M10 28 Q38 38 66 28" stroke="#FF9900" strokeWidth="2.8" strokeLinecap="round" fill="none"/>
+          <path d="M63 25 L69 28 L64 32" fill="#FF9900"/>
         </svg>
       ),
     },
@@ -556,10 +556,11 @@ export default function HomePage() {
       name: "Flipkart",
       bg: "#2874F0",
       svg: (
-        <svg viewBox="0 0 100 32" width="48" height="20" fill="none">
-          <rect x="2" y="4" width="20" height="24" rx="4" fill="#FFE500" />
-          <path d="M13 8 H8 V24 H12 V18 H15 V14 H12 V11 H16 V8 Z" fill="#2874F0" />
-          <text x="26" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="16" fill="#FFFFFF">flipkart</text>
+        <svg viewBox="0 0 110 38" width="68" height="24" fill="none">
+          <rect x="2" y="5" width="22" height="28" rx="4" fill="#FFE500"/>
+          <path d="M7 10 h8 v4 h-5 v3 h5 v4 h-5 v6 h-3 z" fill="#2874F0"/>
+          <path d="M17 17 h5 v3 h-5 z" fill="#2874F0"/>
+          <text x="28" y="25" fontFamily="Arial Black,sans-serif" fontWeight="900" fontSize="16" fill="#FFFFFF">flipkart</text>
         </svg>
       ),
     },
@@ -1037,9 +1038,11 @@ export default function HomePage() {
       {/* ── SECTION 16: FINAL CTA BAND + FOOTER ── */}
       <section className="final-cta-section">
         <div className="container final-cta-inner">
-          <h2 className="final-cta-title">Scale Your Brand With India&apos;s<br />Premier Commerce Operating Partner</h2>
+          <h2 className="final-cta-title">Scale Your Brand With India&apos;s <span className="cta-br"><br /></span>Premier Commerce Operating Partner</h2>
           <p className="final-cta-subtitle">Request our complimentary Commerce Diagnostic to identify leakage points, unlock new channel growth—across marketplaces, D2C, B2B and institutional commerce.</p>
-          <button onClick={() => setDiagOpen(true)} className="btn-final-cta">Request a Free Commerce Diagnostic →</button>
+          <div className="final-cta-btn-wrap">
+            <button onClick={() => setDiagOpen(true)} className="btn-final-cta">Request a Free Commerce Diagnostic →</button>
+          </div>
         </div>
       </section>
 
