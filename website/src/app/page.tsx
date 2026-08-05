@@ -479,10 +479,52 @@ export default function HomePage() {
 
   const portfolioLogos = [
     {
-      name: "Forbes",
+      name: "Thorne",
       svg: (
-        <svg viewBox="0 0 130 30" width="130" height="30" fill="none" style={{ opacity: 0.85, display: "inline-block", verticalAlign: "middle" }}>
-          <text x="5" y="21" fontFamily="Georgia, serif" fontWeight="900" fontSize="18" letterSpacing="1px" fill="#0F172A">Forbes</text>
+        <svg viewBox="0 0 120 30" width="120" height="30" fill="none" style={{ opacity: 0.85, display: "inline-block", verticalAlign: "middle" }}>
+          <text x="5" y="21" fontFamily="Georgia, serif" fontWeight="900" fontSize="17" letterSpacing="2px" fill="#0F172A">THORNE</text>
+        </svg>
+      )
+    },
+    {
+      name: "Puka",
+      svg: (
+        <svg viewBox="0 0 110 30" width="110" height="30" fill="none" style={{ opacity: 0.85, display: "inline-block", verticalAlign: "middle" }}>
+          <text x="5" y="21" fontFamily="'Trebuchet MS', sans-serif" fontWeight="900" fontStyle="italic" fontSize="18" fill="#15803D">PUKA</text>
+        </svg>
+      )
+    },
+    {
+      name: "HMS",
+      svg: (
+        <svg viewBox="0 0 90 30" width="90" height="30" fill="none" style={{ opacity: 0.85, display: "inline-block", verticalAlign: "middle" }}>
+          <text x="5" y="21" fontFamily="'Arial Black', sans-serif" fontWeight="900" fontSize="18" letterSpacing="1px" fill="#2563EB">HMS</text>
+        </svg>
+      )
+    },
+    {
+      name: "Gaia Herbs",
+      svg: (
+        <svg viewBox="0 0 140 30" width="140" height="30" fill="none" style={{ opacity: 0.85, display: "inline-block", verticalAlign: "middle" }}>
+          <path d="M10 20 Q15 6 20 20" stroke="#059669" strokeWidth="2.5" fill="none" />
+          <text x="26" y="21" fontFamily="Outfit, sans-serif" fontWeight="800" fontSize="14" letterSpacing="0.5px" fill="#059669">GAIA HERBS</text>
+        </svg>
+      )
+    },
+    {
+      name: "Spark",
+      svg: (
+        <svg viewBox="0 0 110 30" width="110" height="30" fill="none" style={{ opacity: 0.85, display: "inline-block", verticalAlign: "middle" }}>
+          <polygon points="12,6 15,14 23,14 17,19 19,27 12,22 5,27 7,19 1,14 9,14" fill="#F59E0B" />
+          <text x="28" y="21" fontFamily="sans-serif" fontWeight="900" fontSize="16" letterSpacing="1px" fill="#D97706">SPARK</text>
+        </svg>
+      )
+    },
+    {
+      name: "Panasonic",
+      svg: (
+        <svg viewBox="0 0 140 30" width="140" height="30" fill="none" style={{ opacity: 0.85, display: "inline-block", verticalAlign: "middle" }}>
+          <text x="5" y="21" fontFamily="'Arial Black', sans-serif" fontWeight="900" fontSize="16" letterSpacing="0.5px" fill="#0041C2">Panasonic</text>
         </svg>
       )
     },
@@ -504,52 +546,10 @@ export default function HomePage() {
       )
     },
     {
-      name: "Gaia Herbs",
-      svg: (
-        <svg viewBox="0 0 140 30" width="140" height="30" fill="none" style={{ opacity: 0.85, display: "inline-block", verticalAlign: "middle" }}>
-          <path d="M10 20 Q15 6 20 20" stroke="#059669" strokeWidth="2.5" fill="none" />
-          <text x="26" y="21" fontFamily="Outfit, sans-serif" fontWeight="800" fontSize="14" letterSpacing="0.5px" fill="#059669">GAIA HERBS</text>
-        </svg>
-      )
-    },
-    {
-      name: "Parachute",
+      name: "Golf Pro",
       svg: (
         <svg viewBox="0 0 130 30" width="130" height="30" fill="none" style={{ opacity: 0.85, display: "inline-block", verticalAlign: "middle" }}>
-          <path d="M8 8 C14 8, 20 12, 20 22 C12 22, 8 16, 8 8 Z" fill="#0284C7" />
-          <text x="26" y="21" fontFamily="sans-serif" fontWeight="800" fontSize="14" letterSpacing="0.5px" fill="#0284C7">PARACHUTE</text>
-        </svg>
-      )
-    },
-    {
-      name: "Pukka",
-      svg: (
-        <svg viewBox="0 0 110 30" width="110" height="30" fill="none" style={{ opacity: 0.85, display: "inline-block", verticalAlign: "middle" }}>
-          <text x="5" y="21" fontFamily="'Trebuchet MS', sans-serif" fontWeight="900" fontStyle="italic" fontSize="18" fill="#15803D">pukka</text>
-        </svg>
-      )
-    },
-    {
-      name: "Vimto",
-      svg: (
-        <svg viewBox="0 0 110 30" width="110" height="30" fill="none" style={{ opacity: 0.85, display: "inline-block", verticalAlign: "middle" }}>
-          <text x="5" y="21" fontFamily="'Arial Black', sans-serif" fontWeight="900" fontSize="18" fill="#B91C1C">Vimto</text>
-        </svg>
-      )
-    },
-    {
-      name: "Stash",
-      svg: (
-        <svg viewBox="0 0 110 30" width="110" height="30" fill="none" style={{ opacity: 0.85, display: "inline-block", verticalAlign: "middle" }}>
-          <text x="5" y="21" fontFamily="Georgia, serif" fontWeight="800" fontSize="17" letterSpacing="1px" fill="#D97706">STASH</text>
-        </svg>
-      )
-    },
-    {
-      name: "Bajaj",
-      svg: (
-        <svg viewBox="0 0 110 30" width="110" height="30" fill="none" style={{ opacity: 0.85, display: "inline-block", verticalAlign: "middle" }}>
-          <text x="5" y="21" fontFamily="'Arial Black', sans-serif" fontWeight="900" fontSize="17" fill="#002FA7">BAJAJ</text>
+          <text x="5" y="21" fontFamily="Georgia, serif" fontWeight="800" fontSize="16" letterSpacing="1px" fill="#15803D">GOLF PRO</text>
         </svg>
       )
     }
@@ -834,6 +834,66 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── INDUSTRY CATEGORIES SECTION (Feedback Item 6) ── */}
+      <section className="industry-categories-section" style={{ background: "#FFFFFF", padding: "4.5rem 0", borderTop: "1px solid #E2E8F0" }}>
+        <div className="container">
+          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+            <span className="ptn-section-eyebrow" style={{ color: "#7C3AED" }}>Specialised Vertical Operations</span>
+            <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>Category-Specific Fulfilment &amp; Growth</h2>
+            <p className="ptn-section-subtitle" style={{ marginTop: "0.4rem" }}>Customised operating workflows tailored for high-growth product categories.</p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }} className="industry-categories-grid">
+            {[
+              {
+                num: "01",
+                title: "Beauty & Fashion",
+                desc: "Expedited dispatch turnaround under 4 hours, batch expiration tracking, and return QC checks.",
+                gradient: "linear-gradient(135deg, #F3E8FF 0%, #E9D5FF 100%)",
+                badgeColor: "#7C3AED",
+                borderColor: "#D8B4FE"
+              },
+              {
+                num: "02",
+                title: "Electronics & FMCG",
+                desc: "High-value serial number tracking, return validation, and platform SLA compliance checks.",
+                gradient: "linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%)",
+                badgeColor: "#0284C7",
+                borderColor: "#7DD3FC"
+              },
+              {
+                num: "03",
+                title: "Nutrition & Luxury",
+                desc: "FSSAI-compliant warehouse hygiene setup, batch control, and tamper-proof security shipping.",
+                gradient: "linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%)",
+                badgeColor: "#D97706",
+                borderColor: "#FCD34D"
+              }
+            ].map((cat, idx) => (
+              <div key={idx} style={{
+                background: cat.gradient,
+                border: `1.5px solid ${cat.borderColor}`,
+                borderRadius: "20px",
+                padding: "2rem 1.6rem",
+                boxShadow: "0 4px 16px rgba(0,0,0,0.04)",
+                display: "flex",
+                flexDirection: "column",
+                position: "relative"
+              }}>
+                <span style={{ fontSize: "1.8rem", fontWeight: 900, color: cat.badgeColor, opacity: 0.85, marginBottom: "0.8rem", lineHeight: 1 }}>
+                  {cat.num}
+                </span>
+                <h3 style={{ fontSize: "1.2rem", fontWeight: 800, color: "#0F172A", marginBottom: "0.6rem", letterSpacing: "-0.3px" }}>
+                  {cat.title}
+                </h3>
+                <p style={{ fontSize: "0.9rem", color: "#334155", lineHeight: 1.65, fontWeight: 500, margin: 0 }}>
+                  {cat.desc}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

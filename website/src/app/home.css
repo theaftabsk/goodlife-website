@@ -2865,10 +2865,12 @@ html { scroll-behavior: smooth; }
 @media (max-width: 1024px) {
   .infographic-workflow { grid-template-columns: repeat(3, 1fr); }
   .infographic-track-line { display: none; }
+  .industry-categories-grid { grid-template-columns: 1fr !important; }
 }
 @media (max-width: 640px) {
   .infographic-workflow { grid-template-columns: 1fr; gap: 1rem; }
   .ptn-card-v2 { padding: 1.25rem; }
+  .industry-categories-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
 }
 
 
