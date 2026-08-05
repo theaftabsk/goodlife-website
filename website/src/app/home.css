@@ -1034,8 +1034,47 @@ html { scroll-behavior: smooth; }
 }
 .warehouse-sla-bar-pct { font-size: 0.82rem; font-weight: 700; color: var(--green-600); margin-top: 0.45rem; }
 
-@media (max-width: 900px) { .warehouse-layout { grid-template-columns: 1fr; } }
-@media (max-width: 560px) { .warehouse-grid { grid-template-columns: repeat(2, 1fr); } }
+/* ── Warehouse: Tablet ── */
+@media (max-width: 900px) {
+  .warehouse-section { padding: 4rem 0; }
+  .warehouse-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .warehouse-detail { position: static; }
+  .warehouse-grid { grid-template-columns: repeat(4, 1fr); }
+  .warehouse-metrics { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.65rem; margin-bottom: 1.2rem; }
+  .warehouse-detail-header { flex-wrap: wrap; gap: 0.5rem; }
+}
+
+/* ── Warehouse: Mobile ── */
+@media (max-width: 640px) {
+  .warehouse-section { padding: 3rem 0 !important; }
+  .warehouse-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 0.4rem !important; }
+  .warehouse-hub-btn { padding: 0.55rem 0.6rem !important; border-radius: 10px !important; }
+  .hub-city { font-size: 0.74rem !important; letter-spacing: 0 !important; }
+  .hub-state { font-size: 0.6rem !important; }
+  .hub-badge { font-size: 0.52rem !important; padding: 0.06rem 0.3rem !important; }
+  .warehouse-metrics { grid-template-columns: 1fr !important; gap: 0.45rem !important; }
+  .warehouse-metric { padding: 0.8rem 0.9rem !important; border-radius: 10px !important; gap: 0.7rem !important; }
+  .warehouse-metric-icon { width: 34px !important; height: 34px !important; border-radius: 8px !important; flex-shrink: 0 !important; }
+  .warehouse-metric-label { font-size: 0.64rem !important; }
+  .warehouse-metric-value { font-size: 0.9rem !important; }
+  .warehouse-city-name { font-size: 1.4rem !important; }
+  .warehouse-state-name { font-size: 0.8rem !important; }
+  .warehouse-detail { padding: 1.25rem !important; border-radius: 16px !important; }
+  .warehouse-detail-header { margin-bottom: 1rem !important; padding-bottom: 1rem !important; flex-direction: column !important; align-items: flex-start !important; gap: 0.5rem !important; }
+  .warehouse-sla-bar-label { font-size: 0.66rem !important; }
+  .warehouse-sla-bar-pct { font-size: 0.78rem !important; }
+  .hub-badge-lg { font-size: 0.65rem !important; padding: 0.2rem 0.55rem !important; }
+}
+
+@media (max-width: 420px) {
+  .warehouse-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .warehouse-hub-btn { padding: 0.5rem 0.55rem !important; }
+  .hub-city { font-size: 0.7rem !important; }
+}
 
 /* ═══════════════════════════════════════════════
    COMPARISON MATRIX
@@ -1438,15 +1477,48 @@ html { scroll-behavior: smooth; }
 .workflow-name { font-size: 0.86rem; font-weight: 800; color: var(--slate-900); margin: 0 0 0.3rem; letter-spacing: -0.3px; }
 .workflow-desc { font-size: 0.76rem; color: var(--slate-500); line-height: 1.5; margin: 0; }
 
-@media (max-width: 900px) {
-  .workflow-wrap { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+/* ── Workflow: Tablet 3-col ── */
+@media (max-width: 1024px) {
+  .workflow-wrap { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 3rem; }
   .workflow-connector { display: none; }
 }
-@media (max-width: 640px) {
-  .workflow-wrap { grid-template-columns: 1fr; gap: 1.2rem; margin-top: 2rem; }
-  .workflow-step { flex-direction: row; align-items: flex-start; text-align: left; gap: 1rem; }
-  .workflow-node { margin-bottom: 0; }
-  .workflow-card { text-align: left; }
+
+/* ── Workflow: Tablet 2-col ── */
+@media (max-width: 720px) {
+  .workflow-wrap { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .workflow-step { flex-direction: column; align-items: center; text-align: center; }
+  .workflow-node { margin-bottom: 1rem; }
+}
+
+/* ── Workflow: Mobile single column ── */
+@media (max-width: 540px) {
+  .methodology-section { padding: 3rem 0 !important; }
+  .workflow-wrap {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+    margin-top: 2rem !important;
+  }
+  .workflow-step {
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+    gap: 0.9rem !important;
+  }
+  .workflow-node {
+    width: 46px !important;
+    height: 46px !important;
+    border-radius: 14px !important;
+    margin-bottom: 0 !important;
+    flex-shrink: 0 !important;
+  }
+  .workflow-card {
+    flex: 1 !important;
+    padding: 0.85rem 1rem !important;
+    border-radius: 12px !important;
+    text-align: left !important;
+  }
+  .workflow-name { font-size: 0.88rem !important; margin-bottom: 0.2rem !important; }
+  .workflow-desc { font-size: 0.79rem !important; }
 }
 
 /* ═══════════════════════════════════════════════
