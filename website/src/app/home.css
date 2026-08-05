@@ -2721,6 +2721,157 @@ html { scroll-behavior: smooth; }
   .channel-icon svg { max-width: 46px !important; height: 17px !important; }
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   CAPABILITIES & INFOGRAPHIC WORKFLOW OVERHAUL
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Section 7 Capabilities v2 (High Contrast White Cards + Icon Badges) */
+.ptn-card-v2 {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 18px;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  transition: all 0.25s var(--ease-spring);
+}
+.ptn-card-v2:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 36px rgba(37,99,235,0.12);
+  border-color: #BFDBFE;
+}
+.ptn-card-icon-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  flex-shrink: 0;
+}
+.ptn-card-title-v2 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 0.5rem;
+  line-height: 1.3;
+  letter-spacing: -0.3px;
+}
+.ptn-card-desc-v2 {
+  font-size: 0.88rem;
+  color: #334155;
+  line-height: 1.65;
+  font-weight: 500;
+  margin: 0 0 1.25rem;
+  flex: 1;
+}
+.ptn-card-link-v2 {
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: gap 0.2s ease;
+}
+.ptn-card-link-v2:hover { gap: 0.6rem; }
+
+/* Section 11 Infographic Workflow */
+.infographic-workflow {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.25rem;
+  position: relative;
+  margin-top: 1rem;
+}
+.infographic-track-line {
+  position: absolute;
+  top: 36px;
+  left: 8%;
+  right: 8%;
+  height: 3px;
+  background: linear-gradient(90deg, #2563EB, #0284C7, #0D9488, #4F46E5, #7C3AED);
+  border-radius: 2px;
+  z-index: 0;
+  opacity: 0.25;
+}
+.infographic-step-card {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 18px;
+  padding: 1.6rem 1.25rem;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+  transition: all 0.25s var(--ease-spring);
+  display: flex;
+  flex-direction: column;
+}
+.infographic-step-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(37,99,235,0.12);
+  border-color: #93C5FD;
+}
+.infographic-step-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+.infographic-step-number {
+  color: #FFFFFF;
+  font-size: 0.78rem;
+  font-weight: 900;
+  padding: 0.3rem 0.65rem;
+  border-radius: 8px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+.infographic-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.infographic-step-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 0.2rem;
+  letter-spacing: -0.3px;
+}
+.infographic-step-sub {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+.infographic-step-desc {
+  font-size: 0.85rem;
+  color: #334155;
+  line-height: 1.6;
+  font-weight: 500;
+  margin: 0;
+  flex: 1;
+}
+
+@media (max-width: 1024px) {
+  .infographic-workflow { grid-template-columns: repeat(3, 1fr); }
+  .infographic-track-line { display: none; }
+}
+@media (max-width: 640px) {
+  .infographic-workflow { grid-template-columns: 1fr; gap: 1rem; }
+  .ptn-card-v2 { padding: 1.25rem; }
+}
+
+
 
 
 

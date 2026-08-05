@@ -88,21 +88,21 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
                 style={{ position: "relative", padding: "1.4rem 0" }}
               >
                 <span style={{
-                  fontSize: "0.92rem",
-                  fontWeight: 600,
-                  color: isActive ? "#2563EB" : "#334155",
+                  fontSize: "0.96rem",
+                  fontWeight: 700,
+                  color: isActive ? "#2563EB" : "#1E293B",
                   cursor: "pointer",
                   display: "flex",
                   alignItems: "center",
-                  gap: "0.25rem",
-                  padding: "0.4rem 0.8rem",
+                  gap: "0.3rem",
+                  padding: "0.45rem 0.85rem",
                   borderRadius: "8px",
-                  background: isActive ? "rgba(37,99,235,0.07)" : "transparent",
+                  background: isActive ? "rgba(37,99,235,0.08)" : "transparent",
                   transition: "all 0.18s ease",
                   userSelect: "none"
                 }}>
                   {labels[key]}
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.6, transition: "transform 0.18s ease", transform: isActive ? "rotate(180deg)" : "rotate(0deg)" }}>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.75, transition: "transform 0.18s ease", transform: isActive ? "rotate(180deg)" : "rotate(0deg)" }}>
                     <polyline points="6 9 12 15 18 9"/>
                   </svg>
                 </span>

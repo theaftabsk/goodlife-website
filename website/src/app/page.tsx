@@ -652,7 +652,7 @@ export default function HomePage() {
     { title: "Fulfilment & Warehousing", desc: "1,00,000+ sq ft across 12 state hubs with FBA/FAssured SLA compliance and regional CNF supply support.", href: "/capabilities/warehousing-fulfilment", color: "#4F46E5", g: "ptn-card-graphic-3", icon: <><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></> },
     { title: "Revenue Assurance", desc: "Daily automated settlement audits, weight dispute recovery and return claim reconciliation across all platforms.", href: "/capabilities/revenue-assurance", color: "#059669", g: "ptn-card-graphic-4", icon: <><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></> },
     { title: "Returns Management", desc: "RTO reduction, reverse logistics QC, exception tracking and return reconciliation across marketplace and D2C.", href: "/capabilities/returns-operations", color: "#F59E0B", g: "ptn-card-graphic-1", icon: <><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></> },
-    { title: "Heavy & Bulky", desc: "Specialised freight handling, transit damage protection, custom crating and coordinated last-mile delivery.", href: "/specialised/heavy-bulky-commerce", color: "#0F172A", g: "ptn-card-graphic-2", icon: <><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></> },
+    { title: "Heavy & Bulky Commerce", desc: "Specialised freight handling, transit damage protection, custom crating and coordinated last-mile delivery.", href: "/specialised/heavy-bulky-commerce", color: "#0F172A", bg: "#F8FAFC", icon: <><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></> },
   ];
 
   // Section 14: Insights (CMS Articles preview)
@@ -677,7 +677,7 @@ export default function HomePage() {
           <div className="hero-inner-light">
             <div className="hero-badge">
               <span className="hero-badge-dot" />
-              India&apos;s #1 E-Commerce Operations Partner &bull; 12 States Network
+              India&apos;s Premier Commerce Operating Partner &bull; 12-State Infrastructure
             </div>
             <h1 className="hero-headline">
               India&apos;s Commerce Operating Partner<br />
@@ -788,8 +788,6 @@ export default function HomePage() {
         </div>
       </section>
 
-
-
       {/* ── SECTION 6: WHY GOOD LIFE (Operator Credibility) ── */}
       <section className="unlock-section" id="why-good-life">
         <div className="container">
@@ -825,33 +823,31 @@ export default function HomePage() {
       </section>
 
       {/* ── SECTION 7: TEN CAPABILITIES (Links into each capability page) ── */}
-      <section className="ptn-do-section" id="capabilities">
+      <section className="ptn-do-section" id="capabilities" style={{ background: "#F8FAFC", padding: "5.5rem 0", borderTop: "1px solid #E2E8F0" }}>
         <div className="container">
-          <div className="ptn-do-header">
-            <span className="ptn-section-eyebrow">Ten Connected Commerce Capabilities</span>
-            <h2 className="ptn-section-title">Do it all with Good Life.</h2>
-            <p className="ptn-section-subtitle">
+          <div className="ptn-do-header" style={{ textAlign: "center", marginBottom: "3.5rem" }}>
+            <span className="ptn-section-eyebrow" style={{ color: "#2563EB" }}>Ten Connected Commerce Capabilities</span>
+            <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>Do It All With Good Life</h2>
+            <p className="ptn-section-subtitle" style={{ marginTop: "0.4rem" }}>
               Marketplace operations, D2C, B2B/institutional commerce, revenue assurance and pan-India fulfilment—managed through one accountable operating model.
             </p>
           </div>
           <div className="ptn-do-grid-10">
             {capabilities.map((cap, idx) => (
-              <div key={idx} className={`ptn-card reveal ${idx > 0 ? `reveal-delay-${Math.min(idx, 3)}` : ""}`}>
-                <div className={`ptn-card-graphic ${cap.g}`}>
-                  <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke={cap.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{cap.icon}</svg>
+              <div key={idx} className="ptn-card-v2">
+                <div className="ptn-card-icon-badge" style={{ background: cap.bg, color: cap.color }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">{cap.icon}</svg>
                 </div>
-                <div className="ptn-card-body">
-                  <h3 className="ptn-card-title">{cap.title}</h3>
-                  <p className="ptn-card-desc">{cap.desc}</p>
-                  <Link href={cap.href} className="ptn-card-cta" style={{ color: cap.color }}>Explore Capability →</Link>
-                </div>
+                <h3 className="ptn-card-title-v2">{cap.title}</h3>
+                <p className="ptn-card-desc-v2">{cap.desc}</p>
+                <Link href={cap.href} className="ptn-card-link-v2" style={{ color: cap.color }}>
+                  Explore Capability →
+                </Link>
               </div>
             ))}
           </div>
         </div>
       </section>
-
-
 
       {/* ── SECTION 8: HEAVY & BULKY MOAT (Dedicated visual block) ── */}
       <section className="heavy-bulky-section" id="heavy-bulky">
@@ -894,36 +890,95 @@ export default function HomePage() {
       {/* ── SECTION 10: REVENUE ASSURANCE (Settlement/claims process visual + Leakage Calculator) ── */}
       <SavingsCalculator onOpenDiag={() => setDiagOpen(true)} />
 
-
-
-      {/* ── SECTION 11: HOW ENGAGEMENT WORKS (Diagnostic → Solution Design → Integration → Execution → Review & Scale) ── */}
-      <section className="methodology-section" id="how-it-works">
+      {/* ── SECTION 11: HOW ENGAGEMENT WORKS (Infographic Workflow) ── */}
+      <section className="methodology-section" id="how-it-works" style={{ background: "#FFFFFF", padding: "5.5rem 0", borderTop: "1px solid #E2E8F0" }}>
         <div className="container">
-          <div style={{ textAlign: "center" }}>
-            <span className="ptn-section-eyebrow">How Engagement Works</span>
+          <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
+            <span className="ptn-section-eyebrow" style={{ color: "#2563EB" }}>How Engagement Works</span>
             <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>A Structured Path to Scale</h2>
             <p className="ptn-section-subtitle" style={{ marginTop: "0.4rem" }}>Diagnostic → Solution Design → Integration → Execution → Review &amp; Scale</p>
           </div>
-          <div ref={timelineRef} className="workflow-wrap">
-            <div className="workflow-connector">
-              <div className="workflow-connector-fill" style={{ width: isTimelineLit ? "100%" : "0%" }} />
-            </div>
+
+          <div className="infographic-workflow">
+            <div className="infographic-track-line" />
             {[
-              { icon: <><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></>, label: "1. Diagnostic", desc: "Evaluate marketplace visibility, fee leaks, and current SLA metrics.", color: "#2563EB" },
-              { icon: <><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></>, label: "2. Solution Design", desc: "Listing architecture, pricing tiers, and multi-channel inventory plan.", color: "#0284C7" },
-              { icon: <><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/></>, label: "3. Integration", desc: "Link sales channels with 12-state WMS and daily automated reconciliation.", color: "#0D9488" },
-              { icon: <><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></>, label: "4. Execution", desc: "Amazon & Flipkart ad management, order dispatch, and dispute resolution.", color: "#4F46E5" },
-              { icon: <><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></>, label: "5. Review & Scale", desc: "Weekly performance reporting, SKU expansion, and multi-platform growth.", color: "#7C3AED" },
-            ].map((step, idx) => (
-              <div key={idx} className={`workflow-step ${isTimelineLit ? "lit" : ""}`}>
-                <div className="workflow-node" style={{ background: step.color, position: "relative" }}>
-                  <span style={{ position: "absolute", top: "-6px", right: "-6px", background: "#F59E0B", color: "#FFFFFF", fontSize: "0.68rem", fontWeight: 900, borderRadius: "50%", width: "19px", height: "19px", display: "flex", alignItems: "center", justifyContent: "center", border: "1.5px solid #FFFFFF", boxShadow: "0 2px 4px rgba(0,0,0,0.12)" }}>0{idx + 1}</span>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">{step.icon}</svg>
+              {
+                step: "01",
+                label: "Diagnostic",
+                subtitle: "Audit & Assessment",
+                desc: "Evaluate marketplace visibility, fee leaks, and current SLA metrics.",
+                color: "#2563EB",
+                bg: "#EFF6FF",
+                icon: (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+                  </svg>
+                )
+              },
+              {
+                step: "02",
+                label: "Solution Design",
+                subtitle: "Strategy & Pricing",
+                desc: "Listing architecture, pricing tiers, and multi-channel inventory plan.",
+                color: "#0284C7",
+                bg: "#F0F9FF",
+                icon: (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                  </svg>
+                )
+              },
+              {
+                step: "03",
+                label: "Integration",
+                subtitle: "WMS & Channel Sync",
+                desc: "Link sales channels with 12-state WMS and daily automated reconciliation.",
+                color: "#0D9488",
+                bg: "#F0FDFA",
+                icon: (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/>
+                  </svg>
+                )
+              },
+              {
+                step: "04",
+                label: "Execution",
+                subtitle: "Ads & Fulfilment",
+                desc: "Amazon & Flipkart ad management, order dispatch, and dispute resolution.",
+                color: "#4F46E5",
+                bg: "#EEF2FF",
+                icon: (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+                    <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                  </svg>
+                )
+              },
+              {
+                step: "05",
+                label: "Review & Scale",
+                subtitle: "Multi-Platform Growth",
+                desc: "Weekly performance reporting, SKU expansion, and multi-platform growth.",
+                color: "#7C3AED",
+                bg: "#F5F3FF",
+                icon: (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+                  </svg>
+                )
+              }
+            ].map((item, idx) => (
+              <div key={idx} className="infographic-step-card">
+                <div className="infographic-step-header">
+                  <span className="infographic-step-number" style={{ background: item.color }}>{item.step}</span>
+                  <div className="infographic-icon-box" style={{ background: item.bg, color: item.color }}>
+                    {item.icon}
+                  </div>
                 </div>
-                <div className="workflow-card" style={{ borderTop: `4px solid ${step.color}` }}>
-                  <h4 className="workflow-name">{step.label}</h4>
-                  <p className="workflow-desc">{step.desc}</p>
-                </div>
+                <h3 className="infographic-step-title">{item.label}</h3>
+                <span className="infographic-step-sub">{item.subtitle}</span>
+                <p className="infographic-step-desc">{item.desc}</p>
               </div>
             ))}
           </div>
