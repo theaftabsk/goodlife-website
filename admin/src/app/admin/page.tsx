@@ -8,6 +8,7 @@ import Image from "next/image";
 interface LeadItem {
   id: string;
   company: string;
+  website: string;
   contact: string;
   email: string;
   mobile: string;
@@ -17,6 +18,12 @@ interface LeadItem {
   timeline: string;
   tags: string[];
   date: string;
+  marketplaces: string[];
+  orderVolume: string;
+  operatingModel: string;
+  warehouseModel: string;
+  challenges: string[];
+  reconciled: string;
 }
 
 interface ArticleItem {
@@ -53,6 +60,7 @@ export default function AdminDashboard() {
     {
       id: "GL-1092",
       company: "Apex Appliances Pvt Ltd",
+      website: "www.apexappliances.in",
       contact: "Rajesh Sharma (CFO)",
       email: "r.sharma@apexappliances.in",
       mobile: "+91 98201 44321",
@@ -61,11 +69,18 @@ export default function AdminDashboard() {
       intent: "OEM Brand Launch",
       timeline: "Immediate (< 30 days)",
       tags: ["OEM-to-Brand Opportunity", "Multi-State Warehousing"],
-      date: "2026-08-01 11:24 AM"
+      date: "2026-08-01 11:24 AM",
+      marketplaces: ["Amazon", "Flipkart", "D2C Website"],
+      orderVolume: "5,000 - 10,000 orders/mo",
+      operatingModel: "OEM / Manufacturer seeking to launch a direct brand",
+      warehouseModel: "Single factory / main warehouse dispatch",
+      challenges: ["Stagnant Marketplace Growth / Ads ACOS", "Multi-Platform / B2B Expansion"],
+      reconciled: "No formal reconciliation (losing money on missing inventory & fees)"
     },
     {
       id: "GL-1091",
       company: "NutriLife D2C",
+      website: "www.nutrilife.co",
       contact: "Ananya Roy (Head of Growth)",
       email: "ananya@nutrilife.co",
       mobile: "+91 98711 00293",
@@ -74,11 +89,18 @@ export default function AdminDashboard() {
       intent: "Fix & Grow Operations",
       timeline: "30-60 Days",
       tags: ["D2C Operations Opportunity", "ACOS Optimization"],
-      date: "2026-08-01 09:15 AM"
+      date: "2026-08-01 09:15 AM",
+      marketplaces: ["Amazon", "D2C Website"],
+      orderVolume: "1,000 - 5,000 orders/mo",
+      operatingModel: "Multiple fragmented agencies (Ads, Listing, Logistics)",
+      warehouseModel: "2 - 4 Regional warehouse locations",
+      challenges: ["High RTO & Return Losses", "Un-reconciled Claims & Settlements"],
+      reconciled: "Manual Excel tracking (infrequent / partial auditing)"
     },
     {
       id: "GL-1090",
       company: "Vanguard Tools & Industrial",
+      website: "www.vanguardtools.com",
       contact: "Vikramaditya Paul (VP Business)",
       email: "v.paul@vanguardtools.com",
       mobile: "+91 94330 11820",
@@ -87,7 +109,13 @@ export default function AdminDashboard() {
       intent: "B2B & Institutional Scale",
       timeline: "Immediate (< 30 days)",
       tags: ["B2B/Institutional Fulfilment", "Multi-Platform Expansion"],
-      date: "2026-07-31 04:50 PM"
+      date: "2026-07-31 04:50 PM",
+      marketplaces: ["Moglix / IndiaMART", "JioMart", "Amazon"],
+      orderVolume: "10,000+ orders/mo",
+      operatingModel: "Distributor-led model seeking direct operating partnership",
+      warehouseModel: "Need warehouse-supported regional dealer fulfilment",
+      challenges: ["Multi-Platform / B2B Expansion", "Stock-outs across state warehouses"],
+      reconciled: "No formal reconciliation (losing money on missing inventory & fees)"
     }
   ]);
 
@@ -479,32 +507,92 @@ export default function AdminDashboard() {
 
       {/* Lead Detail Modal */}
       {selectedLead && (
-        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.8)", backdropFilter: "blur(10px)", zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem" }}>
-          <div style={{ background: "#0B1224", border: "1px solid rgba(56, 189, 248, 0.3)", borderRadius: "20px", padding: "2.5rem", maxWidth: "600px", width: "100%" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
-              <h2 style={{ color: "#FFF", fontSize: "1.4rem", margin: 0, fontWeight: 800 }}>Lead Details - {selectedLead.id}</h2>
-              <button onClick={() => setSelectedLead(null)} style={{ background: "none", border: "none", color: "#FFF", fontSize: "1.2rem", cursor: "pointer" }}>✕</button>
-            </div>
-
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.8rem", fontSize: "0.9rem", color: "#9CA3AF" }}>
-              <div>🏢 <strong style={{ color: "#FFF" }}>Company:</strong> {selectedLead.company}</div>
-              <div>👤 <strong style={{ color: "#FFF" }}>Contact:</strong> {selectedLead.contact} ({selectedLead.email}, {selectedLead.mobile})</div>
-              <div>📦 <strong style={{ color: "#FFF" }}>Category:</strong> {selectedLead.category}</div>
-              <div>💰 <strong style={{ color: "#FFF" }}>Annual GMV:</strong> {selectedLead.gmv}</div>
-              <div>🎯 <strong style={{ color: "#FFF" }}>Primary Intent:</strong> {selectedLead.intent}</div>
-              <div>⏳ <strong style={{ color: "#FFF" }}>Decision Timeline:</strong> {selectedLead.timeline}</div>
-              <div>⚡ <strong style={{ color: "#FFF" }}>Identified Opportunity Tags:</strong></div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
-                {selectedLead.tags.map((t, idx) => (
-                  <span key={idx} style={{ padding: "0.3rem 0.6rem", borderRadius: "6px", background: "rgba(56, 189, 248, 0.15)", color: "#38BDF8", fontSize: "0.78rem", fontWeight: 700 }}>
-                    {t}
-                  </span>
-                ))}
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)", backdropFilter: "blur(10px)", zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center", padding: "1.5rem" }}>
+          <div style={{ background: "#0B1224", border: "1px solid rgba(56, 189, 248, 0.3)", borderRadius: "20px", padding: "2rem", maxWidth: "800px", width: "100%", maxHeight: "90vh", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.08)", paddingBottom: "1rem" }}>
+              <div>
+                <h2 style={{ color: "#FFF", fontSize: "1.4rem", margin: 0, fontWeight: 800 }}>Commerce Diagnostic Full Log</h2>
+                <div style={{ color: "#38BDF8", fontSize: "0.82rem", fontWeight: 700, marginTop: "0.2rem" }}>Lead ID: {selectedLead.id}</div>
               </div>
+              <button onClick={() => setSelectedLead(null)} style={{ background: "rgba(255,255,255,0.05)", border: "none", color: "#FFF", width: "36px", height: "36px", borderRadius: "50%", cursor: "pointer", fontSize: "1.1rem", display: "flex", alignItems: "center", justifyContent: "center" }}>✕</button>
             </div>
 
-            <button onClick={() => setSelectedLead(null)} style={{ width: "100%", marginTop: "2rem", padding: "0.8rem", borderRadius: "10px", background: "#2563EB", color: "#FFF", border: "none", fontWeight: 700, cursor: "pointer" }}>
-              Close Lead Detail
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem", overflowY: "auto", paddingRight: "0.5rem" }}>
+              
+              {/* Left Column: Contact & Company Profile */}
+              <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "12px", padding: "1.2rem" }}>
+                <h3 style={{ color: "#38BDF8", fontSize: "0.9rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1px", margin: "0 0 1rem 0" }}>🏢 Profile & Contact (Steps 1 & 2)</h3>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem", fontSize: "0.85rem", color: "#E5E7EB" }}>
+                  <div><strong style={{ color: "#FFF" }}>Company:</strong> {selectedLead.company}</div>
+                  <div><strong style={{ color: "#FFF" }}>Website:</strong> {selectedLead.website ? <a href={selectedLead.website.startsWith("http") ? selectedLead.website : `https://${selectedLead.website}`} target="_blank" rel="noreferrer" style={{ color: "#60A5FA", textDecoration: "none" }}>{selectedLead.website}</a> : <span style={{ color: "#6B7280" }}>N/A</span>}</div>
+                  <div><strong style={{ color: "#FFF" }}>Contact:</strong> {selectedLead.contact}</div>
+                  <div><strong style={{ color: "#FFF" }}>Email:</strong> {selectedLead.email}</div>
+                  <div><strong style={{ color: "#FFF" }}>Mobile:</strong> {selectedLead.mobile}</div>
+                  <div><strong style={{ color: "#FFF" }}>Category:</strong> {selectedLead.category}</div>
+                  <div><strong style={{ color: "#FFF" }}>Annual Turnover:</strong> {selectedLead.gmv}</div>
+                </div>
+              </div>
+
+              {/* Right Column: Operations & Volumetrics */}
+              <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "12px", padding: "1.2rem" }}>
+                <h3 style={{ color: "#38BDF8", fontSize: "0.9rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1px", margin: "0 0 1rem 0" }}>📊 Volume & Channels (Steps 3, 4 & 5)</h3>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem", fontSize: "0.85rem", color: "#E5E7EB" }}>
+                  <div><strong style={{ color: "#FFF" }}>Monthly Order Volume:</strong> {selectedLead.orderVolume}</div>
+                  <div><strong style={{ color: "#FFF" }}>Operating Model:</strong> {selectedLead.operatingModel}</div>
+                  <div><strong style={{ color: "#FFF" }}>Active Marketplaces:</strong></div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem", marginTop: "2px" }}>
+                    {selectedLead.marketplaces.map((m, i) => (
+                      <span key={i} style={{ fontSize: "0.75rem", background: "rgba(56, 189, 248, 0.1)", color: "#38BDF8", border: "1px solid rgba(56, 189, 248, 0.2)", padding: "0.2rem 0.5rem", borderRadius: "4px", fontWeight: 600 }}>{m}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Row Left: Logistical Footprint */}
+              <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "12px", padding: "1.2rem" }}>
+                <h3 style={{ color: "#38BDF8", fontSize: "0.9rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1px", margin: "0 0 1rem 0" }}>📦 Logistics & Auditing (Steps 6 & 8)</h3>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem", fontSize: "0.85rem", color: "#E5E7EB" }}>
+                  <div><strong style={{ color: "#FFF" }}>Warehouse Footprint:</strong> {selectedLead.warehouseModel}</div>
+                  <div><strong style={{ color: "#FFF" }}>Reconciliation Status:</strong> {selectedLead.reconciled}</div>
+                </div>
+              </div>
+
+              {/* Bottom Row Right: Intent & Strategic Growth */}
+              <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "12px", padding: "1.2rem" }}>
+                <h3 style={{ color: "#38BDF8", fontSize: "0.9rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1px", margin: "0 0 1rem 0" }}>🎯 Strategic Intent (Steps 9 & 10)</h3>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem", fontSize: "0.85rem", color: "#E5E7EB" }}>
+                  <div><strong style={{ color: "#FFF" }}>Primary Strategic Goal:</strong> {selectedLead.intent}</div>
+                  <div><strong style={{ color: "#FFF" }}>Timeline:</strong> {selectedLead.timeline}</div>
+                </div>
+              </div>
+
+              {/* Full Width: Bottlenecks & Opportunities */}
+              <div style={{ gridColumn: "span 2", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "12px", padding: "1.2rem" }}>
+                <h3 style={{ color: "#38BDF8", fontSize: "0.9rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1px", margin: "0 0 1rem 0" }}>⚡ Challenges & Fit Analysis (Steps 7 & Scored Tags)</h3>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.8rem", fontSize: "0.85rem" }}>
+                  <div>
+                    <strong style={{ color: "#FFF", display: "block", marginBottom: "0.4rem" }}>Top Operational Bottlenecks:</strong>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
+                      {selectedLead.challenges.map((c, i) => (
+                        <span key={i} style={{ fontSize: "0.75rem", background: "rgba(239, 68, 68, 0.15)", color: "#FCA5A5", border: "1px solid rgba(239, 68, 68, 0.25)", padding: "0.25rem 0.5rem", borderRadius: "4px" }}>⚠️ {c}</span>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <strong style={{ color: "#FFF", display: "block", marginBottom: "0.4rem" }}>Calculated Fit Tags:</strong>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
+                      {selectedLead.tags.map((t, i) => (
+                        <span key={i} style={{ fontSize: "0.75rem", background: "rgba(16, 185, 129, 0.15)", color: "#34D399", border: "1px solid rgba(16, 185, 129, 0.3)", padding: "0.25rem 0.6rem", borderRadius: "6px", fontWeight: 700 }}>⚡ {t}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <button onClick={() => setSelectedLead(null)} style={{ width: "100%", padding: "0.8rem", borderRadius: "10px", background: "#2563EB", color: "#FFF", border: "none", fontWeight: 700, fontSize: "0.9rem", cursor: "pointer", transition: "all 0.2s ease" }}>
+              Close Full Log View
             </button>
           </div>
         </div>

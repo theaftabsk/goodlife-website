@@ -2,7 +2,25 @@
 const resendService = require('../services/resendService');
 
 const submitDiagnostic = async (req, res) => {
-  const { company, contactName, designation, email, mobile, category, revenueBand, gmvBand, intent, timeline, challenges } = req.body;
+  const {
+    company,
+    website,
+    contactName,
+    designation,
+    email,
+    mobile,
+    category,
+    revenueBand,
+    marketplaces,
+    gmvBand,
+    orderVolume,
+    operatingModel,
+    warehouseModel,
+    challenges,
+    reconciled,
+    intent,
+    timeline
+  } = req.body;
   
   let score = 70;
   const tags = [];
@@ -22,13 +40,20 @@ const submitDiagnostic = async (req, res) => {
   const lead = {
     id: `GL-${Math.floor(1000 + Math.random() * 9000)}`,
     company: company || "Enterprise Prospect",
+    website: website || "",
     contactName: contactName || "Representative",
     designation: designation || "Executive",
     email: email || "contact@prospect.com",
     mobile: mobile || "+91 98000 00000",
     category: category || "Commerce Growth",
     revenueBand: revenueBand || "₹10 Cr - ₹50 Cr",
+    marketplaces: marketplaces || [],
     gmvBand: gmvBand || "₹2 Cr - ₹10 Cr",
+    orderVolume: orderVolume || "1,000 - 5,000 orders/mo",
+    operatingModel: operatingModel || "Mixed / Fragmented Agency",
+    warehouseModel: warehouseModel || "Single Warehouse / Self-fulfilled",
+    challenges: challenges || [],
+    reconciled: reconciled || "Partially / Manual excel tracking",
     intent: intent || "Scale Pan-India",
     timeline: timeline || "Immediate",
     fitScore: score,
