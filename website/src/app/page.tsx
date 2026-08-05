@@ -83,9 +83,52 @@ const SavingsCalculator: React.FC<{ onOpenDiag: () => void }> = ({ onOpenDiag })
               <input type="range" min={200} max={10000} step={100} value={aov} onChange={(e) => setAov(Number(e.target.value))} className="calc-slider" />
               <div className="calc-slider-ticks"><span>₹200</span><span>₹5,000</span><span>₹10,000</span></div>
             </div>
-            <button onClick={onOpenDiag} className="btn-primary-hero" style={{ marginTop: "2rem", width: "100%", justifyContent: "center" }}>
-              Claim Your Free Diagnostic Report →
-            </button>
+
+            {/* Ultra-Stylish Diagnostic Banner */}
+            <div style={{
+              marginTop: "2rem",
+              background: "linear-gradient(135deg, #0F172A 0%, #1E293B 100%)",
+              borderRadius: "16px",
+              padding: "1.4rem 1.5rem",
+              border: "1px solid rgba(255, 255, 255, 0.1)",
+              boxShadow: "0 10px 28px rgba(15, 23, 42, 0.25)",
+              color: "#FFFFFF"
+            }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.4rem" }}>
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#10B981", boxShadow: "0 0 0 3px rgba(16,185,129,0.2)" }} />
+                <span style={{ fontSize: "0.78rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1px", color: "#38BDF8" }}>
+                  Complimentary Diagnostic
+                </span>
+              </div>
+              <h4 style={{ fontSize: "1.05rem", fontWeight: 800, color: "#FFFFFF", marginBottom: "0.3rem", lineHeight: 1.35 }}>
+                Ready to find your fee leaks?
+              </h4>
+              <p style={{ fontSize: "0.85rem", color: "#94A3B8", marginBottom: "1.2rem", lineHeight: 1.5 }}>
+                Get a complimentary Commerce Diagnostic — no obligation.
+              </p>
+              <button
+                onClick={onOpenDiag}
+                className="btn-primary-hero"
+                style={{
+                  width: "100%",
+                  height: "48px",
+                  borderRadius: "12px",
+                  background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
+                  color: "#FFFFFF",
+                  fontWeight: 800,
+                  fontSize: "0.92rem",
+                  border: "none",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "0.5rem",
+                  boxShadow: "0 6px 20px rgba(37,99,235,0.35)",
+                }}
+              >
+                Request Diagnostic →
+              </button>
+            </div>
           </div>
           <div className="calc-right">
             <div className="calc-result-card calc-result-main">
