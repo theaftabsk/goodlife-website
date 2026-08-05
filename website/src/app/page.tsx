@@ -693,7 +693,7 @@ export default function HomePage() {
           <div className="hero-inner-light">
             <div className="hero-badge">
               <span className="hero-badge-dot" />
-              India&apos;s Premier Commerce Operating Partner &bull; 12-State Infrastructure
+              India&apos;s Trusted E-Commerce Operations Partner | Pan-India Presence
             </div>
             <h1 className="hero-headline">
               India&apos;s Commerce Operating Partner<br />
