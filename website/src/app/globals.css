@@ -756,3 +756,11 @@ a { text-decoration: none; color: inherit; transition: all 0.3s var(--ease-out-e
 @media (max-width: 480px) {
   .stats-grid { grid-template-columns: 1fr; }
 }
+
+/* Stable Header Logo Fix */
+.header-logo-container,
+.header-logo-container * {
+  transition: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+}

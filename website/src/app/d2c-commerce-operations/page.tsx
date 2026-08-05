@@ -1,106 +1,94 @@
 "use client";
-
 import React, { useState } from "react";
 import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CommerceDiagnosticModal from "../components/CommerceDiagnosticModal";
-import "../home.css";
 
 export default function D2CCommerceOperationsPage() {
   const [diagOpen, setDiagOpen] = useState(false);
 
   const capabilities = [
-    { title: "D2C Website & Catalog Ops", desc: "Coordinating store cataloguing, product variants, collection management, and banner updates across Shopify, WooCommerce, or custom platforms." },
-    { title: "Inventory & Pricing Sync", desc: "Live multi-channel stock sync preventing overselling across marketplace and D2C storefront inventory buffers." },
-    { title: "Order Processing & Dispatch", desc: "Automated order routing to regional state warehouses for rapid packing, courier allocation, and same-day dispatch." },
-    { title: "Payment & COD Reconciliation", desc: "Tracking gateway settlements, COD remittance cycles, NDR (Non-Delivery Reports), and payment gateway fee audits." },
-    { title: "Returns & Reverse Logistics", desc: "Managing customer return requests, warehouse quality check (QC), restock qualification, and refund status coordination." },
-    { title: "Customer Escalation Workflows", desc: "Handling tier-2 customer order inquiries, shipping tracking escalations, and product exchange workflows." },
-    { title: "Performance Marketing Coordination", desc: "Operating Amazon & Flipkart performance ad campaigns while coordinating D2C acquisition traffic across expanding Meta & SEO channels." },
-    { title: "Unified Commerce MIS", desc: "Consolidated real-time reporting dashboard unifying marketplace GMV, D2C sales, return rates, and stock health." }
+    { title: "D2C Website Store Operations", desc: "Catalogue setup, product detail page maintenance, promotional banner updates, and storefront management." },
+    { title: "Product Data & Price Architecture", desc: "SKU mapping, bundle configurations, discount rule management, and inventory synchronisation." },
+    { title: "Order Processing & Warehouse Fulfilment", desc: "Direct order ingestion, multi-warehouse dispatch from 12 state hubs, packaging SLA compliance, and carrier handover." },
+    { title: "Payment & COD Reconciliation", desc: "Automated gateway settlement audits, cash-on-delivery collection tracking, and RTO fee dispute recovery." },
+    { title: "Returns & Reverse Logistics", desc: "RTO management, reverse shipping QC, customer exchange processing, and restock workflows." },
+    { title: "Customer Operations & Escalations", desc: "Order tracking support, delivery exception management, and customer escalation resolution according to agreed scope." },
+    { title: "Performance Marketing Coordination", desc: "Established Amazon & Flipkart performance ad execution, while Meta, SEO and SMO are managed through expanding capabilities." },
+    { title: "Unified Marketplace + D2C MIS", desc: "Single dashboard performance reporting combining website sales with marketplace channel metrics." },
   ];
 
   return (
-    <div style={{ background: "#0B0F19", color: "#F3F4F6", minHeight: "100vh" }}>
+    <div style={{ background: "#FFFFFF", color: "#0F172A", minHeight: "100vh" }}>
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
-      {/* Hero Section */}
-      <section className="page-hero-wrapper">
-        <div className="container">
-          <div style={{ maxWidth: "860px", margin: "0 auto", textAlign: "center" }}>
-            <span className="diagnostic-step-pill" style={{ marginBottom: "1rem" }}>
-              🛒 D2C Operations Engine
-            </span>
-            <h1 className="hero-title" style={{ fontSize: "clamp(2rem, 5vw, 3.4rem)", lineHeight: 1.15, marginBottom: "1.2rem" }}>
-              End-to-End D2C Commerce Operations for Brands
+      {/* HERO */}
+      <section style={{ paddingTop: "110px", paddingBottom: "5rem", background: "radial-gradient(ellipse 90% 60% at 50% -10%, rgba(252,231,243,0.8) 0%, rgba(243,232,255,0.4) 40%, #FFFFFF 75%)", position: "relative", overflow: "hidden" }}>
+        <div className="container" style={{ position: "relative", zIndex: 2 }}>
+          <div style={{ maxWidth: 820 }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.35rem 1rem", background: "#FCE7F3", border: "1px solid #FBCFE8", borderRadius: 99, fontSize: "0.75rem", fontWeight: 700, color: "#EC4899", marginBottom: "1.5rem", letterSpacing: "0.5px" }}>
+              D2C Commerce Operations
+            </div>
+            <h1 style={{ fontSize: "clamp(2.2rem, 5vw, 3.6rem)", fontWeight: 900, letterSpacing: "-2px", lineHeight: 1.08, color: "#0F172A", marginBottom: "1.25rem" }}>
+              End-to-End D2C Commerce Operations <span style={{ color: "#EC4899" }}>for Brands</span>
             </h1>
-            <p className="hero-description" style={{ fontSize: "1.15rem", color: "#9CA3AF", marginBottom: "2rem" }}>
-              Good Life can manage the operational layer behind a brand's D2C channel—from catalogue and order flow to inventory, fulfilment, returns, customer coordination and performance reporting.
+            <p style={{ fontSize: "1.1rem", color: "#64748B", lineHeight: 1.75, maxWidth: 650, marginBottom: "2.2rem" }}>
+              Good Life can manage the operational layer behind a brand&apos;s D2C channel—from catalogue and order flow to inventory, fulfilment, returns, customer coordination and performance reporting.
             </p>
-            <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-              <button onClick={() => setDiagOpen(true)} className="hero-cta-btn">
-                Discuss Your D2C Operation
+            <div style={{ display: "flex", gap: "0.9rem", flexWrap: "wrap" }}>
+              <button onClick={() => setDiagOpen(true)} style={{ height: 52, padding: "0 2rem", borderRadius: 12, background: "#EC4899", color: "#FFF", fontWeight: 700, fontSize: "0.96rem", border: "none", cursor: "pointer", boxShadow: "0 8px 24px rgba(236,72,153,0.28)" }}>
+                Discuss Your D2C Operation →
               </button>
-              <Link href="/brand-launch-incubation" className="hero-play-btn" style={{ textDecoration: "none" }}>
-                Explore OEM Brand Incubation →
-              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Technology Integration Wording */}
-      <section style={{ padding: "3.5rem 0", background: "rgba(17, 24, 39, 0.6)", borderBottom: "1px solid rgba(255, 255, 255, 0.05)" }}>
-        <div className="container" style={{ textAlign: "center", maxWidth: "800px" }}>
-          <span className="section-tag">TECH-AGNOSTIC OPERATING LAYER</span>
-          <h2 style={{ fontSize: "1.6rem", color: "#FFF", fontWeight: 700, marginTop: "0.5rem", marginBottom: "1rem" }}>
-            Compatible With Your Existing Commerce Tech Stack
-          </h2>
-          <p style={{ color: "#9CA3AF", fontSize: "0.95rem", lineHeight: 1.7 }}>
-            Good Life operates and seamlessly integrates with your brand’s chosen storefront platform (Shopify, WooCommerce, Magento, or Custom Web App) and logistics ecosystems—delivering operational excellence without forcing proprietary software locks.
-          </p>
-        </div>
-      </section>
-
-      {/* 8 D2C Capability Scopes */}
-      <section style={{ padding: "5rem 0" }}>
+      {/* D2C CAPABILITIES */}
+      <section style={{ padding: "5.5rem 0", background: "#FFF", borderTop: "1px solid #E2E8F0" }}>
         <div className="container">
-          <div className="section-header text-center">
-            <span className="section-tag">OPERATIONAL SCOPE</span>
-            <h2 className="section-title">End-to-End D2C Execution Pillars</h2>
+          <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
+            <span className="ptn-section-eyebrow">D2C Operational Scope</span>
+            <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>Complete D2C Operating Layer</h2>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem", marginTop: "3rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem" }}>
             {capabilities.map((cap, idx) => (
-              <div key={idx} className="glass-card-feature">
-                <div style={{ fontSize: "1.2rem", fontWeight: 800, color: "#10B981", marginBottom: "0.8rem" }}>
-                  Pillar 0{idx + 1}
-                </div>
-                <h3 style={{ fontSize: "1.15rem", fontWeight: 700, color: "#FFF", marginBottom: "0.5rem" }}>{cap.title}</h3>
-                <p style={{ color: "#9CA3AF", fontSize: "0.88rem", lineHeight: 1.6 }}>{cap.desc}</p>
+              <div key={idx} style={{ background: "#F8FAFC", border: "1.5px solid #E2E8F0", borderRadius: 16, padding: "1.6rem" }}>
+                <div style={{ fontSize: "1.1rem", fontWeight: 900, color: "#EC4899", marginBottom: "0.4rem" }}>0{idx + 1}.</div>
+                <h3 style={{ fontSize: "1rem", fontWeight: 800, color: "#0F172A", marginBottom: "0.4rem" }}>{cap.title}</h3>
+                <p style={{ fontSize: "0.85rem", color: "#64748B", lineHeight: 1.65, margin: 0 }}>{cap.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Strip */}
-      <section style={{ padding: "4rem 0", background: "radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.15) 0%, rgba(11, 15, 25, 1) 100%)", textAlign: "center" }}>
+      {/* TECH & MARKETING STATEMENT */}
+      <section style={{ padding: "4rem 0", background: "#F8FAFC", borderTop: "1px solid #E2E8F0" }}>
+        <div className="container" style={{ maxWidth: 820 }}>
+          <div style={{ background: "#FFF", border: "1.5px solid #E2E8F0", borderRadius: 20, padding: "2.2rem", boxShadow: "0 4px 16px rgba(0,0,0,0.03)" }}>
+            <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#0F172A", marginBottom: "0.8rem" }}>Technology &amp; Marketing Positioning</h3>
+            <p style={{ fontSize: "0.92rem", color: "#475569", lineHeight: 1.7, marginBottom: "1rem" }}>
+              Good Life operates and integrates with your selected D2C website platform and service providers. We do not claim a proprietary software platform.
+            </p>
+            <p style={{ fontSize: "0.88rem", color: "#64748B", lineHeight: 1.7, margin: 0, fontStyle: "italic" }}>
+              Amazon and Flipkart performance advertising is an established in-house capability. Meta ads, SEO, and social media marketing are treated as expanding capabilities managed through transparent delivery models.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* FINAL CTA */}
+      <section style={{ padding: "6rem 0", background: "linear-gradient(135deg, #0F172A 0%, #831843 50%, #EC4899 100%)", textAlign: "center" }}>
         <div className="container">
-          <h2 style={{ fontSize: "2rem", color: "#FFF", fontWeight: 800, marginBottom: "1rem" }}>
-            Streamline Your Brand's D2C Operations
-          </h2>
-          <p style={{ color: "#9CA3AF", marginBottom: "2rem", maxWidth: "600px", margin: "0 auto 2rem" }}>
-            Unify your D2C web store operations with your marketplace and pan-India warehouse network.
-          </p>
-          <button onClick={() => setDiagOpen(true)} className="hero-cta-btn">
-            Request a Commerce Diagnostic
-          </button>
+          <h2 style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 900, color: "#FFF", letterSpacing: "-1.5px", marginBottom: "1rem" }}>Ready to Optimise Your D2C Storefront?</h2>
+          <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.75)", maxWidth: 520, margin: "0 auto 2rem", lineHeight: 1.7 }}>Connect your website storefront to our 12-state WMS, order execution and revenue audit engine.</p>
+          <button onClick={() => setDiagOpen(true)} style={{ height: 54, padding: "0 2.5rem", borderRadius: 14, background: "#FFF", color: "#831843", fontWeight: 800, fontSize: "1rem", border: "none", cursor: "pointer", boxShadow: "0 8px 32px rgba(0,0,0,0.2)" }}>Discuss Your D2C Operation →</button>
         </div>
       </section>
 
       <Footer />
-
       {diagOpen && <CommerceDiagnosticModal onClose={() => setDiagOpen(false)} />}
     </div>
   );

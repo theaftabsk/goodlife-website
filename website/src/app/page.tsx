@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -9,1117 +8,1053 @@ import CommerceDiagnosticModal from "./components/CommerceDiagnosticModal";
 import "./home.css";
 
 // ═══════════════════════════════════════════════
-// COUNTER ANIMATION COMPONENT
+// ANIMATED COUNTER
 // ═══════════════════════════════════════════════
 const Counter: React.FC<{ target: string }> = ({ target }) => {
   const [value, setValue] = useState("0");
   const ref = useRef<HTMLSpanElement>(null);
-
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animate();
-            observer.disconnect();
-          }
-        });
-      },
+      (entries) => { entries.forEach((e) => { if (e.isIntersecting) { animate(); observer.disconnect(); } }); },
       { threshold: 0.25 }
     );
-
     observer.observe(el);
-
     function animate() {
-      const cleanTargetStr = target;
-      const prefix = cleanTargetStr.startsWith("₹") ? "₹" : "";
-      const hasCr = cleanTargetStr.includes("Cr");
-      const hasPlus = cleanTargetStr.includes("+");
-      const targetVal = parseFloat(cleanTargetStr.replace(/[^0-9.]/g, ""));
-
-      if (isNaN(targetVal)) {
-        setValue(cleanTargetStr);
-        return;
-      }
-
+      const prefix = target.startsWith("₹") ? "₹" : "";
+      const hasCr = target.includes("Cr");
+      const hasPlus = target.includes("+");
+      const hasPct = target.includes("%");
+      const targetVal = parseFloat(target.replace(/[^0-9.]/g, ""));
+      if (isNaN(targetVal)) { setValue(target); return; }
       const duration = 1800;
       const startTime = performance.now();
-
       function tick(now: number) {
         const elapsed = now - startTime;
         const progress = Math.min(elapsed / duration, 1);
         const ease = 1 - Math.pow(1 - progress, 3);
-        const current = Math.floor(ease * targetVal);
-
-        setValue(
-          prefix +
-            current.toLocaleString("en-IN") +
-            (hasCr ? " Cr" : "") +
-            (hasPlus ? "+" : "")
-        );
-
-        if (progress < 1) {
-          requestAnimationFrame(tick);
-        } else {
-          setValue(cleanTargetStr);
-        }
+        const current = hasPct ? (ease * targetVal).toFixed(1) : Math.floor(ease * targetVal).toLocaleString("en-IN");
+        setValue(prefix + current + (hasCr ? " Cr" : "") + (hasPlus ? "+" : "") + (hasPct ? "%" : ""));
+        if (progress < 1) requestAnimationFrame(tick);
+        else setValue(target);
       }
       requestAnimationFrame(tick);
     }
-
     return () => observer.disconnect();
   }, [target]);
-
   return <span ref={ref}>{value}</span>;
 };
 
 // ═══════════════════════════════════════════════
-// MAIN PAGE COMPONENT
+// SAVINGS CALCULATOR (REVENUE ASSURANCE VISUAL)
 // ═══════════════════════════════════════════════
-export default function Home() {
+const SavingsCalculator: React.FC<{ onOpenDiag: () => void }> = ({ onOpenDiag }) => {
+  const [orders, setOrders] = useState(5000);
+  const [aov, setAov] = useState(1200);
+  const leakage = Math.round(orders * aov * 0.023);
+  const timeSaved = Math.round(orders * 0.0012 * 60);
+  const disputeRecovery = Math.round(orders * aov * 0.008);
+  const fmt = (n: number) => "₹" + n.toLocaleString("en-IN");
+
+  return (
+    <section className="calc-section" id="revenue-assurance">
+      <div className="container">
+        <div className="calc-wrapper">
+          <div className="calc-left">
+            <span className="ptn-section-eyebrow">Revenue Assurance Engine</span>
+            <h2 className="ptn-section-title" style={{ marginTop: "0.5rem" }}>Automated Settlement &amp; Claims Audit Engine</h2>
+            <p style={{ color: "#64748B", fontSize: "0.97rem", lineHeight: 1.7, marginBottom: "2rem" }}>
+              Daily automated reconciliation audits across marketplace commissions, weight disputes, return claims and payment gateway settlements.
+            </p>
+            <div className="calc-slider-group">
+              <div className="calc-slider-label">
+                <span>Monthly Orders</span>
+                <strong>{orders.toLocaleString("en-IN")}</strong>
+              </div>
+              <input type="range" min={500} max={50000} step={500} value={orders} onChange={(e) => setOrders(Number(e.target.value))} className="calc-slider" />
+              <div className="calc-slider-ticks"><span>500</span><span>25,000</span><span>50,000</span></div>
+            </div>
+            <div className="calc-slider-group" style={{ marginTop: "1.5rem" }}>
+              <div className="calc-slider-label">
+                <span>Avg. Order Value (₹)</span>
+                <strong>₹{aov.toLocaleString("en-IN")}</strong>
+              </div>
+              <input type="range" min={200} max={10000} step={100} value={aov} onChange={(e) => setAov(Number(e.target.value))} className="calc-slider" />
+              <div className="calc-slider-ticks"><span>₹200</span><span>₹5,000</span><span>₹10,000</span></div>
+            </div>
+            <button onClick={onOpenDiag} className="btn-primary-hero" style={{ marginTop: "2rem", width: "100%", justifyContent: "center" }}>
+              Claim Your Free Diagnostic Report →
+            </button>
+          </div>
+          <div className="calc-right">
+            <div className="calc-result-card calc-result-main">
+              <div className="calc-result-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/><path d="M16 8a4 4 0 0 0-8 0v4"/></svg>
+              </div>
+              <div className="calc-result-label">Fee Leakage Recovered / Month</div>
+              <div className="calc-result-value">{fmt(leakage)}</div>
+              <div className="calc-result-sub">Platform commissions, weight disputes &amp; return claims</div>
+            </div>
+            <div className="calc-small-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+              <div className="calc-result-card">
+                <div className="calc-result-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </div>
+                <div className="calc-result-label">Settlement Time Saved</div>
+                <div className="calc-result-value" style={{ fontSize: "1.8rem" }}>{timeSaved} hrs</div>
+                <div className="calc-result-sub">Auto-reconciled disputes</div>
+              </div>
+              <div className="calc-result-card">
+                <div className="calc-result-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+                </div>
+                <div className="calc-result-label">Dispute Recovery</div>
+                <div className="calc-result-value" style={{ fontSize: "1.8rem" }}>{fmt(disputeRecovery)}</div>
+                <div className="calc-result-sub">Return claim &amp; COD mismatch</div>
+              </div>
+            </div>
+            <div className="calc-badge">
+              <div className="calc-badge-dot" />
+              100% automated settlement reconciliation across active commerce platforms.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ═══════════════════════════════════════════════
+// FULFILMENT NETWORK & WAREHOUSE HUBS
+// ═══════════════════════════════════════════════
+const hubs = [
+  { city: "Gurgaon", state: "Haryana", area: "22,000 sq ft", sla: "Same Day", coverage: "Delhi NCR + North", fba: true, fa: true },
+  { city: "Mumbai", state: "Maharashtra", area: "18,500 sq ft", sla: "Next Day", coverage: "West India", fba: true, fa: false },
+  { city: "Bengaluru", state: "Karnataka", area: "16,000 sq ft", sla: "Next Day", coverage: "South India", fba: false, fa: true },
+  { city: "Hyderabad", state: "Telangana", area: "12,000 sq ft", sla: "Next Day", coverage: "South India", fba: false, fa: false },
+  { city: "Chennai", state: "Tamil Nadu", area: "11,000 sq ft", sla: "Next Day", coverage: "South India", fba: false, fa: false },
+  { city: "Kolkata", state: "West Bengal", area: "10,500 sq ft", sla: "Next Day", coverage: "East India", fba: true, fa: false },
+  { city: "Ahmedabad", state: "Gujarat", area: "9,500 sq ft", sla: "Next Day", coverage: "West India", fba: false, fa: false },
+  { city: "Lucknow", state: "Uttar Pradesh", area: "8,000 sq ft", sla: "Next Day", coverage: "Central UP + East", fba: false, fa: false },
+  { city: "Patna", state: "Bihar", area: "7,000 sq ft", sla: "Next Day", coverage: "Bihar + Jharkhand", fba: false, fa: false },
+  { city: "Indore", state: "Madhya Pradesh", area: "6,500 sq ft", sla: "Next Day", coverage: "Central India", fba: false, fa: false },
+  { city: "Ludhiana", state: "Punjab", area: "6,000 sq ft", sla: "Next Day", coverage: "Punjab + J&K", fba: false, fa: false },
+  { city: "Guwahati", state: "Assam", area: "5,500 sq ft", sla: "Next Day", coverage: "North East India", fba: false, fa: false },
+];
+
+const WarehouseHubs: React.FC = () => {
+  const [activeHub, setActiveHub] = useState(0);
+  const hub = hubs[activeHub];
+  const [barWidth, setBarWidth] = useState("0%");
+  useEffect(() => { setTimeout(() => setBarWidth("98.2%"), 400); }, [activeHub]);
+
+  return (
+    <section className="warehouse-section" id="fulfilment-network">
+      <div className="container">
+        <div style={{ textAlign: "center", marginBottom: "0.5rem" }}>
+          <span className="ptn-section-eyebrow">Pan-India fulfilment network</span>
+          <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>12-State Warehouse Infrastructure</h2>
+          <p className="ptn-section-subtitle" style={{ marginTop: "0.4rem" }}>1,00,000+ sq ft of managed fulfilment space across India&apos;s key commerce corridors.</p>
+        </div>
+        <div className="warehouse-layout">
+          <div className="warehouse-grid">
+            {hubs.map((h, idx) => (
+              <button key={idx} className={`warehouse-hub-btn ${activeHub === idx ? "active" : ""}`} onClick={() => setActiveHub(idx)}>
+                <span className="hub-city">{h.city}</span>
+                <span className="hub-state">{h.state}</span>
+                <div>
+                  {h.fba && <span className="hub-badge hub-badge-fba">FBA</span>}
+                  {h.fa && <span className="hub-badge hub-badge-fa">FA</span>}
+                </div>
+              </button>
+            ))}
+          </div>
+          <div className="warehouse-detail">
+            <div className="warehouse-detail-header">
+              <div>
+                <h3 className="warehouse-city-name">{hub.city}</h3>
+                <p className="warehouse-state-name">{hub.state}</p>
+              </div>
+              <div style={{ display: "flex", gap: "0.5rem" }}>
+                {hub.fba && <span className="hub-badge-lg hub-badge-fba">FBA Enabled</span>}
+                {hub.fa && <span className="hub-badge-lg hub-badge-fa">FAssured</span>}
+              </div>
+            </div>
+            <div className="warehouse-metrics">
+              {[
+                { label: "Warehouse Area", value: hub.area, icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>) },
+                { label: "Dispatch SLA", value: hub.sla, icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>) },
+                { label: "Coverage Zone", value: hub.coverage, icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>) },
+              ].map((m, i) => (
+                <div key={i} className="warehouse-metric">
+                  <span className="warehouse-metric-icon">{m.icon}</span>
+                  <div>
+                    <div className="warehouse-metric-label">{m.label}</div>
+                    <div className="warehouse-metric-value">{m.value}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div>
+              <div className="warehouse-sla-bar-label">Fill Rate SLA Performance</div>
+              <div className="warehouse-sla-bar-track">
+                <div className="warehouse-sla-bar-fill" style={{ width: barWidth }} />
+              </div>
+              <div className="warehouse-sla-bar-pct">98.2% average across all hubs</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ═══════════════════════════════════════════════
+// COMPARISON MATRIX (ACCOUNTABILITY PROBLEM)
+// ═══════════════════════════════════════════════
+const ComparisonMatrix: React.FC<{ onOpenDiag: () => void }> = ({ onOpenDiag }) => {
+  const rows = [
+    {
+      area: "Settlement Reconciliation",
+      bad: "Manual, monthly, error-prone",
+      good: "Daily automated audit — 100% coverage",
+      color: "#2563EB",
+      bg: "#EFF6FF",
+      icon: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+        </svg>
+      ),
+    },
+    {
+      area: "Return Dispute Resolution",
+      bad: "Chased individually, 2–4 weeks",
+      good: "Auto-flagged & resolved within 48 hrs",
+      color: "#7C3AED",
+      bg: "#F5F3FF",
+      icon: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+          <path d="M21 3v5h-5"/>
+          <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+          <path d="M8 16H3v5"/>
+        </svg>
+      ),
+    },
+    {
+      area: "Multi-Channel Inventory",
+      bad: "Spreadsheets & manual syncs",
+      good: "Live WMS sync across 12 hubs",
+      color: "#0D9488",
+      bg: "#F0FDFA",
+      icon: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+          <line x1="12" y1="22.08" x2="12" y2="12"/>
+        </svg>
+      ),
+    },
+    {
+      area: "Marketplace Ads Management",
+      bad: "Outsourced or neglected",
+      good: "In-house Amazon & Flipkart campaign ops",
+      color: "#EA580C",
+      bg: "#FFF7ED",
+      icon: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+          <polyline points="17 6 23 6 23 12"/>
+        </svg>
+      ),
+    },
+    {
+      area: "D2C + Marketplace Ops",
+      bad: "Separate teams, siloed data",
+      good: "Unified view under one operating model",
+      color: "#0284C7",
+      bg: "#F0F9FF",
+      icon: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+        </svg>
+      ),
+    },
+    {
+      area: "B2B & Institutional Orders",
+      bad: "Ad hoc, no structured workflow",
+      good: "Defined process from enquiry to reconciliation",
+      color: "#475569",
+      bg: "#F8FAFC",
+      icon: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+        </svg>
+      ),
+    },
+    {
+      area: "Fill Rate SLA",
+      bad: "Below 92% typical",
+      good: "98.2% across all active hubs",
+      color: "#059669",
+      bg: "#F0FDF4",
+      icon: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+      ),
+    },
+    {
+      area: "Brand Launch Support",
+      bad: "Agency-led, disconnected ops",
+      good: "Integrated OEM-to-brand mandate",
+      color: "#DB2777",
+      bg: "#FDF2F8",
+      icon: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+          <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+        </svg>
+      ),
+    },
+  ];
+
+  return (
+    <section className="compare-section" id="accountability-problem" style={{ background: "linear-gradient(180deg, #F8FAFC 0%, #EFF6FF 100%)", padding: "5rem 0", borderTop: "1px solid #E2E8F0" }}>
+      <div className="container">
+        {/* Header */}
+        <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+          <span className="ptn-section-eyebrow" style={{ color: "#2563EB" }}>The Accountability Problem Solved</span>
+          <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>Why Brands Switch to Good Life</h2>
+          <p className="ptn-section-subtitle" style={{ marginTop: "0.4rem" }}>One integrated Commerce Operating Partner replaces multiple fragmented agencies.</p>
+        </div>
+
+        {/* Column Headers */}
+        <div className="compare-col-headers">
+          <div className="compare-col-hdr-area" />
+          <div className="compare-col-hdr compare-hdr-bad">
+            <span style={{ width: 28, height: 28, borderRadius: "50%", background: "#FEE2E2", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "0.35rem" }}>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#DC2626" strokeWidth="3" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </span>
+            <span>Fragmented Agencies / In-House</span>
+          </div>
+          <div className="compare-col-hdr compare-hdr-good">
+            <span style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(255,255,255,0.18)", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "0.35rem" }}>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <span>Good Life Operating Model</span>
+          </div>
+        </div>
+
+        {/* Rows */}
+        <div className="compare-cards-grid">
+          {rows.map((row, idx) => (
+            <div key={idx} className="compare-card-row">
+              {/* Area Label */}
+              <div className="compare-card-area">
+                <span className="compare-area-icon" style={{ background: row.bg, color: row.color }}>
+                  {row.icon}
+                </span>
+                <span className="compare-area-label">{row.area}</span>
+              </div>
+              {/* Bad Column */}
+              <div className="compare-card-bad">
+                <span className="compare-badge-bad">
+                  <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#DC2626" strokeWidth="3.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </span>
+                <span className="compare-card-text">{row.bad}</span>
+              </div>
+              {/* Good Column */}
+              <div className="compare-card-good">
+                <span className="compare-badge-good">
+                  <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <span className="compare-card-text">{row.good}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ textAlign: "center", marginTop: "3rem" }}>
+          <button onClick={onOpenDiag} className="btn-primary-hero" style={{ height: 50, padding: "0 2rem", fontSize: "0.95rem" }}>
+            Request a Free Commerce Audit →
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+
+// ═══════════════════════════════════════════════
+// STICKY BAR
+// ═══════════════════════════════════════════════
+const StickyBar: React.FC<{ onOpenDiag: () => void }> = ({ onOpenDiag }) => {
+  const [visible, setVisible] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => { if (!dismissed) setVisible(window.scrollY > 600); };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [dismissed]);
+  return (
+    <div className={`sticky-bar ${visible && !dismissed ? "sticky-bar-visible" : ""}`}>
+      <div className="sticky-bar-inner">
+        <div className="sticky-bar-dot" />
+        <p className="sticky-bar-text"><strong>Ready to find your fee leaks?</strong> Get a complimentary Commerce Diagnostic — no obligation.</p>
+        <button onClick={onOpenDiag} className="sticky-bar-btn">Request Diagnostic →</button>
+        <button onClick={() => { setDismissed(true); setVisible(false); }} className="sticky-bar-close">✕</button>
+      </div>
+    </div>
+  );
+};
+
+// ═══════════════════════════════════════════════
+// MAIN HOME PAGE COMPONENT
+// ═══════════════════════════════════════════════
+export default function HomePage() {
   const [diagOpen, setDiagOpen] = useState(false);
   const [videoOpen, setVideoOpen] = useState(false);
 
-  // Hero & Console Tilt Parallax
-  const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const hero = e.currentTarget;
-    const rect = hero.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-
-    const rotateX = -(y / rect.height) * 12;
-    const rotateY = (x / rect.width) * 12;
-    setTilt({ rx: rotateX, ry: rotateY });
-  };
-  const handleMouseLeave = () => {
-    setTilt({ rx: 0, ry: 0 });
-  };
-
-  // Word Cycle Rotate Animation
-  const words = [
-    "Marketplaces",
-    "D2C Store",
-    "B2B Channels",
-    "Institutional Orders",
-    "Dealer Supply",
-  ];
+  // Typewriter words
+  const words = ["Marketplaces", "D2C Stores", "B2B Channels", "Institutional Orders", "Multi-Platform Growth"];
   const [wordIdx, setWordIdx] = useState(0);
   const [transitionClass, setTransitionClass] = useState("");
-
   useEffect(() => {
     const interval = setInterval(() => {
       setTransitionClass("exit");
-
       setTimeout(() => {
         setWordIdx((prev) => (prev + 1) % words.length);
         setTransitionClass("enter");
-
-        setTimeout(() => {
-          setTransitionClass("");
-        }, 50);
-      }, 400);
+        setTimeout(() => setTransitionClass(""), 50);
+      }, 380);
     }, 3200);
-
     return () => clearInterval(interval);
   }, [words.length]);
 
-  // Simulated live Today's Orders count
-  const [ordersCount, setOrdersCount] = useState(12847);
-  const [flashOrders, setFlashOrders] = useState(false);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const inc = Math.floor(Math.random() * 3) + 1;
-      setOrdersCount((prev) => prev + inc);
-      setFlashOrders(true);
-      const t = setTimeout(() => setFlashOrders(false), 600);
-      return () => clearTimeout(t);
-    }, 2200);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Live settlement log feed ticker
-  const [heroLogs, setHeroLogs] = useState<string[]>([
-    "AMZ Payout sync: Reconciled +₹1,24,500",
-    "FK return validation: 12 items verified",
-    "JioMart order feed: Synced activeSKUs",
-    "Moglix B2B ledger check: Match success",
-  ]);
-
-  useEffect(() => {
-    const logPool = [
-      "AMZ payout matches ledger: 100% synced",
-      "FK weight match: Corrected 2 disputes",
-      "JioMart price sync: Updated 18 items",
-      "Moglix inventory log: Pushed stock count",
-      "GLS engine: Recovered ₹24,800 chargeback",
-      "D2C warehouse check: 42 inbound items verified",
-      "Nykaa fulfillment: Shifted 100 items to Gurgaon",
-      "Myntra Ad bidding: Adjusted campaigns +8%",
-    ];
-    const interval = setInterval(() => {
-      setHeroLogs((prev) => {
-        const temp = [...prev.slice(1)];
-        const rawLog = logPool[Math.floor(Math.random() * logPool.length)];
-        const time = new Date().toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-        });
-        temp.push(`[${time}] ${rawLog}`);
-        return temp;
-      });
-    }, 2400);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Timeline Connector Animation
+  // Timeline observer
   const [isTimelineLit, setIsTimelineLit] = useState(false);
   const timelineRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const el = timelineRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsTimelineLit(true);
-            observer.disconnect();
-          }
-        });
-      },
+      (entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { setIsTimelineLit(true); observer.disconnect(); } }); },
       { threshold: 0.3 }
     );
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
-  // Testimonials Auto-Slider data & state
+  // Section 12: Case Studies / Testimonials (3 approved stories)
   const testimonials = [
-    {
-      quote:
-        "Good Life transitioned our entire marketplace model. Their finance reconciliation caught leaks we didn't know existed, and our sales grew 2.5x in under a year.",
-      author: "Founder & CEO",
-      role: "National Kitchen Appliance Brand",
-      initial: "N",
-    },
-    {
-      quote:
-        "We scaled from 1 to 12 states overnight. Good Life WMS is rock solid—our dispatch turnaround is consistently under 4 hours.",
-      author: "Operations Director",
-      role: "Leading Cosmetics Brand",
-      initial: "C",
-    },
-    {
-      quote:
-        "Daily payment disputes were eating up our margins. Good Life automated audits resolved 98% of return variances instantly.",
-      author: "Head of E-commerce",
-      role: "Premier Wellness Partner",
-      initial: "W",
-    },
+    { quote: "Good Life transitioned our entire marketplace model. Their finance reconciliation caught fee leaks we didn't know existed, and our sales grew 2.5x in under a year.", author: "Founder & CEO", role: "National Kitchen Appliance Brand", initial: "N", color: "#2563EB" },
+    { quote: "We scaled from 1 to 12 states overnight. Good Life WMS is rock solid — our dispatch SLA turnaround is consistently under 4 hours.", author: "Operations Director", role: "Leading Consumer Goods Brand", initial: "C", color: "#7C3AED" },
+    { quote: "Daily payment disputes were eating up our margins. Good Life automated audits resolved 98% of return variances instantly.", author: "Head of E-commerce", role: "Premier Wellness Partner", initial: "W", color: "#059669" },
   ];
   const [activeSlide, setActiveSlide] = useState(0);
   useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % testimonials.length);
-    }, 6000);
+    const timer = setInterval(() => setActiveSlide((prev) => (prev + 1) % testimonials.length), 6000);
     return () => clearInterval(timer);
   }, [testimonials.length]);
 
-  // Acceleration Accordion State
-  const [activeAcc, setActiveAcc] = useState<number>(0);
-
-  // FAQ Accordion State
+  const [activeAccStep, setActiveAccStep] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const toggleFaq = (idx: number) => {
-    setOpenFaq(openFaq === idx ? null : idx);
-  };
+  const toggleFaq = (idx: number) => setOpenFaq(openFaq === idx ? null : idx);
 
+  // Section 15: Schema-Enabled FAQ Data
   const homeFaqs = [
-    {
-      q: "What makes Good Life different from a traditional e-commerce agency?",
-      a: "Unlike simple marketing agencies or shipping companies, Good Life is an integrated Commerce Operating Partner. We take full accountability for catalog listings, inventory planning, multi-state warehousing, performance ads, settlement reconciliation, and multi-channel order dispatch.",
-    },
-    {
-      q: "How does your finance reconciliation service work?",
-      a: "We perform daily automated reconciliation audits on commissions, shipping charges, cash-on-delivery payments, returns, and payment gateways. We identify listing fee leaks and disputable platform returns, recovering money that typically goes unnoticed.",
-    },
-    {
-      q: "Where are your warehouses located?",
-      a: "We operate 12 warehousing locations across Gurgaon, Patna, Mumbai, Ahmedabad, Hyderabad, Guwahati, Bengaluru, Lucknow, Chennai, Indore, Kolkata, and Ludhiana, along with dedicated FBA/FA hubs in Jaipur and Coimbatore.",
-    },
-    {
-      q: "Can Good Life help an OEM manufacturer launch a direct consumer brand?",
-      a: "Yes! Through our Brand Incubation mandate, we have launched 5 new consumer brands over the last 3 years created by companies that previously operated primarily as OEMs.",
-    },
-    {
-      q: "Do you support retail customers looking for water purifiers?",
-      a: "Yes! While we power marketplace growth for national brands, we also directly manage and sell our legacy household water purifiers (RO systems, softeners, air purifiers) originally launched in 2005. You can visit our dedicated water solutions page to learn more.",
-    },
+    { q: "What makes Good Life different from a traditional e-commerce agency?", a: "Good Life is an integrated Commerce Operating Partner, not an agency. We take full accountability for catalogue listings, inventory planning, multi-state warehousing, performance ads, settlement reconciliation, D2C operations, B2B/institutional execution and multi-channel order dispatch—under one operating model." },
+    { q: "Does Good Life support multi-platform marketplace launch?", a: "Yes. Good Life helps brands evaluate, onboard and operate across multiple leading and relevant platforms—including Amazon, Flipkart, Myntra, Moglix, JioMart, Snapmint, Bajaj and other approved channels." },
+    { q: "Can Good Life help an OEM manufacturer launch a consumer brand?", a: "Yes. Good Life has supported the ecommerce launch of new brands created by companies that previously operated primarily as OEMs. Our Brand Incubation mandate covers opportunity assessment, catalogue, marketplace setup, inventory, fulfilment and performance marketing." },
+    { q: "Can Good Life manage D2C and marketplace operations together?", a: "Yes. Good Life can manage the operational layer for both marketplace and D2C channels together — including catalogue, order flow, inventory synchronisation, fulfilment, returns and performance reporting — providing a unified view across channels." },
+    { q: "How does your finance reconciliation service work?", a: "We perform daily automated reconciliation audits on commissions, shipping charges, COD payments, returns, and payment gateways across marketplace and D2C channels. We identify listing fee leaks and disputable platform returns, recovering money that typically goes unnoticed." },
+    { q: "Can Good Life fulfil bulk and institutional orders?", a: "Good Life can support brands in fulfilling bulk and institutional orders through its regional warehouse network. This includes B2B platform enquiries (IndiaMART, TradeIndia, Moglix, JioMart B2B), quotation coordination, dispatch and reconciliation." },
+    { q: "Where are your warehouses located?", a: "We operate 12 warehousing locations across Gurgaon, Patna, Mumbai, Ahmedabad, Hyderabad, Guwahati, Bengaluru, Lucknow, Chennai, Indore, Kolkata, and Ludhiana, with FBA/FA hubs in select cities." },
   ];
 
-  // Client portfolio logos (Grayscale style like GrowthPartners)
   const portfolioLogos = [
-    "THORNE",
-    "PURA",
-    "HIMS",
-    "GAIA HERBS",
-    "SPANX",
-    "PANASONIC",
-    "MAMAEARTH",
-    "boAt",
-    "GOLF PRIDE",
-    "GRAPHY",
-    "IRON LADY",
-    "COOKD",
+    {
+      name: "Wellness Co",
+      svg: (
+        <svg viewBox="0 0 140 30" width="140" height="30" fill="none" style={{ opacity: 0.75, display: "inline-block", verticalAlign: "middle" }}>
+          <circle cx="15" cy="15" r="8" stroke="#059669" strokeWidth="2.5" fill="none" />
+          <path d="M12 15 h6 M15 12 v6" stroke="#059669" strokeWidth="2" />
+          <text x="30" y="19" fontFamily="Outfit, sans-serif" fontWeight="800" fontSize="11" letterSpacing="1px" fill="#475569">WELLNESS CO</text>
+        </svg>
+      )
+    },
+    {
+      name: "KitchenWare",
+      svg: (
+        <svg viewBox="0 0 140 30" width="140" height="30" fill="none" style={{ opacity: 0.75, display: "inline-block", verticalAlign: "middle" }}>
+          <path d="M6 10 h18 v4 a4 4 0 0 1 -4 4 h-10 a4 4 0 0 1 -4 -4 z" fill="#D97706" />
+          <path d="M15 18 v5" stroke="#D97706" strokeWidth="2.5" />
+          <text x="30" y="19" fontFamily="Outfit, sans-serif" fontWeight="800" fontSize="11" letterSpacing="1px" fill="#475569">KITCHENWARE</text>
+        </svg>
+      )
+    },
+    {
+      name: "Apex Gears",
+      svg: (
+        <svg viewBox="0 0 140 30" width="140" height="30" fill="none" style={{ opacity: 0.75, display: "inline-block", verticalAlign: "middle" }}>
+          <circle cx="15" cy="15" r="7" stroke="#2563EB" strokeWidth="2.5" />
+          <circle cx="15" cy="15" r="2.5" fill="#2563EB" />
+          <text x="30" y="19" fontFamily="Outfit, sans-serif" fontWeight="800" fontSize="11" letterSpacing="1px" fill="#475569">APEX GEARS</text>
+        </svg>
+      )
+    },
+    {
+      name: "Cosmetics Pro",
+      svg: (
+        <svg viewBox="0 0 140 30" width="140" height="30" fill="none" style={{ opacity: 0.75, display: "inline-block", verticalAlign: "middle" }}>
+          <rect x="7" y="7" width="16" height="16" rx="3" stroke="#DB2777" strokeWidth="2.5" />
+          <circle cx="15" cy="15" r="3.5" stroke="#DB2777" strokeWidth="2" />
+          <text x="30" y="19" fontFamily="Outfit, sans-serif" fontWeight="800" fontSize="11" letterSpacing="1px" fill="#475569">COSMETICS PRO</text>
+        </svg>
+      )
+    },
+    {
+      name: "Electro Tech",
+      svg: (
+        <svg viewBox="0 0 140 30" width="140" height="30" fill="none" style={{ opacity: 0.75, display: "inline-block", verticalAlign: "middle" }}>
+          <rect x="6" y="8" width="18" height="12" rx="2" stroke="#4F46E5" strokeWidth="2.5" />
+          <path d="M10 20 l-2 4 M20 20 l2 4" stroke="#4F46E5" strokeWidth="2" />
+          <text x="30" y="19" fontFamily="Outfit, sans-serif" fontWeight="800" fontSize="11" letterSpacing="1px" fill="#475569">ELECTRO TECH</text>
+        </svg>
+      )
+    },
+    {
+      name: "Industrial Mfg",
+      svg: (
+        <svg viewBox="0 0 140 30" width="140" height="30" fill="none" style={{ opacity: 0.75, display: "inline-block", verticalAlign: "middle" }}>
+          <polygon points="15,6 23,11 23,21 15,26 7,21 7,11" stroke="#475569" strokeWidth="2.5" fill="none" />
+          <text x="30" y="19" fontFamily="Outfit, sans-serif" fontWeight="800" fontSize="11" letterSpacing="1px" fill="#475569">INDUS MFG</text>
+        </svg>
+      )
+    }
   ];
 
-  // Eshopbox-style channel integrations list
-  const channelIntegrations = [
-    { name: "Shopify", color: "#96BF48", icon: "🛍️" },
-    { name: "WooCommerce", color: "#96588A", icon: "📦" },
-    { name: "Amazon", color: "#FF9900", icon: "a" },
-    { name: "Flipkart", color: "#2874F0", icon: "f" },
-    { name: "Blinkit", color: "#F7C325", icon: "⚡" },
-    { name: "Myntra", color: "#E42B78", icon: "M" },
-    { name: "JioMart", color: "#0A85EA", icon: "J" },
-    { name: "Moglix", color: "#E31E24", icon: "m" },
-    { name: "Zepto", color: "#8E24AA", icon: "z" },
-    { name: "Meesho", color: "#5F259F", icon: "m" },
-    { name: "35+ Channels", color: "#0F172A", icon: "+" },
+  // Approved Platform Vector SVGs
+  const channelSVGs: { name: string; bg: string; svg: React.ReactNode }[] = [
+    {
+      name: "Amazon",
+      bg: "#232F3E",
+      svg: (
+        <svg viewBox="0 0 100 32" width="48" height="20" fill="none">
+          <text x="0" y="20" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="18" fill="#FFFFFF">amazon</text>
+          <path d="M12 23 Q36 31 60 22" stroke="#FF9900" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+          <path d="M56 19 L62 22 L57 26 Z" fill="#FF9900" />
+        </svg>
+      ),
+    },
+    {
+      name: "Flipkart",
+      bg: "#2874F0",
+      svg: (
+        <svg viewBox="0 0 100 32" width="48" height="20" fill="none">
+          <rect x="2" y="4" width="20" height="24" rx="4" fill="#FFE500" />
+          <path d="M13 8 H8 V24 H12 V18 H15 V14 H12 V11 H16 V8 Z" fill="#2874F0" />
+          <text x="26" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="16" fill="#FFFFFF">flipkart</text>
+        </svg>
+      ),
+    },
+    {
+      name: "Myntra",
+      bg: "#18181B",
+      svg: (
+        <svg viewBox="0 0 100 32" width="48" height="20" fill="none">
+          <path d="M2 24 L7 8 L12 18 L17 8 L22 24" stroke="#FF3F6C" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <path d="M7 8 L12 18 L17 8" stroke="#F59E0B" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <text x="26" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="15" fill="#FFFFFF">myntra</text>
+        </svg>
+      ),
+    },
+    {
+      name: "Moglix",
+      bg: "#E8192C",
+      svg: (
+        <svg viewBox="0 0 100 32" width="48" height="20" fill="none">
+          <rect x="2" y="6" width="20" height="20" rx="4" fill="#FFFFFF" />
+          <path d="M6 21 V11 L10 16 L14 11 V21" stroke="#E8192C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <text x="26" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="16" fill="#FFFFFF">moglix</text>
+        </svg>
+      ),
+    },
+    {
+      name: "JioMart",
+      bg: "#0066CC",
+      svg: (
+        <svg viewBox="0 0 100 32" width="48" height="20" fill="none">
+          <circle cx="12" cy="16" r="10" fill="#0088FF" />
+          <text x="7" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="13" fill="#FFFFFF">Jio</text>
+          <text x="26" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="15" fill="#FFFFFF">Mart</text>
+        </svg>
+      ),
+    },
+    {
+      name: "Snapmint",
+      bg: "#00B09B",
+      svg: (
+        <svg viewBox="0 0 100 32" width="50" height="20" fill="none">
+          <polygon points="4,22 10,8 16,22" fill="#FFFFFF" />
+          <text x="20" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="15" fill="#FFFFFF">snapmint</text>
+        </svg>
+      ),
+    },
+    {
+      name: "Bajaj",
+      bg: "#003087",
+      svg: (
+        <svg viewBox="0 0 90 32" width="46" height="20" fill="none">
+          <path d="M4 8 H16 L8 16 L16 24 H4 Z" fill="#38BDF8" />
+          <text x="22" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="16" fill="#FFFFFF">BAJAJ</text>
+        </svg>
+      ),
+    },
+    {
+      name: "IB (IndiaMART B2B)",
+      bg: "#E8711A",
+      svg: (
+        <svg viewBox="0 0 80 32" width="44" height="20" fill="none">
+          <rect x="2" y="4" width="22" height="24" rx="5" fill="#FFFFFF" />
+          <text x="6" y="22" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="16" fill="#E8711A">IB</text>
+          <text x="30" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="14" fill="#FFFFFF">B2B</text>
+        </svg>
+      ),
+    },
+    {
+      name: "8+ More Platforms",
+      bg: "#0F172A",
+      svg: (
+        <svg viewBox="0 0 90 32" width="48" height="20" fill="none">
+          <circle cx="14" cy="16" r="10" fill="#2563EB" />
+          <text x="8" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="12" fill="#FFFFFF">8+</text>
+          <text x="28" y="21" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="14" fill="#FFFFFF">More</text>
+        </svg>
+      ),
+    },
+  ];
+
+  // Section 7: Ten Capabilities (Links into each capability page)
+  const capabilities = [
+    { title: "Marketplace Operations", desc: "Cataloguing, listing optimisation, buy box protection and daily account management across core channels.", href: "/capabilities/marketplace-operations", color: "#2563EB", g: "ptn-card-graphic-1", icon: <><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></> },
+    { title: "Marketplace Growth", desc: "Established Amazon & Flipkart performance ad campaigns—keyword targeting, budget pacing and conversions.", href: "/capabilities/marketplace-growth", color: "#0284C7", g: "ptn-card-graphic-2", icon: <><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></> },
+    { title: "Multi-Platform Commerce", desc: "Onboard and operate across core marketplaces, fashion channels, B2B platforms and assisted purchase networks.", href: "/multi-platform-commerce", color: "#0D9488", g: "ptn-card-graphic-3", icon: <><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></> },
+    { title: "D2C Operations", desc: "End-to-end storefront operations, catalogue synchronisation, order flows, payment/COD reconciliation and return coordination.", href: "/d2c-commerce-operations", color: "#EC4899", g: "ptn-card-graphic-4", icon: <><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M21 12H3M12 3v18"/></> },
+    { title: "B2B & Institutional", desc: "Bulk enquiries, corporate orders, GST invoicing, B2B platform listings and warehouse-supported dealer supply.", href: "/b2b-institutional-commerce", color: "#7C3AED", g: "ptn-card-graphic-1", icon: <><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></> },
+    { title: "Inventory Planning", desc: "Multi-channel allocation across marketplace, D2C, B2B/institutional and dealer supplies with buffer management.", href: "/capabilities/inventory-planning", color: "#2563EB", g: "ptn-card-graphic-2", icon: <><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/></> },
+    { title: "Fulfilment & Warehousing", desc: "1,00,000+ sq ft across 12 state hubs with FBA/FAssured SLA compliance and regional CNF supply support.", href: "/capabilities/warehousing-fulfilment", color: "#4F46E5", g: "ptn-card-graphic-3", icon: <><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></> },
+    { title: "Revenue Assurance", desc: "Daily automated settlement audits, weight dispute recovery and return claim reconciliation across all platforms.", href: "/capabilities/revenue-assurance", color: "#059669", g: "ptn-card-graphic-4", icon: <><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></> },
+    { title: "Returns Management", desc: "RTO reduction, reverse logistics QC, exception tracking and return reconciliation across marketplace and D2C.", href: "/capabilities/returns-operations", color: "#F59E0B", g: "ptn-card-graphic-1", icon: <><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></> },
+    { title: "Heavy & Bulky", desc: "Specialised freight handling, transit damage protection, custom crating and coordinated last-mile delivery.", href: "/specialised/heavy-bulky-commerce", color: "#0F172A", g: "ptn-card-graphic-2", icon: <><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></> },
+  ];
+
+  // Section 14: Insights (CMS Articles preview)
+  const insights = [
+    { title: "How Daily Settlement Audits Recover 2-3% Leaked GMV for Marketplace Brands", category: "Revenue Assurance", date: "July 2026", readTime: "5 min read", link: "/insights" },
+    { title: "Multi-State Warehousing Strategy: Reducing Order SLA & Regional Freight Costs", category: "Fulfilment", date: "June 2026", readTime: "7 min read", link: "/insights" },
+    { title: "From OEM Manufacturer to Consumer Brand: A 6-Step Ecommerce Launch Playbook", category: "Brand Launch", date: "May 2026", readTime: "6 min read", link: "/insights" },
   ];
 
   return (
     <div style={{ background: "#FFFFFF", color: "#0F172A", minHeight: "100vh" }}>
+      
+      {/* ── SECTION 1: HEADER (Sticky navigation + CTA always visible) ── */}
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
-      {/* ── HERO SECTION (GrowthPartners & Eshopbox Combined Design System) ── */}
-      <section
-        id="hero-home"
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        style={{
-          paddingTop: "140px",
-          paddingBottom: "4rem",
-          background: "radial-gradient(ellipse at 50% -10%, rgba(219, 234, 254, 0.7) 0%, rgba(237, 233, 254, 0.4) 45%, rgba(255, 255, 255, 1) 85%)",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        {/* Soft background ambient blur orbs */}
-        <div
-          style={{
-            position: "absolute",
-            top: "-120px",
-            left: "-100px",
-            width: "500px",
-            height: "500px",
-            borderRadius: "50%",
-            background: "rgba(37, 99, 235, 0.12)",
-            filter: "blur(90px)",
-            pointerEvents: "none",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            top: "60px",
-            right: "-120px",
-            width: "550px",
-            height: "550px",
-            borderRadius: "50%",
-            background: "rgba(147, 51, 234, 0.12)",
-            filter: "blur(90px)",
-            pointerEvents: "none",
-          }}
-        />
+      {/* ── SECTION 2: HERO (Positioning statement + Primary/Secondary CTA) ── */}
+      <section className="hero-section-light" id="hero-home">
+        <div className="hero-blob hero-blob-1" />
+        <div className="hero-blob hero-blob-2" />
+        <div className="hero-blob hero-blob-3" />
+        <div className="container">
+          <div className="hero-inner-light">
+            <div className="hero-badge">
+              <span className="hero-badge-dot" />
+              India&apos;s #1 E-Commerce Operations Partner &bull; 12 States Network
+            </div>
+            <h1 className="hero-headline">
+              India&apos;s Commerce Operating Partner<br />
+              <span style={{ whiteSpace: "nowrap" }}>
+                for <span id="typewriter-word" className={transitionClass}>{words[wordIdx]}</span>
+              </span>
+            </h1>
+            <p className="hero-subtitle">
+              Marketplace growth, multi-platform operations, D2C, B2B/institutional commerce, revenue assurance and pan-India fulfilment—managed through one accountable operating model.
+            </p>
+            <div className="hero-cta-row">
+              <button className="btn-primary-hero" onClick={() => setDiagOpen(true)}>
+                Request a Commerce Diagnostic →
+              </button>
+              <button className="btn-ghost-hero" onClick={() => setVideoOpen(true)}>
+                ▷ Watch Our Story
+              </button>
+            </div>
+            <div className="hero-rating">
+              <span className="hero-rating-stars">★★★★★</span>
+              <span>4.9 average client rating across 13+ national brands</span>
+            </div>
 
-        <div className="container text-center" style={{ position: "relative", zIndex: 2 }}>
-          {/* Top Pill Badge (GrowthPartners Style) */}
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              padding: "0.45rem 1.1rem",
-              borderRadius: "50px",
-              background: "#FFFFFF",
-              border: "1px solid #E2E8F0",
-              boxShadow: "0 2px 10px rgba(0, 0, 0, 0.04)",
-              marginBottom: "1.8rem",
-            }}
-          >
-            <span
-              style={{
-                width: "8px",
-                height: "8px",
-                borderRadius: "50%",
-                background: "#10B981",
-                display: "inline-block",
-              }}
-            />
-            <span
-              style={{
-                fontSize: "0.85rem",
-                fontWeight: 700,
-                color: "#475569",
-                letterSpacing: "0.2px",
-              }}
-            >
-              India&apos;s Premier Commerce Operating Partner • 12 States Network
-            </span>
-          </div>
-
-          {/* Huge Main Headline with Colorful Gradient Text (GrowthPartners & Eshopbox Style) */}
-          <h1
-            style={{
-              fontSize: "clamp(2.8rem, 6vw, 4.5rem)",
-              fontWeight: 900,
-              color: "#0F172A",
-              lineHeight: 1.08,
-              letterSpacing: "-1.5px",
-              maxWidth: "1000px",
-              margin: "0 auto",
-            }}
-          >
-            Sell anywhere, Scale everywhere.<br />
-            One Operating Partner for{" "}
-            <span
-              id="typewriter-word"
-              className={transitionClass}
-              style={{
-                background: "linear-gradient(135deg, #2563EB 0%, #7C3AED 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                display: "inline-block",
-              }}
-            >
-              {words[wordIdx]}
-            </span>
-          </h1>
-
-          {/* Subtitle (Eshopbox & GrowthPartners Style) */}
-          <p
-            style={{
-              maxWidth: "760px",
-              fontSize: "1.18rem",
-              color: "#475569",
-              margin: "1.6rem auto 2.4rem",
-              lineHeight: 1.65,
-              fontWeight: 450,
-            }}
-          >
-            Good Life operates your complete e-commerce stack—managing catalogue listings,
-            performance ads, 12-state warehousing, dispatch SLAs, and 100% automated settlement audits.
-          </p>
-
-          {/* Action CTAs (GrowthPartners Dual Button Style) */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "1rem",
-              flexWrap: "wrap",
-            }}
-          >
-            <button
-              onClick={() => setDiagOpen(true)}
-              style={{
-                height: "54px",
-                padding: "0 2.2rem",
-                borderRadius: "12px",
-                background: "#2563EB",
-                color: "#FFFFFF",
-                fontWeight: 700,
-                fontSize: "1.05rem",
-                border: "none",
-                cursor: "pointer",
-                boxShadow: "0 10px 25px -5px rgba(37, 99, 235, 0.35)",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.6rem",
-                transition: "all 0.2s ease",
-              }}
-            >
-              Request a Free Audit →
-            </button>
-            <button
-              onClick={() => setVideoOpen(true)}
-              style={{
-                height: "54px",
-                padding: "0 2rem",
-                borderRadius: "12px",
-                background: "#FFFFFF",
-                color: "#2563EB",
-                fontWeight: 700,
-                fontSize: "1.02rem",
-                border: "2px solid #2563EB",
-                cursor: "pointer",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                transition: "all 0.2s ease",
-              }}
-            >
-              Watch Our Story
-            </button>
-          </div>
-
-          {/* Star Rating Badge (GrowthPartners Style) */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "0.4rem",
-              marginTop: "1.4rem",
-              fontSize: "0.9rem",
-              color: "#64748B",
-              fontWeight: 600,
-            }}
-          >
-            <span style={{ color: "#F59E0B", fontSize: "1.1rem" }}>★★★★★</span>
-            <span>4.9 average client rating across 13+ national brands</span>
-          </div>
-
-          {/* ── ESHOPBOX STYLE CONNECTED CHANNEL INTEGRATION STRIP ── */}
-          <div
-            style={{
-              marginTop: "3.5rem",
-              position: "relative",
-              maxWidth: "1000px",
-              marginLeft: "auto",
-              marginRight: "auto",
-              padding: "1rem 0",
-            }}
-          >
-            {/* Dashed connecting line */}
-            <div
-              style={{
-                position: "absolute",
-                top: "50%",
-                left: "40px",
-                right: "40px",
-                height: "2px",
-                borderTop: "2px dashed #CBD5E1",
-                zIndex: 1,
-              }}
-            />
-
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                position: "relative",
-                zIndex: 2,
-                overflowX: "auto",
-                padding: "0.5rem 0",
-                gap: "0.8rem",
-              }}
-            >
-              {channelIntegrations.map((ch, idx) => (
-                <div
-                  key={idx}
-                  style={{
-                    width: "52px",
-                    height: "52px",
-                    borderRadius: "14px",
-                    background: "#FFFFFF",
-                    border: "1px solid #E2E8F0",
-                    boxShadow: "0 6px 16px rgba(0,0,0,0.06)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontWeight: 900,
-                    fontSize: "1.1rem",
-                    color: ch.color,
-                    flexShrink: 0,
-                  }}
-                  title={ch.name}
-                >
-                  {ch.icon}
-                </div>
-              ))}
+            {/* ── SECTION 3: CREDIBILITY STRIP (Approved facts only) ── */}
+            <div className="channel-strip">
+              <div className="channel-strip-line" />
+              <div className="channel-strip-row">
+                {channelSVGs.map((ch, idx) => (
+                  <div key={idx} className="channel-icon" title={ch.name} style={{ background: ch.bg, border: "none", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "14px", width: "60px", height: "44px", boxShadow: "0 2px 8px rgba(0,0,0,0.15)" }}>
+                    {ch.svg}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
 
-        {/* ── GROWTHPARTNERS STYLE GRAYSCALE CLIENT LOGO MARQUEE STRIP ── */}
-        <div
-          style={{
-            marginTop: "3rem",
-            background: "#FFFFFF",
-            borderTop: "1px solid #E2E8F0",
-            borderBottom: "1px solid #E2E8F0",
-            padding: "2rem 0",
-          }}
-        >
-          <div className="container">
-            <p
-              style={{
-                textAlign: "center",
-                fontSize: "0.75rem",
-                textTransform: "uppercase",
-                letterSpacing: "2.5px",
-                color: "#94A3B8",
-                fontWeight: 800,
-                marginBottom: "1.4rem",
-              }}
-            >
-              TRUSTED BY BRANDS ACROSS E-COMMERCE, B2B & RETAIL
-            </p>
-          </div>
-
+        {/* Brand Marquee */}
+        <div className="brands-marquee-section">
+          <p className="brands-marquee-label">Trusted by brands across e-commerce, B2B &amp; institutional commerce</p>
           <div className="logo-marquee-wrap">
             <div className="logo-marquee-track">
-              {portfolioLogos.map((logo, idx) => (
-                <span
-                  key={idx}
-                  style={{
-                    fontSize: "1.15rem",
-                    fontWeight: 900,
-                    color: "#64748B",
-                    letterSpacing: "1.8px",
-                    padding: "0 2.2rem",
-                    textTransform: "uppercase",
-                    opacity: 0.85,
-                    filter: "grayscale(100%)",
-                  }}
-                >
-                  {logo}
-                </span>
-              ))}
-              {portfolioLogos.map((logo, idx) => (
-                <span
-                  key={`dup-${idx}`}
-                  style={{
-                    fontSize: "1.15rem",
-                    fontWeight: 900,
-                    color: "#64748B",
-                    letterSpacing: "1.8px",
-                    padding: "0 2.2rem",
-                    textTransform: "uppercase",
-                    opacity: 0.85,
-                    filter: "grayscale(100%)",
-                  }}
-                >
-                  {logo}
-                </span>
+              {[...portfolioLogos, ...portfolioLogos].map((logo, idx) => (
+                <span key={idx} className="marquee-brand" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center" }}>{logo.svg}</span>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── REAL-TIME OPERATIONS CONSOLE BAND (ESHOPBOX DASHBOARD MOCKUP STYLE) ── */}
-      <section style={{ padding: "5rem 0", background: "#F8FAFC" }}>
-        <div className="container">
-          <div className="section-header text-center" style={{ marginBottom: "3rem" }}>
-            <span
-              style={{
-                fontSize: "0.78rem",
-                fontWeight: 800,
-                color: "#2563EB",
-                textTransform: "uppercase",
-                letterSpacing: "1.5px",
-              }}
-            >
-              UNIFIED SOFTWARE &amp; OPERATIONS
-            </span>
-            <h2
-              style={{
-                fontSize: "2.4rem",
-                fontWeight: 900,
-                color: "#0F172A",
-                marginTop: "0.4rem",
-              }}
-            >
-              Good Life Growth Engine Console
-            </h2>
-            <p style={{ color: "#64748B", fontSize: "1.05rem", maxWidth: "650px", margin: "0.4rem auto 0" }}>
-              Control inventory, order feeds, and settlement audits under one clean operating dashboard.
+      {/* KPI Stats Band (Credibility Metric Track) */}
+      <section className="stats-band">
+        <div className="container stats-band-inner">
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "2rem", flexWrap: "wrap" }}>
+            <div>
+              <p className="stats-band-eyebrow" style={{ color: "#FBBF24" }}>The track record</p>
+              <h2 className="stats-band-title">Numbers we&apos;re<br />measured on.</h2>
+            </div>
+            <p style={{ color: "#E2E8F0", maxWidth: "340px", fontSize: "1.05rem", fontWeight: 500, lineHeight: 1.6 }}>
+              Six years operating e-commerce across marketplaces, D2C, B2B and institutional channels for Indian brands.
             </p>
           </div>
-
-          <div className="console-mockup-wrap">
-            <div
-              className="dashboard-mockup"
-              style={{
-                transform: `rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`,
-                transition: "transform 0.15s ease-out",
-                background: "#FFFFFF",
-                borderRadius: "20px",
-                border: "1px solid #E2E8F0",
-                boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.08)",
-              }}
-            >
-              <div className="dash-content-container" style={{ padding: "1.8rem" }}>
-                {/* Eshopbox style dashboard top navbar */}
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    borderBottom: "1px solid #E2E8F0",
-                    paddingBottom: "1rem",
-                    marginBottom: "1.5rem",
-                  }}
-                >
-                  <div style={{ display: "flex", alignItems: "center", gap: "1.8rem" }}>
-                    <span style={{ fontWeight: 900, fontSize: "1.1rem", color: "#0F172A" }}>
-                      GOOD LIFE ENGINE
-                    </span>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "1.2rem",
-                        fontSize: "0.88rem",
-                        fontWeight: 600,
-                        color: "#64748B",
-                      }}
-                    >
-                      <span style={{ color: "#2563EB", borderBottom: "2px solid #2563EB", paddingBottom: "0.4rem" }}>
-                        Overview
-                      </span>
-                      <span>Inventory</span>
-                      <span>Orders</span>
-                      <span>Reports</span>
-                      <span>Claims &amp; COD</span>
-                      <span>Shipping</span>
-                    </div>
-                  </div>
-
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.5rem",
-                      background: "#ECFDF5",
-                      border: "1px solid #A7F3D0",
-                      padding: "0.3rem 0.8rem",
-                      borderRadius: "20px",
-                      color: "#059669",
-                      fontSize: "0.8rem",
-                      fontWeight: 700,
-                    }}
-                  >
-                    <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#10B981" }} />
-                    Live Syncing
-                  </div>
-                </div>
-
-                <div className="dash-kpi-row">
-                  <div
-                    className={`dash-kpi ${flashOrders ? "flash-highlight" : ""}`}
-                    style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}
-                  >
-                    <div className="dash-kpi-label" style={{ color: "#64748B" }}>
-                      Today&apos;s Live Orders
-                    </div>
-                    <div className="dash-kpi-value" style={{ color: "#0F172A" }}>
-                      {ordersCount.toLocaleString()}
-                    </div>
-                    <div className="dash-kpi-delta" style={{ color: "#059669" }}>
-                      ↑ 18.4% vs yesterday
-                    </div>
-                  </div>
-
-                  <div className="dash-kpi" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
-                    <div className="dash-kpi-label" style={{ color: "#64748B" }}>
-                      Active Channels
-                    </div>
-                    <div className="dash-kpi-value" style={{ color: "#0F172A" }}>
-                      4 Markets
-                    </div>
-                    <div className="dash-kpi-delta" style={{ color: "#2563EB" }}>
-                      ↑ 100% Synced
-                    </div>
-                  </div>
-
-                  <div className="dash-kpi" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
-                    <div className="dash-kpi-label" style={{ color: "#64748B" }}>
-                      GMV This Month
-                    </div>
-                    <div className="dash-kpi-value" style={{ color: "#0F172A" }}>
-                      ₹16.8 Cr
-                    </div>
-                    <div className="dash-kpi-delta" style={{ color: "#059669" }}>
-                      ↑ On Target
-                    </div>
-                  </div>
-
-                  <div className="dash-kpi" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
-                    <div className="dash-kpi-label" style={{ color: "#64748B" }}>
-                      Fill Rate SLA
-                    </div>
-                    <div className="dash-kpi-value" style={{ color: "#0F172A" }}>
-                      98.2%
-                    </div>
-                    <div className="dash-kpi-delta" style={{ color: "#059669" }}>
-                      ↑ 3.1% MoM
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  className="sim-log-wrap"
-                  style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "12px" }}
-                >
-                  <div className="sim-log-header" style={{ color: "#2563EB" }}>
-                    Settlement &amp; Payout Audit Stream
-                  </div>
-                  {heroLogs.map((log, index) => (
-                    <div key={index} className="sim-log-line">
-                      <span className="sim-log-text" style={{ color: "#334155" }}>
-                        {log}
-                      </span>
-                      <span className="sim-log-success" style={{ color: "#059669", fontWeight: 700 }}>
-                        ✓ RECONCILED
-                      </span>
-                    </div>
-                  ))}
-                </div>
+          <div className="stats-grid">
+            {[
+              { num: "₹850 Cr+", caption: "GMV Managed" },
+              { num: "35+", caption: "Channel Integrations" },
+              { num: "12", caption: "State Warehouse Hubs" },
+              { num: "98.2%", caption: "Fill Rate SLA" },
+            ].map((stat, idx) => (
+              <div key={idx} className="stat-block reveal" style={{ transitionDelay: `${idx * 0.1}s`, opacity: 1, transform: "none" }}>
+                <span className="stat-number"><Counter target={stat.num} /></span>
+                <div className="stat-divider" style={{ background: "linear-gradient(90deg, #FBBF24, #F59E0B)" }} />
+                <p className="stat-caption" style={{ color: "#CBD5E1", fontSize: "0.9rem", fontWeight: 700, opacity: 1 }}>{stat.caption}</p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION 4: THE ACCOUNTABILITY PROBLEM (Fragmented-agency pain point) ── */}
+      <ComparisonMatrix onOpenDiag={() => setDiagOpen(true)} />
+
+      {/* ── SECTION 5: THREE BUYER SITUATIONS (Routes to Launch / Fix & Grow / Scale page) ── */}
+      <section className="paths-section" id="three-situations">
+        <div className="container">
+          <div style={{ textAlign: "center" }}>
+            <span className="ptn-section-eyebrow">Tailored Operating Paths</span>
+            <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>Where Is Your Business Today?</h2>
+            <p className="ptn-section-subtitle" style={{ marginTop: "0.4rem" }}>Choose Launch Online, Fix &amp; Grow, or Scale Pan-India as your primary entry route.</p>
+          </div>
+          <div className="paths-grid">
+            {[
+              { tag: "01. Launch Online", tagColor: "#2563EB", title: "Offline Brand / Manufacturer", desc: "Entering e-commerce for the first time across Amazon, Flipkart, Myntra, Moglix, JioMart, Snapmint, Bajaj and other approved platforms, plus D2C.", cta: "Explore Launch Mandate →", href: "/solutions/launch-online" },
+              { tag: "02. Fix & Grow", tagColor: "#0D9488", title: "Active Marketplace Brand", desc: "Stuck with stagnant GMV, rising ACOS, un-audited settlement losses, or high customer returns. We audit, fix, and grow.", cta: "Explore Fix & Grow Audit →", href: "/solutions/fix-and-grow" },
+              { tag: "03. Scale Pan-India", tagColor: "#7C3AED", title: "Established Enterprise Brand", desc: "Scaling 12-state warehouse inventory, regional dealer fulfilment, B2B/institutional channels, and multi-platform D2C sync.", cta: "Explore Pan-India Scale →", href: "/solutions/scale-pan-india" },
+            ].map((card, idx) => (
+              <div key={idx} className="path-card reveal" style={{ transitionDelay: `${idx * 0.1}s` }}>
+                <div className="path-card-tag" style={{ color: card.tagColor }}>{card.tag}</div>
+                <h3 className="path-card-title">{card.title}</h3>
+                <p className="path-card-desc">{card.desc}</p>
+                <Link href={card.href} className="path-card-cta" style={{ color: card.tagColor }}>{card.cta}</Link>
+              </div>
+            ))}
+          </div>
+          <div style={{ textAlign: "center", marginTop: "2.5rem", fontSize: "0.95rem", color: "#475569", fontWeight: 600 }}>
+            💡 We also help OEMs build brands, brands expand across platforms, and companies operate D2C and institutional commerce.
+          </div>
+        </div>
+      </section>
+
+
+
+      {/* ── SECTION 6: WHY GOOD LIFE (Operator Credibility) ── */}
+      <section className="unlock-section" id="why-good-life">
+        <div className="container">
+          <div className="unlock-card">
+            <div>
+              <span className="ptn-section-eyebrow">Operator Credibility</span>
+              <h2 className="ptn-section-title" style={{ marginTop: "0.5rem", marginBottom: "1rem" }}>Why Leading Brands Partner With Good Life</h2>
+              <p style={{ color: "#64748B", fontSize: "0.97rem", lineHeight: 1.7, marginBottom: "1.8rem" }}>
+                Unlike traditional agencies that only manage ads or shipping, Good Life operates your complete e-commerce stack with direct balance-sheet accountability.
+              </p>
+              <div style={{ display: "flex", gap: "0.9rem", flexWrap: "wrap" }}>
+                <button onClick={() => setDiagOpen(true)} className="btn-primary-hero" style={{ height: "46px", padding: "0 1.5rem", fontSize: "0.92rem" }}>Schedule a Demo →</button>
+                <button onClick={() => setVideoOpen(true)} className="btn-ghost-hero" style={{ height: "46px", padding: "0 1.4rem", fontSize: "0.92rem" }}>▷ Watch Demo</button>
+              </div>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
+              {[
+                { num: "01", title: "Merchant & Distribution Partnership", desc: "We purchase stock, manage end-to-end catalogue listings, and take inventory risk off your balance sheet." },
+                { num: "02", title: "OEM Brand Launch & Incubation", desc: "Proven track record launching 5 brand-new consumer labels on ecommerce for veteran manufacturing/OEM partners over the last 3 years." },
+                { num: "03", title: "Unified Multi-Channel Execution", desc: "Synchronize inventory across 12 state hubs to satisfy Amazon, Flipkart, Myntra, Snapmint, B2B, Moglix, and D2C orders simultaneously." },
+              ].map((item, idx) => (
+                <div key={idx} className={`unlock-step ${activeAccStep === idx ? "active" : ""}`} onClick={() => setActiveAccStep(idx)}>
+                  <div className="unlock-step-head">
+                    <span className="unlock-step-num">{item.num}</span>
+                    <h4 className="unlock-step-title">{item.title}</h4>
+                  </div>
+                  {activeAccStep === idx && <p className="unlock-step-desc">{item.desc}</p>}
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── THREE TAILORED OPERATING PATHS (GROWTHPARTNERS STYLE CARDS) ── */}
-      <section
-        id="three-situations"
-        style={{
-          padding: "5rem 0",
-          background: "#FFFFFF",
-          borderTop: "1px solid #E2E8F0",
-          borderBottom: "1px solid #E2E8F0",
-        }}
-      >
+      {/* ── SECTION 7: TEN CAPABILITIES (Links into each capability page) ── */}
+      <section className="ptn-do-section" id="capabilities">
         <div className="container">
-          <div className="section-header text-center">
-            <span
-              style={{
-                fontSize: "0.78rem",
-                fontWeight: 800,
-                color: "#2563EB",
-                textTransform: "uppercase",
-                letterSpacing: "1.5px",
-              }}
-            >
-              TAILORED OPERATING PATHS
-            </span>
-            <h2 style={{ fontSize: "2.3rem", fontWeight: 900, color: "#0F172A", marginTop: "0.4rem" }}>
-              Where Is Your Business Today?
-            </h2>
-            <p style={{ color: "#64748B", fontSize: "1.02rem", maxWidth: "750px", margin: "0.5rem auto 0" }}>
-              Choose Launch Online, Fix &amp; Grow, or Scale Pan-India as your primary entry route.
+          <div className="ptn-do-header">
+            <span className="ptn-section-eyebrow">Ten Connected Commerce Capabilities</span>
+            <h2 className="ptn-section-title">Do it all with Good Life.</h2>
+            <p className="ptn-section-subtitle">
+              Marketplace operations, D2C, B2B/institutional commerce, revenue assurance and pan-India fulfilment—managed through one accountable operating model.
             </p>
           </div>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: "1.5rem",
-              marginTop: "3rem",
-            }}
-          >
-            <div
-              style={{
-                background: "#FFFFFF",
-                borderRadius: "20px",
-                border: "1px solid #E2E8F0",
-                padding: "2.2rem",
-                boxShadow: "0 10px 30px -10px rgba(0,0,0,0.05)",
-              }}
-            >
-              <div style={{ color: "#2563EB", fontWeight: 800, fontSize: "1.1rem", marginBottom: "0.4rem" }}>
-                01. LAUNCH ONLINE
+          <div className="ptn-do-grid-10">
+            {capabilities.map((cap, idx) => (
+              <div key={idx} className={`ptn-card reveal ${idx > 0 ? `reveal-delay-${Math.min(idx, 3)}` : ""}`}>
+                <div className={`ptn-card-graphic ${cap.g}`}>
+                  <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke={cap.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{cap.icon}</svg>
+                </div>
+                <div className="ptn-card-body">
+                  <h3 className="ptn-card-title">{cap.title}</h3>
+                  <p className="ptn-card-desc">{cap.desc}</p>
+                  <Link href={cap.href} className="ptn-card-cta" style={{ color: cap.color }}>Explore Capability →</Link>
+                </div>
               </div>
-              <h3 style={{ color: "#0F172A", fontSize: "1.3rem", fontWeight: 800, marginBottom: "0.8rem" }}>
-                Offline Brand / Manufacturer
-              </h3>
-              <p style={{ color: "#64748B", fontSize: "0.93rem", lineHeight: 1.65, marginBottom: "1.4rem" }}>
-                Entering e-commerce for the first time across Amazon, Flipkart, Myntra, category portals, and direct D2C store.
-              </p>
-              <button
-                onClick={() => setDiagOpen(true)}
-                style={{
-                  background: "none",
-                  border: "none",
-                  color: "#2563EB",
-                  fontWeight: 700,
-                  fontSize: "0.92rem",
-                  cursor: "pointer",
-                  padding: 0,
-                }}
-              >
-                Explore Launch Mandate →
-              </button>
-            </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            <div
-              style={{
-                background: "#FFFFFF",
-                borderRadius: "20px",
-                border: "1px solid #E2E8F0",
-                padding: "2.2rem",
-                boxShadow: "0 10px 30px -10px rgba(0,0,0,0.05)",
-              }}
-            >
-              <div style={{ color: "#2563EB", fontWeight: 800, fontSize: "1.1rem", marginBottom: "0.4rem" }}>
-                02. FIX &amp; GROW
-              </div>
-              <h3 style={{ color: "#0F172A", fontSize: "1.3rem", fontWeight: 800, marginBottom: "0.8rem" }}>
-                Active Marketplace Brand
-              </h3>
-              <p style={{ color: "#64748B", fontSize: "0.93rem", lineHeight: 1.65, marginBottom: "1.4rem" }}>
-                Stuck with stagnant GMV, rising ACOS, un-audited settlement losses, or high customer returns.
-              </p>
-              <button
-                onClick={() => setDiagOpen(true)}
-                style={{
-                  background: "none",
-                  border: "none",
-                  color: "#2563EB",
-                  fontWeight: 700,
-                  fontSize: "0.92rem",
-                  cursor: "pointer",
-                  padding: 0,
-                }}
-              >
-                Explore Fix &amp; Grow Audit →
-              </button>
-            </div>
 
-            <div
-              style={{
-                background: "#FFFFFF",
-                borderRadius: "20px",
-                border: "1px solid #E2E8F0",
-                padding: "2.2rem",
-                boxShadow: "0 10px 30px -10px rgba(0,0,0,0.05)",
-              }}
-            >
-              <div style={{ color: "#7C3AED", fontWeight: 800, fontSize: "1.1rem", marginBottom: "0.4rem" }}>
-                03. SCALE PAN-INDIA
-              </div>
-              <h3 style={{ color: "#0F172A", fontSize: "1.3rem", fontWeight: 800, marginBottom: "0.8rem" }}>
-                Established Enterprise Brand
-              </h3>
-              <p style={{ color: "#64748B", fontSize: "0.93rem", lineHeight: 1.65, marginBottom: "1.4rem" }}>
-                Scaling 12-state warehouse inventory, regional dealer fulfilment, B2B portals, and D2C channel sync.
+
+      {/* ── SECTION 8: HEAVY & BULKY MOAT (Dedicated visual block) ── */}
+      <section className="heavy-bulky-section" id="heavy-bulky">
+        <div className="container">
+          <div className="heavy-bulky-inner">
+            <div>
+              <span className="ptn-section-eyebrow" style={{ color: "#6B7280" }}>Specialised Logistics Moat</span>
+              <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>Heavy &amp; Bulky Commerce Logistics</h2>
+              <p style={{ color: "#475569", fontSize: "0.96rem", lineHeight: 1.7, marginTop: "0.8rem", marginBottom: "1.5rem" }}>
+                Specialised freight handling, transit damage protection, custom crating and coordinated last-mile delivery for large appliances, industrial goods, and bulky consumer products across 12 states.
               </p>
-              <Link
-                href="/b2b-institutional-commerce"
-                style={{
-                  color: "#7C3AED",
-                  fontWeight: 700,
-                  fontSize: "0.92rem",
-                  textDecoration: "none",
-                }}
-              >
-                Explore Pan-India Scale →
+              <Link href="/specialised/heavy-bulky-commerce" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", height: 44, padding: "0 1.4rem", borderRadius: 10, background: "#0F172A", color: "#FFF", fontWeight: 700, fontSize: "0.88rem", textDecoration: "none" }}>
+                Explore Heavy &amp; Bulky Solutions →
               </Link>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── EXPANDED 10-PILLAR CAPABILITIES GRID ── */}
-      <section id="capabilities" style={{ padding: "5rem 0", background: "#F8FAFC" }}>
-        <div className="container">
-          <div className="section-header text-center">
-            <span
-              style={{
-                fontSize: "0.78rem",
-                fontWeight: 800,
-                color: "#2563EB",
-                textTransform: "uppercase",
-                letterSpacing: "1.5px",
-              }}
-            >
-              CONNECTED OPERATING PILLARS
-            </span>
-            <h2 style={{ fontSize: "2.3rem", fontWeight: 900, color: "#0F172A", marginTop: "0.4rem" }}>
-              End-to-End Commerce Capabilities Grid
-            </h2>
-            <p style={{ color: "#64748B", fontSize: "1.02rem" }}>
-              Single-point operational accountability across all critical commerce building blocks.
-            </p>
-          </div>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-              gap: "1.25rem",
-              marginTop: "3rem",
-            }}
-          >
-            {[
-              { id: "ops", name: "Marketplace Operations", desc: "Listings, catalogue data, buy box, and account controls." },
-              { id: "ads", name: "Marketplace Growth & Ads", desc: "Established Amazon & Flipkart performance ad campaigns." },
-              { id: "multi-platform", name: "Multi-Platform Commerce", desc: "Amazon, Flipkart, Myntra, Snapmint, Moglix, JioMart, etc." },
-              { id: "d2c-ops", name: "D2C Commerce Operations", desc: "Storefront catalog, order flow, returns & reverse logistics." },
-              { id: "b2b-ops", name: "B2B & Institutional Commerce", desc: "Bulk orders, trade buyers & regional dealer replenishment." },
-              { id: "inventory", name: "Inventory Planning", desc: "Multi-channel stock buffers & demand forecasting." },
-              { id: "fulfilment", name: "Warehousing & Fulfilment", desc: "12-state regional warehouse network with rapid dispatch." },
-              { id: "revenue", name: "Revenue Assurance", desc: "Automated audit of platform settlements & claims." },
-              { id: "returns", name: "Returns Management", desc: "Reverse logistics QC, RTO reduction & refund workflows." },
-              { id: "water", name: "Household Water Solutions", desc: "RO Systems & Softeners launched in 2005 (Legacy Brand)." },
-            ].map((cap, idx) => (
-              <div
-                key={idx}
-                style={{
-                  background: "#FFFFFF",
-                  borderRadius: "14px",
-                  border: "1px solid #E2E8F0",
-                  padding: "1.5rem",
-                  boxShadow: "0 4px 15px rgba(0,0,0,0.02)",
-                  transition: "all 0.2s ease",
-                }}
-              >
-                <div style={{ fontSize: "0.75rem", fontWeight: 800, color: "#2563EB", marginBottom: "0.4rem" }}>
-                  PILLAR {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
+            <div style={{ background: "#FFFFFF", border: "1.5px solid #CBD5E1", borderRadius: 18, padding: "2rem", boxShadow: "0 4px 16px rgba(0,0,0,0.05)" }}>
+              <div style={{ display: "flex", gap: "1rem", marginBottom: "1.2rem", alignItems: "center" }}>
+                <div style={{ width: 48, height: 48, borderRadius: 12, background: "#F1F5F9", display: "flex", alignItems: "center", justifyContent: "center", color: "#0F172A" }}>
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
                 </div>
-                <h3 style={{ fontSize: "1.1rem", color: "#0F172A", fontWeight: 800, marginBottom: "0.4rem" }}>
-                  {cap.name}
-                </h3>
-                <p style={{ color: "#64748B", fontSize: "0.85rem", lineHeight: 1.55, margin: 0 }}>
-                  {cap.desc}
-                </p>
+                <div>
+                  <div style={{ fontSize: "1rem", fontWeight: 800, color: "#0F172A" }}>Specialised Heavy Freight Network</div>
+                  <div style={{ fontSize: "0.8rem", color: "#64748B" }}>Handling appliances, fitness gear &amp; machinery</div>
+                </div>
               </div>
-            ))}
+              <div className="heavy-bulky-features">
+                <div style={{ padding: "0.6rem 0.8rem", background: "#F8FAFC", borderRadius: 8, border: "1px solid #E2E8F0" }}>✓ Zero-damage transit protocol</div>
+                <div style={{ padding: "0.6rem 0.8rem", background: "#F8FAFC", borderRadius: 8, border: "1px solid #E2E8F0" }}>✓ Scheduled appointment delivery</div>
+                <div style={{ padding: "0.6rem 0.8rem", background: "#F8FAFC", borderRadius: 8, border: "1px solid #E2E8F0" }}>✓ Return QC &amp; repackaging</div>
+                <div style={{ padding: "0.6rem 0.8rem", background: "#F8FAFC", borderRadius: 8, border: "1px solid #E2E8F0" }}>✓ Regional hub buffer holding</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── FAQ SECTION ── */}
-      <section style={{ padding: "5rem 0", background: "#FFFFFF", borderTop: "1px solid #E2E8F0" }}>
-        <div className="container" style={{ maxWidth: "800px" }}>
-          <div className="section-header text-center">
-            <span
-              style={{
-                fontSize: "0.78rem",
-                fontWeight: 800,
-                color: "#2563EB",
-                textTransform: "uppercase",
-                letterSpacing: "1.5px",
-              }}
-            >
-              FREQUENTLY ASKED QUESTIONS
-            </span>
-            <h2 style={{ fontSize: "2.2rem", fontWeight: 900, color: "#0F172A", marginTop: "0.4rem" }}>
-              Commerce Operating Partnership Insights
-            </h2>
-          </div>
+      {/* ── SECTION 9: FULFILMENT NETWORK (India Map preview + Link) ── */}
+      <WarehouseHubs />
 
-          <div style={{ marginTop: "2.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
-            {homeFaqs.map((faq, idx) => (
-              <div
-                key={idx}
-                style={{
-                  background: "#F8FAFC",
-                  border: "1px solid #E2E8F0",
-                  borderRadius: "14px",
-                  overflow: "hidden",
-                }}
-              >
-                <button
-                  onClick={() => toggleFaq(idx)}
-                  style={{
-                    width: "100%",
-                    padding: "1.25rem 1.5rem",
-                    background: "none",
-                    border: "none",
-                    color: "#0F172A",
-                    fontSize: "1rem",
-                    fontWeight: 700,
-                    textAlign: "left",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    cursor: "pointer",
-                  }}
-                >
-                  {faq.q}
-                  <span style={{ color: "#2563EB", fontSize: "1.3rem", fontWeight: 700 }}>
-                    {openFaq === idx ? "−" : "+"}
-                  </span>
-                </button>
-                {openFaq === idx && (
-                  <div style={{ padding: "0 1.5rem 1.25rem", color: "#475569", fontSize: "0.93rem", lineHeight: 1.65 }}>
-                    {faq.a}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ── SECTION 10: REVENUE ASSURANCE (Settlement/claims process visual + Leakage Calculator) ── */}
+      <SavingsCalculator onOpenDiag={() => setDiagOpen(true)} />
 
-      {/* ── FINAL CTA STRIP (GROWTHPARTNERS STYLE CTA) ── */}
-      <section
-        style={{
-          padding: "5.5rem 0",
-          background: "linear-gradient(135deg, #1E40AF 0%, #3B82F6 50%, #6D28D9 100%)",
-          color: "#FFFFFF",
-          textAlign: "center",
-        }}
-      >
+
+
+      {/* ── SECTION 11: HOW ENGAGEMENT WORKS (Diagnostic → Solution Design → Integration → Execution → Review & Scale) ── */}
+      <section className="methodology-section" id="how-it-works">
         <div className="container">
-          <h2 style={{ fontSize: "2.5rem", fontWeight: 900, marginBottom: "1rem", color: "#FFFFFF" }}>
-            Scale Your Brand With India&apos;s Premier Commerce Operating Partner
-          </h2>
-          <p style={{ color: "#E0E7FF", marginBottom: "2.2rem", maxWidth: "640px", margin: "0 auto 2.2rem", fontSize: "1.1rem" }}>
-            Request our complimentary Commerce Diagnostic to identify leakage points, unlock new channel growth, and optimize multi-state fulfilment.
+          <div style={{ textAlign: "center" }}>
+            <span className="ptn-section-eyebrow">How Engagement Works</span>
+            <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>A Structured Path to Scale</h2>
+            <p className="ptn-section-subtitle" style={{ marginTop: "0.4rem" }}>Diagnostic → Solution Design → Integration → Execution → Review &amp; Scale</p>
+          </div>
+          <div ref={timelineRef} className="workflow-wrap">
+            <div className="workflow-connector">
+              <div className="workflow-connector-fill" style={{ width: isTimelineLit ? "100%" : "0%" }} />
+            </div>
+            {[
+              { icon: <><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></>, label: "1. Diagnostic", desc: "Evaluate marketplace visibility, fee leaks, and current SLA metrics.", color: "#2563EB" },
+              { icon: <><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></>, label: "2. Solution Design", desc: "Listing architecture, pricing tiers, and multi-channel inventory plan.", color: "#0284C7" },
+              { icon: <><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/></>, label: "3. Integration", desc: "Link sales channels with 12-state WMS and daily automated reconciliation.", color: "#0D9488" },
+              { icon: <><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></>, label: "4. Execution", desc: "Amazon & Flipkart ad management, order dispatch, and dispute resolution.", color: "#4F46E5" },
+              { icon: <><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></>, label: "5. Review & Scale", desc: "Weekly performance reporting, SKU expansion, and multi-platform growth.", color: "#7C3AED" },
+            ].map((step, idx) => (
+              <div key={idx} className={`workflow-step ${isTimelineLit ? "lit" : ""}`}>
+                <div className="workflow-node" style={{ background: step.color, position: "relative" }}>
+                  <span style={{ position: "absolute", top: "-6px", right: "-6px", background: "#F59E0B", color: "#FFFFFF", fontSize: "0.68rem", fontWeight: 900, borderRadius: "50%", width: "19px", height: "19px", display: "flex", alignItems: "center", justifyContent: "center", border: "1.5px solid #FFFFFF", boxShadow: "0 2px 4px rgba(0,0,0,0.12)" }}>0{idx + 1}</span>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">{step.icon}</svg>
+                </div>
+                <div className="workflow-card" style={{ borderTop: `4px solid ${step.color}` }}>
+                  <h4 className="workflow-name">{step.label}</h4>
+                  <p className="workflow-desc">{step.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION 12: CASE STUDIES (3 approved stories) ── */}
+      <section className="testimonials-section" id="case-studies">
+        <div className="container">
+          <div style={{ textAlign: "center" }}>
+            <span className="ptn-section-eyebrow">Verified Case Studies</span>
+            <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>Proven Results Across Indian Brands</h2>
+            <p className="ptn-section-subtitle" style={{ marginTop: "0.4rem" }}>Real revenue growth, SLA performance and fee recovery stories.</p>
+          </div>
+          <div className="testimonials-wrap">
+            {testimonials.map((test, index) => (
+              <div key={index} className="testimonial-card" style={{ display: activeSlide === index ? "block" : "none" }}>
+                <p className="testimonial-quote">&ldquo;{test.quote}&rdquo;</p>
+                <div className="testimonial-meta">
+                  <div className="testimonial-avatar" style={{ background: test.color }}><span>{test.initial}</span></div>
+                  <div className="testimonial-meta-text">
+                    <div className="testimonial-author">{test.author}</div>
+                    <div className="testimonial-role">{test.role}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+            <div className="testimonial-dots">
+              {testimonials.map((_, index) => (
+                <button key={index} className={`testimonial-dot ${activeSlide === index ? "active" : ""}`} onClick={() => setActiveSlide(index)} aria-label={`Go to slide ${index + 1}`} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION 13: AGENCY PARTNER STRIP ── */}
+      <section className="agency-strip" id="agency-partners">
+        <div className="container" style={{ textAlign: "center" }}>
+          <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "1.5px", color: "#94A3B8", textTransform: "uppercase" }}>Agency &amp; Strategic Growth Partners</span>
+          <p style={{ fontSize: "0.9rem", color: "#64748B", marginTop: "0.4rem", maxWidth: 580, margin: "0.4rem auto 0" }}>
+            Good Life collaborates with branding agencies, performance marketers and strategy advisors to power the operational, inventory and fulfilment layer for their client portfolio.
           </p>
-          <button
-            onClick={() => setDiagOpen(true)}
-            style={{
-              height: "54px",
-              padding: "0 2.4rem",
-              borderRadius: "12px",
-              background: "#FFFFFF",
-              color: "#1E40AF",
-              fontWeight: 800,
-              fontSize: "1.05rem",
-              border: "none",
-              cursor: "pointer",
-              boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
-            }}
-          >
-            Request a Free Audit →
-          </button>
+        </div>
+      </section>
+
+      {/* ── SECTION 14: INSIGHTS (Latest 3 CMS articles) ── */}
+      <section className="insights-section" id="insights">
+        <div className="container">
+          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+            <span className="ptn-section-eyebrow">Insights &amp; Journal</span>
+            <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>Commerce Operating Strategy</h2>
+            <p className="ptn-section-subtitle" style={{ marginTop: "0.4rem" }}>Latest articles on marketplace unit economics, fee audits, and pan-India logistics.</p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem" }}>
+            {insights.map((article, idx) => (
+              <Link key={idx} href={article.link} style={{ textDecoration: "none", background: "#FFFFFF", border: "1.5px solid #E2E8F0", borderRadius: 16, padding: "1.6rem", display: "flex", flexDirection: "column", justifyContent: "space-between", transition: "all 0.2s ease" }}>
+                <div>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.6rem" }}>
+                    <span style={{ fontSize: "0.72rem", fontWeight: 800, color: "#2563EB", textTransform: "uppercase", letterSpacing: "1px" }}>{article.category}</span>
+                    <span style={{ fontSize: "0.75rem", color: "#94A3B8" }}>{article.readTime}</span>
+                  </div>
+                  <h3 style={{ fontSize: "1rem", fontWeight: 800, color: "#0F172A", lineHeight: 1.45, marginBottom: "0.8rem" }}>{article.title}</h3>
+                </div>
+                <div style={{ fontSize: "0.82rem", fontWeight: 700, color: "#2563EB", display: "flex", alignItems: "center", gap: "0.3rem", marginTop: "1rem" }}>
+                  Read Article →
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION 15: FAQ (Schema-enabled) ── */}
+      <section className="faq-section" id="faq">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": homeFaqs.map((faq) => ({
+                "@type": "Question",
+                "name": faq.q,
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": faq.a
+                }
+              }))
+            })
+          }}
+        />
+        <div className="container" style={{ maxWidth: "800px" }}>
+          <div style={{ textAlign: "center" }}>
+            <span className="ptn-section-eyebrow">Frequently Asked Questions</span>
+            <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>Commerce Operating Partnership Insights</h2>
+          </div>
+          <div style={{ marginTop: "2.5rem", display: "flex", flexDirection: "column", gap: "0.9rem" }}>
+            {homeFaqs.map((faq, idx) => (
+              <div key={idx} className={`faq-item ${openFaq === idx ? "faq-open" : ""}`}>
+                <button className="faq-trigger" onClick={() => toggleFaq(idx)}>
+                  {faq.q}
+                  <span className="faq-trigger-icon">{openFaq === idx ? "−" : "+"}</span>
+                </button>
+                {openFaq === idx && <div className="faq-answer">{faq.a}</div>}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION 16: FINAL CTA BAND + FOOTER ── */}
+      <section className="final-cta-section">
+        <div className="container final-cta-inner">
+          <h2 className="final-cta-title">Scale Your Brand With India&apos;s<br />Premier Commerce Operating Partner</h2>
+          <p className="final-cta-subtitle">Request our complimentary Commerce Diagnostic to identify leakage points, unlock new channel growth—across marketplaces, D2C, B2B and institutional commerce.</p>
+          <button onClick={() => setDiagOpen(true)} className="btn-final-cta">Request a Free Commerce Diagnostic →</button>
         </div>
       </section>
 
       <Footer />
 
+      <StickyBar onOpenDiag={() => setDiagOpen(true)} />
+
       {diagOpen && <CommerceDiagnosticModal onClose={() => setDiagOpen(false)} />}
 
-      {/* WATCH VIDEO MODAL OVERLAY */}
-      <div
-        className={`video-modal-overlay ${videoOpen ? "open" : ""}`}
-        onClick={() => setVideoOpen(false)}
-      >
+      {/* VIDEO MODAL */}
+      <div className={`video-modal-overlay ${videoOpen ? "open" : ""}`} onClick={() => setVideoOpen(false)}>
         <div className="video-modal-content" onClick={(e) => e.stopPropagation()}>
-          <button className="video-modal-close" onClick={() => setVideoOpen(false)}>
-            &times;
-          </button>
+          <button className="video-modal-close" onClick={() => setVideoOpen(false)}>&times;</button>
           {videoOpen && (
-            <video
-              controls
-              autoPlay
-              src="https://assets.mixkit.co/videos/preview/mixkit-business-charts-and-data-on-a-computer-screen-40787-large.mp4"
-              className="w-full h-full object-cover"
-            />
+            <video controls autoPlay src="https://assets.mixkit.co/videos/preview/mixkit-business-charts-and-data-on-a-computer-screen-40787-large.mp4" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
           )}
         </div>
       </div>

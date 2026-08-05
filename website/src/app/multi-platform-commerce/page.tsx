@@ -1,149 +1,139 @@
 "use client";
-
 import React, { useState } from "react";
 import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CommerceDiagnosticModal from "../components/CommerceDiagnosticModal";
-import "../home.css";
 
 export default function MultiPlatformCommercePage() {
   const [diagOpen, setDiagOpen] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  const categories = [
-    {
-      cat: "Core Marketplaces",
-      examples: ["Amazon", "Flipkart"],
-      desc: "High-volume flagship channels with dedicated ad management, buy box protection, and FBA/FBF alignment."
-    },
-    {
-      cat: "Fashion & Lifestyle",
-      examples: ["Myntra"],
-      desc: "Curated category listing, seasonal cataloguing, brand registry, and specialized return workflows."
-    },
-    {
-      cat: "B2B & Industrial",
-      examples: ["Moglix", "IndiaMART", "TradeIndia"],
-      desc: "Bulk quantity pricing, GST trade invoicing, RFQ response SLAs, and institutional client fulfillment."
-    },
-    {
-      cat: "Omnichannel & Retail",
-      examples: ["JioMart", "IB"],
-      desc: "Hyperlocal and multi-node warehouse distribution with unified SLA management."
-    },
-    {
-      cat: "Assisted Purchase & Finance",
-      examples: ["Snapmint", "Bajaj"],
-      desc: "Consumer finance integrations, EMI promotion execution, and assisted-purchase checkout support."
-    }
+  const platformCategories = [
+    { category: "Core Marketplaces", platforms: ["Amazon", "Flipkart"], desc: "High-volume consumer search channels with automated ad management, buy box protection, and FBA/FAssured SLA compliance.", color: "#2563EB" },
+    { category: "Fashion & Lifestyle", platforms: ["Myntra"], desc: "Curated cataloguing, lifestyle imagery adaptation, seasonal event execution, and returns QC management.", color: "#FF3F6C" },
+    { category: "B2B & Industrial", platforms: ["Moglix", "IndiaMART", "TradeIndia"], desc: "Bulk listings, B2B price tiers, MOQ structures, GST invoice automation, and enterprise buyer enquiry handling.", color: "#E8192C" },
+    { category: "Omnichannel Commerce", platforms: ["JioMart", "IB"], desc: "Regional store integration, hyper-local inventory sync, and multi-channel order fulfilment.", color: "#0066CC" },
+    { category: "Consumer Finance & Assisted Purchase", platforms: ["Snapmint", "Bajaj"], desc: "EMl / checkout integration, transaction approval workflows, and high-ticket customer conversion optimization.", color: "#00B09B" },
   ];
 
-  const controls = [
-    { title: "Opportunity Assessment", desc: "Evaluating category demand, platform economics, and operational readiness before onboarding." },
-    { title: "Catalog & Pricing Adaptation", desc: "Adapting listings, titles, and localized pricing architecture per channel requirements." },
-    { title: "Platform-Specific Controls", desc: "Enforcing unique operational protocols rather than force-fitting a single marketplace template." },
-    { title: "Unified Inventory Planning", desc: "Consolidated multi-channel inventory allocation to prevent out-of-stock or channel hoarding." },
-    { title: "Settlements & Claims Governance", desc: "Automated auditing of settlements, commissions, logisitics overcharges, and returns." },
-    { title: "Channel Conflict Mitigation", desc: "Strict MAP (Minimum Advertised Price) enforcement and exclusive bundle strategies." }
+  const services = [
+    { title: "Platform Opportunity Assessment", desc: "Evaluate category demand, margin economics, audience fit, and operational readiness before launching on new platforms." },
+    { title: "Account Onboarding & Adaptation", desc: "Cataloguing, listing creation, variation mapping, and platform-specific compliance setup across approved channels." },
+    { title: "Platform Operational Controls", desc: "Custom operational workflows tailored to each marketplace's rules, SLAs, and dispute procedures rather than copy-pasting." },
+    { title: "Unified Inventory Allocation", desc: "Centralised WMS stock allocation and live inventory buffer management across all active sales channels." },
+    { title: "Consolidated Performance MIS", desc: "Single-dashboard view of sales, GMV, fill rate, ad spend, and net profitability across every integrated platform." },
+    { title: "Claims & Settlement Auditing", desc: "Automated daily reconciliation of marketplace commission, weight disputes, COD payouts, and return chargebacks." },
+  ];
+
+  const faqs = [
+    { q: "Does Good Life launch brands on all platforms?", a: "Good Life helps brands launch and operate across multiple leading and relevant platforms — including Amazon, Flipkart, Myntra, Moglix, JioMart, Snapmint, Bajaj, and IB. We evaluate category fit and margin economics rather than launching everywhere blindly." },
+    { q: "How do you manage inventory across multiple platforms?", a: "Our 12-state WMS maintains live inventory synchronisation, allocating stock buffers across marketplace channels, D2C storefronts, and B2B orders to prevent overselling while maintaining high SLA fill rates." },
+    { q: "How do you handle channel conflict and pricing differences?", a: "We establish clear cross-platform pricing governance, promotional calendars, and SKU variation strategies in close coordination with your brand team to protect brand equity and avoid channel disputes." },
+    { q: "Can Good Life audit settlements across different platforms?", a: "Yes. Our automated Revenue Assurance engine reconciles platform-specific commission structures, weight fee claims, COD payouts, and return disputes across all active channels." },
   ];
 
   return (
-    <div style={{ background: "#0B0F19", color: "#F3F4F6", minHeight: "100vh" }}>
+    <div style={{ background: "#FFFFFF", color: "#0F172A", minHeight: "100vh" }}>
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
-      {/* Hero Section */}
-      <section className="page-hero-wrapper">
-        <div className="container">
-          <div style={{ maxWidth: "860px", margin: "0 auto", textAlign: "center" }}>
-            <span className="diagnostic-step-pill" style={{ marginBottom: "1rem" }}>
-              🌐 Multi-Platform Expansion
-            </span>
-            <h1 className="hero-title" style={{ fontSize: "clamp(2rem, 5vw, 3.4rem)", lineHeight: 1.15, marginBottom: "1.2rem" }}>
-              Launch and Operate Your Brand Across Multiple Commerce Platforms
+      {/* HERO */}
+      <section style={{ paddingTop: "110px", paddingBottom: "5rem", background: "radial-gradient(ellipse 90% 60% at 50% -10%, rgba(204,251,241,0.8) 0%, rgba(224,242,254,0.4) 40%, #FFFFFF 75%)", position: "relative", overflow: "hidden" }}>
+        <div className="container" style={{ position: "relative", zIndex: 2 }}>
+          <div style={{ maxWidth: 820 }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.35rem 1rem", background: "#CCFBF1", border: "1px solid #99F6E4", borderRadius: 99, fontSize: "0.75rem", fontWeight: 700, color: "#0D9488", marginBottom: "1.5rem", letterSpacing: "0.5px" }}>
+              Multi-Platform Commerce
+            </div>
+            <h1 style={{ fontSize: "clamp(2.2rem, 5vw, 3.6rem)", fontWeight: 900, letterSpacing: "-2px", lineHeight: 1.08, color: "#0F172A", marginBottom: "1.25rem" }}>
+              Launch and Operate Your Brand Across <span style={{ color: "#0D9488" }}>Multiple Commerce Platforms</span>
             </h1>
-            <p className="hero-description" style={{ fontSize: "1.15rem", color: "#9CA3AF", marginBottom: "2rem" }}>
+            <p style={{ fontSize: "1.1rem", color: "#64748B", lineHeight: 1.75, maxWidth: 650, marginBottom: "2.2rem" }}>
               Good Life helps brands evaluate, onboard and operate across mainstream marketplaces, category platforms, B2B channels and assisted-purchase ecosystems through one coordinated operating model.
             </p>
-            <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-              <button onClick={() => setDiagOpen(true)} className="hero-cta-btn">
-                Plan Your Multi-Platform Expansion
+            <div style={{ display: "flex", gap: "0.9rem", flexWrap: "wrap" }}>
+              <button onClick={() => setDiagOpen(true)} style={{ height: 52, padding: "0 2rem", borderRadius: 12, background: "#0D9488", color: "#FFF", fontWeight: 700, fontSize: "0.96rem", border: "none", cursor: "pointer", boxShadow: "0 8px 24px rgba(13,148,136,0.28)" }}>
+                Plan Your Multi-Platform Expansion →
               </button>
-              <Link href="/d2c-commerce-operations" className="hero-play-btn" style={{ textDecoration: "none" }}>
-                Explore D2C Operations →
-              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Approved Platform Ecosystem */}
-      <section style={{ padding: "5rem 0", background: "rgba(17, 24, 39, 0.4)", borderBottom: "1px solid rgba(255, 255, 255, 0.05)" }}>
+      {/* APPROVED PLATFORM CATEGORIES */}
+      <section style={{ padding: "5rem 0", background: "#F8FAFC", borderTop: "1px solid #E2E8F0" }}>
         <div className="container">
-          <div className="section-header text-center">
-            <span className="section-tag">APPROVED ECOSYSTEM</span>
-            <h2 className="section-title">Multi-Platform Operating Coverage</h2>
-            <p className="section-subtitle">We manage your brand presence across leading and relevant commerce platforms with single-point accountability.</p>
+          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+            <span className="ptn-section-eyebrow">Platform Ecosystem</span>
+            <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>Supported Commerce Platform Categories</h2>
+            <p className="ptn-section-subtitle" style={{ marginTop: "0.4rem" }}>Operate across leading marketplaces, B2B portals, and consumer finance channels.</p>
           </div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem", marginTop: "3rem" }}>
-            {categories.map((c, i) => (
-              <div key={i} className="glass-card-feature">
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
-                  <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "#38BDF8", textTransform: "uppercase", letterSpacing: "1px" }}>{c.cat}</span>
-                  <span style={{ fontSize: "0.85rem", color: "#60A5FA", fontWeight: 600 }}>Approved</span>
-                </div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1rem" }}>
-                  {c.examples.map((ex, idx) => (
-                    <span key={idx} style={{ background: "rgba(255,255,255,0.08)", padding: "0.3rem 0.75rem", borderRadius: "6px", fontSize: "0.85rem", fontWeight: 700, color: "#FFF" }}>
-                      {ex}
-                    </span>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem" }}>
+            {platformCategories.map((cat, idx) => (
+              <div key={idx} style={{ background: "#FFF", border: "1.5px solid #E2E8F0", borderRadius: 18, padding: "1.8rem", boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}>
+                <div style={{ fontSize: "0.72rem", fontWeight: 800, color: cat.color, textTransform: "uppercase", letterSpacing: "1.5px", marginBottom: "0.4rem" }}>Category {idx + 1}</div>
+                <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#0F172A", marginBottom: "0.6rem" }}>{cat.category}</h3>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "1rem" }}>
+                  {cat.platforms.map((p) => (
+                    <span key={p} style={{ padding: "0.25rem 0.65rem", background: `${cat.color}10`, color: cat.color, borderRadius: 6, fontSize: "0.78rem", fontWeight: 700 }}>{p}</span>
                   ))}
                 </div>
-                <p style={{ color: "#9CA3AF", fontSize: "0.88rem", lineHeight: 1.6 }}>{c.desc}</p>
+                <p style={{ fontSize: "0.86rem", color: "#64748B", lineHeight: 1.6, margin: 0 }}>{cat.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Operational Controls Framework */}
-      <section style={{ padding: "5rem 0" }}>
+      {/* SERVICES */}
+      <section style={{ padding: "5.5rem 0", background: "#FFF", borderTop: "1px solid #E2E8F0" }}>
         <div className="container">
-          <div className="section-header text-center">
-            <span className="section-tag">OPERATIONAL CONTROLS</span>
-            <h2 className="section-title">6-Pillar Cross-Platform Framework</h2>
+          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+            <span className="ptn-section-eyebrow">Operating Architecture</span>
+            <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>End-to-End Multi-Platform Services</h2>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem", marginTop: "3rem" }}>
-            {controls.map((ctrl, idx) => (
-              <div key={idx} className="glass-card-feature">
-                <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: "rgba(56, 189, 248, 0.15)", color: "#38BDF8", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, marginBottom: "1rem" }}>
-                  0{idx + 1}
-                </div>
-                <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "#FFF", marginBottom: "0.5rem" }}>{ctrl.title}</h3>
-                <p style={{ color: "#9CA3AF", fontSize: "0.88rem", lineHeight: 1.6 }}>{ctrl.desc}</p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.25rem" }}>
+            {services.map((svc, idx) => (
+              <div key={idx} style={{ background: "#F8FAFC", border: "1.5px solid #E2E8F0", borderRadius: 16, padding: "1.6rem" }}>
+                <div style={{ fontSize: "1.2rem", fontWeight: 900, color: "#0D9488", marginBottom: "0.4rem" }}>0{idx + 1}.</div>
+                <h3 style={{ fontSize: "1rem", fontWeight: 800, color: "#0F172A", marginBottom: "0.4rem" }}>{svc.title}</h3>
+                <p style={{ fontSize: "0.86rem", color: "#64748B", lineHeight: 1.65, margin: 0 }}>{svc.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Strip */}
-      <section style={{ padding: "4rem 0", background: "radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.2) 0%, rgba(11, 15, 25, 1) 100%)", textAlign: "center" }}>
+      {/* FAQ */}
+      <section style={{ padding: "5.5rem 0", background: "#F8FAFC", borderTop: "1px solid #E2E8F0" }}>
+        <div className="container" style={{ maxWidth: 760 }}>
+          <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
+            <span className="ptn-section-eyebrow">FAQs</span>
+            <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>Multi-Platform Expansion Questions</h2>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+            {faqs.map((faq, idx) => (
+              <div key={idx} style={{ background: "#FFF", border: `1.5px solid ${openFaq === idx ? "#99F6E4" : "#E2E8F0"}`, borderRadius: 14, overflow: "hidden" }}>
+                <button onClick={() => setOpenFaq(openFaq === idx ? null : idx)} style={{ width: "100%", padding: "1.2rem 1.5rem", background: "none", border: "none", textAlign: "left", display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer", gap: "1rem", fontSize: "0.96rem", fontWeight: 700, color: "#0F172A" }}>
+                  {faq.q}
+                  <span style={{ fontSize: "1.2rem", color: "#0D9488" }}>{openFaq === idx ? "−" : "+"}</span>
+                </button>
+                {openFaq === idx && <div style={{ padding: "0 1.5rem 1.3rem", fontSize: "0.91rem", color: "#64748B", lineHeight: 1.75 }}>{faq.a}</div>}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FINAL CTA */}
+      <section style={{ padding: "6rem 0", background: "linear-gradient(135deg, #0F172A 0%, #115E59 50%, #0D9488 100%)", textAlign: "center" }}>
         <div className="container">
-          <h2 style={{ fontSize: "2rem", color: "#FFF", fontWeight: 800, marginBottom: "1rem" }}>
-            Expand Across Leading Commerce Platforms
-          </h2>
-          <p style={{ color: "#9CA3AF", marginBottom: "2rem", maxWidth: "600px", margin: "0 auto 2rem" }}>
-            Schedule a platform capability audit to identify your highest-upside marketplace channels.
-          </p>
-          <button onClick={() => setDiagOpen(true)} className="hero-cta-btn">
-            Request a Commerce Diagnostic
-          </button>
+          <h2 style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 900, color: "#FFF", letterSpacing: "-1.5px", marginBottom: "1rem" }}>Ready to Expand Across Multiple Platforms?</h2>
+          <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.75)", maxWidth: 520, margin: "0 auto 2rem", lineHeight: 1.7 }}>Evaluate channel feasibility, margin economics and launch roadmap with our commerce team.</p>
+          <button onClick={() => setDiagOpen(true)} style={{ height: 54, padding: "0 2.5rem", borderRadius: 14, background: "#FFF", color: "#115E59", fontWeight: 800, fontSize: "1rem", border: "none", cursor: "pointer", boxShadow: "0 8px 32px rgba(0,0,0,0.2)" }}>Plan Your Multi-Platform Expansion →</button>
         </div>
       </section>
 
       <Footer />
-
       {diagOpen && <CommerceDiagnosticModal onClose={() => setDiagOpen(false)} />}
     </div>
   );

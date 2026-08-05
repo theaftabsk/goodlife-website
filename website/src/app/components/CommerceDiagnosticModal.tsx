@@ -55,16 +55,22 @@ export default function CommerceDiagnosticModal({ onClose }: CommerceDiagnosticM
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             company: formData.companyName,
+            website: formData.website,
             contactName: formData.contactName,
             designation: formData.designation,
             email: formData.email,
             mobile: formData.mobile,
             category: formData.category,
             revenueBand: formData.annualRevenue,
+            marketplaces: formData.marketplaces,
             gmvBand: formData.monthlyGmv,
+            orderVolume: formData.orderVolume,
+            operatingModel: formData.operatingModel,
+            warehouseModel: formData.warehouseModel,
+            challenges: formData.challenges,
+            reconciled: formData.reconciled,
             intent: formData.intent,
-            timeline: formData.timeline,
-            challenges: formData.challenges
+            timeline: formData.timeline
           })
         });
       } catch (e) {

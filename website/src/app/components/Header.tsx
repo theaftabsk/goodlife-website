@@ -54,100 +54,112 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
       top: 0,
       left: 0,
       right: 0,
-      height: "76px",
-      background: "rgba(255, 255, 255, 0.95)",
-      backdropFilter: "blur(20px)",
-      WebkitBackdropFilter: "blur(20px)",
-      borderBottom: "1px solid #E2E8F0",
-      boxShadow: "0 2px 15px rgba(0, 0, 0, 0.04)",
+      height: "72px",
+      background: "rgba(255, 255, 255, 0.97)",
+      backdropFilter: "blur(24px)",
+      WebkitBackdropFilter: "blur(24px)",
+      borderBottom: "1px solid rgba(226, 232, 240, 0.8)",
+      boxShadow: "0 1px 20px rgba(0, 0, 0, 0.05)",
       zIndex: 9999
     }}>
       <div className="container" style={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         
-        {/* Brand Logo - Clean Typography & Subtitle */}
-        <Link href="/" style={{ textDecoration: "none" }}>
-          <span style={{ fontSize: "1.35rem", fontWeight: 900, letterSpacing: "-0.5px", color: "#0F172A", display: "block", lineHeight: 1 }}>GOOD LIFE</span>
-          <span style={{ fontSize: "0.65rem", letterSpacing: "1.5px", color: "#0284C7", textTransform: "uppercase", fontWeight: 800, marginTop: "2px", display: "block" }}>Commerce Operating Partner</span>
+        {/* Brand Logo — wordmark only */}
+        <Link href="/" style={{ textDecoration: "none" }} className="header-logo-container">
+          <span style={{
+            fontSize: "1.45rem",
+            fontWeight: 900,
+            letterSpacing: "-0.8px",
+            color: "#0F172A",
+            lineHeight: 1
+          }}>
+            GOOD LIFE
+          </span>
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav style={{ display: "flex", gap: "2.2rem", alignItems: "center" }} className="desktop-nav">
-          <div
-            onMouseEnter={() => setActiveMenu("solutions")}
-            onMouseLeave={() => setActiveMenu(null)}
-            style={{ position: "relative", padding: "1.5rem 0" }}
-          >
-            <span style={{ fontSize: "0.92rem", fontWeight: 600, color: activeMenu === "solutions" ? "#0284C7" : "#334155", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem" }}>
-              Solutions <span style={{ fontSize: "0.7rem", opacity: 0.7 }}>▾</span>
-            </span>
-          </div>
-
-          <div
-            onMouseEnter={() => setActiveMenu("capabilities")}
-            onMouseLeave={() => setActiveMenu(null)}
-            style={{ position: "relative", padding: "1.5rem 0" }}
-          >
-            <span style={{ fontSize: "0.92rem", fontWeight: 600, color: activeMenu === "capabilities" ? "#0284C7" : "#334155", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem" }}>
-              Capabilities <span style={{ fontSize: "0.7rem", opacity: 0.7 }}>▾</span>
-            </span>
-          </div>
-
-          <div
-            onMouseEnter={() => setActiveMenu("specialised")}
-            onMouseLeave={() => setActiveMenu(null)}
-            style={{ position: "relative", padding: "1.5rem 0" }}
-          >
-            <span style={{ fontSize: "0.92rem", fontWeight: 600, color: activeMenu === "specialised" ? "#0284C7" : "#334155", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem" }}>
-              Specialised <span style={{ fontSize: "0.7rem", opacity: 0.7 }}>▾</span>
-            </span>
-          </div>
-
-          <div
-            onMouseEnter={() => setActiveMenu("proof")}
-            onMouseLeave={() => setActiveMenu(null)}
-            style={{ position: "relative", padding: "1.5rem 0" }}
-          >
-            <span style={{ fontSize: "0.92rem", fontWeight: 600, color: activeMenu === "proof" ? "#0284C7" : "#334155", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem" }}>
-              Proof & Knowledge <span style={{ fontSize: "0.7rem", opacity: 0.7 }}>▾</span>
-            </span>
-          </div>
+        <nav style={{ display: "flex", gap: "0.25rem", alignItems: "center" }} className="desktop-nav">
+          {(["solutions", "capabilities", "specialised", "proof"] as const).map((key) => {
+            const labels: Record<string, string> = {
+              solutions: "Solutions",
+              capabilities: "Capabilities",
+              specialised: "Specialised",
+              proof: "Proof & Knowledge"
+            };
+            const isActive = activeMenu === key;
+            return (
+              <div
+                key={key}
+                onMouseEnter={() => setActiveMenu(key)}
+                onMouseLeave={() => setActiveMenu(null)}
+                style={{ position: "relative", padding: "1.4rem 0" }}
+              >
+                <span style={{
+                  fontSize: "0.92rem",
+                  fontWeight: 600,
+                  color: isActive ? "#2563EB" : "#334155",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.25rem",
+                  padding: "0.4rem 0.8rem",
+                  borderRadius: "8px",
+                  background: isActive ? "rgba(37,99,235,0.07)" : "transparent",
+                  transition: "all 0.18s ease",
+                  userSelect: "none"
+                }}>
+                  {labels[key]}
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.6, transition: "transform 0.18s ease", transform: isActive ? "rotate(180deg)" : "rotate(0deg)" }}>
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </span>
+              </div>
+            );
+          })}
         </nav>
 
         {/* Primary CTA + Hamburger */}
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
           <button
             onClick={onOpenDiagnostic}
-            className="desktop-cta-only"
+            className="header-cta-button"
             style={{
-              height: "44px",
-              fontSize: "0.88rem",
+              height: "40px",
+              fontSize: "0.86rem",
               fontWeight: 700,
-              padding: "0 1.35rem",
+              padding: "0 1.25rem",
               borderRadius: "10px",
-              background: "#2563EB",
+              background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
               color: "#FFFFFF",
               border: "none",
               cursor: "pointer",
-              boxShadow: "0 4px 14px rgba(37, 99, 235, 0.25)",
-              transition: "all 0.2s ease"
+              boxShadow: "0 3px 12px rgba(37, 99, 235, 0.28)",
+              transition: "all 0.2s ease",
+              whiteSpace: "nowrap"
             }}
           >
-            Request a Commerce Diagnostic
+            <span className="cta-text-desktop">Get Free Diagnostic →</span>
+            <span className="cta-text-mobile">Diagnostic →</span>
           </button>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Hamburger */}
           <button
             className="mobile-hamburger-btn"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
             style={{
               display: "none",
-              background: "#F1F5F9",
-              border: "1px solid #CBD5E1",
-              color: "#0F172A",
-              padding: "0.5rem 0.75rem",
-              borderRadius: "8px",
-              cursor: "pointer"
+              width: "40px",
+              height: "40px",
+              background: mobileOpen ? "#EFF6FF" : "#F8FAFC",
+              border: `1px solid ${mobileOpen ? "#BFDBFE" : "#E2E8F0"}`,
+              color: mobileOpen ? "#2563EB" : "#475569",
+              borderRadius: "10px",
+              cursor: "pointer",
+              fontSize: "1.1rem",
+              alignItems: "center",
+              justifyContent: "center",
+              transition: "all 0.2s ease"
             }}
           >
             {mobileOpen ? "✕" : "☰"}
@@ -164,15 +176,15 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
           onMouseLeave={() => setActiveMenu(null)}
           style={{
             position: "absolute",
-            top: "76px",
+            top: "72px",
             left: 0,
             right: 0,
-            background: "rgba(255, 255, 255, 0.98)",
-            backdropFilter: "blur(24px)",
-            WebkitBackdropFilter: "blur(24px)",
-            borderBottom: "1px solid #E2E8F0",
-            boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.08)",
-            padding: "2rem 0 2.5rem"
+            background: "rgba(255, 255, 255, 0.99)",
+            backdropFilter: "blur(28px)",
+            WebkitBackdropFilter: "blur(28px)",
+            borderBottom: "1px solid rgba(226, 232, 240, 0.8)",
+            boxShadow: "0 24px 48px -12px rgba(0, 0, 0, 0.1)",
+            padding: "1.75rem 0 2.25rem"
           }}
         >
           <div className="container">
@@ -185,13 +197,16 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    padding: "0.9rem 1.1rem",
+                    padding: "0.85rem 1rem",
                     borderRadius: "10px",
                     background: "#F8FAFC",
-                    border: "1px solid #E2E8F0",
+                    border: "1px solid #E9EEF5",
                     textDecoration: "none",
-                    transition: "all 0.2s ease"
+                    transition: "all 0.18s ease",
+                    gap: "0.2rem"
                   }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = "#EFF6FF"; (e.currentTarget as HTMLAnchorElement).style.borderColor = "#BFDBFE"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = "#F8FAFC"; (e.currentTarget as HTMLAnchorElement).style.borderColor = "#E9EEF5"; }}
                 >
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <span style={{ fontSize: "0.95rem", fontWeight: 700, color: "#0F172A" }}>{item.name}</span>
@@ -217,71 +232,111 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
           left: 0,
           right: 0,
           bottom: 0,
-          background: "#FFFFFF",
+          background: "rgba(255, 255, 255, 0.98)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
           zIndex: 9998,
           overflowY: "auto",
-          padding: "1.5rem 1.25rem 3rem",
+          padding: "1.5rem 1.25rem 4rem",
           display: "flex",
           flexDirection: "column",
-          gap: "1rem"
+          gap: "1.1rem"
         }}>
-          {["solutions", "capabilities", "specialised", "proof"].map((catKey) => (
-            <div key={catKey} style={{ borderBottom: "1px solid #E2E8F0", paddingBottom: "0.8rem" }}>
-              <button
-                onClick={() => toggleMobileCategory(catKey)}
-                style={{
-                  width: "100%",
-                  background: "none",
-                  border: "none",
-                  color: "#0284C7",
-                  fontSize: "0.95rem",
-                  fontWeight: 800,
-                  textTransform: "uppercase",
-                  letterSpacing: "1px",
-                  textAlign: "left",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  cursor: "pointer",
-                  padding: "0.5rem 0"
-                }}
-              >
-                {catKey === "proof" ? "Proof & Knowledge" : catKey}
-                <span>{expandedMobileCategory === catKey ? "−" : "+"}</span>
-              </button>
+          {["solutions", "capabilities", "specialised", "proof"].map((catKey) => {
+            const labelMap: Record<string, string> = {
+              solutions: "Solutions",
+              capabilities: "Capabilities",
+              specialised: "Specialised",
+              proof: "Proof & Knowledge"
+            };
+            const isExpanded = expandedMobileCategory === catKey;
 
-              {expandedMobileCategory === catKey && (
-                <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginTop: "0.6rem", paddingLeft: "0.5rem" }}>
-                  {megaMenuData[catKey]?.map((item, idx) => (
-                    <Link
-                      key={idx}
-                      href={item.href}
-                      onClick={() => setMobileOpen(false)}
-                      style={{ color: "#334155", textDecoration: "none", fontSize: "0.92rem", fontWeight: 600 }}
-                    >
-                      ✦ {item.name}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
+            return (
+              <div key={catKey} style={{
+                background: "#F8FAFC",
+                border: "1px solid #E2E8F0",
+                borderRadius: "14px",
+                padding: "0.85rem 1rem",
+                transition: "all 0.2s ease"
+              }}>
+                <button
+                  onClick={() => toggleMobileCategory(catKey)}
+                  style={{
+                    width: "100%",
+                    background: "none",
+                    border: "none",
+                    color: "#0F172A",
+                    fontSize: "0.98rem",
+                    fontWeight: 800,
+                    textAlign: "left",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    cursor: "pointer"
+                  }}
+                >
+                  <span style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <span style={{ width: 8, height: 8, borderRadius: "50%", background: isExpanded ? "#2563EB" : "#94A3B8" }} />
+                    {labelMap[catKey]}
+                  </span>
+                  <span style={{ fontSize: "1.1rem", fontWeight: 700, color: "#2563EB" }}>
+                    {isExpanded ? "−" : "+"}
+                  </span>
+                </button>
+
+                {isExpanded && (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem", marginTop: "0.86rem", paddingTop: "0.86rem", borderTop: "1px solid #E2E8F0" }}>
+                    {megaMenuData[catKey]?.map((item, idx) => (
+                      <Link
+                        key={idx}
+                        href={item.href}
+                        onClick={() => setMobileOpen(false)}
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "0.2rem",
+                          padding: "0.75rem 0.85rem",
+                          background: "#FFFFFF",
+                          border: "1px solid #E2E8F0",
+                          borderRadius: "10px",
+                          textDecoration: "none",
+                          boxShadow: "0 1px 3px rgba(0,0,0,0.02)"
+                        }}
+                      >
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                          <span style={{ color: "#0F172A", fontSize: "0.9rem", fontWeight: 700 }}>{item.name}</span>
+                          {item.tag && (
+                            <span style={{ fontSize: "0.65rem", fontWeight: 800, padding: "0.15rem 0.4rem", borderRadius: "4px", background: "rgba(37,99,235,0.1)", color: "#2563EB" }}>
+                              {item.tag}
+                            </span>
+                          )}
+                        </div>
+                        <span style={{ color: "#64748B", fontSize: "0.78rem", lineHeight: 1.4 }}>{item.desc}</span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
 
           <button
             onClick={() => { setMobileOpen(false); onOpenDiagnostic(); }}
             style={{
               width: "100%",
-              marginTop: "1rem",
-              height: "48px",
-              borderRadius: "10px",
-              background: "#2563EB",
+              marginTop: "0.5rem",
+              height: "50px",
+              borderRadius: "12px",
+              background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
               color: "#FFF",
-              fontWeight: 700,
+              fontWeight: 800,
               fontSize: "0.95rem",
               border: "none",
-              cursor: "pointer"
+              cursor: "pointer",
+              boxShadow: "0 4px 16px rgba(37, 99, 235, 0.3)"
             }}
           >
-            Request a Commerce Diagnostic
+            Request a Commerce Diagnostic →
           </button>
         </div>
       )}
