@@ -479,61 +479,77 @@ export default function HomePage() {
 
   const portfolioLogos = [
     {
-      name: "Wellness Co",
+      name: "Forbes",
       svg: (
-        <svg viewBox="0 0 140 30" width="140" height="30" fill="none" style={{ opacity: 0.75, display: "inline-block", verticalAlign: "middle" }}>
-          <circle cx="15" cy="15" r="8" stroke="#059669" strokeWidth="2.5" fill="none" />
-          <path d="M12 15 h6 M15 12 v6" stroke="#059669" strokeWidth="2" />
-          <text x="30" y="19" fontFamily="Outfit, sans-serif" fontWeight="800" fontSize="11" letterSpacing="1px" fill="#475569">WELLNESS CO</text>
+        <svg viewBox="0 0 130 30" width="130" height="30" fill="none" style={{ opacity: 0.85, display: "inline-block", verticalAlign: "middle" }}>
+          <text x="5" y="21" fontFamily="Georgia, serif" fontWeight="900" fontSize="18" letterSpacing="1px" fill="#0F172A">Forbes</text>
         </svg>
       )
     },
     {
-      name: "KitchenWare",
+      name: "Mamaearth",
       svg: (
-        <svg viewBox="0 0 140 30" width="140" height="30" fill="none" style={{ opacity: 0.75, display: "inline-block", verticalAlign: "middle" }}>
-          <path d="M6 10 h18 v4 a4 4 0 0 1 -4 4 h-10 a4 4 0 0 1 -4 -4 z" fill="#D97706" />
-          <path d="M15 18 v5" stroke="#D97706" strokeWidth="2.5" />
-          <text x="30" y="19" fontFamily="Outfit, sans-serif" fontWeight="800" fontSize="11" letterSpacing="1px" fill="#475569">KITCHENWARE</text>
+        <svg viewBox="0 0 140 30" width="140" height="30" fill="none" style={{ opacity: 0.85, display: "inline-block", verticalAlign: "middle" }}>
+          <text x="5" y="21" fontFamily="'Trebuchet MS', sans-serif" fontWeight="800" fontSize="16" letterSpacing="-0.5px" fill="#0D9488">mamaearth</text>
         </svg>
       )
     },
     {
-      name: "Apex Gears",
+      name: "boAt",
       svg: (
-        <svg viewBox="0 0 140 30" width="140" height="30" fill="none" style={{ opacity: 0.75, display: "inline-block", verticalAlign: "middle" }}>
-          <circle cx="15" cy="15" r="7" stroke="#2563EB" strokeWidth="2.5" />
-          <circle cx="15" cy="15" r="2.5" fill="#2563EB" />
-          <text x="30" y="19" fontFamily="Outfit, sans-serif" fontWeight="800" fontSize="11" letterSpacing="1px" fill="#475569">APEX GEARS</text>
+        <svg viewBox="0 0 110 30" width="110" height="30" fill="none" style={{ opacity: 0.85, display: "inline-block", verticalAlign: "middle" }}>
+          <path d="M6 22 L16 10 L24 22 Z" fill="#DC2626" />
+          <text x="30" y="21" fontFamily="'Arial Black', sans-serif" fontWeight="900" fontSize="17" fill="#0F172A">boAt</text>
         </svg>
       )
     },
     {
-      name: "Cosmetics Pro",
+      name: "Gaia Herbs",
       svg: (
-        <svg viewBox="0 0 140 30" width="140" height="30" fill="none" style={{ opacity: 0.75, display: "inline-block", verticalAlign: "middle" }}>
-          <rect x="7" y="7" width="16" height="16" rx="3" stroke="#DB2777" strokeWidth="2.5" />
-          <circle cx="15" cy="15" r="3.5" stroke="#DB2777" strokeWidth="2" />
-          <text x="30" y="19" fontFamily="Outfit, sans-serif" fontWeight="800" fontSize="11" letterSpacing="1px" fill="#475569">COSMETICS PRO</text>
+        <svg viewBox="0 0 140 30" width="140" height="30" fill="none" style={{ opacity: 0.85, display: "inline-block", verticalAlign: "middle" }}>
+          <path d="M10 20 Q15 6 20 20" stroke="#059669" strokeWidth="2.5" fill="none" />
+          <text x="26" y="21" fontFamily="Outfit, sans-serif" fontWeight="800" fontSize="14" letterSpacing="0.5px" fill="#059669">GAIA HERBS</text>
         </svg>
       )
     },
     {
-      name: "Electro Tech",
+      name: "Parachute",
       svg: (
-        <svg viewBox="0 0 140 30" width="140" height="30" fill="none" style={{ opacity: 0.75, display: "inline-block", verticalAlign: "middle" }}>
-          <rect x="6" y="8" width="18" height="12" rx="2" stroke="#4F46E5" strokeWidth="2.5" />
-          <path d="M10 20 l-2 4 M20 20 l2 4" stroke="#4F46E5" strokeWidth="2" />
-          <text x="30" y="19" fontFamily="Outfit, sans-serif" fontWeight="800" fontSize="11" letterSpacing="1px" fill="#475569">ELECTRO TECH</text>
+        <svg viewBox="0 0 130 30" width="130" height="30" fill="none" style={{ opacity: 0.85, display: "inline-block", verticalAlign: "middle" }}>
+          <path d="M8 8 C14 8, 20 12, 20 22 C12 22, 8 16, 8 8 Z" fill="#0284C7" />
+          <text x="26" y="21" fontFamily="sans-serif" fontWeight="800" fontSize="14" letterSpacing="0.5px" fill="#0284C7">PARACHUTE</text>
         </svg>
       )
     },
     {
-      name: "Industrial Mfg",
+      name: "Pukka",
       svg: (
-        <svg viewBox="0 0 140 30" width="140" height="30" fill="none" style={{ opacity: 0.75, display: "inline-block", verticalAlign: "middle" }}>
-          <polygon points="15,6 23,11 23,21 15,26 7,21 7,11" stroke="#475569" strokeWidth="2.5" fill="none" />
-          <text x="30" y="19" fontFamily="Outfit, sans-serif" fontWeight="800" fontSize="11" letterSpacing="1px" fill="#475569">INDUS MFG</text>
+        <svg viewBox="0 0 110 30" width="110" height="30" fill="none" style={{ opacity: 0.85, display: "inline-block", verticalAlign: "middle" }}>
+          <text x="5" y="21" fontFamily="'Trebuchet MS', sans-serif" fontWeight="900" fontStyle="italic" fontSize="18" fill="#15803D">pukka</text>
+        </svg>
+      )
+    },
+    {
+      name: "Vimto",
+      svg: (
+        <svg viewBox="0 0 110 30" width="110" height="30" fill="none" style={{ opacity: 0.85, display: "inline-block", verticalAlign: "middle" }}>
+          <text x="5" y="21" fontFamily="'Arial Black', sans-serif" fontWeight="900" fontSize="18" fill="#B91C1C">Vimto</text>
+        </svg>
+      )
+    },
+    {
+      name: "Stash",
+      svg: (
+        <svg viewBox="0 0 110 30" width="110" height="30" fill="none" style={{ opacity: 0.85, display: "inline-block", verticalAlign: "middle" }}>
+          <text x="5" y="21" fontFamily="Georgia, serif" fontWeight="800" fontSize="17" letterSpacing="1px" fill="#D97706">STASH</text>
+        </svg>
+      )
+    },
+    {
+      name: "Bajaj",
+      svg: (
+        <svg viewBox="0 0 110 30" width="110" height="30" fill="none" style={{ opacity: 0.85, display: "inline-block", verticalAlign: "middle" }}>
+          <text x="5" y="21" fontFamily="'Arial Black', sans-serif" fontWeight="900" fontSize="17" fill="#002FA7">BAJAJ</text>
         </svg>
       )
     }
