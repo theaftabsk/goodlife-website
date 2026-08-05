@@ -555,13 +555,13 @@ export default function HomePage() {
     }
   ];
 
-  // Approved Platform Vector SVGs
+  // Approved Platform Vector SVGs (Enlarged & High-Impact)
   const channelSVGs: { name: string; bg: string; svg: React.ReactNode }[] = [
     {
       name: "Amazon",
       bg: "#232F3E",
       svg: (
-        <svg viewBox="0 0 120 38" width="72" height="24" fill="none">
+        <svg viewBox="0 0 120 38" width="92" height="30" fill="none">
           <text x="4" y="24" fontFamily="Arial Black,sans-serif" fontWeight="900" fontSize="22" fill="#FFFFFF">amazon</text>
           <path d="M10 28 Q38 38 66 28" stroke="#FF9900" strokeWidth="2.8" strokeLinecap="round" fill="none"/>
           <path d="M63 25 L69 28 L64 32" fill="#FF9900"/>
@@ -572,7 +572,7 @@ export default function HomePage() {
       name: "Flipkart",
       bg: "#2874F0",
       svg: (
-        <svg viewBox="0 0 110 38" width="68" height="24" fill="none">
+        <svg viewBox="0 0 110 38" width="88" height="30" fill="none">
           <rect x="2" y="5" width="22" height="28" rx="4" fill="#FFE500"/>
           <path d="M7 10 h8 v4 h-5 v3 h5 v4 h-5 v6 h-3 z" fill="#2874F0"/>
           <path d="M17 17 h5 v3 h-5 z" fill="#2874F0"/>
@@ -584,7 +584,7 @@ export default function HomePage() {
       name: "Myntra",
       bg: "#18181B",
       svg: (
-        <svg viewBox="0 0 100 32" width="48" height="20" fill="none">
+        <svg viewBox="0 0 100 32" width="76" height="26" fill="none">
           <path d="M2 24 L7 8 L12 18 L17 8 L22 24" stroke="#FF3F6C" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
           <path d="M7 8 L12 18 L17 8" stroke="#F59E0B" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
           <text x="26" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="15" fill="#FFFFFF">myntra</text>
@@ -595,7 +595,7 @@ export default function HomePage() {
       name: "Moglix",
       bg: "#E8192C",
       svg: (
-        <svg viewBox="0 0 100 32" width="48" height="20" fill="none">
+        <svg viewBox="0 0 100 32" width="76" height="26" fill="none">
           <rect x="2" y="6" width="20" height="20" rx="4" fill="#FFFFFF" />
           <path d="M6 21 V11 L10 16 L14 11 V21" stroke="#E8192C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
           <text x="26" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="16" fill="#FFFFFF">moglix</text>
@@ -606,7 +606,7 @@ export default function HomePage() {
       name: "JioMart",
       bg: "#0066CC",
       svg: (
-        <svg viewBox="0 0 100 32" width="48" height="20" fill="none">
+        <svg viewBox="0 0 100 32" width="76" height="26" fill="none">
           <circle cx="12" cy="16" r="10" fill="#0088FF" />
           <text x="7" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="13" fill="#FFFFFF">Jio</text>
           <text x="26" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="15" fill="#FFFFFF">Mart</text>
@@ -617,7 +617,7 @@ export default function HomePage() {
       name: "Snapmint",
       bg: "#00B09B",
       svg: (
-        <svg viewBox="0 0 100 32" width="50" height="20" fill="none">
+        <svg viewBox="0 0 100 32" width="80" height="26" fill="none">
           <polygon points="4,22 10,8 16,22" fill="#FFFFFF" />
           <text x="20" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="15" fill="#FFFFFF">snapmint</text>
         </svg>
@@ -627,7 +627,7 @@ export default function HomePage() {
       name: "Bajaj",
       bg: "#003087",
       svg: (
-        <svg viewBox="0 0 90 32" width="46" height="20" fill="none">
+        <svg viewBox="0 0 90 32" width="74" height="26" fill="none">
           <path d="M4 8 H16 L8 16 L16 24 H4 Z" fill="#38BDF8" />
           <text x="22" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="16" fill="#FFFFFF">BAJAJ</text>
         </svg>
@@ -637,7 +637,7 @@ export default function HomePage() {
       name: "IB (IndiaMART B2B)",
       bg: "#E8711A",
       svg: (
-        <svg viewBox="0 0 80 32" width="44" height="20" fill="none">
+        <svg viewBox="0 0 80 32" width="70" height="26" fill="none">
           <rect x="2" y="4" width="22" height="24" rx="5" fill="#FFFFFF" />
           <text x="6" y="22" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="16" fill="#E8711A">IB</text>
           <text x="30" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="14" fill="#FFFFFF">B2B</text>
@@ -648,7 +648,7 @@ export default function HomePage() {
       name: "8+ More Platforms",
       bg: "#0F172A",
       svg: (
-        <svg viewBox="0 0 90 32" width="48" height="20" fill="none">
+        <svg viewBox="0 0 90 32" width="76" height="26" fill="none">
           <circle cx="14" cy="16" r="10" fill="#2563EB" />
           <text x="8" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="12" fill="#FFFFFF">8+</text>
           <text x="28" y="21" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="14" fill="#FFFFFF">More</text>
@@ -659,15 +659,15 @@ export default function HomePage() {
 
   // Section 7: Ten Capabilities (Links into each capability page)
   const capabilities = [
-    { title: "Marketplace Operations", desc: "Cataloguing, listing optimisation, buy box protection and daily account management across core channels.", href: "/capabilities/marketplace-operations", color: "#2563EB", g: "ptn-card-graphic-1", icon: <><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></> },
-    { title: "Marketplace Growth", desc: "Established Amazon & Flipkart performance ad campaigns—keyword targeting, budget pacing and conversions.", href: "/capabilities/marketplace-growth", color: "#0284C7", g: "ptn-card-graphic-2", icon: <><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></> },
-    { title: "Multi-Platform Commerce", desc: "Onboard and operate across core marketplaces, fashion channels, B2B platforms and assisted purchase networks.", href: "/multi-platform-commerce", color: "#0D9488", g: "ptn-card-graphic-3", icon: <><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></> },
-    { title: "D2C Operations", desc: "End-to-end storefront operations, catalogue synchronisation, order flows, payment/COD reconciliation and return coordination.", href: "/d2c-commerce-operations", color: "#EC4899", g: "ptn-card-graphic-4", icon: <><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M21 12H3M12 3v18"/></> },
-    { title: "B2B & Institutional", desc: "Bulk enquiries, corporate orders, GST invoicing, B2B platform listings and warehouse-supported dealer supply.", href: "/b2b-institutional-commerce", color: "#7C3AED", g: "ptn-card-graphic-1", icon: <><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></> },
-    { title: "Inventory Planning", desc: "Multi-channel allocation across marketplace, D2C, B2B/institutional and dealer supplies with buffer management.", href: "/capabilities/inventory-planning", color: "#2563EB", g: "ptn-card-graphic-2", icon: <><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/></> },
-    { title: "Fulfilment & Warehousing", desc: "1,00,000+ sq ft across 12 state hubs with FBA/FAssured SLA compliance and regional CNF supply support.", href: "/capabilities/warehousing-fulfilment", color: "#4F46E5", g: "ptn-card-graphic-3", icon: <><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></> },
-    { title: "Revenue Assurance", desc: "Daily automated settlement audits, weight dispute recovery and return claim reconciliation across all platforms.", href: "/capabilities/revenue-assurance", color: "#059669", g: "ptn-card-graphic-4", icon: <><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></> },
-    { title: "Returns Management", desc: "RTO reduction, reverse logistics QC, exception tracking and return reconciliation across marketplace and D2C.", href: "/capabilities/returns-operations", color: "#F59E0B", g: "ptn-card-graphic-1", icon: <><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></> },
+    { title: "Marketplace Operations", desc: "Cataloguing, listing optimisation, buy box protection and daily account management across core channels.", href: "/capabilities/marketplace-operations", color: "#2563EB", bg: "#EFF6FF", icon: <><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></> },
+    { title: "Marketplace Growth & Ads", desc: "Established Amazon & Flipkart performance ad campaigns—keyword targeting, budget pacing and conversions.", href: "/capabilities/marketplace-growth", color: "#0284C7", bg: "#F0F9FF", icon: <><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></> },
+    { title: "Multi-Platform Commerce", desc: "Onboard and operate across core marketplaces, fashion channels, B2B platforms and assisted purchase networks.", href: "/multi-platform-commerce", color: "#0D9488", bg: "#F0FDFA", icon: <><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></> },
+    { title: "D2C Commerce Operations", desc: "End-to-end storefront operations, catalogue synchronisation, order flows, payment/COD reconciliation and return coordination.", href: "/d2c-commerce-operations", color: "#EC4899", bg: "#FDF2F8", icon: <><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M21 12H3M12 3v18"/></> },
+    { title: "B2B & Institutional Commerce", desc: "Bulk enquiries, corporate orders, GST invoicing, B2B platform listings and warehouse-supported dealer supply.", href: "/b2b-institutional-commerce", color: "#7C3AED", bg: "#F5F3FF", icon: <><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></> },
+    { title: "Inventory Planning", desc: "Multi-channel allocation across marketplace, D2C, B2B/institutional and dealer supplies with buffer management.", href: "/capabilities/inventory-planning", color: "#2563EB", bg: "#EFF6FF", icon: <><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/></> },
+    { title: "Fulfilment & Warehousing", desc: "1,00,000+ sq ft across 12 state hubs with FBA/FAssured SLA compliance and regional CNF supply support.", href: "/capabilities/warehousing-fulfilment", color: "#4F46E5", bg: "#EEF2FF", icon: <><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></> },
+    { title: "Revenue Assurance", desc: "Daily automated settlement audits, weight dispute recovery and return claim reconciliation across all platforms.", href: "/capabilities/revenue-assurance", color: "#059669", bg: "#F0FDF4", icon: <><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></> },
+    { title: "Returns Management", desc: "RTO reduction, reverse logistics QC, exception tracking and return reconciliation across marketplace and D2C.", href: "/capabilities/returns-operations", color: "#F59E0B", bg: "#FFF7ED", icon: <><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></> },
     { title: "Heavy & Bulky Commerce", desc: "Specialised freight handling, transit damage protection, custom crating and coordinated last-mile delivery.", href: "/specialised/heavy-bulky-commerce", color: "#0F172A", bg: "#F8FAFC", icon: <><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></> },
   ];
 
@@ -722,7 +722,7 @@ export default function HomePage() {
               <div className="channel-strip-line" />
               <div className="channel-strip-row">
                 {channelSVGs.map((ch, idx) => (
-                  <div key={idx} className="channel-icon" title={ch.name} style={{ background: ch.bg, border: "none", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "14px", width: "60px", height: "44px", boxShadow: "0 2px 8px rgba(0,0,0,0.15)" }}>
+                  <div key={idx} className="channel-icon" title={ch.name} style={{ background: ch.bg, border: "none", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "16px", width: "108px", height: "56px", boxShadow: "0 4px 14px rgba(0,0,0,0.15)" }}>
                     {ch.svg}
                   </div>
                 ))}

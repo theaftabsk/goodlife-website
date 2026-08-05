@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <rect width="64" height="64" rx="16" fill="#FFFFFF"/>
+  <rect width="62" height="62" x="1" y="1" rx="15" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <text x="7" y="44" font-family="'Trebuchet MS', 'Outfit', 'Segoe UI', sans-serif" font-weight="900" font-style="italic" font-size="38" letter-spacing="-1px">
+    <tspan fill="#2E628D">G</tspan><tspan fill="#6FA056">l</tspan>
+  </text>
+</svg>
