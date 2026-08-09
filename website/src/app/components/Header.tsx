@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "./Logo";
@@ -13,6 +13,16 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [expandedMobileCategory, setExpandedMobileCategory] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const megaMenuData: Record<string, { name: string; href: string; desc: string; tag?: string }[]> = {
     solutions: [
@@ -50,28 +60,32 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
   };
 
   return (
-    <header className="header-bar" style={{
+    <header className={`header-bar ${scrolled ? "scrolled" : ""}`} style={{
       position: "fixed",
-      top: 0,
-      left: 0,
-      right: 0,
-      height: "72px",
-      background: "rgba(255, 255, 255, 0.97)",
+      top: scrolled ? "12px" : "16px",
+      left: "50%",
+      transform: "translateX(-50%)",
+      width: "calc(100% - 2.5rem)",
+      maxWidth: "1320px",
+      height: scrolled ? "68px" : "76px",
+      background: scrolled ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 0.55)",
       backdropFilter: "blur(24px)",
       WebkitBackdropFilter: "blur(24px)",
-      borderBottom: "1px solid rgba(226, 232, 240, 0.8)",
-      boxShadow: "0 1px 20px rgba(0, 0, 0, 0.05)",
-      zIndex: 9999
+      borderRadius: "24px",
+      border: scrolled ? "1px solid rgba(226, 232, 240, 0.9)" : "1px solid rgba(255, 255, 255, 0.75)",
+      boxShadow: scrolled ? "0 10px 30px rgba(15, 23, 42, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04)" : "0 12px 36px rgba(15, 23, 42, 0.08)",
+      zIndex: 9999,
+      transition: "all 0.28s cubic-bezier(0.16, 1, 0.3, 1)"
     }}>
-      <div className="container" style={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{ width: "100%", height: "100%", padding: "0 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         
-        {/* Brand Logo */}
+        {/* Brand Logo (Left) */}
         <Link href="/" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center" }} className="header-logo-container">
-          <Logo height={32} mode="light" />
+          <Logo height={34} mode="light" />
         </Link>
 
-        {/* Desktop Navigation Links */}
-        <nav style={{ display: "flex", gap: "0.25rem", alignItems: "center" }} className="desktop-nav">
+        {/* Desktop Navigation Links (Center, Small & Clean) */}
+        <nav style={{ display: "flex", gap: "0.4rem", alignItems: "center" }} className="desktop-nav">
           {(["solutions", "capabilities", "specialised", "proof"] as const).map((key) => {
             const labels: Record<string, string> = {
               solutions: "Solutions",
@@ -85,24 +99,26 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
                 key={key}
                 onMouseEnter={() => setActiveMenu(key)}
                 onMouseLeave={() => setActiveMenu(null)}
-                style={{ position: "relative", padding: "1.4rem 0" }}
+                style={{ position: "relative", padding: "1.2rem 0" }}
               >
                 <span style={{
-                  fontSize: "0.96rem",
+                  fontSize: "0.91rem",
                   fontWeight: 700,
-                  color: isActive ? "#2563EB" : "#1E293B",
+                  fontFamily: "var(--font-display)",
+                  color: isActive ? "#7C3AED" : "#0F172A",
                   cursor: "pointer",
                   display: "flex",
                   alignItems: "center",
                   gap: "0.3rem",
-                  padding: "0.45rem 0.85rem",
-                  borderRadius: "8px",
-                  background: isActive ? "rgba(37,99,235,0.08)" : "transparent",
-                  transition: "all 0.18s ease",
+                  padding: "0.45rem 1rem",
+                  borderRadius: "99px",
+                  background: isActive ? "rgba(168, 85, 247, 0.12)" : "transparent",
+                  boxShadow: isActive ? "0 0 16px rgba(168, 85, 247, 0.15)" : "none",
+                  transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
                   userSelect: "none"
                 }}>
                   {labels[key]}
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.75, transition: "transform 0.18s ease", transform: isActive ? "rotate(180deg)" : "rotate(0deg)" }}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.8, transition: "transform 0.2s ease", transform: isActive ? "rotate(180deg)" : "rotate(0deg)" }}>
                     <polyline points="6 9 12 15 18 9"/>
                   </svg>
                 </span>
@@ -111,23 +127,24 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
           })}
         </nav>
 
-        {/* Primary CTA + Hamburger */}
+        {/* Primary Rounded Pill CTA (Right) + Hamburger */}
         <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
           <button
             onClick={onOpenDiagnostic}
             className="header-cta-button"
             style={{
-              height: "40px",
-              fontSize: "0.86rem",
+              height: "46px",
+              fontSize: "0.88rem",
               fontWeight: 700,
-              padding: "0 1.25rem",
-              borderRadius: "10px",
+              fontFamily: "var(--font-display)",
+              padding: "0 1.5rem",
+              borderRadius: "99px",
               background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
               color: "#FFFFFF",
               border: "none",
               cursor: "pointer",
-              boxShadow: "0 3px 12px rgba(37, 99, 235, 0.28)",
-              transition: "all 0.2s ease",
+              boxShadow: "0 6px 20px rgba(37, 99, 235, 0.32)",
+              transition: "all 0.22s ease",
               whiteSpace: "nowrap"
             }}
           >
@@ -135,19 +152,20 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
             <span className="cta-text-mobile">Free Audit →</span>
           </button>
 
-          {/* Mobile Hamburger */}
+          {/* Mobile Hamburger Button */}
           <button
             className="mobile-hamburger-btn"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
             style={{
               display: "none",
-              width: "40px",
-              height: "40px",
-              background: mobileOpen ? "#EFF6FF" : "#F8FAFC",
-              border: `1px solid ${mobileOpen ? "#BFDBFE" : "#E2E8F0"}`,
-              color: mobileOpen ? "#2563EB" : "#475569",
-              borderRadius: "10px",
+              width: "44px",
+              height: "44px",
+              background: mobileOpen ? "rgba(255, 255, 255, 0.9)" : "rgba(255, 255, 255, 0.3)",
+              backdropFilter: "blur(12px)",
+              border: `1px solid ${mobileOpen ? "#BFDBFE" : "rgba(255, 255, 255, 0.5)"}`,
+              color: mobileOpen ? "#2563EB" : "#0F172A",
+              borderRadius: "14px",
               cursor: "pointer",
               fontSize: "1.1rem",
               alignItems: "center",
@@ -158,10 +176,9 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
             {mobileOpen ? "✕" : "☰"}
           </button>
         </div>
-
       </div>
 
-      {/* Mega-Menu Overlay for Desktop */}
+      {/* Floating Glass Mega-Menu Overlay for Desktop */}
       {activeMenu && (
         <div
           className="mega-menu-overlay"
@@ -169,50 +186,59 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
           onMouseLeave={() => setActiveMenu(null)}
           style={{
             position: "absolute",
-            top: "72px",
-            left: 0,
-            right: 0,
-            background: "rgba(255, 255, 255, 0.99)",
-            backdropFilter: "blur(28px)",
-            WebkitBackdropFilter: "blur(28px)",
-            borderBottom: "1px solid rgba(226, 232, 240, 0.8)",
-            boxShadow: "0 24px 48px -12px rgba(0, 0, 0, 0.1)",
-            padding: "1.75rem 0 2.25rem"
+            top: "calc(100% + 10px)",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "calc(100% - 2rem)",
+            maxWidth: "1140px",
+            background: "rgba(255, 255, 255, 0.88)",
+            backdropFilter: "blur(32px)",
+            WebkitBackdropFilter: "blur(32px)",
+            borderRadius: "24px",
+            border: "1px solid rgba(255, 255, 255, 0.7)",
+            boxShadow: "0 24px 60px rgba(15, 23, 42, 0.14), 0 4px 16px rgba(0, 0, 0, 0.04)",
+            padding: "1.5rem"
           }}
         >
-          <div className="container">
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.25rem" }}>
-              {megaMenuData[activeMenu]?.map((item, idx) => (
-                <Link
-                  key={idx}
-                  href={item.href}
-                  onClick={() => setActiveMenu(null)}
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    padding: "0.85rem 1rem",
-                    borderRadius: "10px",
-                    background: "#F8FAFC",
-                    border: "1px solid #E9EEF5",
-                    textDecoration: "none",
-                    transition: "all 0.18s ease",
-                    gap: "0.2rem"
-                  }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = "#EFF6FF"; (e.currentTarget as HTMLAnchorElement).style.borderColor = "#BFDBFE"; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = "#F8FAFC"; (e.currentTarget as HTMLAnchorElement).style.borderColor = "#E9EEF5"; }}
-                >
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <span style={{ fontSize: "0.95rem", fontWeight: 700, color: "#0F172A" }}>{item.name}</span>
-                    {item.tag && (
-                      <span style={{ fontSize: "0.68rem", fontWeight: 800, padding: "0.15rem 0.4rem", borderRadius: "4px", background: "rgba(37, 99, 235, 0.1)", color: "#2563EB" }}>
-                        {item.tag}
-                      </span>
-                    )}
-                  </div>
-                  <span style={{ fontSize: "0.82rem", color: "#64748B", marginTop: "0.3rem", lineHeight: 1.4 }}>{item.desc}</span>
-                </Link>
-              ))}
-            </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1rem" }}>
+            {megaMenuData[activeMenu]?.map((item, idx) => (
+              <Link
+                key={idx}
+                href={item.href}
+                onClick={() => setActiveMenu(null)}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: "0.95rem 1.1rem",
+                  borderRadius: "16px",
+                  background: "rgba(255, 255, 255, 0.65)",
+                  border: "1px solid rgba(226, 232, 240, 0.7)",
+                  textDecoration: "none",
+                  transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
+                  gap: "0.25rem"
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.background = "#EFF6FF";
+                  (e.currentTarget as HTMLAnchorElement).style.borderColor = "#BFDBFE";
+                  (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-2px)";
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255, 255, 255, 0.65)";
+                  (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(226, 232, 240, 0.7)";
+                  (e.currentTarget as HTMLAnchorElement).style.transform = "none";
+                }}
+              >
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span style={{ fontSize: "0.92rem", fontWeight: 700, color: "#0F172A", fontFamily: "var(--font-display)" }}>{item.name}</span>
+                  {item.tag && (
+                    <span style={{ fontSize: "0.68rem", fontWeight: 800, padding: "0.15rem 0.45rem", borderRadius: "6px", background: "rgba(37, 99, 235, 0.12)", color: "#2563EB" }}>
+                      {item.tag}
+                    </span>
+                  )}
+                </div>
+                <span style={{ fontSize: "0.81rem", color: "#64748B", marginTop: "0.2rem", lineHeight: 1.4, fontWeight: 500 }}>{item.desc}</span>
+              </Link>
+            ))}
           </div>
         </div>
       )}
@@ -221,7 +247,7 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
       {mobileOpen && (
         <div style={{
           position: "fixed",
-          top: "76px",
+          top: "70px",
           left: 0,
           right: 0,
           bottom: 0,

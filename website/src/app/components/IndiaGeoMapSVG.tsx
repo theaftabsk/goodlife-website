@@ -4,15 +4,15 @@ export const IndiaGeoMapBackground = () => (
   <g id="india-states-geojson">
     <style>{`
       .india-state-path {
-        fill: #DBEAFE;
-        stroke: #2563EB;
+        fill: #DCE9FF;
+        stroke: #A8C7FF;
         stroke-width: 0.8;
-        stroke-opacity: 0.6;
+        stroke-opacity: 0.9;
         transition: all 0.2s ease;
       }
       .india-state-path:hover {
-        fill: #BFDBFE;
-        stroke: #1D4ED8;
+        fill: #CDE0FF;
+        stroke: #8DB5FF;
         stroke-opacity: 0.9;
       }
     `}</style>
