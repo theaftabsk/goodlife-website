@@ -414,8 +414,8 @@ export default function CommerceNetwork() {
             </div>
 
 
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{
+            <div style={{ display: "flex", flexDirection: "column" }} className="active-node-card-wrapper">
+              <div className="active-node-card" style={{
                 background: "#FFFFFF",
                 borderRadius: "26px",
                 border: "1px solid #BFDBFE",
@@ -441,7 +441,7 @@ export default function CommerceNetwork() {
                   </div>
 
                   {/* Node Title & Tagline */}
-                  <h3 style={{ fontSize: "1.65rem", fontWeight: 900, color: "#0F172A", margin: "0 0 0.35rem", fontFamily: "var(--font-display)", letterSpacing: "-0.5px" }}>
+                  <h3 className="active-node-title" style={{ fontSize: "1.65rem", fontWeight: 900, color: "#0F172A", margin: "0 0 0.35rem", fontFamily: "var(--font-display)", letterSpacing: "-0.5px" }}>
                     {activeNode.name}
                   </h3>
                   <p style={{ fontSize: "1rem", color: "#2563EB", fontWeight: 700, margin: "0 0 1.6rem" }}>
@@ -582,6 +582,23 @@ export default function CommerceNetwork() {
           }
           .rotating-ring {
             animation: none !important;
+          }
+          .active-node-card-wrapper {
+            margin-left: -0.5rem;
+            margin-right: -0.5rem;
+            margin-bottom: -1.5rem;
+          }
+          .active-node-card {
+            border-radius: 0 0 32px 32px !important;
+            border-left: none !important;
+            border-right: none !important;
+            border-bottom: none !important;
+            padding: 1.5rem 1rem 1.8rem 1rem !important;
+            box-shadow: none !important;
+            background: rgba(255, 255, 255, 0.9) !important;
+          }
+          .active-node-title {
+            fontSize: 1.35rem !important;
           }
         }
       `}</style>
