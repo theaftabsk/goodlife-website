@@ -572,10 +572,10 @@ export default function CommerceNetwork() {
             display: flex !important;
           }
           .svg-node {
-            transform: scale(1.15) !important;
+            transform: scale(1) !important;
           }
           .svg-node:hover:not(.active) {
-            transform: scale(1.15) !important;
+            transform: scale(1) !important;
           }
           .center-node-group {
             transform: scale(1) !important;
@@ -598,7 +598,7 @@ export default function CommerceNetwork() {
             background: rgba(255, 255, 255, 0.9) !important;
           }
           .active-node-title {
-            fontSize: 1.35rem !important;
+            font-size: 1.35rem !important;
           }
         }
       `}</style>
