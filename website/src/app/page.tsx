@@ -5,6 +5,7 @@ import Link from "next/link";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import CommerceDiagnosticModal from "./components/CommerceDiagnosticModal";
+import { IndiaGeoMapBackground } from "./components/IndiaGeoMapSVG";
 import "./home.css";
 
 // ═══════════════════════════════════════════════
@@ -97,14 +98,14 @@ const SavingsCalculator: React.FC<{ onOpenDiag: () => void }> = ({ onOpenDiag })
               <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.4rem" }}>
                 <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#10B981", boxShadow: "0 0 0 3px rgba(16,185,129,0.2)" }} />
                 <span style={{ fontSize: "0.78rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1px", color: "#38BDF8" }}>
-                  Complimentary Diagnostic
+                  Complimentary Free Audit
                 </span>
               </div>
               <h4 style={{ fontSize: "1.05rem", fontWeight: 800, color: "#FFFFFF", marginBottom: "0.3rem", lineHeight: 1.35 }}>
                 Ready to find your fee leaks?
               </h4>
               <p style={{ fontSize: "0.85rem", color: "#94A3B8", marginBottom: "1.2rem", lineHeight: 1.5 }}>
-                Get a complimentary Commerce Diagnostic — no obligation.
+                Get a complimentary Free Audit — no obligation.
               </p>
               <button
                 onClick={onOpenDiag}
@@ -126,7 +127,7 @@ const SavingsCalculator: React.FC<{ onOpenDiag: () => void }> = ({ onOpenDiag })
                   boxShadow: "0 6px 20px rgba(37,99,235,0.35)",
                 }}
               >
-                Request Diagnostic →
+                Request for a FREE AUDIT →
               </button>
             </div>
           </div>
@@ -169,268 +170,400 @@ const SavingsCalculator: React.FC<{ onOpenDiag: () => void }> = ({ onOpenDiag })
 };
 
 // ═══════════════════════════════════════════════
-// FULFILMENT NETWORK & WAREHOUSE HUBS
+// FULFILMENT NETWORK & WAREHOUSE HUBS — FULL-WIDTH SPLIT DASHBOARD UI
 // ═══════════════════════════════════════════════
 const hubs = [
-  { city: "Gurgaon", state: "Haryana", area: "22,000 sq ft", sla: "Same Day", coverage: "Delhi NCR + North", fba: true, fa: true },
-  { city: "Mumbai", state: "Maharashtra", area: "18,500 sq ft", sla: "Next Day", coverage: "West India", fba: true, fa: false },
-  { city: "Bengaluru", state: "Karnataka", area: "16,000 sq ft", sla: "Next Day", coverage: "South India", fba: false, fa: true },
-  { city: "Hyderabad", state: "Telangana", area: "12,000 sq ft", sla: "Next Day", coverage: "South India", fba: false, fa: false },
-  { city: "Chennai", state: "Tamil Nadu", area: "11,000 sq ft", sla: "Next Day", coverage: "South India", fba: false, fa: false },
-  { city: "Kolkata", state: "West Bengal", area: "10,500 sq ft", sla: "Next Day", coverage: "East India", fba: true, fa: false },
-  { city: "Ahmedabad", state: "Gujarat", area: "9,500 sq ft", sla: "Next Day", coverage: "West India", fba: false, fa: false },
-  { city: "Lucknow", state: "Uttar Pradesh", area: "8,000 sq ft", sla: "Next Day", coverage: "Central UP + East", fba: false, fa: false },
-  { city: "Patna", state: "Bihar", area: "7,000 sq ft", sla: "Next Day", coverage: "Bihar + Jharkhand", fba: false, fa: false },
-  { city: "Indore", state: "Madhya Pradesh", area: "6,500 sq ft", sla: "Next Day", coverage: "Central India", fba: false, fa: false },
-  { city: "Ludhiana", state: "Punjab", area: "6,000 sq ft", sla: "Next Day", coverage: "Punjab + J&K", fba: false, fa: false },
-  { city: "Guwahati", state: "Assam", area: "5,500 sq ft", sla: "Next Day", coverage: "North East India", fba: false, fa: false },
+  { city: "Gurgaon", state: "Haryana", area: "22,000 sq ft", sla: "Same Day", coverage: "Delhi NCR + North", fba: true, fa: true, region: "North", x: 244.79, y: 262.47 },
+  { city: "Mumbai", state: "Maharashtra", area: "18,500 sq ft", sla: "Next Day", coverage: "West India", fba: true, fa: false, region: "West", x: 132.28, y: 534.89 },
+  { city: "Bengaluru", state: "Karnataka", area: "16,000 sq ft", sla: "Next Day", coverage: "South India", fba: false, fa: true, region: "South", x: 260.19, y: 712.11 },
+  { city: "Hyderabad", state: "Telangana", area: "12,000 sq ft", sla: "Next Day", coverage: "South India", fba: false, fa: false, region: "South", x: 284.39, y: 583.98 },
+  { city: "Chennai", state: "Tamil Nadu", area: "11,000 sq ft", sla: "Next Day", coverage: "South India", fba: false, fa: false, region: "South", x: 332.76, y: 708.89 },
+  { city: "Kolkata", state: "West Bengal", area: "10,500 sq ft", sla: "Next Day", coverage: "East India", fba: true, fa: false, region: "East", x: 552.24, y: 433.38 },
+  { city: "Ahmedabad", state: "Gujarat", area: "9,500 sq ft", sla: "Next Day", coverage: "West India", fba: false, fa: false, region: "West", x: 123.97, y: 420.31 },
+  { city: "Lucknow", state: "Uttar Pradesh", area: "8,000 sq ft", sla: "Next Day", coverage: "Central UP + East", fba: false, fa: false, region: "North", x: 351.08, y: 309.29 },
+  { city: "Patna", state: "Bihar", area: "7,000 sq ft", sla: "Next Day", coverage: "Bihar + Jharkhand", fba: false, fa: false, region: "East", x: 464.75, y: 345.66 },
+  { city: "Indore", state: "Madhya Pradesh", area: "6,500 sq ft", sla: "Next Day", coverage: "Central India", fba: false, fa: false, region: "Central", x: 213.09, y: 429.11 },
+  { city: "Ludhiana", state: "Punjab", area: "6,000 sq ft", sla: "Next Day", coverage: "Punjab + J&K", fba: false, fa: false, region: "North", x: 213.08, y: 191.58 },
+  { city: "Guwahati", state: "Assam", area: "5,500 sq ft", sla: "Next Day", coverage: "North East India", fba: false, fa: false, region: "NE", x: 643.69, y: 329.68 },
 ];
 
 const WarehouseHubs: React.FC = () => {
   const [activeHub, setActiveHub] = useState(0);
+  const [selectedRegion, setSelectedRegion] = useState("All");
+  const [isAutoPlay, setIsAutoPlay] = useState(true);
   const hub = hubs[activeHub];
   const [barWidth, setBarWidth] = useState("0%");
-  useEffect(() => { setTimeout(() => setBarWidth("98.2%"), 400); }, [activeHub]);
+
+  useEffect(() => {
+    setTimeout(() => setBarWidth("98.2%"), 300);
+  }, [activeHub]);
+
+  useEffect(() => {
+    if (!isAutoPlay) return;
+    const interval = setInterval(() => {
+      setActiveHub((prev) => (prev + 1) % hubs.length);
+    }, 3800);
+    return () => clearInterval(interval);
+  }, [isAutoPlay]);
+
+  const filteredHubs = hubs;
 
   return (
-    <section className="warehouse-section" id="fulfilment-network">
-      <div className="container">
-        <div style={{ textAlign: "center", marginBottom: "0.5rem" }}>
-          <span className="ptn-section-eyebrow">Pan-India fulfilment network</span>
-          <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>12-State Warehouse Infrastructure</h2>
-          <p className="ptn-section-subtitle" style={{ marginTop: "0.4rem" }}>1,00,000+ sq ft of managed fulfilment space across India&apos;s key commerce corridors.</p>
-        </div>
-        <div className="warehouse-layout">
-          <div className="warehouse-grid">
-            {hubs.map((h, idx) => (
-              <button key={idx} className={`warehouse-hub-btn ${activeHub === idx ? "active" : ""}`} onClick={() => setActiveHub(idx)}>
-                <span className="hub-city">{h.city}</span>
-                <span className="hub-state">{h.state}</span>
-                <div>
-                  {h.fba && <span className="hub-badge hub-badge-fba">FBA</span>}
-                  {h.fa && <span className="hub-badge hub-badge-fa">FA</span>}
-                </div>
-              </button>
-            ))}
+    <section id="fulfilment-network" style={{ position: "relative", overflow: "hidden", padding: "4.5rem 0 5.5rem", background: "#FAFBFF" }}>
+      {/* Keyframe Animations & Clean Scrollbar */}
+      <style>{`
+        @keyframes wh-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        @keyframes wh-pulse-ring { 0% { r: 200; opacity: 0.7; } 100% { r: 700; opacity: 0; } }
+        @keyframes wh-dash-flow { 0% { stroke-dashoffset: 20; } 100% { stroke-dashoffset: 0; } }
+        @keyframes wh-glow-breathe { 0%,100% { opacity: 0.4; } 50% { opacity: 0.9; } }
+        @keyframes wh-dot-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(37,99,235,0.4); } 50% { box-shadow: 0 0 0 6px rgba(37,99,235,0); } }
+        
+        .wh-sidebar-scroll::-webkit-scrollbar { width: 4px; }
+        .wh-sidebar-scroll::-webkit-scrollbar-track { background: #F1F5F9; border-radius: 4px; }
+        .wh-sidebar-scroll::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+        .wh-sidebar-scroll::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+        .wh-hub-item { transition: all 0.22s cubic-bezier(0.4,0,0.2,1); }
+        .wh-hub-item:hover { transform: translateX(3px); background: #FFFFFF !important; box-shadow: 0 4px 14px rgba(37,99,235,0.08) !important; }
+        .wh-stat-card { transition: all 0.25s ease; }
+        .wh-stat-card:hover { transform: translateY(-3px); box-shadow: 0 16px 36px rgba(37,99,235,0.1) !important; border-color: #93C5FD !important; }
+        .wh-tooltip { animation: wh-float 4s ease-in-out infinite; }
+
+        .wh-split-container {
+          display: grid;
+          grid-template-columns: 330px 1fr;
+          gap: 1.2rem;
+          margin-bottom: 2rem;
+          align-items: stretch;
+        }
+        @media (max-width: 1024px) {
+          .wh-split-container {
+            display: flex !important;
+            flex-direction: column-reverse !important;
+            width: 100% !important;
+            gap: 1.25rem !important;
+          }
+          .wh-sidebar-card, .wh-map-card {
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+          }
+          .wh-map-viewport {
+            height: 390px !important;
+            width: 100% !important;
+          }
+          .wh-sidebar-scroll {
+            max-height: 250px !important;
+            overflow-y: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .wh-map-viewport {
+            height: 330px !important;
+          }
+        }
+      `}</style>
+
+      {/* Background Orbs */}
+      <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, overflow: "hidden", pointerEvents: "none" }}>
+        <div style={{ position: "absolute", top: "-10%", right: "-5%", width: "600px", height: "600px", borderRadius: "50%", background: "radial-gradient(circle, rgba(37,99,235,0.04) 0%, transparent 70%)" }} />
+        <div style={{ position: "absolute", bottom: "-10%", left: "-5%", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(circle, rgba(99,102,241,0.04) 0%, transparent 70%)" }} />
+      </div>
+
+      <div style={{ position: "relative", zIndex: 2, maxWidth: "1340px", margin: "0 auto", padding: "0 1.5rem" }}>
+
+        {/* ── Compact Center-Aligned Header ── */}
+        <div style={{ textAlign: "center", marginBottom: "1.8rem" }}>
+          <div style={{
+            display: "inline-flex", alignItems: "center", gap: "0.45rem",
+            background: "linear-gradient(135deg, #EFF6FF 0%, #E0E7FF 100%)",
+            border: "1px solid #BFDBFE",
+            borderRadius: "30px", padding: "0.3rem 1rem", marginBottom: "0.5rem"
+          }}>
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#2563EB", animation: "wh-dot-pulse 2s infinite" }} />
+            <span style={{ fontSize: "0.72rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1.6px", color: "#1D4ED8", fontFamily: "'Inter', sans-serif" }}>
+              Pan-India Fulfilment Infrastructure
+            </span>
           </div>
-          <div className="warehouse-detail">
-            <div className="warehouse-detail-header">
-              <div>
-                <h3 className="warehouse-city-name">{hub.city}</h3>
-                <p className="warehouse-state-name">{hub.state}</p>
+          <h2 style={{
+            fontSize: "clamp(1.5rem, 2.2vw, 2rem)", fontWeight: 800, color: "#0F172A",
+            lineHeight: 1.15, margin: 0, fontFamily: "'Inter', sans-serif", letterSpacing: "-0.02em"
+          }}>
+            12-State Managed <span style={{ background: "linear-gradient(135deg, #2563EB 0%, #4F46E5 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Warehouse Network</span>
+          </h2>
+        </div>
+
+        {/* ── 2-COLUMN SPLIT DASHBOARD LAYOUT (RESPONSIVE) ── */}
+        <div className="wh-split-container">
+
+          {/* ── LEFT SIDEBAR: HUBS LIST ── */}
+          <div className="wh-sidebar-card" style={{
+            background: "#FFFFFF",
+            borderRadius: "24px",
+            border: "1px solid #E2E8F0",
+            padding: "1.2rem",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.04), 0 8px 30px rgba(37,99,235,0.04)",
+            display: "flex",
+            flexDirection: "column"
+          }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem", paddingBottom: "0.8rem", borderBottom: "1px solid #F1F5F9" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#2563EB" }} />
+                <span style={{ fontSize: "0.88rem", fontWeight: 800, color: "#0F172A", fontFamily: "'Inter', sans-serif" }}>
+                  Hub Locations
+                </span>
               </div>
-              <div style={{ display: "flex", gap: "0.5rem" }}>
-                {hub.fba && <span className="hub-badge-lg hub-badge-fba">FBA Enabled</span>}
-                {hub.fa && <span className="hub-badge-lg hub-badge-fa">FAssured</span>}
-              </div>
+              <span style={{ fontSize: "0.72rem", background: "#EFF6FF", color: "#2563EB", fontWeight: 800, padding: "0.18rem 0.6rem", borderRadius: "12px", border: "1px solid #BFDBFE" }}>
+                {filteredHubs.length} Hubs
+              </span>
             </div>
-            <div className="warehouse-metrics">
-              {[
-                { label: "Warehouse Area", value: hub.area, icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>) },
-                { label: "Dispatch SLA", value: hub.sla, icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>) },
-                { label: "Coverage Zone", value: hub.coverage, icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>) },
-              ].map((m, i) => (
-                <div key={i} className="warehouse-metric">
-                  <span className="warehouse-metric-icon">{m.icon}</span>
-                  <div>
-                    <div className="warehouse-metric-label">{m.label}</div>
-                    <div className="warehouse-metric-value">{m.value}</div>
+
+            {/* Scrollable City Items List */}
+            <div className="wh-sidebar-scroll" style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.45rem",
+              maxHeight: "520px",
+              overflowY: "auto",
+              paddingRight: "0.3rem"
+            }}>
+              {filteredHubs.map((h, i) => {
+                const originalIndex = hubs.findIndex(item => item.city === h.city);
+                const isActive = activeHub === originalIndex;
+                return (
+                  <div
+                    key={h.city}
+                    className="wh-hub-item"
+                    onClick={() => { setActiveHub(originalIndex); setIsAutoPlay(false); }}
+                    style={{
+                      padding: "0.85rem 1rem",
+                      borderRadius: "16px",
+                      background: isActive ? "linear-gradient(135deg, #EFF6FF 0%, #E0E7FF 100%)" : "#F8FAFC",
+                      border: isActive ? "1.5px solid #3B82F6" : "1px solid #F1F5F9",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between"
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.7rem" }}>
+                      <div style={{
+                        width: 32, height: 32, borderRadius: "10px",
+                        background: isActive ? "linear-gradient(135deg, #2563EB, #4F46E5)" : "#E2E8F0",
+                        color: isActive ? "#FFFFFF" : "#64748B",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        fontSize: "0.78rem", fontWeight: 800, flexShrink: 0
+                      }}>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={isActive ? "#FFFFFF" : "#64748B"} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+                        </svg>
+                      </div>
+                      <div>
+                        <div style={{ fontSize: "0.86rem", fontWeight: isActive ? 800 : 700, color: isActive ? "#1E40AF" : "#0F172A", fontFamily: "'Inter', sans-serif" }}>
+                          {h.city}
+                        </div>
+                        <div style={{ fontSize: "0.74rem", color: "#64748B", fontWeight: 500 }}>
+                          {h.state} • {h.area}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ textAlign: "right", flexShrink: 0 }}>
+                      <span style={{
+                        fontSize: "0.68rem", fontWeight: 700,
+                        color: h.sla === "Same Day" ? "#059669" : "#2563EB",
+                        background: h.sla === "Same Day" ? "#ECFDF5" : "#EFF6FF",
+                        padding: "0.15rem 0.45rem", borderRadius: "6px",
+                        display: "inline-block"
+                      }}>
+                        {h.sla}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
-            <div>
-              <div className="warehouse-sla-bar-label">Fill Rate SLA Performance</div>
-              <div className="warehouse-sla-bar-track">
-                <div className="warehouse-sla-bar-fill" style={{ width: barWidth }} />
+          </div>
+
+          {/* ── RIGHT SIDE: FULL MAP VIEWPORT ── */}
+          <div
+            className="wh-map-card"
+            onMouseEnter={() => setIsAutoPlay(false)}
+            onMouseLeave={() => setIsAutoPlay(true)}
+            style={{
+              background: "#FFFFFF",
+              borderRadius: "24px",
+              border: "1px solid #E2E8F0",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.04), 0 8px 30px rgba(37,99,235,0.04)",
+              position: "relative",
+              overflow: "hidden",
+              display: "flex",
+              flexDirection: "column"
+            }}
+          >
+            {/* Map Top Status Bar */}
+            <div style={{
+              display: "flex", justifyContent: "space-between", alignItems: "center",
+              padding: "0.9rem 1.4rem",
+              borderBottom: "1px solid #F1F5F9",
+              background: "linear-gradient(180deg, #FAFBFF 0%, #FFFFFF 100%)"
+            }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#2563EB" }} />
+                <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#0F172A", fontFamily: "'Inter', sans-serif" }}>
+                  Interactive Pan-India Map View
+                </span>
               </div>
-              <div className="warehouse-sla-bar-pct">98.2% average across all hubs</div>
+            </div>
+
+            {/* Large Interactive Map Canvas */}
+            <div className="wh-map-viewport" style={{
+              position: "relative", width: "100%", height: "550px",
+              background: "linear-gradient(160deg, #F8FAFF 0%, #F0F4FF 40%, #FAFBFF 100%)",
+              overflow: "hidden"
+            }}>
+              {/* Subtle Grid Lines */}
+              <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.25 }}>
+                <defs>
+                  <pattern id="wh-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#CBD5E1" strokeWidth="0.3"/>
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#wh-grid)" />
+              </svg>
+
+              {/* Main SVG India GeoJSON Map (Exact Lat/Long Projection) */}
+              <svg viewBox="0 0 800 900" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style={{ position: "relative", zIndex: 1 }}>
+                <defs>
+                  <linearGradient id="wh-india-stroke" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#3B82F6"/>
+                    <stop offset="100%" stopColor="#6366F1"/>
+                  </linearGradient>
+                  <linearGradient id="wh-line-flow" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.8"/>
+                    <stop offset="50%" stopColor="#60A5FA" stopOpacity="0.5"/>
+                    <stop offset="100%" stopColor="#93C5FD" stopOpacity="0.15"/>
+                  </linearGradient>
+                  <filter id="wh-glow" x="-40%" y="-40%" width="180%" height="180%">
+                    <feGaussianBlur stdDeviation="3" result="blur" />
+                    <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+                  </filter>
+                  <radialGradient id="wh-pin-glow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.3"/>
+                    <stop offset="100%" stopColor="#3B82F6" stopOpacity="0"/>
+                  </radialGradient>
+                </defs>
+
+                {/* Mathematical GeoJSON State Boundaries Background */}
+                <IndiaGeoMapBackground />
+
+                {/* Logistics Route Lines from Central Gurgaon Hub (x: 244.79, y: 262.47) */}
+                {hubs.map((h, i) => {
+                  const isActive = activeHub === i;
+                  const isFiltered = filteredHubs.some(fh => fh.city === h.city);
+                  if (!isFiltered) return null;
+                  return (
+                    <g key={`wh-line-${i}`}>
+                      <line
+                        x1="244.79" y1="262.47" x2={h.x} y2={h.y}
+                        stroke={isActive ? "url(#wh-line-flow)" : "#93C5FD"}
+                        strokeWidth={isActive ? "2.5" : "1"}
+                        strokeDasharray={isActive ? "none" : "3 4"}
+                        opacity={isActive ? 0.9 : 0.3}
+                        style={{ transition: "all 0.4s ease" }}
+                      />
+                      {isActive && (
+                        <>
+                          <circle r="4" fill="#3B82F6" filter="url(#wh-glow)">
+                            <animateMotion path={`M 244.79 262.47 L ${h.x} ${h.y}`} dur="2.5s" repeatCount="indefinite" />
+                          </circle>
+                          <circle r="2" fill="#FFFFFF">
+                            <animateMotion path={`M 244.79 262.47 L ${h.x} ${h.y}`} dur="2.5s" repeatCount="indefinite" />
+                          </circle>
+                        </>
+                      )}
+                    </g>
+                  );
+                })}
+
+                {/* All 12 Hub Pins */}
+                {hubs.map((h, idx) => {
+                  const isActive = activeHub === idx;
+                  const isFiltered = filteredHubs.some(fh => fh.city === h.city);
+                  if (!isFiltered) return null;
+
+                  return (
+                    <g key={idx} onClick={() => { setActiveHub(idx); setIsAutoPlay(false); }} style={{ cursor: "pointer" }}>
+                      {/* Active Glow Background */}
+                      {isActive && (
+                        <circle cx={h.x} cy={h.y} r="28" fill="url(#wh-pin-glow)" style={{ animation: "wh-glow-breathe 2s ease-in-out infinite" }} />
+                      )}
+
+                      {/* Sonar Pulse Rings */}
+                      {isActive && (
+                        <>
+                          <circle cx={h.x} cy={h.y} r="8" fill="none" stroke="#3B82F6" strokeWidth="2">
+                            <animate attributeName="r" values="8;30" dur="2s" repeatCount="indefinite" />
+                            <animate attributeName="opacity" values="0.7;0" dur="2s" repeatCount="indefinite" />
+                          </circle>
+                          <circle cx={h.x} cy={h.y} r="8" fill="none" stroke="#6366F1" strokeWidth="1.5">
+                            <animate attributeName="r" values="8;24" dur="2s" begin="0.4s" repeatCount="indefinite" />
+                            <animate attributeName="opacity" values="0.5;0" dur="2s" begin="0.4s" repeatCount="indefinite" />
+                          </circle>
+                        </>
+                      )}
+
+                      {/* Pin Shadow */}
+                      {isActive && <circle cx={h.x} cy={h.y + 2} r="10" fill="rgba(37,99,235,0.15)" />}
+
+                      {/* Main Pin Circle */}
+                      <circle
+                        cx={h.x} cy={h.y}
+                        r={isActive ? "8.5" : "5.5"}
+                        fill={isActive ? "url(#wh-india-stroke)" : "#475569"}
+                        stroke="#FFFFFF"
+                        strokeWidth={isActive ? "2.5" : "2"}
+                        style={{ transition: "all 0.3s cubic-bezier(0.4,0,0.2,1)", filter: isActive ? "drop-shadow(0 2px 6px rgba(37,99,235,0.4))" : "none" }}
+                      />
+
+                      {/* Inner White Center Dot */}
+                      <circle cx={h.x} cy={h.y} r={isActive ? "3.2" : "2"} fill="#FFFFFF" style={{ transition: "all 0.3s ease" }} />
+
+                      {/* City Name Label with White Mask Outline */}
+                      <text
+                        x={h.x} y={h.y - (isActive ? 13 : 9)}
+                        textAnchor="middle"
+                        fontSize={isActive ? "13" : "10"}
+                        fontWeight="800"
+                        fill={isActive ? "#1D4ED8" : "#1E293B"}
+                        stroke="#FFFFFF"
+                        strokeWidth="3.5"
+                        paintOrder="stroke fill"
+                        fontFamily="'Inter', sans-serif"
+                        style={{
+                          pointerEvents: "none", userSelect: "none",
+                          transition: "all 0.3s ease"
+                        }}
+                      >
+                        {h.city}
+                      </text>
+                    </g>
+                  );
+                })}
+              </svg>
             </div>
           </div>
         </div>
+
+
+
       </div>
     </section>
   );
 };
 
-// ═══════════════════════════════════════════════
-// COMPARISON MATRIX (ACCOUNTABILITY PROBLEM)
-// ═══════════════════════════════════════════════
-const ComparisonMatrix: React.FC<{ onOpenDiag: () => void }> = ({ onOpenDiag }) => {
-  const rows = [
-    {
-      area: "Settlement Reconciliation",
-      bad: "Manual, monthly, error-prone",
-      good: "Daily automated audit — 100% coverage",
-      color: "#2563EB",
-      bg: "#EFF6FF",
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-        </svg>
-      ),
-    },
-    {
-      area: "Return Dispute Resolution",
-      bad: "Chased individually, 2–4 weeks",
-      good: "Auto-flagged & resolved within 48 hrs",
-      color: "#7C3AED",
-      bg: "#F5F3FF",
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
-          <path d="M21 3v5h-5"/>
-          <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
-          <path d="M8 16H3v5"/>
-        </svg>
-      ),
-    },
-    {
-      area: "Multi-Channel Inventory",
-      bad: "Spreadsheets & manual syncs",
-      good: "Live WMS sync across 12 hubs",
-      color: "#0D9488",
-      bg: "#F0FDFA",
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-          <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-          <line x1="12" y1="22.08" x2="12" y2="12"/>
-        </svg>
-      ),
-    },
-    {
-      area: "Marketplace Ads Management",
-      bad: "Outsourced or neglected",
-      good: "In-house Amazon & Flipkart campaign ops",
-      color: "#EA580C",
-      bg: "#FFF7ED",
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
-          <polyline points="17 6 23 6 23 12"/>
-        </svg>
-      ),
-    },
-    {
-      area: "D2C + Marketplace Ops",
-      bad: "Separate teams, siloed data",
-      good: "Unified view under one operating model",
-      color: "#0284C7",
-      bg: "#F0F9FF",
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="12" r="3"/>
-          <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
-        </svg>
-      ),
-    },
-    {
-      area: "B2B & Institutional Orders",
-      bad: "Ad hoc, no structured workflow",
-      good: "Defined process from enquiry to reconciliation",
-      color: "#475569",
-      bg: "#F8FAFC",
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-        </svg>
-      ),
-    },
-    {
-      area: "Fill Rate SLA",
-      bad: "Below 92% typical",
-      good: "98.2% across all active hubs",
-      color: "#059669",
-      bg: "#F0FDF4",
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-          <polyline points="22 4 12 14.01 9 11.01"/>
-        </svg>
-      ),
-    },
-    {
-      area: "Brand Launch Support",
-      bad: "Agency-led, disconnected ops",
-      good: "Integrated OEM-to-brand mandate",
-      color: "#DB2777",
-      bg: "#FDF2F8",
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
-          <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
-        </svg>
-      ),
-    },
-  ];
 
-  return (
-    <section className="compare-section" id="accountability-problem" style={{ background: "linear-gradient(180deg, #F8FAFC 0%, #EFF6FF 100%)", padding: "5rem 0", borderTop: "1px solid #E2E8F0" }}>
-      <div className="container">
-        {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: "3rem" }}>
-          <span className="ptn-section-eyebrow" style={{ color: "#2563EB" }}>The Accountability Problem Solved</span>
-          <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>Why Brands Switch to Good Life</h2>
-          <p className="ptn-section-subtitle" style={{ marginTop: "0.4rem" }}>One integrated Commerce Operating Partner replaces multiple fragmented agencies.</p>
-        </div>
-
-        {/* Column Headers */}
-        <div className="compare-col-headers">
-          <div className="compare-col-hdr-area" />
-          <div className="compare-col-hdr compare-hdr-bad">
-            <span style={{ width: 28, height: 28, borderRadius: "50%", background: "#FEE2E2", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "0.35rem" }}>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#DC2626" strokeWidth="3" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </span>
-            <span>Fragmented Agencies / In-House</span>
-          </div>
-          <div className="compare-col-hdr compare-hdr-good">
-            <span style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(255,255,255,0.18)", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "0.35rem" }}>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            <span>Good Life Operating Model</span>
-          </div>
-        </div>
-
-        {/* Rows */}
-        <div className="compare-cards-grid">
-          {rows.map((row, idx) => (
-            <div key={idx} className="compare-card-row">
-              {/* Area Label */}
-              <div className="compare-card-area">
-                <span className="compare-area-icon" style={{ background: row.bg, color: row.color }}>
-                  {row.icon}
-                </span>
-                <span className="compare-area-label">{row.area}</span>
-              </div>
-              {/* Bad Column */}
-              <div className="compare-card-bad">
-                <span className="compare-badge-bad">
-                  <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#DC2626" strokeWidth="3.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                </span>
-                <span className="compare-card-text">{row.bad}</span>
-              </div>
-              {/* Good Column */}
-              <div className="compare-card-good">
-                <span className="compare-badge-good">
-                  <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                </span>
-                <span className="compare-card-text">{row.good}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div style={{ textAlign: "center", marginTop: "3rem" }}>
-          <button onClick={onOpenDiag} className="btn-primary-hero" style={{ height: 50, padding: "0 2rem", fontSize: "0.95rem" }}>
-            Request a Free Commerce Audit →
-          </button>
-        </div>
-      </div>
-    </section>
-  );
-};
 
 
 // ═══════════════════════════════════════════════
@@ -448,8 +581,8 @@ const StickyBar: React.FC<{ onOpenDiag: () => void }> = ({ onOpenDiag }) => {
     <div className={`sticky-bar ${visible && !dismissed ? "sticky-bar-visible" : ""}`}>
       <div className="sticky-bar-inner">
         <div className="sticky-bar-dot" />
-        <p className="sticky-bar-text"><strong>Ready to find your fee leaks?</strong> Get a complimentary Commerce Diagnostic — no obligation.</p>
-        <button onClick={onOpenDiag} className="sticky-bar-btn">Request Diagnostic →</button>
+        <p className="sticky-bar-text"><strong>Ready to find your fee leaks?</strong> Get a complimentary Free Audit — no obligation.</p>
+        <button onClick={onOpenDiag} className="sticky-bar-btn">Request for a FREE AUDIT →</button>
         <button onClick={() => { setDismissed(true); setVisible(false); }} className="sticky-bar-close">✕</button>
       </div>
     </div>
@@ -462,8 +595,61 @@ const StickyBar: React.FC<{ onOpenDiag: () => void }> = ({ onOpenDiag }) => {
 export default function HomePage() {
   const [diagOpen, setDiagOpen] = useState(false);
   const [videoOpen, setVideoOpen] = useState(false);
+  const [activeCap, setActiveCap] = useState(0);
 
-  // Typewriter words
+  // Universal Scroll Reveal Observer
+  useEffect(() => {
+    const reveals = document.querySelectorAll('.reveal');
+    if (!reveals.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    reveals.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  // Animated Count-Up for Stats
+  const [statsVisible, setStatsVisible] = useState(false);
+  const statsRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = statsRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { setStatsVisible(true); observer.disconnect(); } }); },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const useCountUp = (end: number, duration: number, active: boolean, decimals = 0) => {
+    const [count, setCount] = useState(0);
+    useEffect(() => {
+      if (!active) return;
+      let startTime: number;
+      const animate = (timestamp: number) => {
+        if (!startTime) startTime = timestamp;
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setCount(parseFloat((eased * end).toFixed(decimals)));
+        if (progress < 1) requestAnimationFrame(animate);
+      };
+      requestAnimationFrame(animate);
+    }, [active, end, duration, decimals]);
+    return count;
+  };
+
+  const gmvCount = useCountUp(850, 2000, statsVisible);
+  const channelCount = useCountUp(35, 1800, statsVisible);
+  const warehouseCount = useCountUp(12, 1500, statsVisible);
+  const fillRateCount = useCountUp(98.2, 2200, statsVisible, 1);
   const words = ["Marketplaces", "D2C Stores", "B2B Channels", "Institutional Orders", "Multi-Platform Growth"];
   const [wordIdx, setWordIdx] = useState(0);
   const [transitionClass, setTransitionClass] = useState("");
@@ -599,15 +785,16 @@ export default function HomePage() {
   ];
 
   // Approved Platform Vector SVGs (Enlarged & High-Impact)
+  // Approved Platform Vector SVGs (Authentic High-Impact Logos)
   const channelSVGs: { name: string; bg: string; svg: React.ReactNode }[] = [
     {
       name: "Amazon",
       bg: "#232F3E",
       svg: (
-        <svg viewBox="0 0 120 38" width="92" height="30" fill="none">
-          <text x="4" y="24" fontFamily="Arial Black,sans-serif" fontWeight="900" fontSize="22" fill="#FFFFFF">amazon</text>
-          <path d="M10 28 Q38 38 66 28" stroke="#FF9900" strokeWidth="2.8" strokeLinecap="round" fill="none"/>
-          <path d="M63 25 L69 28 L64 32" fill="#FF9900"/>
+        <svg viewBox="0 0 120 36" width="95" height="28" fill="none">
+          <text x="2" y="22" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="22" fill="#FFFFFF" letterSpacing="-0.5">amazon</text>
+          <path d="M6 26.5 C 30 35, 62 35, 78 26.5" stroke="#FF9900" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+          <path d="M74 23.5 L 81 27 L 76 32 Z" fill="#FF9900" />
         </svg>
       ),
     },
@@ -615,11 +802,11 @@ export default function HomePage() {
       name: "Flipkart",
       bg: "#2874F0",
       svg: (
-        <svg viewBox="0 0 110 38" width="88" height="30" fill="none">
-          <rect x="2" y="5" width="22" height="28" rx="4" fill="#FFE500"/>
-          <path d="M7 10 h8 v4 h-5 v3 h5 v4 h-5 v6 h-3 z" fill="#2874F0"/>
-          <path d="M17 17 h5 v3 h-5 z" fill="#2874F0"/>
-          <text x="28" y="25" fontFamily="Arial Black,sans-serif" fontWeight="900" fontSize="16" fill="#FFFFFF">flipkart</text>
+        <svg viewBox="0 0 125 36" width="100" height="28" fill="none">
+          <rect x="2" y="4" width="24" height="26" rx="5" fill="#FFE500" />
+          <path d="M8 9 h12 v4 h-7 v3 h6 v4 h-6 v7 h-5 z" fill="#2874F0" />
+          <path d="M18 16 h4 v3 h-4 z" fill="#FFE500" />
+          <text x="32" y="24" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#FFFFFF" letterSpacing="-0.5">flipkart</text>
         </svg>
       ),
     },
@@ -627,10 +814,10 @@ export default function HomePage() {
       name: "Myntra",
       bg: "#18181B",
       svg: (
-        <svg viewBox="0 0 100 32" width="76" height="26" fill="none">
-          <path d="M2 24 L7 8 L12 18 L17 8 L22 24" stroke="#FF3F6C" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          <path d="M7 8 L12 18 L17 8" stroke="#F59E0B" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          <text x="26" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="15" fill="#FFFFFF">myntra</text>
+        <svg viewBox="0 0 115 36" width="92" height="28" fill="none">
+          <path d="M3 26 L9 7 L16 19 L23 7 L29 26" stroke="#FF3F6C" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <path d="M9 7 L16 19 L23 7" stroke="#F59E0B" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <text x="34" y="23" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="17" fill="#FFFFFF" letterSpacing="0.2">myntra</text>
         </svg>
       ),
     },
@@ -638,10 +825,10 @@ export default function HomePage() {
       name: "Moglix",
       bg: "#E8192C",
       svg: (
-        <svg viewBox="0 0 100 32" width="76" height="26" fill="none">
-          <rect x="2" y="6" width="20" height="20" rx="4" fill="#FFFFFF" />
-          <path d="M6 21 V11 L10 16 L14 11 V21" stroke="#E8192C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          <text x="26" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="16" fill="#FFFFFF">moglix</text>
+        <svg viewBox="0 0 115 36" width="92" height="28" fill="none">
+          <rect x="2" y="5" width="24" height="24" rx="6" fill="#E8192C" />
+          <path d="M7 22 V12 L12 17 L17 12 V22" stroke="#FFFFFF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <text x="32" y="24" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#FFFFFF" letterSpacing="-0.2">moglix</text>
         </svg>
       ),
     },
@@ -649,10 +836,10 @@ export default function HomePage() {
       name: "JioMart",
       bg: "#0066CC",
       svg: (
-        <svg viewBox="0 0 100 32" width="76" height="26" fill="none">
-          <circle cx="12" cy="16" r="10" fill="#0088FF" />
-          <text x="7" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="13" fill="#FFFFFF">Jio</text>
-          <text x="26" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="15" fill="#FFFFFF">Mart</text>
+        <svg viewBox="0 0 115 36" width="92" height="28" fill="none">
+          <circle cx="15" cy="17" r="12" fill="#0088FF" />
+          <text x="7" y="22" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="15" fill="#FFFFFF">Jio</text>
+          <text x="32" y="24" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#FFFFFF" letterSpacing="-0.2">Mart</text>
         </svg>
       ),
     },
@@ -660,9 +847,9 @@ export default function HomePage() {
       name: "Snapmint",
       bg: "#00B09B",
       svg: (
-        <svg viewBox="0 0 100 32" width="80" height="26" fill="none">
-          <polygon points="4,22 10,8 16,22" fill="#FFFFFF" />
-          <text x="20" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="15" fill="#FFFFFF">snapmint</text>
+        <svg viewBox="0 0 120 36" width="96" height="28" fill="none">
+          <path d="M4 25 L12 6 L16 15 L22 6 L14 25 Z" fill="#00B09B" />
+          <text x="26" y="24" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="17" fill="#FFFFFF" letterSpacing="-0.2">snapmint</text>
         </svg>
       ),
     },
@@ -670,37 +857,37 @@ export default function HomePage() {
       name: "Bajaj",
       bg: "#003087",
       svg: (
-        <svg viewBox="0 0 90 32" width="74" height="26" fill="none">
-          <path d="M4 8 H16 L8 16 L16 24 H4 Z" fill="#38BDF8" />
-          <text x="22" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="16" fill="#FFFFFF">BAJAJ</text>
+        <svg viewBox="0 0 110 36" width="88" height="28" fill="none">
+          <path d="M3 8 H16 L7 17 L16 26 H3 Z" fill="#38BDF8" />
+          <text x="22" y="24" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#FFFFFF" letterSpacing="0.5">BAJAJ</text>
         </svg>
       ),
     },
     {
-      name: "IB (IndiaMART B2B)",
+      name: "IB (Industrybuying / IndiaMART)",
       bg: "#E8711A",
       svg: (
-        <svg viewBox="0 0 80 32" width="70" height="26" fill="none">
-          <rect x="2" y="4" width="22" height="24" rx="5" fill="#FFFFFF" />
-          <text x="6" y="22" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="16" fill="#E8711A">IB</text>
-          <text x="30" y="21" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="14" fill="#FFFFFF">B2B</text>
+        <svg viewBox="0 0 100 36" width="80" height="28" fill="none">
+          <rect x="2" y="5" width="26" height="24" rx="6" fill="#FFFFFF" />
+          <text x="7" y="23" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="17" fill="#E8711A">IB</text>
+          <text x="34" y="23" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="16" fill="#FFFFFF">B2B</text>
         </svg>
       ),
     },
   ];
 
-  // Section 7: Ten Capabilities (Links into each capability page)
-  const capabilities = [
-    { title: "Marketplace Operations", desc: "Cataloguing, listing optimisation, buy box protection and daily account management across core channels.", href: "/capabilities/marketplace-operations", color: "#2563EB", bg: "#EFF6FF", icon: <><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></> },
-    { title: "Marketplace Growth & Ads", desc: "Established Amazon & Flipkart performance ad campaigns—keyword targeting, budget pacing and conversions.", href: "/capabilities/marketplace-growth", color: "#0284C7", bg: "#F0F9FF", icon: <><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></> },
-    { title: "Multi-Platform Commerce", desc: "Onboard and operate across core marketplaces, fashion channels, B2B platforms and assisted purchase networks.", href: "/multi-platform-commerce", color: "#0D9488", bg: "#F0FDFA", icon: <><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></> },
-    { title: "D2C Commerce Operations", desc: "End-to-end storefront operations, catalogue synchronisation, order flows, payment/COD reconciliation and return coordination.", href: "/d2c-commerce-operations", color: "#EC4899", bg: "#FDF2F8", icon: <><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M21 12H3M12 3v18"/></> },
-    { title: "B2B & Institutional Commerce", desc: "Bulk enquiries, corporate orders, GST invoicing, B2B platform listings and warehouse-supported dealer supply.", href: "/b2b-institutional-commerce", color: "#7C3AED", bg: "#F5F3FF", icon: <><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></> },
-    { title: "Inventory Planning", desc: "Multi-channel allocation across marketplace, D2C, B2B/institutional and dealer supplies with buffer management.", href: "/capabilities/inventory-planning", color: "#2563EB", bg: "#EFF6FF", icon: <><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/></> },
-    { title: "Fulfilment & Warehousing", desc: "1,00,000+ sq ft across 12 state hubs with FBA/FAssured SLA compliance and regional CNF supply support.", href: "/capabilities/warehousing-fulfilment", color: "#4F46E5", bg: "#EEF2FF", icon: <><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></> },
-    { title: "Revenue Assurance", desc: "Daily automated settlement audits, weight dispute recovery and return claim reconciliation across all platforms.", href: "/capabilities/revenue-assurance", color: "#059669", bg: "#F0FDF4", icon: <><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></> },
-    { title: "Returns Management", desc: "RTO reduction, reverse logistics QC, exception tracking and return reconciliation across marketplace and D2C.", href: "/capabilities/returns-operations", color: "#F59E0B", bg: "#FFF7ED", icon: <><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></> },
-    { title: "Heavy & Bulky Commerce", desc: "Specialised freight handling, transit damage protection, custom crating and coordinated last-mile delivery.", href: "/specialised/heavy-bulky-commerce", color: "#0F172A", bg: "#F8FAFC", icon: <><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></> },
+  // Section 7: Capability & Promise Mapping (Everything Commerce. One Partner.)
+  const capabilityPromises = [
+    { capability: "Marketplace Operations", promise: "Run & optimise every day", href: "/capabilities/marketplace-operations" },
+    { capability: "Marketplace Growth & Ads", promise: "Turn spend into sales", href: "/capabilities/marketplace-growth" },
+    { capability: "Multi-Platform Commerce", promise: "Sell everywhere, seamlessly", href: "/multi-platform-commerce" },
+    { capability: "D2C Commerce", promise: "Own the customer journey", href: "/d2c-commerce-operations" },
+    { capability: "B2B & Institutional", promise: "Win larger orders", href: "/b2b-institutional-commerce" },
+    { capability: "Inventory Planning", promise: "Right stock, right channel", href: "/capabilities/inventory-planning" },
+    { capability: "Fulfilment & Warehousing", promise: "Pan-India delivery infrastructure", href: "/capabilities/warehousing-fulfilment" },
+    { capability: "Revenue Assurance", promise: "Recover every rupee", href: "/capabilities/revenue-assurance" },
+    { capability: "Returns Management", promise: "Reduce RTO & leakage", href: "/capabilities/returns-operations" },
+    { capability: "Heavy & Bulky Commerce", promise: "Deliver complex products confidently", href: "/specialised/heavy-bulky-commerce" },
   ];
 
   // Section 14: Insights (CMS Articles preview)
@@ -728,25 +915,19 @@ export default function HomePage() {
               India&apos;s Trusted E-Commerce Operations Partner | Pan-India Presence
             </div>
             <h1 className="hero-headline">
-              India&apos;s Commerce Operating Partner<br />
-              <span style={{ whiteSpace: "nowrap" }}>
-                for <span id="typewriter-word" className={transitionClass}>{words[wordIdx]}</span>
-              </span>
+              We help businesses attract more customers,<br />
+              automate operations &amp; grow faster.
             </h1>
             <p className="hero-subtitle">
-              Marketplace growth, multi-platform operations, D2C, B2B/institutional commerce, revenue assurance and pan-India fulfilment—managed through one accountable operating model.
+              Marketplace, D2C &amp; B2B growth—managed through one accountable operating model.
             </p>
             <div className="hero-cta-row">
               <button className="btn-primary-hero" onClick={() => setDiagOpen(true)}>
-                Request a Commerce Diagnostic →
+                Request for a FREE AUDIT →
               </button>
               <button className="btn-ghost-hero" onClick={() => setVideoOpen(true)}>
                 ▷ Watch Our Story
               </button>
-            </div>
-            <div className="hero-rating">
-              <span className="hero-rating-stars">★★★★★</span>
-              <span>4.9 average client rating across 13+ national brands</span>
             </div>
 
             {/* ── SECTION 3: CREDIBILITY STRIP (Channel Logos Infinite Auto-Scroll Marquee) ── */}
@@ -768,18 +949,6 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-
-        {/* Brand Marquee */}
-        <div className="brands-marquee-section">
-          <p className="brands-marquee-label">Trusted by brands across e-commerce, B2B &amp; institutional commerce</p>
-          <div className="logo-marquee-wrap">
-            <div className="logo-marquee-track">
-              {[...portfolioLogos, ...portfolioLogos].map((logo, idx) => (
-                <span key={idx} className="marquee-brand" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center" }}>{logo.svg}</span>
-              ))}
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* KPI Stats Band (Credibility Metric Track) */}
@@ -787,8 +956,8 @@ export default function HomePage() {
         <div className="container stats-band-inner">
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "2rem", flexWrap: "wrap" }}>
             <div>
-              <p className="stats-band-eyebrow" style={{ color: "#FBBF24" }}>The track record</p>
-              <h2 className="stats-band-title">Numbers we&apos;re<br />measured on.</h2>
+              <p className="stats-band-eyebrow" style={{ color: "#FBBF24" }}>Proven Performance</p>
+              <h2 className="stats-band-title">Our Track Record</h2>
             </div>
             <p style={{ color: "#E2E8F0", maxWidth: "340px", fontSize: "1.05rem", fontWeight: 500, lineHeight: 1.6 }}>
               Six years operating e-commerce across marketplaces, D2C, B2B and institutional channels for Indian brands.
@@ -811,8 +980,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── SECTION 4: THE ACCOUNTABILITY PROBLEM (Fragmented-agency pain point) ── */}
-      <ComparisonMatrix onOpenDiag={() => setDiagOpen(true)} />
+
 
       {/* ── SECTION 5: THREE BUYER SITUATIONS (Routes to Launch / Fix & Grow / Scale page) ── */}
       <section className="paths-section" id="three-situations">
@@ -848,9 +1016,9 @@ export default function HomePage() {
           <div className="unlock-card">
             <div>
               <span className="ptn-section-eyebrow">Operator Credibility</span>
-              <h2 className="ptn-section-title" style={{ marginTop: "0.5rem", marginBottom: "1rem" }}>Why Leading Brands Partner With Good Life</h2>
+              <h2 className="ptn-section-title" style={{ marginTop: "0.5rem", marginBottom: "1rem" }}>Why Leading Brands Choose Good Life</h2>
               <p style={{ color: "#64748B", fontSize: "0.97rem", lineHeight: 1.7, marginBottom: "1.8rem" }}>
-                Unlike traditional agencies that only manage ads or shipping, Good Life operates your complete e-commerce stack with direct balance-sheet accountability.
+                Not just an agency. Good Life takes accountability for your complete e-commerce operation.
               </p>
               <div style={{ display: "flex", gap: "0.9rem", flexWrap: "wrap" }}>
                 <button onClick={() => setDiagOpen(true)} className="btn-primary-hero" style={{ height: "46px", padding: "0 1.5rem", fontSize: "0.92rem" }}>Schedule a Demo →</button>
@@ -875,6 +1043,18 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── BRAND MARQUEE (Trusted by brands) ── */}
+      <div className="brands-marquee-section" style={{ padding: "3.5rem 0", background: "#FAFBFF", borderTop: "1px solid #E2E8F0" }}>
+        <p className="brands-marquee-label">Trusted by brands across e-commerce, B2B &amp; institutional commerce</p>
+        <div className="logo-marquee-wrap">
+          <div className="logo-marquee-track">
+            {[...portfolioLogos, ...portfolioLogos].map((logo, idx) => (
+              <span key={idx} className="marquee-brand" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center" }}>{logo.svg}</span>
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* ── INDUSTRY CATEGORIES SECTION (Feedback Item 6) ── */}
       <section className="industry-categories-section" style={{ background: "#FFFFFF", padding: "4.5rem 0", borderTop: "1px solid #E2E8F0" }}>
@@ -936,273 +1116,259 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── SECTION 7: TEN CAPABILITIES (Links into each capability page) ── */}
-      <section className="ptn-do-section" id="capabilities" style={{ background: "#F8FAFC", padding: "5.5rem 0", borderTop: "1px solid #E2E8F0" }}>
+      {/* ── SECTION 7: CAPABILITY & PROMISE (Interactive Split Terminal Viewport - Option 1) ── */}
+      <section className="ptn-do-section" id="capabilities" style={{ background: "linear-gradient(180deg, #FAFBFF 0%, #F1F5F9 100%)", padding: "5.5rem 0", borderTop: "1px solid #E2E8F0" }}>
         <div className="container">
           <div className="ptn-do-header" style={{ textAlign: "center", marginBottom: "3.5rem" }}>
-            <span className="ptn-section-eyebrow" style={{ color: "#2563EB" }}>Ten Connected Commerce Capabilities</span>
-            <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>Do It All With Good Life</h2>
-            <p className="ptn-section-subtitle" style={{ marginTop: "0.4rem" }}>
-              Marketplace operations, D2C, B2B/institutional commerce, revenue assurance and pan-India fulfilment—managed through one accountable operating model.
+            <div style={{
+              display: "inline-flex", alignItems: "center", gap: "0.5rem",
+              background: "linear-gradient(135deg, #EFF6FF 0%, #E0E7FF 100%)",
+              border: "1px solid #BFDBFE",
+              borderRadius: "30px", padding: "0.35rem 1.1rem", marginBottom: "0.6rem"
+            }}>
+              <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#2563EB", animation: "wh-dot-pulse 2s infinite" }} />
+              <span style={{ fontSize: "0.74rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1.8px", color: "#1D4ED8", fontFamily: "'Inter', sans-serif" }}>
+                Connected Commerce Operating Model
+              </span>
+            </div>
+            <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>
+              Everything Commerce. <span style={{ background: "linear-gradient(135deg, #2563EB 0%, #4F46E5 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>One Partner.</span>
+            </h2>
+            <p className="ptn-section-subtitle" style={{ marginTop: "0.4rem", maxWidth: "720px", margin: "0.4rem auto 0" }}>
+              Good Life connects your entire e-commerce operation— from marketplaces and D2C to B2B, fulfilment and revenue assurance.
             </p>
           </div>
-          <div className="ptn-do-grid-10">
-            {capabilities.map((cap, idx) => (
-              <div key={idx} className="ptn-card-v2">
-                <div className="ptn-card-icon-badge" style={{ background: cap.bg, color: cap.color }}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">{cap.icon}</svg>
+
+          {/* ── INTERACTIVE SPLIT TERMINAL VIEWPORT (Linear / Vercel Style) ── */}
+          <div className="wh-split-container" style={{
+            display: "grid",
+            gridTemplateColumns: "380px 1fr",
+            gap: "1.5rem",
+            maxWidth: "1200px",
+            margin: "0 auto",
+            alignItems: "stretch"
+          }}>
+            {/* Left Capabilities Selector List */}
+            <div style={{
+              background: "#FFFFFF",
+              borderRadius: "24px",
+              border: "1px solid #E2E8F0",
+              padding: "1.2rem",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.04), 0 8px 30px rgba(37,99,235,0.04)",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.45rem",
+              maxHeight: "560px",
+              overflowY: "auto"
+            }} className="wh-sidebar-scroll">
+              {capabilityPromises.map((item, idx) => {
+                const isActive = activeCap === idx;
+                return (
+                  <div
+                    key={idx}
+                    onClick={() => setActiveCap(idx)}
+                    onMouseEnter={() => setActiveCap(idx)}
+                    style={{
+                      padding: "0.85rem 1.1rem",
+                      borderRadius: "16px",
+                      background: isActive ? "linear-gradient(135deg, #EFF6FF 0%, #E0E7FF 100%)" : "#F8FAFC",
+                      border: isActive ? "1.5px solid #2563EB" : "1px solid #F1F5F9",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      transition: "all 0.22s cubic-bezier(0.4,0,0.2,1)",
+                      boxShadow: isActive ? "0 4px 14px rgba(37,99,235,0.1)" : "none"
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                      <div style={{
+                        width: 32, height: 32, borderRadius: "10px",
+                        background: isActive ? "linear-gradient(135deg, #2563EB, #4F46E5)" : "#E2E8F0",
+                        color: isActive ? "#FFFFFF" : "#64748B",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        fontSize: "0.75rem", fontWeight: 800, flexShrink: 0
+                      }}>
+                        0{idx + 1}
+                      </div>
+                      <div>
+                        <div style={{ fontSize: "0.88rem", fontWeight: isActive ? 800 : 700, color: isActive ? "#1D4ED8" : "#0F172A", fontFamily: "'Inter', sans-serif" }}>
+                          {item.capability}
+                        </div>
+                        <div style={{ fontSize: "0.74rem", color: isActive ? "#2563EB" : "#64748B", fontWeight: 500 }}>
+                          {item.promise}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ color: isActive ? "#2563EB" : "#94A3B8", fontSize: "0.9rem", fontWeight: 800, transform: isActive ? "translateX(2px)" : "none", transition: "all 0.2s ease" }}>
+                      →
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Right Interactive Mandate Operating Terminal Card */}
+            {(() => {
+              const active = capabilityPromises[activeCap] || capabilityPromises[0];
+              const detailsMap: Record<string, string[]> = {
+                "Marketplace Operations": [
+                  "Full catalogue creation, listing & A+ brand store setup",
+                  "Daily listing health, stockouts & buybox price monitoring",
+                  "Platform compliance, SLA management & brand registry"
+                ],
+                "Marketplace Growth & Ads": [
+                  "Amazon PPC, Sponsored Products, Display & Brand ads",
+                  "Flipkart PLA & Myntra ad campaign management",
+                  "ACOS & ROAS target optimization for maximum margin"
+                ],
+                "Multi-Platform Commerce": [
+                  "Unified expansion across Amazon, Flipkart, Myntra, JioMart & Snapmint",
+                  "Multi-channel automated inventory synchronization",
+                  "Channel-wise margin guardrails & price parity control"
+                ],
+                "D2C Commerce": [
+                  "Shopify & Custom storefront technical management",
+                  "Integrated payment gateway & COD verification engine",
+                  "Under 4-hour order dispatch SLA from nearest warehouse"
+                ],
+                "B2B & Institutional": [
+                  "IndiaMART, Moglix, TradeIndia & B2B enquiry management",
+                  "Bulk quotation, PO processing & payment terms execution",
+                  "Institutional dealer network fulfillment pan-India"
+                ],
+                "Inventory Planning": [
+                  "12-State WMS regional stock allocation strategy",
+                  "AI-driven demand forecasting & buffer stock triggers",
+                  "Overstock & slow-moving SKU prevention analytics"
+                ],
+                "Fulfilment & Warehousing": [
+                  "12 Strategic managed state warehouse locations",
+                  "FBA / FA regional node execution and consignment intake",
+                  "Same-day & Next-day order dispatch SLA across India"
+                ],
+                "Revenue Assurance": [
+                  "Daily automated audit of marketplace commission & shipping fees",
+                  "Weight dispute, lost inventory & damaged return claim recovery",
+                  "Payment gateway & COD settlement reconciliation"
+                ],
+                "Returns Management": [
+                  "Pan-India reverse logistics & customer return verification",
+                  "Warehouse QC inspection & restocking classification",
+                  "Automated platform claim filing to recover RTO losses"
+                ],
+                "Heavy & Bulky Commerce": [
+                  "Specialised ops for ceiling fans, chimneys & home appliances",
+                  "Heavy freight transit insurance & damage-proof packaging",
+                  "Regional dealer & large package logistics fulfillment"
+                ]
+              };
+              const activeDetails = detailsMap[active.capability] || detailsMap["Marketplace Operations"];
+
+              return (
+                <div style={{
+                  background: "#FFFFFF",
+                  borderRadius: "24px",
+                  border: "1.5px solid #2563EB",
+                  padding: "2rem 2.2rem",
+                  boxShadow: "0 10px 40px rgba(37,99,235,0.08)",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  position: "relative",
+                  overflow: "hidden"
+                }}>
+                  {/* Top Status & Indicator */}
+                  <div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                        <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#10B981", boxShadow: "0 0 0 3px rgba(16,185,129,0.2)" }} />
+                        <span style={{ fontSize: "0.74rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1.5px", color: "#059669" }}>
+                          Operating Mandate Active
+                        </span>
+                      </div>
+                      <span style={{ fontSize: "0.78rem", fontWeight: 800, color: "#2563EB", background: "#EFF6FF", padding: "0.3rem 0.8rem", borderRadius: "14px", border: "1px solid #BFDBFE" }}>
+                        0{activeCap + 1} / 10 Mandate
+                      </span>
+                    </div>
+
+                    {/* Active Title */}
+                    <h3 style={{ fontSize: "1.6rem", fontWeight: 800, color: "#0F172A", margin: "0 0 0.8rem", letterSpacing: "-0.02em" }}>
+                      {active.capability}
+                    </h3>
+
+                    {/* Active Promise Guarantee Box */}
+                    <div style={{
+                      background: "linear-gradient(135deg, #EFF6FF 0%, #E0E7FF 100%)",
+                      border: "1px solid #BFDBFE",
+                      borderRadius: "16px",
+                      padding: "0.9rem 1.2rem",
+                      marginBottom: "1.5rem",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.7rem"
+                    }}>
+                      <div style={{ width: 22, height: 22, borderRadius: "50%", background: "#2563EB", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                      </div>
+                      <div>
+                        <div style={{ fontSize: "0.72rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1px", color: "#1D4ED8" }}>Good Life Operating Promise</div>
+                        <div style={{ fontSize: "1rem", fontWeight: 800, color: "#0F172A", marginTop: "0.1rem" }}>{active.promise}</div>
+                      </div>
+                    </div>
+
+                    {/* Key Execution Deliverables */}
+                    <div style={{ marginBottom: "1.8rem" }}>
+                      <div style={{ fontSize: "0.78rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1.2px", color: "#64748B", marginBottom: "0.8rem" }}>
+                        Key Execution Deliverables
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+                        {activeDetails.map((detail, dIdx) => (
+                          <div key={dIdx} style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem" }}>
+                            <span style={{ color: "#2563EB", fontWeight: 900, fontSize: "0.9rem", lineHeight: 1.4 }}>✓</span>
+                            <span style={{ fontSize: "0.92rem", color: "#334155", fontWeight: 600, lineHeight: 1.45 }}>{detail}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Explore Link CTA */}
+                  <div style={{ paddingTop: "1.2rem", borderTop: "1px solid #F1F5F9", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <span style={{ fontSize: "0.82rem", color: "#64748B", fontWeight: 600 }}>
+                      Managed under 1 Operating Model
+                    </span>
+                    <Link
+                      href={active.href}
+                      className="btn-primary-hero"
+                      style={{
+                        height: "44px",
+                        padding: "0 1.4rem",
+                        borderRadius: "12px",
+                        fontSize: "0.88rem",
+                        fontWeight: 800,
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "0.5rem"
+                      }}
+                    >
+                      Explore {active.capability} Mandate →
+                    </Link>
+                  </div>
                 </div>
-                <h3 className="ptn-card-title-v2">{cap.title}</h3>
-                <p className="ptn-card-desc-v2">{cap.desc}</p>
-                <Link href={cap.href} className="ptn-card-link-v2" style={{ color: cap.color }}>
-                  Explore Capability →
-                </Link>
-              </div>
-            ))}
+              );
+            })()}
           </div>
         </div>
       </section>
 
-      {/* ── SECTION 8: HEAVY & BULKY MOAT (Dedicated visual block) ── */}
-      <section className="heavy-bulky-section" id="heavy-bulky">
-        <div className="container">
-          <div className="heavy-bulky-inner">
-            <div>
-              <span className="ptn-section-eyebrow" style={{ color: "#6B7280" }}>Specialised Logistics Moat</span>
-              <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>Heavy &amp; Bulky Commerce Logistics</h2>
-              <p style={{ color: "#475569", fontSize: "0.96rem", lineHeight: 1.7, marginTop: "0.8rem", marginBottom: "1.5rem" }}>
-                Specialised freight handling, transit damage protection, custom crating and coordinated last-mile delivery for large appliances, industrial goods, and bulky consumer products across 12 states.
-              </p>
-              <Link href="/specialised/heavy-bulky-commerce" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", height: 44, padding: "0 1.4rem", borderRadius: 10, background: "#0F172A", color: "#FFF", fontWeight: 700, fontSize: "0.88rem", textDecoration: "none" }}>
-                Explore Heavy &amp; Bulky Solutions →
-              </Link>
-            </div>
-            <div style={{ background: "#FFFFFF", border: "1.5px solid #CBD5E1", borderRadius: 18, padding: "2rem", boxShadow: "0 4px 16px rgba(0,0,0,0.05)" }}>
-              <div style={{ display: "flex", gap: "1rem", marginBottom: "1.2rem", alignItems: "center" }}>
-                <div style={{ width: 48, height: 48, borderRadius: 12, background: "#F1F5F9", display: "flex", alignItems: "center", justifyContent: "center", color: "#0F172A" }}>
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-                </div>
-                <div>
-                  <div style={{ fontSize: "1rem", fontWeight: 800, color: "#0F172A" }}>Specialised Heavy Freight Network</div>
-                  <div style={{ fontSize: "0.8rem", color: "#64748B" }}>Handling appliances, fitness gear &amp; machinery</div>
-                </div>
-              </div>
-              <div className="heavy-bulky-features">
-                <div style={{ padding: "0.6rem 0.8rem", background: "#F8FAFC", borderRadius: 8, border: "1px solid #E2E8F0" }}>✓ Zero-damage transit protocol</div>
-                <div style={{ padding: "0.6rem 0.8rem", background: "#F8FAFC", borderRadius: 8, border: "1px solid #E2E8F0" }}>✓ Scheduled appointment delivery</div>
-                <div style={{ padding: "0.6rem 0.8rem", background: "#F8FAFC", borderRadius: 8, border: "1px solid #E2E8F0" }}>✓ Return QC &amp; repackaging</div>
-                <div style={{ padding: "0.6rem 0.8rem", background: "#F8FAFC", borderRadius: 8, border: "1px solid #E2E8F0" }}>✓ Regional hub buffer holding</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* ── SECTION 9: FULFILMENT NETWORK (India Map preview + Link) ── */}
+
+      {/* ── SECTION 9: FULFILMENT NETWORK (Pan-India Interactive Map) ── */}
       <WarehouseHubs />
-
-      {/* ── SECTION 10: REVENUE ASSURANCE (Settlement/claims process visual + Leakage Calculator) ── */}
-      <SavingsCalculator onOpenDiag={() => setDiagOpen(true)} />
-
-      {/* ── SECTION 11: HOW ENGAGEMENT WORKS (Infographic Workflow) ── */}
-      <section className="methodology-section" id="how-it-works" style={{ background: "#FFFFFF", padding: "5.5rem 0", borderTop: "1px solid #E2E8F0" }}>
-        <div className="container">
-          <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
-            <span className="ptn-section-eyebrow" style={{ color: "#2563EB" }}>How Engagement Works</span>
-            <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>A Structured Path to Scale</h2>
-            <p className="ptn-section-subtitle" style={{ marginTop: "0.4rem" }}>Diagnostic → Solution Design → Integration → Execution → Review &amp; Scale</p>
-          </div>
-
-          <div className="infographic-workflow">
-            <div className="infographic-track-line" />
-            {[
-              {
-                step: "01",
-                label: "Diagnostic",
-                subtitle: "Audit & Assessment",
-                desc: "Evaluate marketplace visibility, fee leaks, and current SLA metrics.",
-                color: "#2563EB",
-                bg: "#EFF6FF",
-                icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-                  </svg>
-                )
-              },
-              {
-                step: "02",
-                label: "Solution Design",
-                subtitle: "Strategy & Pricing",
-                desc: "Listing architecture, pricing tiers, and multi-channel inventory plan.",
-                color: "#0284C7",
-                bg: "#F0F9FF",
-                icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-                  </svg>
-                )
-              },
-              {
-                step: "03",
-                label: "Integration",
-                subtitle: "WMS & Channel Sync",
-                desc: "Link sales channels with 12-state WMS and daily automated reconciliation.",
-                color: "#0D9488",
-                bg: "#F0FDFA",
-                icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/>
-                  </svg>
-                )
-              },
-              {
-                step: "04",
-                label: "Execution",
-                subtitle: "Ads & Fulfilment",
-                desc: "Amazon & Flipkart ad management, order dispatch, and dispute resolution.",
-                color: "#4F46E5",
-                bg: "#EEF2FF",
-                icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
-                    <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
-                  </svg>
-                )
-              },
-              {
-                step: "05",
-                label: "Review & Scale",
-                subtitle: "Multi-Platform Growth",
-                desc: "Weekly performance reporting, SKU expansion, and multi-platform growth.",
-                color: "#7C3AED",
-                bg: "#F5F3FF",
-                icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
-                  </svg>
-                )
-              }
-            ].map((item, idx) => (
-              <div key={idx} className="infographic-step-card">
-                <div className="infographic-step-header">
-                  <span className="infographic-step-number" style={{ background: item.color }}>{item.step}</span>
-                  <div className="infographic-icon-box" style={{ background: item.bg, color: item.color }}>
-                    {item.icon}
-                  </div>
-                </div>
-                <h3 className="infographic-step-title">{item.label}</h3>
-                <span className="infographic-step-sub">{item.subtitle}</span>
-                <p className="infographic-step-desc">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 12: CASE STUDIES (3 approved stories) ── */}
-      <section className="testimonials-section" id="case-studies">
-        <div className="container">
-          <div style={{ textAlign: "center" }}>
-            <span className="ptn-section-eyebrow">Verified Case Studies</span>
-            <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>Proven Results Across Indian Brands</h2>
-            <p className="ptn-section-subtitle" style={{ marginTop: "0.4rem" }}>Real revenue growth, SLA performance and fee recovery stories.</p>
-          </div>
-          <div className="testimonials-wrap">
-            {testimonials.map((test, index) => (
-              <div key={index} className="testimonial-card" style={{ display: activeSlide === index ? "block" : "none" }}>
-                <p className="testimonial-quote">&ldquo;{test.quote}&rdquo;</p>
-                <div className="testimonial-meta">
-                  <div className="testimonial-avatar" style={{ background: test.color }}><span>{test.initial}</span></div>
-                  <div className="testimonial-meta-text">
-                    <div className="testimonial-author">{test.author}</div>
-                    <div className="testimonial-role">{test.role}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-            <div className="testimonial-dots">
-              {testimonials.map((_, index) => (
-                <button key={index} className={`testimonial-dot ${activeSlide === index ? "active" : ""}`} onClick={() => setActiveSlide(index)} aria-label={`Go to slide ${index + 1}`} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 13: AGENCY PARTNER STRIP ── */}
-      <section className="agency-strip" id="agency-partners">
-        <div className="container" style={{ textAlign: "center" }}>
-          <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "1.5px", color: "#94A3B8", textTransform: "uppercase" }}>Agency &amp; Strategic Growth Partners</span>
-          <p style={{ fontSize: "0.9rem", color: "#64748B", marginTop: "0.4rem", maxWidth: 580, margin: "0.4rem auto 0" }}>
-            Good Life collaborates with branding agencies, performance marketers and strategy advisors to power the operational, inventory and fulfilment layer for their client portfolio.
-          </p>
-        </div>
-      </section>
-
-      {/* ── SECTION 14: INSIGHTS (Latest 3 CMS articles) ── */}
-      <section className="insights-section" id="insights">
-        <div className="container">
-          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
-            <span className="ptn-section-eyebrow">Insights &amp; Journal</span>
-            <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>Commerce Operating Strategy</h2>
-            <p className="ptn-section-subtitle" style={{ marginTop: "0.4rem" }}>Latest articles on marketplace unit economics, fee audits, and pan-India logistics.</p>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem" }}>
-            {insights.map((article, idx) => (
-              <Link key={idx} href={article.link} style={{ textDecoration: "none", background: "#FFFFFF", border: "1.5px solid #E2E8F0", borderRadius: 16, padding: "1.6rem", display: "flex", flexDirection: "column", justifyContent: "space-between", transition: "all 0.2s ease" }}>
-                <div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.6rem" }}>
-                    <span style={{ fontSize: "0.72rem", fontWeight: 800, color: "#2563EB", textTransform: "uppercase", letterSpacing: "1px" }}>{article.category}</span>
-                    <span style={{ fontSize: "0.75rem", color: "#94A3B8" }}>{article.readTime}</span>
-                  </div>
-                  <h3 style={{ fontSize: "1rem", fontWeight: 800, color: "#0F172A", lineHeight: 1.45, marginBottom: "0.8rem" }}>{article.title}</h3>
-                </div>
-                <div style={{ fontSize: "0.82rem", fontWeight: 700, color: "#2563EB", display: "flex", alignItems: "center", gap: "0.3rem", marginTop: "1rem" }}>
-                  Read Article →
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 15: FAQ (Schema-enabled) ── */}
-      <section className="faq-section" id="faq">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "FAQPage",
-              "mainEntity": homeFaqs.map((faq) => ({
-                "@type": "Question",
-                "name": faq.q,
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": faq.a
-                }
-              }))
-            })
-          }}
-        />
-        <div className="container" style={{ maxWidth: "800px" }}>
-          <div style={{ textAlign: "center" }}>
-            <span className="ptn-section-eyebrow">Frequently Asked Questions</span>
-            <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>Commerce Operating Partnership Insights</h2>
-          </div>
-          <div style={{ marginTop: "2.5rem", display: "flex", flexDirection: "column", gap: "0.9rem" }}>
-            {homeFaqs.map((faq, idx) => (
-              <div key={idx} className={`faq-item ${openFaq === idx ? "faq-open" : ""}`}>
-                <button className="faq-trigger" onClick={() => toggleFaq(idx)}>
-                  {faq.q}
-                  <span className="faq-trigger-icon">{openFaq === idx ? "−" : "+"}</span>
-                </button>
-                {openFaq === idx && <div className="faq-answer">{faq.a}</div>}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ── SECTION 16: FINAL CTA BAND + FOOTER ── */}
       <section className="final-cta-section">

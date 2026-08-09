@@ -23,7 +23,7 @@ export default function FixAndGrowPage() {
             For brands selling online but struggling with stagnant growth, rising ACOS, un-audited claims, or return losses.
           </p>
           <button onClick={() => setDiagOpen(true)} className="hero-cta-btn" style={{ margin: "2rem auto 0" }}>
-            Request a Commerce Diagnostic
+            Request for a FREE AUDIT →
           </button>
         </div>
       </section>

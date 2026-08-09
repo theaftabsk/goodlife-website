@@ -96,10 +96,10 @@ export default function CommerceDiagnosticModal({ onClose }: CommerceDiagnosticM
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
           <div>
             <span className="diagnostic-step-pill">
-              {completed ? "✓ Diagnostic Complete" : `Step ${step} of 10 — Commerce Diagnostic`}
+              {completed ? "✓ Audit Complete" : `Step ${step} of 10 — Free Audit`}
             </span>
             <h3 style={{ fontSize: "1.3rem", fontWeight: 800, color: "#FFF", marginTop: "0.2rem" }}>
-              {completed ? "Commerce Operating Diagnostic Result" : "Request Your Custom Diagnostic"}
+              {completed ? "Commerce Operating Audit Result" : "Request Your Custom Free Audit"}
             </h3>
           </div>
           <button

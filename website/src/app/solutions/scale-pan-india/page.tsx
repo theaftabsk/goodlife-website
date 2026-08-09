@@ -23,7 +23,7 @@ export default function ScalePanIndiaPage() {
             For brands ready to scale multi-state inventory placement, regional dealer replenishment, and institutional procurement.
           </p>
           <button onClick={() => setDiagOpen(true)} className="hero-cta-btn" style={{ margin: "2rem auto 0" }}>
-            Request a Commerce Diagnostic
+            Request for a FREE AUDIT →
           </button>
         </div>
       </section>

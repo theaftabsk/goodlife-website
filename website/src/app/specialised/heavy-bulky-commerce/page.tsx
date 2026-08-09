@@ -23,7 +23,7 @@ export default function HeavyBulkyCommercePage() {
             Dedicated logistics & e-commerce ops for ceiling fans, kitchen chimneys, water heaters, and large home appliances.
           </p>
           <button onClick={() => setDiagOpen(true)} className="hero-cta-btn" style={{ margin: "2rem auto 0" }}>
-            Request a Commerce Diagnostic
+            Request for a FREE AUDIT →
           </button>
         </div>
       </section>
