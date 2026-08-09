@@ -361,7 +361,7 @@ export default function CommerceNetwork() {
                   <text x={center.x} y={center.y + 2} textAnchor="middle" fontSize="13" fontWeight="900" fill="#0F172A" fontFamily="var(--font-display)" letterSpacing="1">
                     GOOD LIFE
                   </text>
-                  <text x={center.x} y={center.y + 15} textAnchor="middle" fontSize="7" fontWeight="800" fill="#64748B" letterSpacing="1.2" textTransform="uppercase">
+                  <text x={center.x} y={center.y + 15} textAnchor="middle" fontSize="7" fontWeight="800" fill="#64748B" letterSpacing="1.2" style={{ textTransform: "uppercase" }}>
                     OPERATING ENGINE
                   </text>
                 </g>
