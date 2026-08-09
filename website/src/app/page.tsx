@@ -517,6 +517,8 @@ const StickyBar: React.FC<{ onOpenDiag: () => void }> = ({ onOpenDiag }) => {
             .sticky-bar-close { display: none !important; }
             .sticky-bar-inner {
               background: transparent !important;
+              backdrop-filter: none !important;
+              -webkit-backdrop-filter: none !important;
               border: none !important;
               box-shadow: none !important;
               padding: 0 !important;

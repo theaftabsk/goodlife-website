@@ -7,12 +7,62 @@ import Logo from "./Logo";
 export default function Footer() {
   return (
     <footer style={{ width: "100%", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
+      <style>{`
+        .footer-top-banner {
+          padding: 7rem 6%;
+        }
+        .footer-heading {
+          font-size: clamp(2.5rem, 4vw, 3.5rem);
+          margin-bottom: 1.2rem;
+        }
+        .footer-subtext {
+          font-size: 1.05rem;
+          margin-bottom: 2.5rem;
+        }
+        .footer-bottom-grid {
+          padding: 6rem 6% 3rem 6%;
+          grid-template-columns: 1fr 1fr 1fr 1.2fr;
+          gap: 4rem;
+        }
+        .footer-links-col {
+          display: flex;
+          flex-direction: column;
+        }
+        @media (max-width: 992px) {
+          .footer-bottom-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            padding: 4rem 6% 2rem 6%;
+          }
+        }
+        @media (max-width: 768px) {
+          .footer-top-banner {
+            padding: 4rem 6%;
+            text-align: center;
+          }
+          .footer-heading {
+            font-size: 2rem !important;
+            margin-bottom: 1rem !important;
+          }
+          .footer-subtext {
+            font-size: 0.95rem !important;
+            margin-bottom: 1.5rem !important;
+          }
+          .footer-bottom-grid {
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            padding: 3rem 6% 2rem 6%;
+          }
+          .footer-col-title {
+            margin-bottom: 1rem !important;
+          }
+        }
+      `}</style>
       
       {/* ── TOP BANNER SECTION ── */}
-      <div style={{
+      <div className="footer-top-banner" style={{
         position: "relative",
         backgroundColor: "#0F172A", 
-        padding: "7rem 6%",
         color: "#FFFFFF",
         display: "flex",
         alignItems: "center",
@@ -50,21 +100,17 @@ export default function Footer() {
           }}>
             Ready to Scale?
           </h4>
-          <h2 style={{ 
-            fontSize: "clamp(2.5rem, 4vw, 3.5rem)", 
+          <h2 className="footer-heading" style={{ 
             fontWeight: 400, 
             fontFamily: "var(--font-display, serif)",
             lineHeight: 1.1,
-            marginBottom: "1.2rem",
             color: "#FFFFFF"
           }}>
             Grow your commerce<br />business with us
           </h2>
-          <p style={{ 
-            fontSize: "1.05rem", 
+          <p className="footer-subtext" style={{ 
             lineHeight: 1.6, 
             color: "#CBD5E1", 
-            marginBottom: "2.5rem",
             fontWeight: 400
           }}>
             Request our complimentary Commerce Diagnostic to identify leakage points and unlock new channel growth.
@@ -102,18 +148,19 @@ export default function Footer() {
       </div>
 
       {/* ── BOTTOM LINKS SECTION (Solid Dark Slate Background) ── */}
-      <div style={{ background: "#0B0F19", padding: "5rem 6% 2rem", color: "#94A3B8" }}>
+      <div className="footer-bottom-grid" style={{
+        backgroundColor: "#020617",
+        color: "#F1F5F9",
+        display: "grid"
+      }}>
         
         <div style={{ 
-          display: "grid", 
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", 
-          gap: "4rem",
-          marginBottom: "5rem" 
+          display: "contents"
         }}>
           
           {/* Column 1: Contact Info */}
           <div>
-            <h4 style={{ color: "#FFFFFF", fontSize: "0.95rem", fontWeight: 500, marginBottom: "1.8rem" }}>
+            <h4 className="footer-col-title" style={{ color: "#FFFFFF", fontSize: "0.95rem", fontWeight: 500, marginBottom: "1.8rem" }}>
               Contact
             </h4>
             <div style={{ display: "flex", flexDirection: "column", gap: "0.8rem", fontSize: "0.85rem", lineHeight: 1.6 }}>
