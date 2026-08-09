@@ -259,21 +259,20 @@ export default function CommerceNetwork() {
         </div>
 
         {/* ── LIGHT WHITE NETWORK CONSOLE CONTAINER ── */}
-        <div style={{
+        <div className="network-console-container" style={{
           width: "100%",
           background: "rgba(255, 255, 255, 0.7)",
           backdropFilter: "blur(24px)",
           borderRadius: "32px",
           border: "1.5px solid #E2E8F0",
           boxShadow: "0 20px 60px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.8)",
-          padding: "2.5rem 2rem",
           position: "relative",
           overflow: "hidden"
         }}>
           
           {/* Directional Axis Labels (Desktop Only) */}
           <div className="network-axis-labels">
-            <div style={{ position: "absolute", top: "22px", left: "50%", transform: "translateX(-50%)", fontSize: "0.72rem", fontWeight: 800, letterSpacing: "2.5px", color: "#94A3B8", textTransform: "uppercase" }}>
+            <div className="desktop-only-axis" style={{ position: "absolute", top: "22px", left: "50%", transform: "translateX(-50%)", fontSize: "0.72rem", fontWeight: 800, letterSpacing: "2.5px", color: "#94A3B8", textTransform: "uppercase" }}>
               ▲ MARKETPLACE
             </div>
             <div className="desktop-only-axis" style={{ position: "absolute", bottom: "22px", left: "50%", transform: "translateX(-50%)", fontSize: "0.72rem", fontWeight: 800, letterSpacing: "2.5px", color: "#94A3B8", textTransform: "uppercase" }}>
@@ -414,23 +413,7 @@ export default function CommerceNetwork() {
               </svg>
             </div>
 
-            {/* ── MOBILE 01-10 SELECTOR (Hidden on Desktop) ── */}
-            <div className="mobile-node-nav">
-              {serviceNodes.map((n, i) => {
-                const isActive = i === activeIdx;
-                return (
-                  <button
-                    key={n.id}
-                    onClick={() => setActiveIdx(i)}
-                    className={`nav-btn ${isActive ? 'active' : ''}`}
-                  >
-                    {n.num}
-                  </button>
-                );
-              })}
-            </div>
 
-            {/* ── RIGHT: ACTIVE NODE EXPANDED CARD ── */}
             <div style={{ display: "flex", flexDirection: "column" }}>
               <div style={{
                 background: "#FFFFFF",
@@ -521,10 +504,6 @@ export default function CommerceNetwork() {
 
               {/* Desktop Quick Select Node Bar removed for cleaner look */}
             </div>
-            
-            <div className="mobile-only-axis" style={{ textAlign: "center", fontSize: "0.72rem", fontWeight: 800, letterSpacing: "2.5px", color: "#94A3B8", textTransform: "uppercase", marginTop: "1rem", display: "none" }}>
-              ▼ FULFILMENT &amp; REVENUE
-            </div>
 
           </div>
 
@@ -573,63 +552,36 @@ export default function CommerceNetwork() {
         .network-split-layout {
           grid-template-columns: 1fr 420px;
         }
-        .mobile-node-nav {
-          display: none;
+        .network-console-container {
+          padding: 2.5rem 2rem;
         }
 
         @media (max-width: 992px) {
+          .network-console-container {
+            padding: 1.5rem 0.5rem;
+          }
           .desktop-only-axis {
             display: none !important;
-          }
-          .mobile-only-axis {
-            display: block !important;
           }
           .network-split-layout {
             grid-template-columns: 1fr;
             gap: 0;
           }
           .network-svg-viewport {
-            min-height: 400px !important;
+            min-height: 350px !important;
             display: flex !important;
           }
           .svg-node {
-            transform: scale(1.4) !important;
+            transform: scale(1.15) !important;
           }
           .svg-node:hover:not(.active) {
-            transform: scale(1.4) !important;
+            transform: scale(1.15) !important;
           }
           .center-node-group {
-            transform: scale(1.15) !important;
+            transform: scale(1) !important;
           }
           .rotating-ring {
             animation: none !important;
-          }
-          .mobile-node-nav {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 0.5rem;
-            margin-top: 1.5rem;
-          }
-          .nav-btn {
-            height: 48px;
-            border-radius: 12px;
-            background: #FFFFFF;
-            border: 1px solid #E2E8F0;
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: #64748B;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-display);
-            transition: all 0.2s ease;
-            cursor: pointer;
-          }
-          .nav-btn.active {
-            background: #2563EB;
-            border-color: #1D4ED8;
-            color: #FFFFFF;
-            box-shadow: 0 4px 12px rgba(37,99,235,0.25);
           }
         }
       `}</style>
