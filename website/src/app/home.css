@@ -3262,15 +3262,24 @@ html { scroll-behavior: smooth; }
 
 /* Mobile Screens (< 768px) */
 @media (max-width: 768px) {
+  .hero-real-section {
+    min-height: auto !important;
+    padding-top: 90px !important;
+    padding-bottom: 20px !important;
+    justify-content: flex-start !important;
+  }
   .hero-section-light {
     padding: 2.5rem 0 2rem !important;
   }
+  .hero-headline-etail,
   .hero-headline {
-    font-size: clamp(1.5rem, 6vw, 2rem) !important;
-    line-height: 1.25 !important;
+    font-size: clamp(2rem, 8vw, 2.5rem) !important;
+    line-height: 1.15 !important;
   }
+  .hero-subtitle-etail,
   .hero-subtitle {
-    font-size: 0.92rem !important;
+    font-size: 1rem !important;
+    margin-bottom: 1.5rem !important;
   }
   .hero-cta-row {
     flex-direction: column !important;
