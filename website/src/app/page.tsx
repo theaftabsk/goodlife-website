@@ -1074,23 +1074,32 @@ export default function HomePage() {
         {/* Hero Main Content */}
         <div className="hero-real-body">
           <div className="container" style={{ width: "100%" }}>
-            <div className="hero-left-content" style={{ maxWidth: "720px" }}>
+            <div className="hero-left-content" style={{ maxWidth: "900px" }}>
               
-              <div className="hero-badge" style={{ background: "rgba(255, 255, 255, 0.92)", backdropFilter: "blur(12px)", border: "1px solid #E9D5FF", color: "#7C3AED" }}>
-                <span className="hero-badge-dot" style={{ background: "#A855F7" }} />
-                India&apos;s Trusted E-Commerce Operations Partner | Pan-India Presence
+              <div className="hero-badge" style={{ 
+                background: "rgba(255, 255, 255, 0.7)", 
+                backdropFilter: "blur(20px)", 
+                border: "1px solid rgba(255, 255, 255, 1)", 
+                color: "#1E40AF", 
+                boxShadow: "0 10px 40px rgba(37, 99, 235, 0.15)",
+                padding: "0.55rem 1.5rem",
+                fontSize: "0.88rem",
+                fontWeight: 800,
+                letterSpacing: "0.5px"
+              }}>
+                <span className="hero-badge-dot" style={{ background: "#3B82F6", boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.25), 0 0 12px rgba(59, 130, 246, 0.5)" }} />
+                India&apos;s Trusted E-Commerce Operations Partner
               </div>
 
-              <h1 className="hero-headline-etail" style={{ fontSize: "clamp(2.6rem, 4.6vw, 4.2rem)", fontWeight: 900, lineHeight: 1.12, letterSpacing: "-2.5px", color: "#0F172A", margin: "0 0 1.3rem" }}>
-                We help businesses attract more customers,<br />
-                automate operations &amp; grow faster.
+              <h1 className="hero-headline-etail" style={{ fontSize: "clamp(2.6rem, 4.8vw, 4.2rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-2px", color: "#0F172A", margin: "0 0 1.5rem", maxWidth: "900px" }}>
+                We help businesses attract more customers, automate operations &amp; <span className="gradient-text-shimmer" style={{ background: "linear-gradient(90deg, #2563EB 0%, #7C3AED 50%, #2563EB 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundSize: "200% auto" }}>grow faster.</span>
               </h1>
 
-              <p className="hero-subtitle-etail" style={{ fontSize: "1.18rem", color: "#475569", lineHeight: 1.65, marginBottom: "2.4rem", maxWidth: "580px", fontWeight: 500 }}>
+              <p className="hero-subtitle-etail" style={{ fontSize: "clamp(1.1rem, 2vw, 1.25rem)", color: "#334155", lineHeight: 1.6, marginBottom: "2.8rem", maxWidth: "680px", fontWeight: 500 }}>
                 Marketplace, D2C &amp; B2B growth—managed through one accountable operating model.
               </p>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "1.2rem", flexWrap: "wrap" }}>
+              <div className="hero-cta-wrapper" style={{ display: "flex", alignItems: "center", gap: "1.2rem", flexWrap: "wrap", marginTop: "1rem" }}>
                 <button
                   className="btn-primary-hero"
                   onClick={() => setDiagOpen(true)}
@@ -1118,30 +1127,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* ── SECTION 3: CREDIBILITY STRIP (Channel Logos Infinite Auto-Scroll Marquee) ── */}
-        <div className="brands-marquee-section" style={{ position: "relative", zIndex: 3, padding: "1.8rem 0", background: "rgba(255, 255, 255, 0.95)", backdropFilter: "blur(10px)", borderTop: "1px solid #E2E8F0", borderBottom: "1px solid #E2E8F0" }}>
-          <div className="container">
-            <p className="brands-marquee-label" style={{ textAlign: "center", marginBottom: "1.2rem", fontSize: "0.74rem", fontWeight: 800, letterSpacing: "2.5px", color: "#64748B", textTransform: "uppercase" }}>
-              Pan-India Multi-Channel Marketplace Integrations
-            </p>
-            <div className="channel-strip" style={{ margin: 0 }}>
-              <div className="channel-marquee-container">
-                <div className="channel-marquee-track">
-                  {[...channelSVGs, ...channelSVGs].map((ch, idx) => (
-                    <div
-                      key={idx}
-                      className="channel-card-lg"
-                      title={ch.name}
-                      style={{ background: ch.bg }}
-                    >
-                      {ch.svg}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+
       </section>
 
       {/* KPI Stats Band (Credibility Metric Track) */}

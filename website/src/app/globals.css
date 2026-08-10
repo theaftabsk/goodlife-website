@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
 
 @import "tailwindcss";
 
@@ -64,10 +64,10 @@
   --glow-md:     var(--shadow-md);
   --glow-lg:     var(--shadow-lg);
 
-  /* Typography — UNIFORM PLUS JAKARTA SANS ACROSS WHOLE SITE */
-  --font-serif:  'Plus Jakarta Sans', var(--font-outfit), -apple-system, sans-serif;
-  --font-body:   'Plus Jakarta Sans', var(--font-outfit), -apple-system, sans-serif;
-  --font-head:   'Plus Jakarta Sans', var(--font-outfit), -apple-system, sans-serif;
+  /* Typography — UNIFORM OPEN SANS ACROSS WHOLE SITE */
+  --font-serif:  'Open Sans', var(--font-open-sans), -apple-system, sans-serif;
+  --font-body:   'Open Sans', var(--font-open-sans), -apple-system, sans-serif;
+  --font-head:   'Open Sans', var(--font-open-sans), -apple-system, sans-serif;
 
   /* Easing */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);

@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Outfit } from "next/font/google";
+import { Open_Sans } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
-const outfit = Outfit({
+const openSans = Open_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-outfit",
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-open-sans",
   display: "swap",
 });
 
@@ -104,7 +104,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={outfit.variable}>
+    <html lang="en" className={openSans.variable}>
       <head>
         {/* JSON-LD Organization Schema */}
         <script
