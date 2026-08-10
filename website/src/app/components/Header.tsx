@@ -62,22 +62,23 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
   return (
     <header className={`header-bar ${scrolled ? "scrolled" : ""}`} style={{
       position: "fixed",
-      top: scrolled ? "12px" : "16px",
+      top: scrolled ? "0px" : "24px",
       left: "50%",
       transform: "translateX(-50%)",
-      width: "calc(100% - 2.5rem)",
-      maxWidth: "1320px",
-      height: scrolled ? "68px" : "76px",
-      background: scrolled ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 0.55)",
-      backdropFilter: "blur(24px)",
-      WebkitBackdropFilter: "blur(24px)",
-      borderRadius: "24px",
-      border: scrolled ? "1px solid rgba(226, 232, 240, 0.9)" : "1px solid rgba(255, 255, 255, 0.75)",
-      boxShadow: scrolled ? "0 10px 30px rgba(15, 23, 42, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04)" : "0 12px 36px rgba(15, 23, 42, 0.08)",
+      width: scrolled ? "100%" : "calc(100% - 2rem)",
+      maxWidth: scrolled ? "100%" : "1280px",
+      height: scrolled ? "70px" : "76px",
+      background: scrolled ? "rgba(255, 255, 255, 0.98)" : "rgba(255, 255, 255, 0.85)",
+      backdropFilter: "blur(16px)",
+      WebkitBackdropFilter: "blur(16px)",
+      borderRadius: scrolled ? "0px" : "24px",
+      border: scrolled ? "none" : "1px solid rgba(255, 255, 255, 0.6)",
+      borderBottom: scrolled ? "1px solid rgba(15, 23, 42, 0.06)" : "1px solid rgba(255, 255, 255, 0.6)",
+      boxShadow: scrolled ? "0 4px 20px rgba(59, 130, 246, 0.08)" : "0 12px 48px rgba(59, 130, 246, 0.06)",
       zIndex: 9999,
-      transition: "all 0.28s cubic-bezier(0.16, 1, 0.3, 1)"
+      transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
     }}>
-      <div style={{ width: "100%", height: "100%", padding: "0 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{ width: "100%", maxWidth: "1280px", margin: "0 auto", height: "100%", padding: "0 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         
         {/* Brand Logo (Left) */}
         <Link href="/" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center" }} className="header-logo-container">
@@ -85,7 +86,7 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
         </Link>
 
         {/* Desktop Navigation Links (Center, Small & Clean) */}
-        <nav style={{ display: "flex", gap: "0.4rem", alignItems: "center" }} className="desktop-nav">
+        <nav style={{ display: "flex", gap: "0.25rem", alignItems: "center" }} className="desktop-nav">
           {(["solutions", "capabilities", "specialised", "proof"] as const).map((key) => {
             const labels: Record<string, string> = {
               solutions: "Solutions",
@@ -102,23 +103,35 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
                 style={{ position: "relative", padding: "1.2rem 0" }}
               >
                 <span style={{
-                  fontSize: "0.91rem",
-                  fontWeight: 700,
+                  fontSize: "0.92rem",
+                  fontWeight: isActive ? 700 : 600,
                   fontFamily: "var(--font-display)",
-                  color: isActive ? "#7C3AED" : "#0F172A",
+                  color: isActive ? "#1E40AF" : "#475569",
                   cursor: "pointer",
                   display: "flex",
                   alignItems: "center",
                   gap: "0.3rem",
-                  padding: "0.45rem 1rem",
+                  padding: "0.5rem 1.1rem",
                   borderRadius: "99px",
-                  background: isActive ? "rgba(168, 85, 247, 0.12)" : "transparent",
-                  boxShadow: isActive ? "0 0 16px rgba(168, 85, 247, 0.15)" : "none",
-                  transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
+                  background: isActive ? "rgba(37, 99, 235, 0.08)" : "transparent",
+                  transition: "all 0.2s ease",
                   userSelect: "none"
-                }}>
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.color = "#0F172A";
+                    e.currentTarget.style.background = "rgba(15, 23, 42, 0.04)";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.color = "#475569";
+                    e.currentTarget.style.background = "transparent";
+                  }
+                }}
+                >
                   {labels[key]}
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.8, transition: "transform 0.2s ease", transform: isActive ? "rotate(180deg)" : "rotate(0deg)" }}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: isActive ? 1 : 0.6, transition: "transform 0.25s ease", transform: isActive ? "rotate(180deg)" : "rotate(0deg)" }}>
                     <polyline points="6 9 12 15 18 9"/>
                   </svg>
                 </span>
@@ -186,17 +199,15 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
           onMouseLeave={() => setActiveMenu(null)}
           style={{
             position: "absolute",
-            top: "calc(100% + 10px)",
+            top: "calc(100% + 4px)",
             left: "50%",
             transform: "translateX(-50%)",
             width: "calc(100% - 2rem)",
             maxWidth: "1140px",
-            background: "rgba(255, 255, 255, 0.88)",
-            backdropFilter: "blur(32px)",
-            WebkitBackdropFilter: "blur(32px)",
+            background: "#FFFFFF",
             borderRadius: "24px",
-            border: "1px solid rgba(255, 255, 255, 0.7)",
-            boxShadow: "0 24px 60px rgba(15, 23, 42, 0.14), 0 4px 16px rgba(0, 0, 0, 0.04)",
+            border: "1px solid rgba(15, 23, 42, 0.06)",
+            boxShadow: "0 20px 40px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04)",
             padding: "1.5rem"
           }}
         >

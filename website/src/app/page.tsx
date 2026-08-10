@@ -941,91 +941,87 @@ export default function HomePage() {
 
   // Approved Platform Vector SVGs (Enlarged & High-Impact)
   // Approved Platform Vector SVGs (Authentic High-Impact Logos)
-  const channelSVGs: { name: string; bg: string; svg: React.ReactNode }[] = [
+  const channelSVGs: { name: string; svg: React.ReactNode }[] = [
     {
       name: "Amazon",
-      bg: "#232F3E",
       svg: (
         <svg viewBox="0 0 120 36" width="95" height="28" fill="none">
-          <text x="2" y="22" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="22" fill="#FFFFFF" letterSpacing="-0.5">amazon</text>
-          <path d="M6 26.5 C 30 35, 62 35, 78 26.5" stroke="#FF9900" strokeWidth="2.8" strokeLinecap="round" fill="none" />
-          <path d="M74 23.5 L 81 27 L 76 32 Z" fill="#FF9900" />
+          <text x="2" y="22" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="22" fill="#9CA3AF" letterSpacing="-0.5">amazon</text>
+          <path d="M6 26.5 C 30 35, 62 35, 78 26.5" stroke="#9CA3AF" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+          <path d="M74 23.5 L 81 27 L 76 32 Z" fill="#9CA3AF" />
         </svg>
       ),
     },
     {
       name: "Flipkart",
-      bg: "#2874F0",
       svg: (
         <svg viewBox="0 0 125 36" width="100" height="28" fill="none">
-          <rect x="2" y="4" width="24" height="26" rx="5" fill="#FFE500" />
-          <path d="M8 9 h12 v4 h-7 v3 h6 v4 h-6 v7 h-5 z" fill="#2874F0" />
-          <path d="M18 16 h4 v3 h-4 z" fill="#FFE500" />
-          <text x="32" y="24" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#FFFFFF" letterSpacing="-0.5">flipkart</text>
+          <path d="M8 9 h12 v4 h-7 v3 h6 v4 h-6 v7 h-5 z" fill="#9CA3AF" />
+          <path d="M18 16 h4 v3 h-4 z" fill="#9CA3AF" />
+          <text x="32" y="24" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#9CA3AF" letterSpacing="-0.5">flipkart</text>
         </svg>
       ),
     },
     {
+      name: "Meesho",
+      svg: (
+        <svg viewBox="0 0 120 36" width="95" height="28" fill="none">
+           <text x="5" y="24" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="22" fill="#9CA3AF" letterSpacing="-0.5">meesho</text>
+        </svg>
+      )
+    },
+    {
       name: "Myntra",
-      bg: "#18181B",
       svg: (
         <svg viewBox="0 0 115 36" width="92" height="28" fill="none">
-          <path d="M3 26 L9 7 L16 19 L23 7 L29 26" stroke="#FF3F6C" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          <path d="M9 7 L16 19 L23 7" stroke="#F59E0B" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          <text x="34" y="23" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="17" fill="#FFFFFF" letterSpacing="0.2">myntra</text>
+          <path d="M3 26 L9 7 L16 19 L23 7 L29 26" stroke="#9CA3AF" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <path d="M9 7 L16 19 L23 7" stroke="#9CA3AF" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <text x="34" y="23" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="17" fill="#9CA3AF" letterSpacing="0.2">myntra</text>
         </svg>
       ),
     },
     {
       name: "Moglix",
-      bg: "#E8192C",
       svg: (
         <svg viewBox="0 0 115 36" width="92" height="28" fill="none">
-          <rect x="2" y="5" width="24" height="24" rx="6" fill="#E8192C" />
-          <path d="M7 22 V12 L12 17 L17 12 V22" stroke="#FFFFFF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          <text x="32" y="24" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#FFFFFF" letterSpacing="-0.2">moglix</text>
+          <path d="M7 22 V12 L12 17 L17 12 V22" stroke="#9CA3AF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <text x="32" y="24" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#9CA3AF" letterSpacing="-0.2">moglix</text>
         </svg>
       ),
     },
     {
       name: "JioMart",
-      bg: "#0066CC",
       svg: (
         <svg viewBox="0 0 115 36" width="92" height="28" fill="none">
-          <circle cx="15" cy="17" r="12" fill="#0088FF" />
-          <text x="7" y="22" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="15" fill="#FFFFFF">Jio</text>
-          <text x="32" y="24" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#FFFFFF" letterSpacing="-0.2">Mart</text>
+          <text x="7" y="22" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="15" fill="#9CA3AF">Jio</text>
+          <text x="32" y="24" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#9CA3AF" letterSpacing="-0.2">Mart</text>
         </svg>
       ),
     },
     {
       name: "Snapmint",
-      bg: "#00B09B",
       svg: (
         <svg viewBox="0 0 120 36" width="96" height="28" fill="none">
-          <path d="M4 25 L12 6 L16 15 L22 6 L14 25 Z" fill="#00B09B" />
-          <text x="26" y="24" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="17" fill="#FFFFFF" letterSpacing="-0.2">snapmint</text>
+          <path d="M4 25 L12 6 L16 15 L22 6 L14 25 Z" fill="#9CA3AF" />
+          <text x="26" y="24" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="17" fill="#9CA3AF" letterSpacing="-0.2">snapmint</text>
         </svg>
       ),
     },
     {
       name: "Bajaj",
-      bg: "#003087",
       svg: (
         <svg viewBox="0 0 110 36" width="88" height="28" fill="none">
-          <path d="M3 8 H16 L7 17 L16 26 H3 Z" fill="#38BDF8" />
-          <text x="22" y="24" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#FFFFFF" letterSpacing="0.5">BAJAJ</text>
+          <path d="M3 8 H16 L7 17 L16 26 H3 Z" fill="#9CA3AF" />
+          <text x="22" y="24" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#9CA3AF" letterSpacing="0.5">BAJAJ</text>
         </svg>
       ),
     },
     {
       name: "IB (Industrybuying / IndiaMART)",
-      bg: "#E8711A",
       svg: (
         <svg viewBox="0 0 100 36" width="80" height="28" fill="none">
-          <rect x="2" y="5" width="26" height="24" rx="6" fill="#FFFFFF" />
-          <text x="7" y="23" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="17" fill="#E8711A">IB</text>
-          <text x="34" y="23" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="16" fill="#FFFFFF">B2B</text>
+          <text x="7" y="23" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="17" fill="#9CA3AF">IB</text>
+          <text x="34" y="23" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="16" fill="#9CA3AF">B2B</text>
         </svg>
       ),
     },
@@ -1058,98 +1054,144 @@ export default function HomePage() {
       {/* ── SECTION 1: HEADER (Sticky navigation + CTA always visible) ── */}
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
-      {/* ── SECTION 2: HERO (NO. 1 WORLD-CLASS REAL WEBSITE 100VH FULL-BLEED VIDEO HERO) ── */}
+      {/* ── SECTION 2: HERO (CLEAN CORPORATE PROFESSIONAL) ── */}
       <section className="hero-real-section" id="hero-home">
-        {/* Full Bleed Background Video (Muted, AutoPlay, Loop, 100% Crystal-Clear) */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="hero-real-video"
-          src="/hero-bg-clean-video.mp4"
-        />
-        <div className="hero-real-overlay" />
+        
+        {/* Animated Aurora Background */}
+        <div className="hero-bottom-glow"></div>
 
         {/* Hero Main Content */}
-        <div className="hero-real-body">
-          <div className="container" style={{ width: "100%" }}>
-            <div className="hero-left-content" style={{ maxWidth: "900px" }}>
+        <div className="hero-real-body" style={{ zIndex: 2, position: 'relative' }}>
+          <div className="container" style={{ width: "100%", padding: "0 1rem" }}>
+            <div className="hero-left-content" style={{ maxWidth: "1000px", margin: "0 auto", textAlign: "center", alignItems: "center" }}>
               
-              <div className="hero-badge" style={{ 
-                background: "rgba(255, 255, 255, 0.7)", 
-                backdropFilter: "blur(20px)", 
-                border: "1px solid rgba(255, 255, 255, 1)", 
+              <div className="hero-badge reveal" style={{ 
+                background: "#FFFFFF", 
+                border: "1px solid rgba(15,23,42,0.08)", 
                 color: "#1E40AF", 
-                boxShadow: "0 10px 40px rgba(37, 99, 235, 0.15)",
-                padding: "0.55rem 1.5rem",
-                fontSize: "0.88rem",
-                fontWeight: 800,
-                letterSpacing: "0.5px"
+                boxShadow: "0 4px 12px rgba(15, 23, 42, 0.04)",
+                padding: "0.5rem 1.2rem",
+                fontSize: "0.85rem",
+                fontWeight: 600,
+                letterSpacing: "0.5px",
+                marginBottom: "2rem",
+                borderRadius: "99px",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px"
               }}>
-                <span className="hero-badge-dot" style={{ background: "#3B82F6", boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.25), 0 0 12px rgba(59, 130, 246, 0.5)" }} />
+                <span className="hero-badge-dot" style={{ background: "#2563EB", boxShadow: "0 0 0 3px rgba(37, 99, 235, 0.15)", width: 8, height: 8, borderRadius: "50%" }} />
                 India&apos;s Trusted E-Commerce Operations Partner
               </div>
 
-              <h1 className="hero-headline-etail" style={{ fontSize: "clamp(2.6rem, 4.8vw, 4.2rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-2px", color: "#0F172A", margin: "0 0 1.5rem", maxWidth: "900px" }}>
-                We help businesses attract more customers, automate operations &amp; <span className="gradient-text-shimmer" style={{ background: "linear-gradient(90deg, #2563EB 0%, #7C3AED 50%, #2563EB 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundSize: "200% auto" }}>grow faster.</span>
+              <h1 className="hero-headline-etail reveal" style={{ fontSize: "clamp(2.5rem, 5.5vw, 4.8rem)", fontWeight: 800, lineHeight: 1.05, letterSpacing: "-1.5px", color: "#0B1736", margin: "0 0 1.2rem", maxWidth: "900px" }}>
+                We help businesses attract more customers, automate operations &amp; <span style={{ background: "linear-gradient(90deg, #4F46E5 0%, #2563EB 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>grow faster.</span>
               </h1>
 
-              <p className="hero-subtitle-etail" style={{ fontSize: "clamp(1.1rem, 2vw, 1.25rem)", color: "#334155", lineHeight: 1.6, marginBottom: "2.8rem", maxWidth: "680px", fontWeight: 500 }}>
+              <p className="hero-subtitle-etail reveal" style={{ fontSize: "clamp(1.05rem, 2vw, 1.2rem)", color: "#475569", lineHeight: 1.6, marginBottom: "2.5rem", maxWidth: "680px", fontWeight: 500 }}>
                 Marketplace, D2C &amp; B2B growth—managed through one accountable operating model.
               </p>
 
-              <div className="hero-cta-wrapper" style={{ display: "flex", alignItems: "center", gap: "1.2rem", flexWrap: "wrap", marginTop: "1rem" }}>
+              <div className="hero-cta-wrapper reveal" style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap", justifyContent: "center", width: "100%", marginBottom: "2rem" }}>
                 <button
                   className="btn-primary-hero"
                   onClick={() => setDiagOpen(true)}
                   style={{
-                    height: "56px",
-                    padding: "0 2.4rem",
-                    borderRadius: "14px",
-                    background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
+                    height: "54px",
+                    padding: "0 2rem",
+                    borderRadius: "12px",
+                    background: "#2563EB",
                     color: "#FFFFFF",
                     fontSize: "1rem",
-                    fontWeight: 700,
+                    fontWeight: 600,
                     border: "none",
                     cursor: "pointer",
-                    boxShadow: "0 10px 28px rgba(37, 99, 235, 0.32)"
+                    boxShadow: "0 8px 20px rgba(37, 99, 235, 0.25)",
+                    transition: "all 0.2s ease",
                   }}
+                  onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-2px)"}
+                  onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}
                 >
                   Request for a FREE AUDIT →
                 </button>
-                <button className="btn-ghost-hero" onClick={() => setVideoOpen(true)} style={{ background: "#FFFFFF", border: "1.5px solid #CBD5E1", color: "#0F172A", height: "56px", borderRadius: "14px", padding: "0 1.8rem" }}>
+                <button 
+                  className="btn-ghost-hero" 
+                  onClick={() => setVideoOpen(true)} 
+                  style={{ 
+                    background: "#FFFFFF", 
+                    border: "1px solid rgba(15,23,42,0.1)", 
+                    color: "#0B1736", 
+                    height: "54px", 
+                    borderRadius: "12px", 
+                    padding: "0 1.8rem", 
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    transition: "all 0.2s ease" 
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 20px rgba(15,23,42,0.05)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
+                >
                   ▷ Watch Our Story
                 </button>
+              </div>
+              {/* ── BRAND MARQUEE (Trusted Channels) ── */}
+              <div className="brands-marquee-section reveal" style={{ position: "relative", zIndex: 3, padding: "2rem 0 1rem" }}>
+                <p className="brands-marquee-label" style={{ textAlign: "center", marginBottom: "1.5rem", fontSize: "0.74rem", fontWeight: 800, letterSpacing: "2.5px", color: "#64748B", textTransform: "uppercase" }}>
+                  Trusted by growing Indian brands
+                </p>
+                <div className="channel-strip" style={{ margin: 0 }}>
+                  <div className="channel-marquee-container" style={{ margin: 0, padding: 0, maskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)", WebkitMaskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)" }}>
+                    <div className="channel-marquee-track">
+                      {[...channelSVGs, ...channelSVGs].map((ch, idx) => (
+                        <div
+                          key={idx}
+                          title={ch.name}
+                          style={{ 
+                            display: "flex", 
+                            alignItems: "center", 
+                            justifyContent: "center", 
+                            padding: "0 1.25rem",
+                            cursor: "default",
+                            transition: "all 0.3s ease",
+                            opacity: 0.7
+                          }}
+                          onMouseEnter={(e) => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.transform = "scale(1.05)"; }}
+                          onMouseLeave={(e) => { e.currentTarget.style.opacity = "0.7"; e.currentTarget.style.transform = "scale(1)"; }}
+                        >
+                          {ch.svg}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
 
             </div>
           </div>
         </div>
-
-
       </section>
 
-      {/* KPI Stats Band (Credibility Metric Track) */}
-      <section className="stats-band">
-        <div className="container stats-band-inner">
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "2rem", flexWrap: "wrap" }}>
-            <div>
-              <p className="stats-band-eyebrow" style={{ color: "#FBBF24" }}>Proven Performance</p>
-              <h2 className="stats-band-title">Our Track Record</h2>
-            </div>
-          </div>
-          <div className="stats-grid">
+      {/* ── SECTION 2.5: METRICS STRIP ── */}
+      <section style={{ padding: "3rem 1rem", background: "#ffffff", position: "relative", zIndex: 10 }}>
+        <div className="container" style={{ maxWidth: "1000px", margin: "0 auto" }}>
+          <div className="reveal hero-metrics-grid" style={{
+            width: "100%",
+            background: "rgba(255, 255, 255, 0.7)",
+            backdropFilter: "blur(12px)",
+            border: "1px solid rgba(15,23,42,0.06)",
+            borderRadius: "20px",
+            padding: "2rem",
+            boxShadow: "0 12px 30px rgba(15,23,42,0.03)",
+          }}>
             {[
-              { num: "₹850 Cr+", caption: "GMV Managed" },
-              { num: "35+", caption: "Channel Integrations" },
-              { num: "12", caption: "State Warehouse Hubs" },
-              { num: "98.2%", caption: "Fill Rate SLA" },
-            ].map((stat, idx) => (
-              <div key={idx} className="stat-block reveal" style={{ transitionDelay: `${idx * 0.1}s`, opacity: 1, transform: "none" }}>
-                <span className="stat-number"><Counter target={stat.num} /></span>
-                <div className="stat-divider" style={{ background: "linear-gradient(90deg, #FBBF24, #F59E0B)" }} />
-                <p className="stat-caption" style={{ color: "#CBD5E1", fontSize: "0.9rem", fontWeight: 700, opacity: 1 }}>{stat.caption}</p>
+              { value: "₹850 Cr+", label: "GMV Managed" },
+              { value: "35+", label: "Channel Integrations" },
+              { value: "12", label: "State Warehouse Hubs" },
+              { value: "98.2%", label: "Fill Rate SLA" },
+            ].map((metric, idx) => (
+              <div key={idx} className="hero-metric-item">
+                <div style={{ fontSize: "2.2rem", fontWeight: 800, color: "#0B1736", letterSpacing: "-1px" }}><Counter target={metric.value} /></div>
+                <div style={{ fontSize: "0.9rem", color: "#64748B", fontWeight: 600, marginTop: "0.4rem" }}>{metric.label}</div>
               </div>
             ))}
           </div>
@@ -1158,8 +1200,9 @@ export default function HomePage() {
 
 
 
+
       {/* ── SECTION 5: THREE BUYER SITUATIONS (Routes to Launch / Fix & Grow / Scale page) ── */}
-      <section className="paths-section" id="three-situations">
+      <section className="paths-section" id="three-situations" style={{ paddingTop: "3.5rem" }}>
         <div className="container">
           <div style={{ textAlign: "center" }}>
             <span className="ptn-section-eyebrow">Tailored Operating Paths</span>
@@ -1222,7 +1265,7 @@ export default function HomePage() {
 
       {/* ── BRAND MARQUEE (Trusted by brands) ── */}
       <div className="brands-marquee-section" style={{ padding: "3.5rem 0", background: "#FAFBFF", borderTop: "1px solid #E2E8F0" }}>
-        <p className="brands-marquee-label">Trusted by brands across e-commerce, B2B &amp; institutional commerce</p>
+        <p className="brands-marquee-label" style={{ textAlign: "center", marginBottom: "1.2rem", fontSize: "0.74rem", fontWeight: 800, letterSpacing: "2.5px", color: "#64748B", textTransform: "uppercase" }}>Trusted by brands across e-commerce, B2B &amp; institutional commerce</p>
         <div className="logo-marquee-wrap">
           <div className="logo-marquee-track">
             {[...portfolioLogos, ...portfolioLogos].map((logo, idx) => (
