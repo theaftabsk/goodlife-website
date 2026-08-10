@@ -446,7 +446,15 @@ html { scroll-behavior: smooth; }
   margin: 0 auto;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
+  .hero-real-section {
+    min-height: unset !important;
+    height: auto !important;
+  }
+  .hero-real-body {
+    padding-top: 80px;
+    padding-bottom: 1.5rem;
+  }
   .hero-left-content {
     text-align: left !important;
     align-items: flex-start !important;
@@ -3290,14 +3298,15 @@ html { scroll-behavior: smooth; }
       border-radius: 18px !important;
     }
     .hero-real-section {
-      min-height: 100vh !important;
+      min-height: unset !important;
+      height: auto !important;
     }
     .hero-real-overlay {
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.78) 55%, rgba(255, 255, 255, 0.4) 100%) !important;
     }
     .hero-real-body {
-      padding-top: 110px !important;
-      padding-bottom: 2.5rem !important;
+      padding-top: 80px !important;
+      padding-bottom: 1.5rem !important;
     }
     .hero-left-content {
       max-width: 100% !important;
