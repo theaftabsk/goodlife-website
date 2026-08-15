@@ -62,31 +62,31 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
   return (
     <header className={`header-bar ${scrolled ? "scrolled" : ""}`} style={{
       position: "fixed",
-      top: scrolled ? "0px" : "24px",
+      top: scrolled ? "0px" : "18px",
       left: "50%",
       transform: "translateX(-50%)",
-      width: scrolled ? "100%" : "calc(100% - 2rem)",
-      maxWidth: scrolled ? "100%" : "1280px",
-      height: scrolled ? "70px" : "76px",
-      background: scrolled ? "rgba(255, 255, 255, 0.98)" : "rgba(255, 255, 255, 0.85)",
-      backdropFilter: "blur(16px)",
-      WebkitBackdropFilter: "blur(16px)",
-      borderRadius: scrolled ? "0px" : "24px",
-      border: scrolled ? "none" : "1px solid rgba(255, 255, 255, 0.6)",
-      borderBottom: scrolled ? "1px solid rgba(15, 23, 42, 0.06)" : "1px solid rgba(255, 255, 255, 0.6)",
-      boxShadow: scrolled ? "0 4px 20px rgba(59, 130, 246, 0.08)" : "0 12px 48px rgba(59, 130, 246, 0.06)",
+      width: scrolled ? "100%" : "calc(100% - 2.5rem)",
+      maxWidth: scrolled ? "100%" : "1240px",
+      height: scrolled ? "68px" : "74px",
+      background: scrolled ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 0.85)",
+      backdropFilter: "blur(20px)",
+      WebkitBackdropFilter: "blur(20px)",
+      borderRadius: scrolled ? "0px" : "99px",
+      border: scrolled ? "none" : "1px solid rgba(255, 255, 255, 0.8)",
+      borderBottom: scrolled ? "1px solid rgba(15, 23, 42, 0.06)" : "1px solid rgba(255, 255, 255, 0.8)",
+      boxShadow: scrolled ? "0 8px 30px rgba(15, 23, 42, 0.08)" : "0 12px 40px rgba(37, 99, 235, 0.07), 0 2px 6px rgba(15, 23, 42, 0.03)",
       zIndex: 9999,
-      transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+      transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)"
     }}>
-      <div style={{ width: "100%", maxWidth: "1280px", margin: "0 auto", height: "100%", padding: "0 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{ width: "100%", maxWidth: "1240px", margin: "0 auto", height: "100%", padding: "0 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         
         {/* Brand Logo (Left) */}
         <Link href="/" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center" }} className="header-logo-container">
-          <Logo height={34} mode="light" />
+          <Logo height={44} mode="light" />
         </Link>
 
-        {/* Desktop Navigation Links (Center, Small & Clean) */}
-        <nav style={{ display: "flex", gap: "0.25rem", alignItems: "center" }} className="desktop-nav">
+        {/* Desktop Navigation Links (Option 1: Seamless Modern Glass + Bold Deep Slate) */}
+        <nav style={{ display: "flex", gap: "0.4rem", alignItems: "center" }} className="desktop-nav">
           {(["solutions", "capabilities", "specialised", "proof"] as const).map((key) => {
             const labels: Record<string, string> = {
               solutions: "Solutions",
@@ -100,32 +100,32 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
                 key={key}
                 onMouseEnter={() => setActiveMenu(key)}
                 onMouseLeave={() => setActiveMenu(null)}
-                style={{ position: "relative", padding: "1.2rem 0" }}
+                style={{ position: "relative", padding: "0.5rem 0" }}
               >
                 <span style={{
-                  fontSize: "0.92rem",
-                  fontWeight: isActive ? 700 : 600,
+                  fontSize: "0.93rem",
+                  fontWeight: 700,
                   fontFamily: "var(--font-display)",
-                  color: isActive ? "#1E40AF" : "#475569",
+                  color: isActive ? "#1D4ED8" : "#0F172A",
                   cursor: "pointer",
                   display: "flex",
                   alignItems: "center",
-                  gap: "0.3rem",
-                  padding: "0.5rem 1.1rem",
+                  gap: "0.35rem",
+                  padding: "0.5rem 1.15rem",
                   borderRadius: "99px",
-                  background: isActive ? "rgba(37, 99, 235, 0.08)" : "transparent",
-                  transition: "all 0.2s ease",
+                  background: isActive ? "rgba(37, 99, 235, 0.09)" : "transparent",
+                  transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
                   userSelect: "none"
                 }}
                 onMouseEnter={(e) => {
                   if (!isActive) {
-                    e.currentTarget.style.color = "#0F172A";
-                    e.currentTarget.style.background = "rgba(15, 23, 42, 0.04)";
+                    e.currentTarget.style.color = "#1D4ED8";
+                    e.currentTarget.style.background = "rgba(37, 99, 235, 0.06)";
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!isActive) {
-                    e.currentTarget.style.color = "#475569";
+                    e.currentTarget.style.color = "#0F172A";
                     e.currentTarget.style.background = "transparent";
                   }
                 }}
@@ -147,7 +147,7 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
             className="header-cta-button"
             style={{
               height: "46px",
-              fontSize: "0.88rem",
+              fontSize: "0.9rem",
               fontWeight: 700,
               fontFamily: "var(--font-display)",
               padding: "0 1.5rem",
