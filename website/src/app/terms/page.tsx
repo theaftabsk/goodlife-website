@@ -28,7 +28,7 @@ export default function TermsPage() {
           <section>
             <h2 style={{ fontSize: "1.3rem", color: "#FFF", fontWeight: 700, marginBottom: "0.5rem" }}>2. Operating Scope</h2>
             <p style={{ color: "#9CA3AF" }}>
-              Good Life acts as a Commerce Operating Partner. Platform performance, warehousing SLAs, and revenue assurance audits are governed under mutually signed client service agreements.
+              Good Life acts as an Ecommerce Operating Partner. Platform performance, warehousing SLAs, and revenue assurance audits are governed under mutually signed client service agreements.
             </p>
           </section>
         </div>

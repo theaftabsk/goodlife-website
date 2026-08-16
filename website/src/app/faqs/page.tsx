@@ -8,7 +8,7 @@ export default function FaqsPage() {
   const [activeIdx, setActiveIdx] = useState<number | null>(0);
 
   const faqsList = [
-    { q: "What makes Good Life different from a traditional e-commerce agency?", a: "Good Life is an integrated Commerce Operating Partner, not a fragmented agency. We take single-point accountability for marketplace listings, catalogue data, multi-state warehousing, performance ads, settlement reconciliation, and multi-channel order dispatch." },
+    { q: "What makes Good Life different from a traditional ecommerce agency?", a: "Good Life is an integrated Ecommerce Operating Partner, not a fragmented agency. We take single-point accountability for marketplace listings, catalogue data, multi-state warehousing, performance ads, settlement reconciliation, and multi-channel order dispatch." },
     { q: "Can Good Life help an OEM manufacturer launch a direct consumer brand?", a: "Yes. Through our Brand Incubation mandate, we have launched five new brands over the last 3 years created by companies that previously operated primarily as OEMs." },
     { q: "Which platforms does Good Life operate across?", a: "We operate across mainstream marketplaces (Amazon, Flipkart), fashion platforms (Myntra), B2B channels (Moglix, IndiaMART, TradeIndia, Jio B2B), and consumer-finance ecosystems (Snapmint, Bajaj)." },
     { q: "How does Good Life handle B2B and regional dealer supplies?", a: "Good Life acts as a warehouse-supported regional inventory buffer partner, fulfilling bulk corporate orders, institutional requests, and local dealer replenishment from our 12-state warehouse network." },

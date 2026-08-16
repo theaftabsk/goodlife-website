@@ -21,7 +21,7 @@ export default function ContactPage() {
             Get in Touch With Good Life
           </h1>
           <p className="hero-description" style={{ color: "#9CA3AF", fontSize: "1.1rem", marginTop: "1rem" }}>
-            Discuss your e-commerce growth, multi-platform expansion, B2B fulfilment, or OEM brand incubation requirements.
+            Discuss your ecommerce growth, multi-platform expansion, B2B fulfilment, or OEM brand incubation requirements.
           </p>
         </div>
       </section>
@@ -47,7 +47,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <label style={{ display: "block", fontSize: "0.85rem", color: "#9CA3AF", marginBottom: "0.4rem" }}>Message / Requirement</label>
-                  <textarea required rows={4} placeholder="Describe your current e-commerce setup or goals..." style={{ width: "100%", padding: "0.8rem", borderRadius: "8px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "#FFF" }} />
+                  <textarea required rows={4} placeholder="Describe your current ecommerce setup or goals..." style={{ width: "100%", padding: "0.8rem", borderRadius: "8px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "#FFF" }} />
                 </div>
                 <button type="submit" className="hero-cta-btn" style={{ width: "100%", justifyContent: "center" }}>
                   Send Executive Inquiry →

@@ -106,7 +106,7 @@ export default function Footer() {
             lineHeight: 1.1,
             color: "#FFFFFF"
           }}>
-            Grow your commerce<br />business with us
+            Grow your ecommerce<br />business with us
           </h2>
           <p className="footer-subtext" style={{ 
             lineHeight: 1.6, 
@@ -207,7 +207,7 @@ export default function Footer() {
               Newsletter
             </h4>
             <p style={{ fontSize: "0.85rem", marginBottom: "1.5rem", lineHeight: 1.6 }}>
-              Be the first to hear about our latest commerce insights.
+              Be the first to hear about our latest ecommerce insights.
             </p>
             <form style={{ display: "flex", borderBottom: "1px solid #525252", paddingBottom: "0.5rem" }} onSubmit={(e) => e.preventDefault()}>
               <input 

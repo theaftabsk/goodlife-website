@@ -15,12 +15,12 @@ export default function CareersPage() {
           Careers at Good Life
         </h1>
         <p style={{ color: "#9CA3AF", fontSize: "1.05rem", lineHeight: 1.7, marginBottom: "2.5rem" }}>
-          We are building India&apos;s premier Commerce Operating Partner. Join a high-accountability team managing marketplace operations, performance marketing, warehousing, and revenue assurance.
+          We are building India&apos;s premier Ecommerce Operating Partner. Join a high-accountability team managing marketplace operations, performance marketing, warehousing, and revenue assurance.
         </p>
 
         <div style={{ display: "grid", gap: "1.25rem" }}>
           {[
-            { role: "Marketplace Account Manager (Amazon & Flipkart)", dept: "Commerce Operations", loc: "Kolkata / Hybrid" },
+            { role: "Marketplace Account Manager (Amazon & Flipkart)", dept: "Ecommerce Operations", loc: "Kolkata / Hybrid" },
             { role: "Performance Marketing Specialist (Meta & Ads)", dept: "Growth Marketing", loc: "Kolkata / Remote" },
             { role: "Supply Chain & Warehouse Analyst", dept: "Fulfilment Operations", loc: "Regional Network" },
             { role: "Revenue Reconciliation & Audit Analyst", dept: "Finance & Assurance", loc: "Kolkata HQ" }

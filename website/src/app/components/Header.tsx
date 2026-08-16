@@ -49,8 +49,8 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
     ],
     proof: [
       { name: "Case Studies", href: "/case-studies", desc: "5-brand launch track record & verified GMV proof stories" },
-      { name: "Insights & Journal", href: "/insights", desc: "Commerce operating strategy, unit economics & reports" },
-      { name: "About Good Life", href: "/about", desc: "India's premier commerce operating partner company story" },
+      { name: "Insights & Journal", href: "/insights", desc: "Ecommerce operating strategy, unit economics & reports" },
+      { name: "About Good Life", href: "/about", desc: "India's premier ecommerce operating partner company story" },
       { name: "Executive Contact", href: "/contact", desc: "Direct executive enquiry form & registered office details" }
     ]
   };

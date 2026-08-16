@@ -254,7 +254,7 @@ export default function CommerceNetwork() {
             lineHeight: 1.68,
             fontWeight: 500
           }}>
-            Good Life connects your entire e-commerce operation — from marketplaces and D2C to B2B, fulfilment and revenue assurance.
+            Good Life connects your entire ecommerce operation — from marketplaces and D2C to B2B, fulfilment and revenue assurance.
           </p>
         </div>
 

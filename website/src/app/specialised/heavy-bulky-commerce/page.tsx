@@ -20,7 +20,7 @@ export default function HeavyBulkyCommercePage() {
             Heavy & Bulky Commerce Operations
           </h1>
           <p className="hero-description" style={{ color: "#9CA3AF", fontSize: "1.1rem", marginTop: "1rem" }}>
-            Dedicated logistics & e-commerce ops for ceiling fans, kitchen chimneys, water heaters, and large home appliances.
+            Dedicated logistics & ecommerce ops for ceiling fans, kitchen chimneys, water heaters, and large home appliances.
           </p>
           <button onClick={() => setDiagOpen(true)} className="hero-cta-btn" style={{ margin: "2rem auto 0" }}>
             Request for a FREE AUDIT →

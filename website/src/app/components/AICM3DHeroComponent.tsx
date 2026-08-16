@@ -277,18 +277,20 @@ export default function AICM3DHeroComponent({ onOpenDiagnostic, onOpenVideo }: A
               {/* Eyebrow Pill Badge */}
               <div className="hero-badge" style={{ background: "rgba(255, 255, 255, 0.92)", backdropFilter: "blur(12px)", border: "1.5px solid #E9D5FF", color: "#7C3AED", boxShadow: "0 4px 16px rgba(124, 58, 237, 0.08)" }}>
                 <span className="hero-badge-dot" style={{ background: "#A855F7", boxShadow: "0 0 0 3px rgba(168,85,247,0.25)" }} />
-                India&apos;s Trusted E-Commerce Operations Partner | Pan-India Presence
+                India&apos;s Trusted Ecommerce Operations Partner | Pan-India Presence
               </div>
 
               {/* Headline */}
               <h1 className="hero-headline-etail" style={{ fontSize: "clamp(2.4rem, 4.2vw, 3.8rem)", fontWeight: 900, lineHeight: 1.15, color: "#0F172A", letterSpacing: "-2px" }}>
-                We help businesses attract more customers,<br />
-                automate operations &amp; grow faster.
+                Scale Ecommerce.<br />
+                <span style={{ background: "linear-gradient(90deg, #7C3AED 0%, #2563EB 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                  Not Complexity.
+                </span>
               </h1>
 
               {/* Subtitle */}
-              <p className="hero-subtitle-etail" style={{ fontSize: "1.1rem", color: "#475569", lineHeight: 1.68, marginBottom: "2.2rem" }}>
-                Marketplace, D2C &amp; B2B growth—managed through one accountable operating model.
+              <p className="hero-subtitle-etail" style={{ fontSize: "1.05rem", color: "#475569", lineHeight: 1.68, marginBottom: "2.2rem", maxWidth: "580px" }}>
+                Good Life brings marketplace growth, D2C, pan-India fulfilment, demand planning, performance marketing, returns and revenue assurance together under one accountable operating model.
               </p>
 
               {/* Primary CTA & Secondary Action Row */}

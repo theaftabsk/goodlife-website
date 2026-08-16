@@ -16,16 +16,16 @@ const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID || "";
 export const metadata: Metadata = {
   metadataBase: new URL("https://goodlifesutra.com"),
   title: {
-    default: "Good Life Sutra | India's Premier Commerce Operating Partner",
+    default: "Good Life Sutra | Scale Ecommerce. Not Complexity.",
     template: "%s | Good Life Sutra",
   },
   description:
-    "Good Life Sutra is India's integrated commerce operating partner for marketplace growth, OEM brand incubation, D2C operations, B2B/institutional commerce, multi-state warehousing, and revenue assurance.",
+    "Good Life brings marketplace growth, D2C, pan-India fulfilment, demand planning, performance marketing, returns and revenue assurance together under one accountable operating model.",
   keywords: [
     "ecommerce operations India",
     "marketplace management Amazon Flipkart",
     "OEM brand launch India",
-    "D2C commerce operations",
+    "D2C ecommerce operations",
     "B2B institutional commerce",
     "warehousing fulfilment India",
     "revenue assurance marketplace",
@@ -49,23 +49,23 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: "https://goodlifesutra.com",
     siteName: "Good Life Sutra",
-    title: "Good Life Sutra | India's Premier Commerce Operating Partner",
+    title: "Good Life Sutra | Scale Ecommerce. Not Complexity.",
     description:
-      "From OEM to brand, marketplace to D2C, regional warehousing to B2B fulfilment — Good Life Sutra is your single-point commerce operator.",
+      "Good Life brings marketplace growth, D2C, pan-India fulfilment, demand planning, performance marketing, returns and revenue assurance together under one accountable operating model.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Good Life Sutra — Commerce Operating Partner",
+        alt: "Good Life Sutra — Ecommerce Operating Partner",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Good Life Sutra | India's Premier Commerce Operating Partner",
+    title: "Good Life Sutra | Scale Ecommerce. Not Complexity.",
     description:
-      "India's integrated commerce operating partner. Marketplace growth, OEM brand incubation, D2C ops, B2B fulfilment, 12-state warehousing.",
+      "Good Life brings marketplace growth, D2C, pan-India fulfilment, demand planning, performance marketing, returns and revenue assurance together under one accountable operating model.",
     images: ["/og-image.png"],
     creator: "@goodlifesutra",
   },
@@ -84,7 +84,7 @@ const organizationJsonLd = {
   url: "https://goodlifesutra.com",
   logo: "https://goodlifesutra.com/gl-logo.svg",
   description:
-    "India's integrated commerce operating partner for marketplace growth, OEM brand incubation, D2C operations, B2B/institutional commerce and multi-state warehousing.",
+    "Good Life brings marketplace growth, D2C, pan-India fulfilment, demand planning, performance marketing, returns and revenue assurance together under one accountable operating model.",
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "Business Enquiry",

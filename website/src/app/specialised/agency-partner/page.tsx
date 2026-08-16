@@ -20,7 +20,7 @@ export default function AgencyPartnerPage() {
             Partner With Good Life
           </h1>
           <p className="hero-description" style={{ color: "#9CA3AF", fontSize: "1.1rem", marginTop: "1rem" }}>
-            Collaborate with India&apos;s premier Commerce Operating Partner to provide your brand clients with warehousing, settlement auditing, and multi-channel fulfillment.
+            Collaborate with India&apos;s premier Ecommerce Operating Partner to provide your brand clients with warehousing, settlement auditing, and multi-channel fulfillment.
           </p>
           <button onClick={() => setDiagOpen(true)} className="hero-cta-btn" style={{ margin: "2rem auto 0" }}>
             Discuss Agency Partnership

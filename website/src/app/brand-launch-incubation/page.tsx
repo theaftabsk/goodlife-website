@@ -12,7 +12,7 @@ export default function BrandLaunchIncubationPage() {
     { step: "01", title: "OEM Problem", desc: "Manufacturing capability exists, but consumer proposition, catalogue, channel economics and operating team are absent.", color: "#EF4444" },
     { step: "02", title: "Opportunity Assessment", desc: "Category demand analysis, competitive structure, product gap identification, price architecture and launch feasibility.", color: "#F59E0B" },
     { step: "03", title: "Brand Launch Foundation", desc: "Positioning inputs, product assortment plan, marketplace catalogue creation, visual content and launch pricing strategy.", color: "#10B981" },
-    { step: "04", title: "Commerce Setup", desc: "Marketplace accounts, listing creation, inventory allocation across 12 state hubs, warehousing, returns and audit setup.", color: "#2563EB" },
+    { step: "04", title: "Ecommerce Setup", desc: "Marketplace accounts, listing creation, inventory allocation across 12 state hubs, warehousing, returns and audit setup.", color: "#2563EB" },
     { step: "05", title: "Demand Generation", desc: "Established Amazon & Flipkart performance ad campaigns. D2C growth capabilities expanding across Meta, SEO and social channels.", color: "#7C3AED" },
     { step: "06", title: "Scale & Expansion", desc: "Portfolio expansion, regional inventory placement, multi-platform rollout, and D2C / B2B channel integration.", color: "#EC4899" },
   ];
@@ -20,7 +20,7 @@ export default function BrandLaunchIncubationPage() {
   const models = [
     { title: "Ecommerce Launch Mandate", desc: "End-to-end operational launch mandate for an OEM-owned consumer brand across marketplaces and D2C." },
     { title: "Brand Incubation Mandate", desc: "Full product opportunity analysis, category positioning, pricing strategy, and initial market testing." },
-    { title: "Operating Partnership", desc: "Long-term commerce operating partnership covering cataloguing, warehousing, fulfilment, ad management and revenue audits." },
+    { title: "Operating Partnership", desc: "Long-term ecommerce operating partnership covering cataloguing, warehousing, fulfilment, ad management and revenue audits." },
     { title: "Strategic JV / Custom Partnership", desc: "Separately evaluated and contracted joint venture or revenue-share models where aligned to growth goals." },
   ];
 

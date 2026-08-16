@@ -881,7 +881,7 @@ export default function HomePage() {
   const testimonials = [
     { quote: "Good Life transitioned our entire marketplace model. Their finance reconciliation caught fee leaks we didn't know existed, and our sales grew 2.5x in under a year.", author: "Founder & CEO", role: "National Kitchen Appliance Brand", initial: "N", color: "#2563EB" },
     { quote: "We scaled from 1 to 12 states overnight. Good Life WMS is rock solid — our dispatch SLA turnaround is consistently under 4 hours.", author: "Operations Director", role: "Leading Consumer Goods Brand", initial: "C", color: "#7C3AED" },
-    { quote: "Daily payment disputes were eating up our margins. Good Life automated audits resolved 98% of return variances instantly.", author: "Head of E-commerce", role: "Premier Wellness Partner", initial: "W", color: "#059669" },
+    { quote: "Daily payment disputes were eating up our margins. Good Life automated audits resolved 98% of return variances instantly.", author: "Head of Ecommerce", role: "Premier Wellness Partner", initial: "W", color: "#059669" },
   ];
   const [activeSlide, setActiveSlide] = useState(0);
   useEffect(() => {
@@ -896,7 +896,7 @@ export default function HomePage() {
 
   // Section 15: Schema-Enabled FAQ Data
   const homeFaqs = [
-    { q: "What makes Good Life different from a traditional e-commerce agency?", a: "Good Life is an integrated Commerce Operating Partner, not an agency. We take full accountability for catalogue listings, inventory planning, multi-state warehousing, performance ads, settlement reconciliation, D2C operations, B2B/institutional execution and multi-channel order dispatch—under one operating model." },
+    { q: "What makes Good Life different from a traditional ecommerce agency?", a: "Good Life is an integrated Ecommerce Operating Partner, not an agency. We take full accountability for catalogue listings, inventory planning, multi-state warehousing, performance ads, settlement reconciliation, D2C operations, B2B/institutional execution and multi-channel order dispatch—under one operating model." },
     { q: "Does Good Life support multi-platform marketplace launch?", a: "Yes. Good Life helps brands evaluate, onboard and operate across multiple leading and relevant platforms—including Amazon, Flipkart, Myntra, Moglix, JioMart, Snapmint, Bajaj and other approved channels." },
     { q: "Can Good Life help an OEM manufacturer launch a consumer brand?", a: "Yes. Good Life has supported the ecommerce launch of new brands created by companies that previously operated primarily as OEMs. Our Brand Incubation mandate covers opportunity assessment, catalogue, marketplace setup, inventory, fulfilment and performance marketing." },
     { q: "Can Good Life manage D2C and marketplace operations together?", a: "Yes. Good Life can manage the operational layer for both marketplace and D2C channels together — including catalogue, order flow, inventory synchronisation, fulfilment, returns and performance reporting — providing a unified view across channels." },
@@ -1131,53 +1131,53 @@ export default function HomePage() {
 
               <div className="hero-badge reveal" style={{
                 background: "#FFFFFF",
-                border: "1px solid rgba(37, 99, 235, 0.2)",
+                border: "1px solid rgba(37, 99, 235, 0.22)",
                 color: "#1E40AF",
-                boxShadow: "0 4px 16px rgba(37, 99, 235, 0.08)",
-                padding: "0.6rem 1.5rem",
-                fontSize: "1.02rem",
+                boxShadow: "0 6px 20px rgba(37, 99, 235, 0.10)",
+                padding: "0.65rem 1.6rem",
+                fontSize: "1.05rem",
                 fontWeight: 700,
-                letterSpacing: "0.3px",
-                marginBottom: "1.75rem",
+                letterSpacing: "0.4px",
+                marginBottom: "2rem",
                 borderRadius: "99px",
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "10px"
               }}>
-                <span className="hero-badge-dot" style={{ background: "#2563EB", boxShadow: "0 0 0 4px rgba(37, 99, 235, 0.2)", width: 9, height: 9, borderRadius: "50%" }} />
-                India&apos;s Trusted E-Commerce Operations Partner
+                <span className="hero-badge-dot" style={{ background: "#2563EB", boxShadow: "0 0 0 4px rgba(37, 99, 235, 0.25)", width: 10, height: 10, borderRadius: "50%" }} />
+                India&apos;s Trusted Ecommerce Operations Partner
               </div>
 
-              <h1 className="hero-headline-etail reveal" style={{ fontSize: "clamp(2.3rem, 4.8vw, 4.1rem)", fontWeight: 800, lineHeight: 1.15, letterSpacing: "-1.2px", color: "#0B1736", margin: "0 auto 1.3rem", maxWidth: "980px" }}>
-                We provide operational excellence &amp; <br />
+              <h1 className="hero-headline-etail reveal" style={{ fontSize: "clamp(2.8rem, 5.8vw, 4.8rem)", fontWeight: 900, lineHeight: 1.1, letterSpacing: "-2px", color: "#0B1736", margin: "0 auto 1.6rem", maxWidth: "1050px" }}>
+                Scale Ecommerce. <br />
                 <span style={{ background: "linear-gradient(90deg, #4F46E5 0%, #2563EB 50%, #0284C7 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", display: "inline-block" }}>
-                  Pan-India Inventory Replication
+                  Not Complexity.
                 </span>
               </h1>
 
-              <p className="hero-subtitle-etail reveal" style={{ fontSize: "clamp(1.05rem, 1.8vw, 1.22rem)", color: "#475569", lineHeight: 1.6, marginBottom: "2.2rem", maxWidth: "700px", fontWeight: 500 }}>
-                Marketplace, D2C &amp; B2B growth—managed through one accountable operating model.
+              <p className="hero-subtitle-etail reveal" style={{ fontSize: "clamp(1.15rem, 2vw, 1.32rem)", color: "#475569", lineHeight: 1.68, marginBottom: "2.6rem", maxWidth: "900px", fontWeight: 500 }}>
+                Good Life brings marketplace growth, D2C, pan-India fulfilment, demand planning, performance marketing, returns and revenue assurance together under one accountable operating model.
               </p>
 
-              <div className="hero-cta-wrapper reveal" style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap", justifyContent: "center", width: "100%", marginBottom: "1.8rem" }}>
+              <div className="hero-cta-wrapper reveal" style={{ display: "flex", alignItems: "center", gap: "1.2rem", flexWrap: "wrap", justifyContent: "center", width: "100%", marginBottom: "3rem" }}>
                 <button
                   className="btn-primary-hero"
                   onClick={() => setDiagOpen(true)}
                   style={{
-                    height: "52px",
-                    padding: "0 2rem",
-                    borderRadius: "12px",
-                    background: "#2563EB",
+                    height: "56px",
+                    padding: "0 2.4rem",
+                    borderRadius: "14px",
+                    background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
                     color: "#FFFFFF",
-                    fontSize: "1rem",
+                    fontSize: "1.05rem",
                     fontWeight: 700,
                     border: "none",
                     cursor: "pointer",
-                    boxShadow: "0 8px 24px rgba(37, 99, 235, 0.3)",
-                    transition: "all 0.2s ease",
+                    boxShadow: "0 10px 28px rgba(37, 99, 235, 0.35)",
+                    transition: "all 0.25s ease",
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-2px)"}
-                  onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 14px 34px rgba(37, 99, 235, 0.45)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 10px 28px rgba(37, 99, 235, 0.35)"; }}
                 >
                   Request for a FREE AUDIT →
                 </button>
@@ -1186,16 +1186,17 @@ export default function HomePage() {
                   onClick={() => setVideoOpen(true)}
                   style={{
                     background: "#FFFFFF",
-                    border: "1px solid rgba(15,23,42,0.15)",
+                    border: "1.5px solid rgba(15,23,42,0.18)",
                     color: "#0B1736",
-                    height: "52px",
-                    borderRadius: "12px",
-                    padding: "0 1.8rem",
+                    height: "56px",
+                    borderRadius: "14px",
+                    padding: "0 2.2rem",
+                    fontSize: "1.05rem",
                     fontWeight: 700,
                     cursor: "pointer",
-                    transition: "all 0.2s ease"
+                    transition: "all 0.25s ease"
                   }}
-                  onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 20px rgba(15,23,42,0.08)"; }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 10px 24px rgba(15,23,42,0.09)"; }}
                   onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
                 >
                   ▷ Watch Our Story
@@ -1203,8 +1204,8 @@ export default function HomePage() {
               </div>
 
               {/* ── BRAND MARQUEE (Trusted Channels) ── */}
-              <div className="brands-marquee-section reveal" style={{ position: "relative", zIndex: 3, padding: "1.5rem 0 0.5rem", background: "transparent", border: "none", boxShadow: "none" }}>
-                <p className="brands-marquee-label" style={{ textAlign: "center", marginBottom: "1.2rem", fontSize: "0.78rem", fontWeight: 800, letterSpacing: "2px", color: "#64748B", textTransform: "uppercase" }}>
+              <div className="brands-marquee-section reveal" style={{ position: "relative", zIndex: 3, padding: "2rem 0 0.8rem", background: "transparent", border: "none", boxShadow: "none" }}>
+                <p className="brands-marquee-label" style={{ textAlign: "center", marginBottom: "1.4rem", fontSize: "0.82rem", fontWeight: 800, letterSpacing: "2.5px", color: "#64748B", textTransform: "uppercase" }}>
                   Operating across India&apos;s leading platforms
                 </p>
                 <div className="channel-strip" style={{ margin: 0 }}>
@@ -1461,8 +1462,72 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── CORE PHILOSOPHY / OPERATING MODEL MANIFESTO ── */}
+      <section style={{ padding: "0 1.5rem 1rem", position: "relative", zIndex: 2 }}>
+        <div className="container" style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <div className="reveal" style={{
+            background: "linear-gradient(135deg, #0B1736 0%, #172554 50%, #1E293B 100%)",
+            borderRadius: "24px",
+            padding: "3rem 2.5rem",
+            color: "#FFFFFF",
+            textAlign: "center",
+            border: "1px solid rgba(255, 255, 255, 0.12)",
+            boxShadow: "0 24px 60px rgba(11, 23, 54, 0.16)",
+            position: "relative",
+            overflow: "hidden"
+          }}>
+            {/* Subtle glow background */}
+            <div style={{
+              position: "absolute",
+              top: "-50%",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "600px",
+              height: "300px",
+              background: "radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, transparent 70%)",
+              filter: "blur(60px)",
+              pointerEvents: "none"
+            }} />
 
+            <div style={{ position: "relative", zIndex: 2 }}>
+              <div style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "0.35rem 1rem",
+                borderRadius: "99px",
+                background: "rgba(56, 189, 248, 0.12)",
+                border: "1px solid rgba(56, 189, 248, 0.3)",
+                color: "#38BDF8",
+                fontSize: "0.78rem",
+                fontWeight: 800,
+                textTransform: "uppercase",
+                letterSpacing: "1.2px",
+                marginBottom: "1.2rem"
+              }}>
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#38BDF8", boxShadow: "0 0 0 3px rgba(56, 189, 248, 0.25)" }} />
+                The Good Life Operating Principle
+              </div>
 
+              <h3 style={{
+                fontSize: "clamp(1.2rem, 2.4vw, 1.7rem)",
+                fontWeight: 700,
+                lineHeight: 1.55,
+                color: "#F8FAFC",
+                maxWidth: "960px",
+                margin: "0 auto 1rem",
+                letterSpacing: "-0.3px"
+              }}>
+                &ldquo;Established brands achieve profitable pan-India ecommerce growth when channels, marketing, inventory, fulfilment and revenue control operate as one integrated system—with one accountable operating partner.&rdquo;
+              </h3>
+
+              <p style={{ color: "#94A3B8", fontSize: "0.95rem", maxWidth: "780px", margin: "0 auto", lineHeight: 1.6 }}>
+                Eliminating operational fragmentation across listings, ads, multi-state warehouses, and finance reconciliation.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ── SECTION 5: THREE BUYER SITUATIONS (Routes to Launch / Fix & Grow / Scale page) ── */}
       <section className="paths-section" id="three-situations">
@@ -1474,7 +1539,7 @@ export default function HomePage() {
           </div>
           <div className="paths-grid">
             {[
-              { tag: "01. Launch Online", tagColor: "#2563EB", title: "Offline Brand / Manufacturer", desc: "Entering e-commerce for the first time across Amazon, Flipkart, Myntra, Moglix, JioMart, Snapmint, Bajaj and other approved platforms, plus D2C.", cta: "Explore Launch Mandate →", href: "/solutions/launch-online" },
+              { tag: "01. Launch Online", tagColor: "#2563EB", title: "Offline Brand / Manufacturer", desc: "Entering ecommerce for the first time across Amazon, Flipkart, Myntra, Moglix, JioMart, Snapmint, Bajaj and other approved platforms, plus D2C.", cta: "Explore Launch Mandate →", href: "/solutions/launch-online" },
               { tag: "02. Fix & Grow", tagColor: "#0D9488", title: "Active Marketplace Brand", desc: "Stuck with stagnant GMV, rising ACOS, un-audited settlement losses, or high customer returns. We audit, fix, and grow.", cta: "Explore Fix & Grow Audit →", href: "/solutions/fix-and-grow" },
               { tag: "03. Scale Pan-India", tagColor: "#7C3AED", title: "Established Enterprise Brand", desc: "Scaling 12-state warehouse inventory, regional dealer fulfilment, B2B/institutional channels, and multi-platform D2C sync.", cta: "Explore Pan-India Scale →", href: "/solutions/scale-pan-india" },
             ].map((card, idx) => (
@@ -1600,7 +1665,7 @@ export default function HomePage() {
                 Why Leading Brands Choose Good Life
               </h2>
               <p style={{ color: "#475569", fontSize: "0.9rem", lineHeight: 1.6, marginBottom: "1.5rem" }}>
-                Not just another marketing agency. Good Life takes accountability for your complete e-commerce operation—from multi-state warehousing to daily reconciliation.
+                Not just another marketing agency. Good Life takes accountability for your complete ecommerce operation—from multi-state warehousing to daily reconciliation.
               </p>
               <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
                 <button
@@ -1905,7 +1970,7 @@ export default function HomePage() {
                 return (
                   <button
                     key={tab.key}
-                    onClick={() => setCatFilter(tab.key as any)}
+                    onClick={() => setCatFilter(tab.key as "all" | "active" | "upcoming")}
                     style={{
                       padding: "0.32rem 0.85rem",
                       borderRadius: "7px",

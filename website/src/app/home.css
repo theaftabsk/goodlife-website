@@ -402,10 +402,10 @@ html {
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .hero-real-section {
   position: relative;
-  padding-top: 130px;
-  padding-bottom: 25px;
-  min-height: 100vh;
-  /* Fits exactly 1 screen height */
+  padding-top: 155px;
+  padding-bottom: 45px;
+  min-height: 94vh;
+  /* Fits beautifully with grand breathing room */
   overflow: hidden;
   display: flex;
   flex-direction: column;

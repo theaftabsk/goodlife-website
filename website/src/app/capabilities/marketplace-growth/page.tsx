@@ -17,10 +17,10 @@ export default function MarketplaceGrowthPage() {
         <div className="container" style={{ textAlign: "center", maxWidth: "860px" }}>
           <span className="diagnostic-step-pill">📈 Growth & Ads</span>
           <h1 className="hero-title" style={{ fontSize: "clamp(2rem, 5vw, 3.4rem)", marginTop: "1rem" }}>
-            Performance Marketing Connected to Commerce Operations
+            Performance Marketing Connected to Ecommerce Operations
           </h1>
           <p className="hero-description" style={{ color: "#9CA3AF", fontSize: "1.1rem", marginTop: "1rem" }}>
-            Advertising performs best when listings, pricing, inventory, fulfilment and margin are managed together. Good Life currently operates Amazon and Flipkart performance campaigns as part of its commerce model and is expanding its D2C growth capability across Meta, SEO and social channels.
+            Advertising performs best when listings, pricing, inventory, fulfilment and margin are managed together. Good Life currently operates Amazon and Flipkart performance campaigns as part of its ecommerce model and is expanding its D2C growth capability across Meta, SEO and social channels.
           </p>
           <button onClick={() => setDiagOpen(true)} className="hero-cta-btn" style={{ margin: "2rem auto 0" }}>
             Request a Commerce Diagnostic
