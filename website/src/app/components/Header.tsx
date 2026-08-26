@@ -161,7 +161,7 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
               whiteSpace: "nowrap"
             }}
           >
-            <span className="cta-text-desktop">Request for a FREE AUDIT →</span>
+            <span className="cta-text-desktop">Request a Free Audit →</span>
             <span className="cta-text-mobile">Free Audit →</span>
           </button>
 

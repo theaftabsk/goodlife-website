@@ -23,7 +23,7 @@ export default function LaunchOnlinePage() {
             For offline brands and product companies entering marketplaces and direct digital channels for the first time.
           </p>
           <button onClick={() => setDiagOpen(true)} className="hero-cta-btn" style={{ margin: "2rem auto 0" }}>
-            Request for a FREE AUDIT →
+            Request a Free Audit →
           </button>
         </div>
       </section>

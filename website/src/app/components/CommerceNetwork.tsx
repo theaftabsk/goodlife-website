@@ -89,7 +89,7 @@ const serviceNodes: ServiceNode[] = [
     id: "inv-plan",
     num: "06",
     name: "Inventory Planning",
-    shortLabel: "Inventory Plan",
+    shortLabel: "Inventory Planning",
     tagline: "Right stock, right channel",
     categoryTag: "Supply Chain",
     deliverables: [
@@ -103,7 +103,7 @@ const serviceNodes: ServiceNode[] = [
     id: "fulfilment",
     num: "07",
     name: "Fulfilment & Warehousing",
-    shortLabel: "12-Hub Warehousing",
+    shortLabel: "12-State Warehousing",
     tagline: "Pan-India delivery infrastructure",
     categoryTag: "Logistics Infra",
     deliverables: [
@@ -142,18 +142,18 @@ const serviceNodes: ServiceNode[] = [
     href: "/capabilities/returns-operations"
   },
   {
-    id: "heavy-bulky",
+    id: "payment-recon",
     num: "10",
-    name: "Heavy & Bulky Commerce",
-    shortLabel: "Heavy Freight",
-    tagline: "Deliver complex products confidently",
-    categoryTag: "Heavy Appliances",
+    name: "Payment Reconciliation",
+    shortLabel: "Payment Reconciliation",
+    tagline: "Daily settlement audit & fee recovery",
+    categoryTag: "Audit & Claims",
     deliverables: [
-      "Specialized freight for appliances & furniture",
-      "Damage-proof transit packaging & insurance",
-      "Regional heavy package dealer fulfillment"
+      "Multi-platform automated payment & fee reconciliation",
+      "Discrepancy dispute logging & clawback recovery",
+      "TCS, TDS, GST & bank settlement reporting"
     ],
-    href: "/specialised/heavy-bulky-commerce"
+    href: "/capabilities/revenue-assurance"
   }
 ];
 
@@ -272,23 +272,23 @@ export default function CommerceNetwork() {
           
           {/* Directional Axis Labels (Desktop Only) */}
           <div className="network-axis-labels">
-            <div className="desktop-only-axis" style={{ position: "absolute", top: "22px", left: "50%", transform: "translateX(-50%)", fontSize: "0.72rem", fontWeight: 800, letterSpacing: "2.5px", color: "#94A3B8", textTransform: "uppercase" }}>
+            <div className="desktop-only-axis" style={{ position: "absolute", top: "20px", left: "50%", transform: "translateX(-50%)", fontSize: "0.72rem", fontWeight: 800, letterSpacing: "2.5px", color: "#64748B", textTransform: "uppercase" }}>
               ▲ MARKETPLACE
             </div>
-            <div className="desktop-only-axis" style={{ position: "absolute", bottom: "22px", left: "50%", transform: "translateX(-50%)", fontSize: "0.72rem", fontWeight: 800, letterSpacing: "2.5px", color: "#94A3B8", textTransform: "uppercase" }}>
+            <div className="desktop-only-axis" style={{ position: "absolute", bottom: "20px", left: "50%", transform: "translateX(-50%)", fontSize: "0.72rem", fontWeight: 800, letterSpacing: "2.5px", color: "#64748B", textTransform: "uppercase" }}>
               ▼ FULFILMENT &amp; REVENUE
             </div>
-            <div className="desktop-only-axis" style={{ position: "absolute", left: "24px", top: "50%", transform: "translateY(-50%) rotate(-90deg)", fontSize: "0.72rem", fontWeight: 800, letterSpacing: "2.5px", color: "#94A3B8", textTransform: "uppercase" }}>
+            <div className="desktop-only-axis" style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%) rotate(-90deg)", fontSize: "0.72rem", fontWeight: 800, letterSpacing: "2.5px", color: "#64748B", textTransform: "uppercase" }}>
               ◀ D2C COMMERCE
             </div>
-            <div className="desktop-only-axis" style={{ position: "absolute", right: "24px", top: "50%", transform: "translateY(-50%) rotate(90deg)", fontSize: "0.72rem", fontWeight: 800, letterSpacing: "2.5px", color: "#94A3B8", textTransform: "uppercase" }}>
+            <div className="desktop-only-axis" style={{ position: "absolute", right: "14px", top: "50%", transform: "translateY(-50%) rotate(90deg)", fontSize: "0.72rem", fontWeight: 800, letterSpacing: "2.5px", color: "#64748B", textTransform: "uppercase" }}>
               ▶ B2B &amp; INSTITUTIONAL
             </div>
           </div>
 
           <div className="network-split-layout" style={{
             display: "grid",
-            gap: "2rem",
+            gap: "1.75rem",
             alignItems: "center"
           }}>
             
@@ -300,17 +300,31 @@ export default function CommerceNetwork() {
                     <stop offset="0%" stopColor="#3B82F6" />
                     <stop offset="100%" stopColor="#1D4ED8" />
                   </linearGradient>
+                  <linearGradient id="active-node-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#2563EB" />
+                    <stop offset="100%" stopColor="#1D4ED8" />
+                  </linearGradient>
+                  <linearGradient id="center-core-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#EFF6FF" />
+                    <stop offset="100%" stopColor="#DBEAFE" />
+                  </linearGradient>
                   <filter id="light-shadow">
-                    <feDropShadow dx="0" dy="8" stdDeviation="14" floodColor="#2563EB" floodOpacity="0.25" />
+                    <feDropShadow dx="0" dy="10" stdDeviation="16" floodColor="#2563EB" floodOpacity="0.22" />
+                  </filter>
+                  <filter id="node-active-shadow">
+                    <feDropShadow dx="0" dy="8" stdDeviation="14" floodColor="#2563EB" floodOpacity="0.38" />
+                  </filter>
+                  <filter id="node-card-shadow">
+                    <feDropShadow dx="0" dy="3" stdDeviation="6" floodColor="#0F172A" floodOpacity="0.06" />
                   </filter>
                   <filter id="blue-glow">
-                    <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#60A5FA" floodOpacity="0.8" />
+                    <feDropShadow dx="0" dy="0" stdDeviation="8" floodColor="#60A5FA" floodOpacity="0.9" />
                   </filter>
                 </defs>
 
                 {/* Concentric Dashed Orbit Rings */}
-                <circle cx={center.x} cy={center.y} r={radius} fill="none" stroke="#CBD5E1" strokeWidth="1" strokeDasharray="6 6" />
-                <circle cx={center.x} cy={center.y} r={radius * 0.55} fill="none" stroke="#E2E8F0" strokeWidth="1" />
+                <circle cx={center.x} cy={center.y} r={radius} fill="none" stroke="#CBD5E1" strokeWidth="1.2" strokeDasharray="6 6" />
+                <circle cx={center.x} cy={center.y} r={radius * 0.55} fill="none" stroke="#E2E8F0" strokeWidth="1" strokeDasharray="3 3" />
 
                 {/* Connecting Line Rays & Moving Particles */}
                 {serviceNodes.map((_, idx) => {
@@ -328,11 +342,11 @@ export default function CommerceNetwork() {
                         x2={nx}
                         y2={ny}
                         stroke={isActive ? "url(#light-ray-active)" : "#E2E8F0"}
-                        strokeWidth={isActive ? "2.5" : "1"}
+                        strokeWidth={isActive ? "2.8" : "1.2"}
                         style={{ transition: "stroke 0.4s ease, stroke-width 0.4s ease" }}
                       />
                       {isActive && (
-                        <circle cx={center.x} cy={center.y} r="3" fill="#60A5FA" filter="url(#blue-glow)">
+                        <circle cx={center.x} cy={center.y} r="3.5" fill="#60A5FA" filter="url(#blue-glow)">
                           <animate attributeName="cx" values={`${center.x};${nx}`} dur="1.2s" repeatCount="indefinite" />
                           <animate attributeName="cy" values={`${center.y};${ny}`} dur="1.2s" repeatCount="indefinite" />
                           <animate attributeName="opacity" values="0;1;0" dur="1.2s" repeatCount="indefinite" />
@@ -345,33 +359,38 @@ export default function CommerceNetwork() {
                 {/* ── CENTER CORE NODE: GOOD LIFE ── */}
                 <g filter="url(#light-shadow)" className="center-node-group" style={{ transformOrigin: `${center.x}px ${center.y}px` }}>
                   {/* Subtle Pulse Core Background */}
-                  <circle cx={center.x} cy={center.y} r="54" fill="#FFFFFF" stroke="#BFDBFE" strokeWidth="1.5">
-                    <animate attributeName="r" values="52;56;52" dur="3s" repeatCount="indefinite" />
+                  <circle cx={center.x} cy={center.y} r="58" fill="url(#center-core-gradient)" stroke="#BFDBFE" strokeWidth="2">
+                    <animate attributeName="r" values="56;60;56" dur="3s" repeatCount="indefinite" />
                   </circle>
+                  <circle cx={center.x} cy={center.y} r="48" fill="#FFFFFF" stroke="#93C5FD" strokeWidth="1.5" />
                   
                   {/* Rotating Outer Ring */}
-                  <circle className="rotating-ring" cx={center.x} cy={center.y} r="62" fill="none" stroke="#3B82F6" strokeWidth="1.5" strokeDasharray="6 12" style={{ transformOrigin: `${center.x}px ${center.y}px` }} />
+                  <circle className="rotating-ring" cx={center.x} cy={center.y} r="66" fill="none" stroke="#2563EB" strokeWidth="1.5" strokeDasharray="6 10" style={{ transformOrigin: `${center.x}px ${center.y}px` }} />
                   
                   {/* Center Pulse Dot */}
-                  <circle cx={center.x} cy={center.y - 16} r="3" fill="#2563EB">
-                    <animate attributeName="r" values="2;4;2" dur="2s" repeatCount="indefinite" />
+                  <circle cx={center.x} cy={center.y - 17} r="3.5" fill="#2563EB">
+                    <animate attributeName="r" values="2.5;4.5;2.5" dur="2s" repeatCount="indefinite" />
                     <animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite" />
                   </circle>
-                  <text x={center.x} y={center.y + 2} textAnchor="middle" fontSize="13" fontWeight="900" fill="#0F172A" fontFamily="var(--font-display)" letterSpacing="1">
+                  <text x={center.x} y={center.y + 3} textAnchor="middle" fontSize="13.5" fontWeight="900" fill="#0F172A" fontFamily="var(--font-display), system-ui, sans-serif" letterSpacing="1.2">
                     GOOD LIFE
                   </text>
-                  <text x={center.x} y={center.y + 15} textAnchor="middle" fontSize="7" fontWeight="800" fill="#64748B" letterSpacing="1.2" style={{ textTransform: "uppercase" }}>
+                  <text x={center.x} y={center.y + 17} textAnchor="middle" fontSize="8" fontWeight="800" fill="#2563EB" letterSpacing="1.8" style={{ textTransform: "uppercase" }}>
                     OPERATING ENGINE
                   </text>
                 </g>
 
-                {/* ── 10 SERVICE NODES ── */}
+                {/* ── 10 SERVICE NODE CARDS (Modern 4-Corner Rounded Cards with Numbers) ── */}
                 {serviceNodes.map((node, idx) => {
                   const angle = (idx * 360) / serviceNodes.length - 90;
                   const rad = (angle * Math.PI) / 180;
                   const nx = center.x + radius * Math.cos(rad);
                   const ny = center.y + radius * Math.sin(rad);
                   const isActive = idx === activeIdx;
+
+                  const cardW = 186;
+                  const cardH = 44;
+                  const cardRx = 10; // Modern 4-corner rounded box
 
                   return (
                     <g
@@ -381,28 +400,51 @@ export default function CommerceNetwork() {
                       className={`svg-node ${isActive ? 'active' : ''}`}
                       style={{ cursor: "pointer", transformOrigin: `${nx}px ${ny}px` }}
                     >
+                      {/* Node Box Rectangle */}
                       <rect
-                        x={nx - 72}
-                        y={ny - 22}
-                        width="144"
-                        height="44"
-                        rx="22"
+                        x={nx - cardW / 2}
+                        y={ny - cardH / 2}
+                        width={cardW}
+                        height={cardH}
+                        rx={cardRx}
                         className="node-bg"
-                        fill={isActive ? "#2563EB" : "#FFFFFF"}
+                        fill={isActive ? "url(#active-node-gradient)" : "#FFFFFF"}
                         stroke={isActive ? "#1D4ED8" : "#E2E8F0"}
-                        strokeWidth={isActive ? "2" : "1"}
-                        filter={isActive ? "drop-shadow(0 12px 24px rgba(37,99,235,0.3))" : "drop-shadow(0 2px 4px rgba(0,0,0,0.03))"}
+                        strokeWidth={isActive ? "2" : "1.2"}
+                        filter={isActive ? "url(#node-active-shadow)" : "url(#node-card-shadow)"}
                       />
 
+                      {/* Left Number Tag Badge */}
+                      <rect
+                        x={nx - cardW / 2 + 8}
+                        y={ny - 11}
+                        width="22"
+                        height="22"
+                        rx="5"
+                        fill={isActive ? "rgba(255, 255, 255, 0.22)" : "#F1F5F9"}
+                      />
                       <text
-                        x={nx}
-                        y={ny + 4}
+                        x={nx - cardW / 2 + 19}
+                        y={ny + 3.5}
                         textAnchor="middle"
-                        fontSize="10"
+                        fontSize="9.5"
+                        fontWeight="900"
+                        fontFamily="monospace, system-ui, sans-serif"
+                        fill={isActive ? "#FFFFFF" : "#64748B"}
+                      >
+                        {node.num}
+                      </text>
+
+                      {/* Main Node Label */}
+                      <text
+                        x={nx - cardW / 2 + 36}
+                        y={ny + 4}
+                        textAnchor="start"
+                        fontSize="11.5"
                         fontWeight="800"
                         className="node-text"
                         fill={isActive ? "#FFFFFF" : "#0F172A"}
-                        fontFamily="var(--font-display)"
+                        fontFamily="var(--font-display), system-ui, -apple-system, sans-serif"
                         letterSpacing="-0.2px"
                       >
                         {node.shortLabel}
@@ -417,53 +459,67 @@ export default function CommerceNetwork() {
             <div style={{ display: "flex", flexDirection: "column" }} className="active-node-card-wrapper">
               <div className="active-node-card" style={{
                 background: "#FFFFFF",
-                borderRadius: "26px",
-                border: "1px solid #BFDBFE",
-                padding: "2.4rem 2.2rem",
-                boxShadow: "0 24px 50px rgba(37, 99, 235, 0.08), 0 4px 12px rgba(0,0,0,0.02)",
+                borderRadius: "20px",
+                border: "1.5px solid #E2E8F0",
+                padding: "1.85rem 1.75rem",
+                boxShadow: "0 16px 40px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.02)",
                 position: "relative",
-                overflow: "hidden"
+                overflow: "hidden",
+                minHeight: "470px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between"
               }}>
                 {/* Micro-Animation Wrapper */}
-                <div key={activeNode.id} className="fade-slide-up">
+                <div key={activeNode.id} className="fade-slide-up" style={{ display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between" }}>
                   
-                  {/* Active Indicator Header */}
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.3rem" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                      <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#10B981", boxShadow: "0 0 0 3px rgba(16,185,129,0.2)" }} />
-                      <span style={{ fontSize: "0.74rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1.2px", color: "#059669" }}>
-                        Operating Mandate Active
+                  <div>
+                    {/* Active Indicator Header */}
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.2rem" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.45rem" }}>
+                        <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#10B981", boxShadow: "0 0 0 3px rgba(16,185,129,0.2)" }} />
+                        <span style={{ fontSize: "0.72rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1.2px", color: "#059669" }}>
+                          Operating Mandate Active
+                        </span>
+                      </div>
+                      <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#2563EB", background: "#EFF6FF", padding: "0.22rem 0.65rem", borderRadius: "6px", border: "1px solid #BFDBFE" }}>
+                        {activeNode.categoryTag}
                       </span>
                     </div>
-                    <span style={{ fontSize: "0.75rem", fontWeight: 800, color: "#2563EB", background: "#EFF6FF", padding: "0.25rem 0.75rem", borderRadius: "99px", border: "1px solid #BFDBFE" }}>
-                      {activeNode.categoryTag}
-                    </span>
-                  </div>
 
-                  {/* Node Title & Tagline */}
-                  <h3 className="active-node-title" style={{ fontSize: "1.65rem", fontWeight: 900, color: "#0F172A", margin: "0 0 0.35rem", fontFamily: "var(--font-display)", letterSpacing: "-0.5px" }}>
-                    {activeNode.name}
-                  </h3>
-                  <p style={{ fontSize: "1rem", color: "#2563EB", fontWeight: 700, margin: "0 0 1.6rem" }}>
-                    {activeNode.tagline}
-                  </p>
+                    {/* Node Title & Tagline */}
+                    <h3 className="active-node-title" style={{ fontSize: "1.42rem", fontWeight: 800, color: "#0F172A", margin: "0 0 0.35rem", fontFamily: "var(--font-display)", letterSpacing: "-0.4px", lineHeight: 1.25 }}>
+                      {activeNode.name}
+                    </h3>
+                    <p style={{ fontSize: "0.92rem", color: "#2563EB", fontWeight: 600, margin: "0 0 1.3rem", lineHeight: 1.4 }}>
+                      {activeNode.tagline}
+                    </p>
 
-                  {/* Deliverables Checklist */}
-                  <div style={{ marginBottom: "2.2rem" }}>
-                    <div style={{ fontSize: "0.74rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1.5px", color: "#64748B", marginBottom: "0.9rem" }}>
-                      Key Execution Deliverables
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
-                      {activeNode.deliverables.map((deliv, dIdx) => (
-                        <div key={dIdx} style={{ display: "flex", alignItems: "flex-start", gap: "0.7rem" }}>
-                          <span style={{ width: 20, height: 20, borderRadius: "50%", background: "#EFF6FF", color: "#2563EB", border: "1px solid #BFDBFE", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.7rem", fontWeight: 900, flexShrink: 0, marginTop: "2px" }}>
-                            ✓
-                          </span>
-                          <span style={{ fontSize: "0.95rem", color: "#334155", fontWeight: 600, lineHeight: 1.5 }}>
-                            {deliv}
-                          </span>
-                        </div>
-                      ))}
+                    {/* Deliverables Checklist */}
+                    <div style={{ marginBottom: "1.5rem" }}>
+                      <div style={{ fontSize: "0.7rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1.2px", color: "#64748B", marginBottom: "0.75rem" }}>
+                        Key Execution Deliverables
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "0.65rem" }}>
+                        {activeNode.deliverables.map((deliv, dIdx) => (
+                          <div key={dIdx} style={{
+                            display: "flex",
+                            alignItems: "flex-start",
+                            gap: "0.65rem",
+                            background: "#F8FAFC",
+                            border: "1px solid #F1F5F9",
+                            padding: "0.55rem 0.75rem",
+                            borderRadius: "10px"
+                          }}>
+                            <span style={{ width: 18, height: 18, borderRadius: "5px", background: "#EFF6FF", color: "#2563EB", border: "1px solid #BFDBFE", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.7rem", fontWeight: 900, flexShrink: 0, marginTop: "1px" }}>
+                              ✓
+                            </span>
+                            <span style={{ fontSize: "0.86rem", color: "#334155", fontWeight: 600, lineHeight: 1.4 }}>
+                              {deliv}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
@@ -473,30 +529,32 @@ export default function CommerceNetwork() {
                     className="btn-primary-hero"
                     style={{
                       width: "100%",
-                      height: "52px",
-                      borderRadius: "14px",
+                      height: "46px",
+                      borderRadius: "11px",
                       background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
                       color: "#FFFFFF",
-                      fontSize: "0.96rem",
-                      fontWeight: 800,
+                      fontSize: "0.88rem",
+                      fontWeight: 700,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      gap: "0.5rem",
+                      textAlign: "center",
+                      gap: "0.4rem",
                       textDecoration: "none",
-                      boxShadow: "0 8px 24px rgba(37, 99, 235, 0.28)",
-                      transition: "transform 0.2s ease, box-shadow 0.2s ease"
+                      boxShadow: "0 4px 16px rgba(37, 99, 235, 0.25)",
+                      transition: "all 0.2s ease",
+                      marginTop: "auto"
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.transform = "translateY(-2px)";
-                      e.currentTarget.style.boxShadow = "0 12px 30px rgba(37, 99, 235, 0.35)";
+                      e.currentTarget.style.boxShadow = "0 8px 22px rgba(37, 99, 235, 0.35)";
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.transform = "translateY(0)";
-                      e.currentTarget.style.boxShadow = "0 8px 24px rgba(37, 99, 235, 0.28)";
+                      e.currentTarget.style.boxShadow = "0 4px 16px rgba(37, 99, 235, 0.25)";
                     }}
                   >
-                    Explore {activeNode.name} Mandate →
+                    Explore {activeNode.shortLabel} Mandate →
                   </Link>
 
                 </div>

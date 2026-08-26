@@ -311,7 +311,7 @@ export default function AICM3DHeroComponent({ onOpenDiagnostic, onOpenVideo }: A
                     boxShadow: "0 8px 24px rgba(37, 99, 235, 0.3)"
                   }}
                 >
-                  Request for a FREE AUDIT →
+                  Request a Free Audit →
                 </button>
                 <button className="btn-ghost-hero" onClick={onOpenVideo} style={{ background: "#FFFFFF", border: "1.5px solid #CBD5E1", color: "#0F172A", height: "52px", borderRadius: "14px" }}>
                   ▷ Watch Our Story

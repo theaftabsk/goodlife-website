@@ -128,7 +128,7 @@ const SavingsCalculator: React.FC<{ onOpenDiag: () => void }> = ({ onOpenDiag })
                   boxShadow: "0 6px 20px rgba(37,99,235,0.35)",
                 }}
               >
-                Request for a FREE AUDIT →
+                Request a Free Audit →
               </button>
             </div>
           </div>
@@ -598,7 +598,7 @@ const StickyBar: React.FC<{ onOpenDiag: () => void }> = ({ onOpenDiag }) => {
         <div className="sticky-bar-desktop-content">
           <div className="sticky-bar-dot" />
           <p className="sticky-bar-text"><strong>Ready to find your fee leaks?</strong> Get a complimentary Free Audit — no obligation.</p>
-          <button onClick={onOpenDiag} className="sticky-bar-btn">Request for a FREE AUDIT →</button>
+          <button onClick={onOpenDiag} className="sticky-bar-btn">Request a Free Audit →</button>
         </div>
 
         {/* MOBILE CONTENT (WhatsApp) */}
@@ -993,99 +993,98 @@ export default function HomePage() {
   ];
 
   // Approved Platform Vector SVGs (Enlarged & High-Impact)
-  // Approved Platform Vector SVGs (Authentic High-Impact Logos)
   const channelSVGs: { name: string; svg: React.ReactNode }[] = [
     {
       name: "Amazon",
       svg: (
-        <svg viewBox="0 0 110 32" width="95" height="28" fill="none">
-          <text x="2" y="20" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="20" fill="#131921" letterSpacing="-0.5">amazon</text>
-          <path d="M5 24 C 28 32, 58 32, 74 24" stroke="#FF9900" strokeWidth="2.8" strokeLinecap="round" fill="none" />
-          <path d="M70 21 L 77 24.5 L 72 29 Z" fill="#FF9900" />
+        <svg viewBox="0 0 140 40" width="135" height="36" fill="none">
+          <text x="2" y="24" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="24" fill="#131921" letterSpacing="-0.5">amazon</text>
+          <path d="M6 30 C 34 40, 72 40, 92 30" stroke="#FF9900" strokeWidth="3.4" strokeLinecap="round" fill="none" />
+          <path d="M87 26.5 L 96 30.5 L 89.5 36 Z" fill="#FF9900" />
         </svg>
       ),
     },
     {
       name: "Flipkart",
       svg: (
-        <svg viewBox="0 0 120 32" width="100" height="28" fill="none">
-          <rect x="4" y="6" width="18" height="20" rx="3" fill="#2874F0" />
-          <text x="9" y="21" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="15" fill="#FFE500">f</text>
-          <text x="28" y="22" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#2874F0" letterSpacing="-0.5">flipkart</text>
+        <svg viewBox="0 0 150 40" width="145" height="36" fill="none">
+          <rect x="4" y="7" width="22" height="24" rx="4" fill="#2874F0" />
+          <text x="10" y="25" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#FFE500">f</text>
+          <text x="33" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="22" fill="#2874F0" letterSpacing="-0.5">flipkart</text>
         </svg>
       ),
     },
     {
       name: "Meesho",
       svg: (
-        <svg viewBox="0 0 110 32" width="95" height="28" fill="none">
-          <text x="2" y="22" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="21" fill="#F43397" letterSpacing="-0.5">meesho</text>
+        <svg viewBox="0 0 140 40" width="135" height="36" fill="none">
+          <text x="2" y="27" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="26" fill="#F43397" letterSpacing="-0.5">meesho</text>
         </svg>
       )
     },
     {
       name: "Myntra",
       svg: (
-        <svg viewBox="0 0 115 32" width="98" height="28" fill="none">
-          <path d="M4 23 L9 8 L15 18 L21 8 L26 23" stroke="#FF3F6C" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          <text x="32" y="22" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="17" fill="#282C3F" letterSpacing="0.2">myntra</text>
+        <svg viewBox="0 0 145 40" width="140" height="36" fill="none">
+          <path d="M5 28 L11 9 L18 22 L25 9 L31 28" stroke="#FF3F6C" strokeWidth="4.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <text x="39" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="21" fill="#282C3F" letterSpacing="0.2">myntra</text>
         </svg>
       ),
     },
     {
       name: "Blinkit",
       svg: (
-        <svg viewBox="0 0 110 32" width="95" height="28" fill="none">
-          <rect x="2" y="5" width="22" height="22" rx="6" fill="#F8CB46" />
-          <text x="8" y="21" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="16" fill="#0C831F">b</text>
-          <text x="28" y="22" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#0C831F" letterSpacing="-0.4">blinkit</text>
+        <svg viewBox="0 0 140 40" width="135" height="36" fill="none">
+          <rect x="2" y="6" width="26" height="26" rx="7" fill="#F8CB46" />
+          <text x="9" y="25" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="19" fill="#0C831F">b</text>
+          <text x="34" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="22" fill="#0C831F" letterSpacing="-0.4">blinkit</text>
         </svg>
       ),
     },
     {
       name: "Nykaa",
       svg: (
-        <svg viewBox="0 0 100 32" width="85" height="28" fill="none">
-          <text x="2" y="22" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="20" fill="#FC2779" fontStyle="italic" letterSpacing="0.5">NYKAA</text>
+        <svg viewBox="0 0 130 40" width="125" height="36" fill="none">
+          <text x="2" y="27" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="24" fill="#FC2779" fontStyle="italic" letterSpacing="0.5">NYKAA</text>
         </svg>
       ),
     },
     {
       name: "JioMart",
       svg: (
-        <svg viewBox="0 0 115 32" width="95" height="28" fill="none">
-          <text x="2" y="22" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="16" fill="#E11900">Jio</text>
-          <text x="26" y="22" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#008ECC" letterSpacing="-0.2">Mart</text>
+        <svg viewBox="0 0 145 40" width="135" height="36" fill="none">
+          <text x="2" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="20" fill="#E11900">Jio</text>
+          <text x="32" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="22" fill="#008ECC" letterSpacing="-0.2">Mart</text>
         </svg>
       ),
     },
     {
       name: "Moglix",
       svg: (
-        <svg viewBox="0 0 110 32" width="92" height="28" fill="none">
-          <rect x="2" y="6" width="18" height="20" rx="3" fill="#E02A26" />
-          <path d="M5 21 V11 L11 16 L17 11 V21" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          <text x="25" y="22" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#1F2937" letterSpacing="-0.2">moglix</text>
+        <svg viewBox="0 0 140 40" width="135" height="36" fill="none">
+          <rect x="2" y="7" width="22" height="24" rx="4" fill="#E02A26" />
+          <path d="M6 25 V13 L13 19 L20 13 V25" stroke="#FFFFFF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <text x="30" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="22" fill="#1F2937" letterSpacing="-0.2">moglix</text>
         </svg>
       ),
     },
     {
       name: "Shopify",
       svg: (
-        <svg viewBox="0 0 110 32" width="95" height="28" fill="none">
-          <path d="M12 4 L4 10 L8 28 L22 28 L26 10 Z" fill="#95BF47" />
-          <text x="8" y="22" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="14" fill="#FFFFFF">S</text>
-          <text x="32" y="22" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="17" fill="#212326" letterSpacing="-0.3">shopify</text>
+        <svg viewBox="0 0 140 40" width="135" height="36" fill="none">
+          <path d="M14 5 L4 12 L9 34 L26 34 L31 12 Z" fill="#95BF47" />
+          <text x="9" y="27" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="17" fill="#FFFFFF">S</text>
+          <text x="38" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="21" fill="#212326" letterSpacing="-0.3">shopify</text>
         </svg>
       ),
     },
     {
       name: "Snapmint",
       svg: (
-        <svg viewBox="0 0 115 32" width="96" height="28" fill="none">
-          <circle cx="12" cy="16" r="9" fill="#00C29F" />
-          <text x="7" y="21" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="14" fill="#FFFFFF">S</text>
-          <text x="26" y="22" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="17" fill="#00C29F" letterSpacing="-0.2">snapmint</text>
+        <svg viewBox="0 0 145 40" width="140" height="36" fill="none">
+          <circle cx="14" cy="20" r="11" fill="#00C29F" />
+          <text x="8" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="17" fill="#FFFFFF">S</text>
+          <text x="32" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="21" fill="#00C29F" letterSpacing="-0.2">snapmint</text>
         </svg>
       ),
     },
@@ -1179,7 +1178,7 @@ export default function HomePage() {
                   onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 14px 34px rgba(37, 99, 235, 0.45)"; }}
                   onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 10px 28px rgba(37, 99, 235, 0.35)"; }}
                 >
-                  Request for a FREE AUDIT →
+                  Request a Free Audit →
                 </button>
                 <button
                   className="btn-ghost-hero"
@@ -1529,89 +1528,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── SECTION 5: THREE BUYER SITUATIONS (Routes to Launch / Fix & Grow / Scale page) ── */}
-      <section className="paths-section" id="three-situations">
-        <div className="container">
-          <div style={{ textAlign: "center" }}>
-            <span className="ptn-section-eyebrow">Tailored Operating Paths</span>
-            <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>Where Is Your Business Today?</h2>
-            <p className="ptn-section-subtitle" style={{ marginTop: "0.4rem" }}>Choose Launch Online, Fix &amp; Grow, or Scale Pan-India as your primary entry route.</p>
-          </div>
-          <div className="paths-grid">
-            {[
-              { tag: "01. Launch Online", tagColor: "#2563EB", title: "Offline Brand / Manufacturer", desc: "Entering ecommerce for the first time across Amazon, Flipkart, Myntra, Moglix, JioMart, Snapmint, Bajaj and other approved platforms, plus D2C.", cta: "Explore Launch Mandate →", href: "/solutions/launch-online" },
-              { tag: "02. Fix & Grow", tagColor: "#0D9488", title: "Active Marketplace Brand", desc: "Stuck with stagnant GMV, rising ACOS, un-audited settlement losses, or high customer returns. We audit, fix, and grow.", cta: "Explore Fix & Grow Audit →", href: "/solutions/fix-and-grow" },
-              { tag: "03. Scale Pan-India", tagColor: "#7C3AED", title: "Established Enterprise Brand", desc: "Scaling 12-state warehouse inventory, regional dealer fulfilment, B2B/institutional channels, and multi-platform D2C sync.", cta: "Explore Pan-India Scale →", href: "/solutions/scale-pan-india" },
-            ].map((card, idx) => (
-              <div key={idx} className="path-card reveal" style={{ transitionDelay: `${idx * 0.1}s` }}>
-                <div className="path-card-tag" style={{ color: card.tagColor }}>{card.tag}</div>
-                <h3 className="path-card-title">{card.title}</h3>
-                <p className="path-card-desc">{card.desc}</p>
-                <Link href={card.href} className="path-card-cta" style={{ color: card.tagColor }}>{card.cta}</Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 5.5: BRANDS WE SERVE (Sleek Horizontal Marquee Strip - Item 7) ── */}
-      <div className="brands-marquee-section" style={{
-        padding: "2.4rem 0 2.2rem",
-        background: "#FFFFFF",
-        borderTop: "1px solid #E2E8F0",
-        borderBottom: "1px solid #E2E8F0",
-        position: "relative",
-        overflow: "hidden"
-      }}>
-        <p className="brands-marquee-label" style={{
-          textAlign: "center",
-          marginBottom: "1.2rem",
-          fontSize: "0.78rem",
-          fontWeight: 800,
-          letterSpacing: "2.5px",
-          color: "#475569",
-          textTransform: "uppercase"
-        }}>
-          Brands We Operate &amp; Scale Across Marketplaces &amp; D2C
-        </p>
-        <div className="channel-strip" style={{ margin: 0 }}>
-          <div className="channel-marquee-container" style={{
-            margin: 0,
-            padding: 0,
-            maskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)"
-          }}>
-            <div className="channel-marquee-track">
-              {[...portfolioLogos, ...portfolioLogos].map((brand, idx) => (
-                <div
-                  key={idx}
-                  title={brand.name}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "0 2.2rem",
-                    cursor: "default",
-                    transition: "all 0.3s ease",
-                    opacity: 0.88
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.opacity = "1";
-                    e.currentTarget.style.transform = "scale(1.1)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.opacity = "0.88";
-                    e.currentTarget.style.transform = "scale(1)";
-                  }}
-                >
-                  {brand.svg}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* ── SECTION 6: WHY GOOD LIFE (Operator Credibility - Rich Sky Blue Aurora & Frosted Glass) ── */}
       <section className="unlock-section unlock-section-rich-glow" id="why-good-life">
         {/* Rich Sky Blue Animated Floating Aurora Orbs */}
@@ -1921,6 +1837,64 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── SECTION 5.5: BRANDS WE SERVE (Sleek Horizontal Marquee Strip - Item 7) ── */}
+      <div className="brands-marquee-section" style={{
+        padding: "2.4rem 0 2.2rem",
+        background: "#FFFFFF",
+        borderTop: "1px solid #E2E8F0",
+        borderBottom: "1px solid #E2E8F0",
+        position: "relative",
+        overflow: "hidden"
+      }}>
+        <p className="brands-marquee-label" style={{
+          textAlign: "center",
+          marginBottom: "1.2rem",
+          fontSize: "0.78rem",
+          fontWeight: 800,
+          letterSpacing: "2.5px",
+          color: "#475569",
+          textTransform: "uppercase"
+        }}>
+          Brands We Operate &amp; Scale Across Marketplaces &amp; D2C
+        </p>
+        <div className="channel-strip" style={{ margin: 0 }}>
+          <div className="channel-marquee-container" style={{
+            margin: 0,
+            padding: 0,
+            maskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)"
+          }}>
+            <div className="channel-marquee-track">
+              {[...portfolioLogos, ...portfolioLogos].map((brand, idx) => (
+                <div
+                  key={idx}
+                  title={brand.name}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "0 2.2rem",
+                    cursor: "default",
+                    transition: "all 0.3s ease",
+                    opacity: 0.88
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.opacity = "1";
+                    e.currentTarget.style.transform = "scale(1.1)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.opacity = "0.88";
+                    e.currentTarget.style.transform = "scale(1)";
+                  }}
+                >
+                  {brand.svg}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* ── SECTION 6.5: INDUSTRY CATEGORIES (Item 9 - Compact & Sleek) ── */}
       <section className="industry-categories-section" style={{
@@ -2283,6 +2257,31 @@ export default function HomePage() {
 
       {/* ── SECTION 9: FULFILMENT NETWORK (Pan-India Interactive Map) ── */}
       <WarehouseHubs />
+
+      {/* ── SECTION 5: THREE BUYER SITUATIONS (Routes to Launch / Fix & Grow / Scale page) ── */}
+      <section className="paths-section" id="three-situations">
+        <div className="container">
+          <div style={{ textAlign: "center" }}>
+            <span className="ptn-section-eyebrow">Tailored Operating Paths</span>
+            <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>Where Is Your Business Today?</h2>
+            <p className="ptn-section-subtitle" style={{ marginTop: "0.4rem" }}>Choose Launch Online, Fix &amp; Grow, or Scale Pan-India as your primary entry route.</p>
+          </div>
+          <div className="paths-grid">
+            {[
+              { tag: "01. Launch Online", tagColor: "#2563EB", title: "Offline Brand / Manufacturer", desc: "Entering ecommerce for the first time across Amazon, Flipkart, Myntra, Moglix, JioMart, Snapmint, Bajaj and other approved platforms, plus D2C.", cta: "Explore Launch Mandate →", href: "/solutions/launch-online" },
+              { tag: "02. Fix & Grow", tagColor: "#0D9488", title: "Active Marketplace Brand", desc: "Stuck with stagnant GMV, rising ACOS, un-audited settlement losses, or high customer returns. We audit, fix, and grow.", cta: "Explore Fix & Grow Audit →", href: "/solutions/fix-and-grow" },
+              { tag: "03. Scale Pan-India", tagColor: "#7C3AED", title: "Established Enterprise Brand", desc: "Scaling 12-state warehouse inventory, regional dealer fulfilment, B2B/institutional channels, and multi-platform D2C sync.", cta: "Explore Pan-India Scale →", href: "/solutions/scale-pan-india" },
+            ].map((card, idx) => (
+              <div key={idx} className="path-card reveal" style={{ transitionDelay: `${idx * 0.1}s` }}>
+                <div className="path-card-tag" style={{ color: card.tagColor }}>{card.tag}</div>
+                <h3 className="path-card-title">{card.title}</h3>
+                <p className="path-card-desc">{card.desc}</p>
+                <Link href={card.href} className="path-card-cta" style={{ color: card.tagColor }}>{card.cta}</Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ── SECTION 10: VERIFIED TESTIMONIALS & PARTNER REVIEWS (Item 10 - After India Map) ── */}
       <section className="testimonials-section" style={{
