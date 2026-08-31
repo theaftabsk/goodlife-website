@@ -1,7 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Link from "next/link";
+import { Inter } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  display: "swap",
+});
 
 interface ServiceNode {
   id: string;
@@ -145,7 +152,7 @@ const serviceNodes: ServiceNode[] = [
     id: "payment-recon",
     num: "10",
     name: "Payment Reconciliation",
-    shortLabel: "Payment Reconciliation",
+    shortLabel: "Payment Recon",
     tagline: "Daily settlement audit & fee recovery",
     categoryTag: "Audit & Claims",
     deliverables: [
@@ -159,13 +166,91 @@ const serviceNodes: ServiceNode[] = [
 
 export default function CommerceNetwork() {
   const [activeIdx, setActiveIdx] = useState<number>(0);
+  const [isHubHovered, setIsHubHovered] = useState<boolean>(false);
   const activeNode = serviceNodes[activeIdx];
+  const svgRef = useRef<SVGSVGElement>(null);
 
-  const center = { x: 360, y: 300 };
-  const radius = 215;
+  // ── Layout constants ──
+  const center = { x: 450, y: 350 };
+  const hubRadius = 60; // 120px diameter circular core
+  const radiusX = 350;
+  const radiusY = 250;
+  const cardW = 180;
+  const cardH = 42;
+  const cardRx = 10;
+
+  // ── Initial positions from elliptical angles ──
+  const nodeAngles = [
+    -90, -54, -18, 18, 54, 90, 126, 162, 198, 234
+  ];
+
+  // ── Helper to eliminate SSR/Client floating-point hydration discrepancies ──
+  const roundCoord = (val: number) => Math.round(val * 100) / 100;
+
+  const getInitialPositions = () =>
+    nodeAngles.map((angleDeg) => {
+      const rad = (angleDeg * Math.PI) / 180;
+      return {
+        x: roundCoord(center.x + radiusX * Math.cos(rad)),
+        y: roundCoord(center.y + radiusY * Math.sin(rad))
+      };
+    });
+
+  // ── Draggable state ──
+  const [positions, setPositions] = useState(getInitialPositions);
+  const dragState = useRef<{ dragging: boolean; idx: number; offsetX: number; offsetY: number }>({
+    dragging: false, idx: -1, offsetX: 0, offsetY: 0
+  });
+
+  // Convert mouse/touch event to SVG coordinates
+  const getSVGPoint = (clientX: number, clientY: number) => {
+    const svg = svgRef.current;
+    if (!svg) return { x: 0, y: 0 };
+    const pt = svg.createSVGPoint();
+    pt.x = clientX;
+    pt.y = clientY;
+    const svgP = pt.matrixTransform(svg.getScreenCTM()?.inverse());
+    return { x: svgP.x, y: svgP.y };
+  };
+
+  const handleDragStart = (idx: number, e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+    const svgPt = getSVGPoint(clientX, clientY);
+    dragState.current = {
+      dragging: true,
+      idx,
+      offsetX: svgPt.x - positions[idx].x,
+      offsetY: svgPt.y - positions[idx].y
+    };
+    setActiveIdx(idx);
+  };
+
+  const handleDragMove = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!dragState.current.dragging) return;
+    e.preventDefault();
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+    const svgPt = getSVGPoint(clientX, clientY);
+    const { idx, offsetX, offsetY } = dragState.current;
+    setPositions(prev => {
+      const next = [...prev];
+      next[idx] = {
+        x: svgPt.x - offsetX,
+        y: svgPt.y - offsetY
+      };
+      return next;
+    });
+  };
+
+  const handleDragEnd = () => {
+    dragState.current.dragging = false;
+  };
 
   return (
-    <section className="commerce-network-section" id="commerce-network" style={{
+    <section className={`commerce-network-section ${inter.className}`} id="commerce-network" style={{
       position: "relative",
       width: "100%",
       padding: "6rem 0",
@@ -292,118 +377,184 @@ export default function CommerceNetwork() {
             alignItems: "center"
           }}>
             
-            {/* ── LEFT: SVG LIGHT NETWORK DIAGRAM (Desktop) ── */}
-            <div style={{ position: "relative", minHeight: "560px", display: "flex", alignItems: "center", justifyContent: "center" }} className="network-svg-viewport">
-              <svg viewBox="0 0 720 600" width="100%" height="100%" style={{ overflow: "visible" }}>
+            {/* ── LEFT: SVG NETWORK DIAGRAM — Zero Overlap Layout ── */}
+            <div style={{ position: "relative", minHeight: "680px", display: "flex", alignItems: "center", justifyContent: "center" }} className="network-svg-viewport">
+              <svg
+                ref={svgRef}
+                viewBox="0 0 900 700"
+                width="100%"
+                height="100%"
+                style={{ overflow: "visible", touchAction: "none" }}
+                suppressHydrationWarning
+                onMouseMove={handleDragMove}
+                onMouseUp={handleDragEnd}
+                onMouseLeave={handleDragEnd}
+                onTouchMove={handleDragMove}
+                onTouchEnd={handleDragEnd}
+                onTouchCancel={handleDragEnd}
+              >
                 <defs>
-                  <linearGradient id="light-ray-active" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#3B82F6" />
-                    <stop offset="100%" stopColor="#1D4ED8" />
-                  </linearGradient>
                   <linearGradient id="active-node-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#2563EB" />
                     <stop offset="100%" stopColor="#1D4ED8" />
                   </linearGradient>
-                  <linearGradient id="center-core-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#EFF6FF" />
-                    <stop offset="100%" stopColor="#DBEAFE" />
-                  </linearGradient>
-                  <filter id="light-shadow">
-                    <feDropShadow dx="0" dy="10" stdDeviation="16" floodColor="#2563EB" floodOpacity="0.22" />
+                  {/* Premium Enterprise Hub Shadow */}
+                  <filter id="hub-card-shadow" x="-30%" y="-30%" width="160%" height="160%">
+                    <feDropShadow dx="0" dy="8" stdDeviation="16" floodColor="#0F172A" floodOpacity="0.08" />
+                    <feDropShadow dx="0" dy="2" stdDeviation="4" floodColor="#2563EB" floodOpacity="0.06" />
                   </filter>
-                  <filter id="node-active-shadow">
-                    <feDropShadow dx="0" dy="8" stdDeviation="14" floodColor="#2563EB" floodOpacity="0.38" />
+                  <filter id="node-active-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="6" stdDeviation="12" floodColor="#2563EB" floodOpacity="0.30" />
                   </filter>
-                  <filter id="node-card-shadow">
-                    <feDropShadow dx="0" dy="3" stdDeviation="6" floodColor="#0F172A" floodOpacity="0.06" />
-                  </filter>
-                  <filter id="blue-glow">
-                    <feDropShadow dx="0" dy="0" stdDeviation="8" floodColor="#60A5FA" floodOpacity="0.9" />
+                  <filter id="node-card-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="2" stdDeviation="5" floodColor="#0F172A" floodOpacity="0.05" />
                   </filter>
                 </defs>
 
-                {/* Concentric Dashed Orbit Rings */}
-                <circle cx={center.x} cy={center.y} r={radius} fill="none" stroke="#CBD5E1" strokeWidth="1.2" strokeDasharray="6 6" />
-                <circle cx={center.x} cy={center.y} r={radius * 0.55} fill="none" stroke="#E2E8F0" strokeWidth="1" strokeDasharray="3 3" />
+                {/* ── LAYER 1: Single faint orbit guide ring (behind everything) ── */}
+                <ellipse
+                  cx={center.x}
+                  cy={center.y}
+                  rx={radiusX}
+                  ry={radiusY}
+                  fill="none"
+                  stroke="#E2E8F0"
+                  strokeWidth="1"
+                  strokeDasharray="4 4"
+                  opacity="0.65"
+                />
 
-                {/* Connecting Line Rays & Moving Particles */}
+                {/* ── LAYER 2: Connecting lines (start from center circle edge, stay behind cards) ── */}
                 {serviceNodes.map((_, idx) => {
-                  const angle = (idx * 360) / serviceNodes.length - 90;
-                  const rad = (angle * Math.PI) / 180;
-                  const nx = center.x + radius * Math.cos(rad);
-                  const ny = center.y + radius * Math.sin(rad);
+                  const pos = positions[idx];
                   const isActive = idx === activeIdx;
+                  const dx = pos.x - center.x;
+                  const dy = pos.y - center.y;
+                  const angle = Math.atan2(dy, dx);
+                  // Line starts exactly from the outer edge of the 120px hub (r = 60), rounded for SSR/Client hydration parity
+                  const startX = roundCoord(center.x + hubRadius * Math.cos(angle));
+                  const startY = roundCoord(center.y + hubRadius * Math.sin(angle));
+                  const endX = roundCoord(pos.x);
+                  const endY = roundCoord(pos.y);
 
                   return (
-                    <g key={idx}>
-                      <line
-                        x1={center.x}
-                        y1={center.y}
-                        x2={nx}
-                        y2={ny}
-                        stroke={isActive ? "url(#light-ray-active)" : "#E2E8F0"}
-                        strokeWidth={isActive ? "2.8" : "1.2"}
-                        style={{ transition: "stroke 0.4s ease, stroke-width 0.4s ease" }}
-                      />
-                      {isActive && (
-                        <circle cx={center.x} cy={center.y} r="3.5" fill="#60A5FA" filter="url(#blue-glow)">
-                          <animate attributeName="cx" values={`${center.x};${nx}`} dur="1.2s" repeatCount="indefinite" />
-                          <animate attributeName="cy" values={`${center.y};${ny}`} dur="1.2s" repeatCount="indefinite" />
-                          <animate attributeName="opacity" values="0;1;0" dur="1.2s" repeatCount="indefinite" />
-                        </circle>
-                      )}
-                    </g>
+                    <line
+                      key={`line-${idx}`}
+                      x1={startX}
+                      y1={startY}
+                      x2={endX}
+                      y2={endY}
+                      stroke={isActive ? "#2563EB" : "#E2E8F0"}
+                      strokeWidth={isActive ? "2.2" : "1.2"}
+                      strokeLinecap="round"
+                      style={{ transition: "stroke 0.25s ease, stroke-width 0.25s ease" }}
+                    />
                   );
                 })}
 
-                {/* ── CENTER CORE NODE: GOOD LIFE ── */}
-                <g filter="url(#light-shadow)" className="center-node-group" style={{ transformOrigin: `${center.x}px ${center.y}px` }}>
-                  {/* Subtle Pulse Core Background */}
-                  <circle cx={center.x} cy={center.y} r="58" fill="url(#center-core-gradient)" stroke="#BFDBFE" strokeWidth="2">
-                    <animate attributeName="r" values="56;60;56" dur="3s" repeatCount="indefinite" />
-                  </circle>
-                  <circle cx={center.x} cy={center.y} r="48" fill="#FFFFFF" stroke="#93C5FD" strokeWidth="1.5" />
-                  
-                  {/* Rotating Outer Ring */}
-                  <circle className="rotating-ring" cx={center.x} cy={center.y} r="66" fill="none" stroke="#2563EB" strokeWidth="1.5" strokeDasharray="6 10" style={{ transformOrigin: `${center.x}px ${center.y}px` }} />
-                  
-                  {/* Center Pulse Dot */}
-                  <circle cx={center.x} cy={center.y - 17} r="3.5" fill="#2563EB">
-                    <animate attributeName="r" values="2.5;4.5;2.5" dur="2s" repeatCount="indefinite" />
-                    <animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite" />
-                  </circle>
-                  <text x={center.x} y={center.y + 3} textAnchor="middle" fontSize="13.5" fontWeight="900" fill="#0F172A" fontFamily="var(--font-display), system-ui, sans-serif" letterSpacing="1.2">
+                {/* ── LAYER 3: Center core hub (Premium Enterprise SaaS Control Center) ── */}
+                <g
+                  className="center-hub-group"
+                  onMouseEnter={() => setIsHubHovered(true)}
+                  onMouseLeave={() => setIsHubHovered(false)}
+                  style={{ cursor: "default", transformOrigin: `${center.x}px ${center.y}px` }}
+                >
+                  {/* 1. Very faint single outer reference ring */}
+                  <circle
+                    cx={center.x}
+                    cy={center.y}
+                    r={78}
+                    fill="none"
+                    stroke="#E2E8F0"
+                    strokeWidth="1"
+                    opacity={isHubHovered ? "0.9" : "0.55"}
+                    style={{ transition: "opacity 0.3s ease" }}
+                  />
+
+                  {/* 2. Subtle blue active ring around the hub */}
+                  <circle
+                    cx={center.x}
+                    cy={center.y}
+                    r={66}
+                    fill="none"
+                    stroke="#2563EB"
+                    strokeWidth="1.5"
+                    opacity={isHubHovered ? "0.5" : "0.22"}
+                    style={{ transition: "opacity 0.3s ease" }}
+                  />
+
+                  {/* 3. Main Circular Core (120px diameter / r = 60) */}
+                  <circle
+                    cx={center.x}
+                    cy={center.y}
+                    r={hubRadius}
+                    fill="#FFFFFF"
+                    stroke={isHubHovered ? "#2563EB" : "#CBD5E1"}
+                    strokeWidth={isHubHovered ? "1.8" : "1.4"}
+                    filter="url(#hub-card-shadow)"
+                    style={{ transition: "stroke 0.25s ease, stroke-width 0.25s ease" }}
+                  />
+
+                  {/* 4. Subtle inner border highlight */}
+                  <circle
+                    cx={center.x}
+                    cy={center.y}
+                    r={56}
+                    fill="none"
+                    stroke="#F1F5F9"
+                    strokeWidth="1"
+                  />
+
+                  {/* 5. Typography — Perfectly Centered */}
+                  <text
+                    x={center.x}
+                    y={center.y - 5}
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    fontSize="15.5"
+                    fontWeight="900"
+                    fill="#0F172A"
+                    fontFamily="var(--font-inter), Inter, sans-serif"
+                    letterSpacing="0.8px"
+                  >
                     GOOD LIFE
                   </text>
-                  <text x={center.x} y={center.y + 17} textAnchor="middle" fontSize="8" fontWeight="800" fill="#2563EB" letterSpacing="1.8" style={{ textTransform: "uppercase" }}>
+                  <text
+                    x={center.x}
+                    y={center.y + 13}
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    fontSize="7.5"
+                    fontWeight="800"
+                    fill={isHubHovered ? "#1D4ED8" : "#2563EB"}
+                    letterSpacing="1.8px"
+                    fontFamily="var(--font-inter), Inter, sans-serif"
+                    style={{ textTransform: "uppercase", transition: "fill 0.25s ease" }}
+                  >
                     OPERATING ENGINE
                   </text>
                 </g>
 
-                {/* ── 10 SERVICE NODE CARDS (Modern 4-Corner Rounded Cards with Numbers) ── */}
+                {/* ── LAYER 4: Service node cards (on top of lines) ── */}
                 {serviceNodes.map((node, idx) => {
-                  const angle = (idx * 360) / serviceNodes.length - 90;
-                  const rad = (angle * Math.PI) / 180;
-                  const nx = center.x + radius * Math.cos(rad);
-                  const ny = center.y + radius * Math.sin(rad);
+                  const pos = positions[idx];
+                  const px = roundCoord(pos.x);
+                  const py = roundCoord(pos.y);
                   const isActive = idx === activeIdx;
-
-                  const cardW = 186;
-                  const cardH = 44;
-                  const cardRx = 10; // Modern 4-corner rounded box
 
                   return (
                     <g
                       key={node.id}
+                      onMouseDown={(e) => handleDragStart(idx, e)}
+                      onTouchStart={(e) => handleDragStart(idx, e)}
                       onClick={() => setActiveIdx(idx)}
-                      onMouseEnter={() => setActiveIdx(idx)}
                       className={`svg-node ${isActive ? 'active' : ''}`}
-                      style={{ cursor: "pointer", transformOrigin: `${nx}px ${ny}px` }}
+                      style={{ cursor: "grab", transformOrigin: `${px}px ${py}px` }}
                     >
                       {/* Node Box Rectangle */}
                       <rect
-                        x={nx - cardW / 2}
-                        y={ny - cardH / 2}
+                        x={roundCoord(px - cardW / 2)}
+                        y={roundCoord(py - cardH / 2)}
                         width={cardW}
                         height={cardH}
                         rx={cardRx}
@@ -416,20 +567,21 @@ export default function CommerceNetwork() {
 
                       {/* Left Number Tag Badge */}
                       <rect
-                        x={nx - cardW / 2 + 8}
-                        y={ny - 11}
+                        x={roundCoord(px - cardW / 2 + 8)}
+                        y={roundCoord(py - 11)}
                         width="22"
                         height="22"
                         rx="5"
                         fill={isActive ? "rgba(255, 255, 255, 0.22)" : "#F1F5F9"}
                       />
                       <text
-                        x={nx - cardW / 2 + 19}
-                        y={ny + 3.5}
+                        x={roundCoord(px - cardW / 2 + 19)}
+                        y={roundCoord(py + 4)}
                         textAnchor="middle"
-                        fontSize="9.5"
-                        fontWeight="900"
-                        fontFamily="monospace, system-ui, sans-serif"
+                        dominantBaseline="central"
+                        fontSize="10"
+                        fontWeight="800"
+                        fontFamily="var(--font-inter), Inter, sans-serif"
                         fill={isActive ? "#FFFFFF" : "#64748B"}
                       >
                         {node.num}
@@ -437,15 +589,16 @@ export default function CommerceNetwork() {
 
                       {/* Main Node Label */}
                       <text
-                        x={nx - cardW / 2 + 36}
-                        y={ny + 4}
+                        x={roundCoord(px - cardW / 2 + 37)}
+                        y={roundCoord(py + 1)}
                         textAnchor="start"
-                        fontSize="11.5"
-                        fontWeight="800"
+                        dominantBaseline="central"
+                        fontSize="12.5"
+                        fontWeight="700"
                         className="node-text"
                         fill={isActive ? "#FFFFFF" : "#0F172A"}
-                        fontFamily="var(--font-display), system-ui, -apple-system, sans-serif"
-                        letterSpacing="-0.2px"
+                        fontFamily="var(--font-inter), Inter, sans-serif"
+                        letterSpacing="-0.1px"
                       >
                         {node.shortLabel}
                       </text>
@@ -461,14 +614,16 @@ export default function CommerceNetwork() {
                 background: "#FFFFFF",
                 borderRadius: "20px",
                 border: "1.5px solid #E2E8F0",
-                padding: "1.85rem 1.75rem",
+                padding: "1.75rem 1.6rem",
                 boxShadow: "0 16px 40px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.02)",
                 position: "relative",
                 overflow: "hidden",
-                minHeight: "470px",
+                minHeight: "485px",
+                height: "100%",
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "space-between"
+                justifyContent: "space-between",
+                boxSizing: "border-box"
               }}>
                 {/* Micro-Animation Wrapper */}
                 <div key={activeNode.id} className="fade-slide-up" style={{ display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between" }}>
@@ -505,16 +660,31 @@ export default function CommerceNetwork() {
                           <div key={dIdx} style={{
                             display: "flex",
                             alignItems: "flex-start",
-                            gap: "0.65rem",
+                            gap: "0.7rem",
                             background: "#F8FAFC",
                             border: "1px solid #F1F5F9",
-                            padding: "0.55rem 0.75rem",
-                            borderRadius: "10px"
+                            padding: "0.6rem 0.8rem",
+                            borderRadius: "10px",
+                            boxSizing: "border-box"
                           }}>
-                            <span style={{ width: 18, height: 18, borderRadius: "5px", background: "#EFF6FF", color: "#2563EB", border: "1px solid #BFDBFE", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.7rem", fontWeight: 900, flexShrink: 0, marginTop: "1px" }}>
+                            <span style={{
+                              width: 18,
+                              height: 18,
+                              borderRadius: "5px",
+                              background: "#EFF6FF",
+                              color: "#2563EB",
+                              border: "1px solid #BFDBFE",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              fontSize: "0.72rem",
+                              fontWeight: 900,
+                              flexShrink: 0,
+                              marginTop: "1.5px"
+                            }}>
                               ✓
                             </span>
-                            <span style={{ fontSize: "0.86rem", color: "#334155", fontWeight: 600, lineHeight: 1.4 }}>
+                            <span style={{ fontSize: "0.85rem", color: "#334155", fontWeight: 600, lineHeight: 1.42, wordBreak: "break-word" }}>
                               {deliv}
                             </span>
                           </div>
@@ -523,17 +693,19 @@ export default function CommerceNetwork() {
                     </div>
                   </div>
 
-                  {/* Explore CTA Button */}
+                  {/* Explore CTA Button — dedicated class & styles to prevent any clipping */}
                   <Link
                     href={activeNode.href}
-                    className="btn-primary-hero"
+                    className="active-card-cta-btn"
                     style={{
                       width: "100%",
-                      height: "46px",
-                      borderRadius: "11px",
+                      boxSizing: "border-box",
+                      minHeight: "48px",
+                      padding: "0.75rem 1rem",
+                      borderRadius: "12px",
                       background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
                       color: "#FFFFFF",
-                      fontSize: "0.88rem",
+                      fontSize: "0.84rem",
                       fontWeight: 700,
                       display: "flex",
                       alignItems: "center",
@@ -541,9 +713,10 @@ export default function CommerceNetwork() {
                       textAlign: "center",
                       gap: "0.4rem",
                       textDecoration: "none",
-                      boxShadow: "0 4px 16px rgba(37, 99, 235, 0.25)",
+                      boxShadow: "0 4px 16px rgba(37, 99, 235, 0.22)",
                       transition: "all 0.2s ease",
-                      marginTop: "auto"
+                      marginTop: "auto",
+                      lineHeight: 1.3
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.transform = "translateY(-2px)";
@@ -551,10 +724,11 @@ export default function CommerceNetwork() {
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.transform = "translateY(0)";
-                      e.currentTarget.style.boxShadow = "0 4px 16px rgba(37, 99, 235, 0.25)";
+                      e.currentTarget.style.boxShadow = "0 4px 16px rgba(37, 99, 235, 0.22)";
                     }}
                   >
-                    Explore {activeNode.shortLabel} Mandate →
+                    <span>Explore {activeNode.name} Mandate</span>
+                    <span style={{ fontSize: "0.95rem", marginLeft: "0.25rem", display: "inline-block" }}>→</span>
                   </Link>
 
                 </div>
@@ -576,31 +750,34 @@ export default function CommerceNetwork() {
           100% { opacity: 1; transform: translateY(0) scale(1); }
         }
         .fade-slide-up {
-          animation: fadeSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        
-        @keyframes spinSlow {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        .rotating-ring {
-          animation: spinSlow 24s linear infinite;
+          animation: fadeSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .pulse-dot {
-          animation: pulseOpacity 2s infinite;
+        .center-hub-group {
+          transition: transform 0.25s ease;
         }
-        @keyframes pulseOpacity {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.5; transform: scale(0.8); }
+        .center-hub-group:hover {
+          transform: scale(1.015);
+        }
+
+        .active-card-cta-btn:hover {
+          background: linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%) !important;
+        }
+
+        .commerce-network-section {
+          font-family: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         /* SVG Node Hover FX */
         .svg-node {
+          cursor: grab;
           transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
+        .svg-node:active {
+          cursor: grabbing !important;
+        }
         .svg-node:hover:not(.active) {
-          transform: scale(1.04);
+          transform: scale(1.03);
         }
         .svg-node:hover:not(.active) .node-bg {
           stroke: #93C5FD;
@@ -608,7 +785,7 @@ export default function CommerceNetwork() {
         }
 
         .network-split-layout {
-          grid-template-columns: 1fr 420px;
+          grid-template-columns: 1fr 390px;
         }
         .network-console-container {
           padding: 2.5rem 2rem;
@@ -626,7 +803,7 @@ export default function CommerceNetwork() {
             gap: 0;
           }
           .network-svg-viewport {
-            min-height: 350px !important;
+            min-height: 380px !important;
             display: flex !important;
           }
           .svg-node {

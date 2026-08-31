@@ -62,31 +62,57 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
   return (
     <header className={`header-bar ${scrolled ? "scrolled" : ""}`} style={{
       position: "fixed",
-      top: scrolled ? "0px" : "18px",
+      top: scrolled ? "12px" : "18px",
       left: "50%",
       transform: "translateX(-50%)",
-      width: scrolled ? "100%" : "calc(100% - 2.5rem)",
-      maxWidth: scrolled ? "100%" : "1240px",
-      height: scrolled ? "68px" : "74px",
-      background: scrolled ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 0.85)",
-      backdropFilter: "blur(20px)",
-      WebkitBackdropFilter: "blur(20px)",
-      borderRadius: scrolled ? "0px" : "99px",
-      border: scrolled ? "none" : "1px solid rgba(255, 255, 255, 0.8)",
-      borderBottom: scrolled ? "1px solid rgba(15, 23, 42, 0.06)" : "1px solid rgba(255, 255, 255, 0.8)",
-      boxShadow: scrolled ? "0 8px 30px rgba(15, 23, 42, 0.08)" : "0 12px 40px rgba(37, 99, 235, 0.07), 0 2px 6px rgba(15, 23, 42, 0.03)",
+      width: "calc(100% - 2.5rem)",
+      maxWidth: scrolled ? "1140px" : "1240px",
+      height: scrolled ? "64px" : "72px",
+      background: scrolled
+        ? "linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(240, 247, 255, 0.78) 100%)"
+        : "transparent",
+      backdropFilter: scrolled ? "blur(28px) saturate(190%)" : "none",
+      WebkitBackdropFilter: scrolled ? "blur(28px) saturate(190%)" : "none",
+      borderRadius: "999px",
+      border: scrolled
+        ? "1.5px solid rgba(191, 219, 254, 0.85)"
+        : "1.5px solid transparent",
+      boxShadow: scrolled
+        ? "0 20px 48px rgba(15, 23, 42, 0.10), 0 6px 20px rgba(37, 99, 235, 0.10), inset 0 1px 2px rgba(255, 255, 255, 0.95)"
+        : "none",
       zIndex: 9999,
-      transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)"
+      transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
     }}>
-      <div style={{ width: "100%", maxWidth: "1240px", margin: "0 auto", height: "100%", padding: "0 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{
+        width: "100%",
+        maxWidth: scrolled ? "1140px" : "1220px",
+        margin: "0 auto",
+        height: "100%",
+        padding: "0 1.6rem",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+      }}>
         
-        {/* Brand Logo (Left) */}
-        <Link href="/" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center" }} className="header-logo-container">
-          <Logo height={44} mode="light" />
+        {/* Brand Logo (Left) — smooth liquid scale */}
+        <Link
+          href="/"
+          style={{
+            textDecoration: "none",
+            display: "inline-flex",
+            alignItems: "center",
+            transform: scrolled ? "scale(0.94)" : "scale(1)",
+            transformOrigin: "left center",
+            transition: "transform 0.35s ease"
+          }}
+          className="header-logo-container"
+        >
+          <Logo height={42} mode="light" />
         </Link>
 
-        {/* Desktop Navigation Links (Option 1: Seamless Modern Glass + Bold Deep Slate) */}
-        <nav style={{ display: "flex", gap: "0.4rem", alignItems: "center" }} className="desktop-nav">
+        {/* Desktop Navigation Links — Liquid glass pills */}
+        <nav style={{ display: "flex", gap: "0.35rem", alignItems: "center" }} className="desktop-nav">
           {(["solutions", "capabilities", "specialised", "proof"] as const).map((key) => {
             const labels: Record<string, string> = {
               solutions: "Solutions",
@@ -100,10 +126,10 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
                 key={key}
                 onMouseEnter={() => setActiveMenu(key)}
                 onMouseLeave={() => setActiveMenu(null)}
-                style={{ position: "relative", padding: "0.5rem 0" }}
+                style={{ position: "relative", padding: "0.4rem 0" }}
               >
                 <span style={{
-                  fontSize: "0.93rem",
+                  fontSize: scrolled ? "0.91rem" : "0.93rem",
                   fontWeight: 700,
                   fontFamily: "var(--font-display)",
                   color: isActive ? "#1D4ED8" : "#0F172A",
@@ -111,22 +137,25 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
                   display: "flex",
                   alignItems: "center",
                   gap: "0.35rem",
-                  padding: "0.5rem 1.15rem",
-                  borderRadius: "99px",
-                  background: isActive ? "rgba(37, 99, 235, 0.09)" : "transparent",
-                  transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
+                  padding: scrolled ? "0.45rem 1rem" : "0.5rem 1.15rem",
+                  borderRadius: "999px",
+                  background: isActive ? "rgba(37, 99, 235, 0.10)" : "transparent",
+                  border: isActive ? "1px solid rgba(191, 219, 254, 0.8)" : "1px solid transparent",
+                  transition: "all 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
                   userSelect: "none"
                 }}
                 onMouseEnter={(e) => {
                   if (!isActive) {
                     e.currentTarget.style.color = "#1D4ED8";
                     e.currentTarget.style.background = "rgba(37, 99, 235, 0.06)";
+                    e.currentTarget.style.borderColor = "rgba(191, 219, 254, 0.5)";
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!isActive) {
                     e.currentTarget.style.color = "#0F172A";
                     e.currentTarget.style.background = "transparent";
+                    e.currentTarget.style.borderColor = "transparent";
                   }
                 }}
                 >
@@ -146,19 +175,27 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
             onClick={onOpenDiagnostic}
             className="header-cta-button"
             style={{
-              height: "46px",
-              fontSize: "0.9rem",
+              height: scrolled ? "42px" : "46px",
+              fontSize: scrolled ? "0.86rem" : "0.89rem",
               fontWeight: 700,
               fontFamily: "var(--font-display)",
-              padding: "0 1.5rem",
-              borderRadius: "99px",
+              padding: scrolled ? "0 1.35rem" : "0 1.6rem",
+              borderRadius: "999px",
               background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
               color: "#FFFFFF",
               border: "none",
               cursor: "pointer",
-              boxShadow: "0 6px 20px rgba(37, 99, 235, 0.32)",
-              transition: "all 0.22s ease",
+              boxShadow: "0 6px 20px rgba(37, 99, 235, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.35)",
+              transition: "all 0.25s ease",
               whiteSpace: "nowrap"
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "translateY(-2px) scale(1.02)";
+              e.currentTarget.style.boxShadow = "0 10px 28px rgba(37, 99, 235, 0.42), inset 0 1px 1px rgba(255, 255, 255, 0.4)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "translateY(0) scale(1)";
+              e.currentTarget.style.boxShadow = "0 6px 20px rgba(37, 99, 235, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.35)";
             }}
           >
             <span className="cta-text-desktop">Request a Free Audit →</span>
@@ -172,13 +209,14 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
             aria-label="Toggle menu"
             style={{
               display: "none",
-              width: "44px",
-              height: "44px",
-              background: mobileOpen ? "rgba(255, 255, 255, 0.9)" : "rgba(255, 255, 255, 0.3)",
-              backdropFilter: "blur(12px)",
-              border: `1px solid ${mobileOpen ? "#BFDBFE" : "rgba(255, 255, 255, 0.5)"}`,
+              width: "42px",
+              height: "42px",
+              background: mobileOpen ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 0.5)",
+              backdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(16px)",
+              border: `1px solid ${mobileOpen ? "#93C5FD" : "rgba(255, 255, 255, 0.7)"}`,
               color: mobileOpen ? "#2563EB" : "#0F172A",
-              borderRadius: "14px",
+              borderRadius: "999px",
               cursor: "pointer",
               fontSize: "1.1rem",
               alignItems: "center",
@@ -191,7 +229,7 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
         </div>
       </div>
 
-      {/* Floating Glass Mega-Menu Overlay for Desktop */}
+      {/* Floating Liquid Glass Mega-Menu Overlay for Desktop */}
       {activeMenu && (
         <div
           className="mega-menu-overlay"
@@ -199,15 +237,17 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
           onMouseLeave={() => setActiveMenu(null)}
           style={{
             position: "absolute",
-            top: "calc(100% + 4px)",
+            top: "calc(100% + 8px)",
             left: "50%",
             transform: "translateX(-50%)",
-            width: "calc(100% - 2rem)",
-            maxWidth: "1140px",
-            background: "#FFFFFF",
-            borderRadius: "24px",
-            border: "1px solid rgba(15, 23, 42, 0.06)",
-            boxShadow: "0 20px 40px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04)",
+            width: "calc(100% - 1.5rem)",
+            maxWidth: "1160px",
+            background: "rgba(255, 255, 255, 0.88)",
+            backdropFilter: "blur(28px) saturate(190%)",
+            WebkitBackdropFilter: "blur(28px) saturate(190%)",
+            borderRadius: "28px",
+            border: "1.5px solid rgba(255, 255, 255, 0.95)",
+            boxShadow: "0 24px 54px rgba(15, 23, 42, 0.12), 0 6px 20px rgba(37, 99, 235, 0.08), inset 0 1.5px 2px rgba(255, 255, 255, 0.95)",
             padding: "1.5rem"
           }}
         >
@@ -221,22 +261,24 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
                   display: "flex",
                   flexDirection: "column",
                   padding: "0.95rem 1.1rem",
-                  borderRadius: "16px",
-                  background: "rgba(255, 255, 255, 0.65)",
-                  border: "1px solid rgba(226, 232, 240, 0.7)",
+                  borderRadius: "18px",
+                  background: "rgba(255, 255, 255, 0.55)",
+                  border: "1px solid rgba(226, 232, 240, 0.75)",
                   textDecoration: "none",
                   transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
                   gap: "0.25rem"
                 }}
                 onMouseEnter={e => {
-                  (e.currentTarget as HTMLAnchorElement).style.background = "#EFF6FF";
-                  (e.currentTarget as HTMLAnchorElement).style.borderColor = "#BFDBFE";
+                  (e.currentTarget as HTMLAnchorElement).style.background = "rgba(239, 246, 255, 0.95)";
+                  (e.currentTarget as HTMLAnchorElement).style.borderColor = "#93C5FD";
                   (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-2px)";
+                  (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 8px 20px rgba(37, 99, 235, 0.08)";
                 }}
                 onMouseLeave={e => {
-                  (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255, 255, 255, 0.65)";
-                  (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(226, 232, 240, 0.7)";
+                  (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255, 255, 255, 0.55)";
+                  (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(226, 232, 240, 0.75)";
                   (e.currentTarget as HTMLAnchorElement).style.transform = "none";
+                  (e.currentTarget as HTMLAnchorElement).style.boxShadow = "none";
                 }}
               >
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -370,6 +412,42 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
           </button>
         </div>
       )}
+
+      {/* Liquid Glass Styles & Animations */}
+      <style jsx>{`
+        .header-bar {
+          transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                      height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                      max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                      background 0.4s ease,
+                      box-shadow 0.4s ease,
+                      border-color 0.4s ease;
+        }
+
+        .header-bar.scrolled::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.04) 65%, transparent 100%);
+          pointer-events: none;
+        }
+
+        .mega-menu-overlay {
+          animation: liquidDrop 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes liquidDrop {
+          0% {
+            opacity: 0;
+            transform: translate(-50%, -8px) scale(0.98);
+          }
+          100% {
+            opacity: 1;
+            transform: translate(-50%, 0) scale(1);
+          }
+        }
+      `}</style>
     </header>
   );
 }

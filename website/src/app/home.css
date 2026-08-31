@@ -402,9 +402,9 @@ html {
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .hero-real-section {
   position: relative;
-  padding-top: 155px;
-  padding-bottom: 45px;
-  min-height: 94vh;
+  padding-top: 145px;
+  padding-bottom: 75px;
+  min-height: 100vh;
   /* Fits beautifully with grand breathing room */
   overflow: hidden;
   display: flex;
@@ -5349,7 +5349,7 @@ html {
   position: relative;
   overflow: hidden;
   background: linear-gradient(180deg, #F0F7FF 0%, #E0F2FE 30%, #D8EDFE 65%, #F1F8FE 100%);
-  padding: 5rem 1rem 4.5rem;
+  padding: 6rem 1rem 5.5rem;
   border: none;
 }
 

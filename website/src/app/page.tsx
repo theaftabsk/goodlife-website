@@ -992,99 +992,99 @@ export default function HomePage() {
     }
   ];
 
-  // Approved Platform Vector SVGs (Enlarged & High-Impact)
+  // Approved Platform Vector SVGs (Refined & Balanced 38px Scale)
   const channelSVGs: { name: string; svg: React.ReactNode }[] = [
     {
       name: "Amazon",
       svg: (
-        <svg viewBox="0 0 140 40" width="135" height="36" fill="none">
-          <text x="2" y="24" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="24" fill="#131921" letterSpacing="-0.5">amazon</text>
-          <path d="M6 30 C 34 40, 72 40, 92 30" stroke="#FF9900" strokeWidth="3.4" strokeLinecap="round" fill="none" />
-          <path d="M87 26.5 L 96 30.5 L 89.5 36 Z" fill="#FF9900" />
+        <svg viewBox="0 0 145 38" width="145" height="38" fill="none">
+          <text x="2" y="23" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="24" fill="#131921" letterSpacing="-0.5">amazon</text>
+          <path d="M5 29 C 33 39, 70 39, 94 29" stroke="#FF9900" strokeWidth="3.5" strokeLinecap="round" fill="none" />
+          <path d="M88 25.5 L 97 29.5 L 90.5 35 Z" fill="#FF9900" />
         </svg>
       ),
     },
     {
       name: "Flipkart",
       svg: (
-        <svg viewBox="0 0 150 40" width="145" height="36" fill="none">
-          <rect x="4" y="7" width="22" height="24" rx="4" fill="#2874F0" />
-          <text x="10" y="25" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#FFE500">f</text>
-          <text x="33" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="22" fill="#2874F0" letterSpacing="-0.5">flipkart</text>
+        <svg viewBox="0 0 155 38" width="155" height="38" fill="none">
+          <rect x="3" y="6" width="24" height="26" rx="5" fill="#2874F0" />
+          <text x="10" y="25" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="19" fill="#FFE500">f</text>
+          <text x="34" y="25" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="23" fill="#2874F0" letterSpacing="-0.5">flipkart</text>
         </svg>
       ),
     },
     {
       name: "Meesho",
       svg: (
-        <svg viewBox="0 0 140 40" width="135" height="36" fill="none">
-          <text x="2" y="27" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="26" fill="#F43397" letterSpacing="-0.5">meesho</text>
+        <svg viewBox="0 0 145 38" width="145" height="38" fill="none">
+          <text x="2" y="27" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="27" fill="#F43397" letterSpacing="-0.5">meesho</text>
         </svg>
       )
     },
     {
       name: "Myntra",
       svg: (
-        <svg viewBox="0 0 145 40" width="140" height="36" fill="none">
-          <path d="M5 28 L11 9 L18 22 L25 9 L31 28" stroke="#FF3F6C" strokeWidth="4.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          <text x="39" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="21" fill="#282C3F" letterSpacing="0.2">myntra</text>
+        <svg viewBox="0 0 150 38" width="150" height="38" fill="none">
+          <path d="M4 27 L10 9 L17 21 L24 9 L30 27" stroke="#FF3F6C" strokeWidth="4.4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <text x="39" y="25" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="23" fill="#282C3F" letterSpacing="0.2">myntra</text>
         </svg>
       ),
     },
     {
       name: "Blinkit",
       svg: (
-        <svg viewBox="0 0 140 40" width="135" height="36" fill="none">
-          <rect x="2" y="6" width="26" height="26" rx="7" fill="#F8CB46" />
-          <text x="9" y="25" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="19" fill="#0C831F">b</text>
-          <text x="34" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="22" fill="#0C831F" letterSpacing="-0.4">blinkit</text>
+        <svg viewBox="0 0 145 38" width="145" height="38" fill="none">
+          <rect x="2" y="5" width="28" height="28" rx="8" fill="#F8CB46" />
+          <text x="10" y="25" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="20" fill="#0C831F">b</text>
+          <text x="37" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="23" fill="#0C831F" letterSpacing="-0.4">blinkit</text>
         </svg>
       ),
     },
     {
       name: "Nykaa",
       svg: (
-        <svg viewBox="0 0 130 40" width="125" height="36" fill="none">
-          <text x="2" y="27" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="24" fill="#FC2779" fontStyle="italic" letterSpacing="0.5">NYKAA</text>
+        <svg viewBox="0 0 135 38" width="135" height="38" fill="none">
+          <text x="2" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="25" fill="#FC2779" fontStyle="italic" letterSpacing="0.5">NYKAA</text>
         </svg>
       ),
     },
     {
       name: "JioMart",
       svg: (
-        <svg viewBox="0 0 145 40" width="135" height="36" fill="none">
-          <text x="2" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="20" fill="#E11900">Jio</text>
-          <text x="32" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="22" fill="#008ECC" letterSpacing="-0.2">Mart</text>
+        <svg viewBox="0 0 150 38" width="150" height="38" fill="none">
+          <text x="2" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="22" fill="#E11900">Jio</text>
+          <text x="34" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="24" fill="#008ECC" letterSpacing="-0.2">Mart</text>
         </svg>
       ),
     },
     {
       name: "Moglix",
       svg: (
-        <svg viewBox="0 0 140 40" width="135" height="36" fill="none">
-          <rect x="2" y="7" width="22" height="24" rx="4" fill="#E02A26" />
-          <path d="M6 25 V13 L13 19 L20 13 V25" stroke="#FFFFFF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          <text x="30" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="22" fill="#1F2937" letterSpacing="-0.2">moglix</text>
+        <svg viewBox="0 0 145 38" width="145" height="38" fill="none">
+          <rect x="2" y="6" width="24" height="26" rx="4" fill="#E02A26" />
+          <path d="M6 24 V12 L14 18 L22 12 V24" stroke="#FFFFFF" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <text x="33" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="23" fill="#1F2937" letterSpacing="-0.2">moglix</text>
         </svg>
       ),
     },
     {
       name: "Shopify",
       svg: (
-        <svg viewBox="0 0 140 40" width="135" height="36" fill="none">
-          <path d="M14 5 L4 12 L9 34 L26 34 L31 12 Z" fill="#95BF47" />
-          <text x="9" y="27" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="17" fill="#FFFFFF">S</text>
-          <text x="38" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="21" fill="#212326" letterSpacing="-0.3">shopify</text>
+        <svg viewBox="0 0 145 38" width="145" height="38" fill="none">
+          <path d="M14 5 L4 12 L9 33 L26 33 L31 12 Z" fill="#95BF47" />
+          <text x="10" y="27" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#FFFFFF">S</text>
+          <text x="38" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="22" fill="#212326" letterSpacing="-0.3">shopify</text>
         </svg>
       ),
     },
     {
       name: "Snapmint",
       svg: (
-        <svg viewBox="0 0 145 40" width="140" height="36" fill="none">
-          <circle cx="14" cy="20" r="11" fill="#00C29F" />
-          <text x="8" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="17" fill="#FFFFFF">S</text>
-          <text x="32" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="21" fill="#00C29F" letterSpacing="-0.2">snapmint</text>
+        <svg viewBox="0 0 155 38" width="155" height="38" fill="none">
+          <circle cx="15" cy="19" r="12" fill="#00C29F" />
+          <text x="9" y="25" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#FFFFFF">S</text>
+          <text x="35" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="22" fill="#00C29F" letterSpacing="-0.2">snapmint</text>
         </svg>
       ),
     },
@@ -1128,44 +1128,60 @@ export default function HomePage() {
           <div className="container" style={{ width: "100%", padding: "0 1rem" }}>
             <div className="hero-left-content" style={{ maxWidth: "1000px", margin: "0 auto", textAlign: "center", alignItems: "center" }}>
 
-              <div className="hero-badge reveal" style={{
-                background: "#FFFFFF",
-                border: "1px solid rgba(37, 99, 235, 0.22)",
-                color: "#1E40AF",
-                boxShadow: "0 6px 20px rgba(37, 99, 235, 0.10)",
-                padding: "0.65rem 1.6rem",
-                fontSize: "1.05rem",
-                fontWeight: 700,
-                letterSpacing: "0.4px",
-                marginBottom: "2rem",
-                borderRadius: "99px",
+              {/* Professional Clean Trust Eyebrow (No bulky fita/ribbon border) */}
+              <div className="reveal" style={{
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "10px"
+                justifyContent: "center",
+                gap: "8px",
+                marginBottom: "2rem",
+                color: "#2563EB",
+                fontSize: "0.86rem",
+                fontWeight: 700,
+                letterSpacing: "1.4px",
+                textTransform: "uppercase",
+                background: "transparent",
+                border: "none",
+                boxShadow: "none",
+                padding: 0
               }}>
-                <span className="hero-badge-dot" style={{ background: "#2563EB", boxShadow: "0 0 0 4px rgba(37, 99, 235, 0.25)", width: 10, height: 10, borderRadius: "50%" }} />
-                India&apos;s Trusted Ecommerce Operations Partner
+                <span style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "18px",
+                  height: "18px",
+                  borderRadius: "50%",
+                  background: "rgba(37, 99, 235, 0.10)",
+                  color: "#2563EB",
+                  flexShrink: 0
+                }}>
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </span>
+                <span>India&apos;s Trusted Ecommerce Operations Partner</span>
               </div>
 
-              <h1 className="hero-headline-etail reveal" style={{ fontSize: "clamp(2.8rem, 5.8vw, 4.8rem)", fontWeight: 900, lineHeight: 1.1, letterSpacing: "-2px", color: "#0B1736", margin: "0 auto 1.6rem", maxWidth: "1050px" }}>
+              <h1 className="hero-headline-etail reveal" style={{ fontSize: "clamp(2.8rem, 5.8vw, 4.8rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-2px", color: "#0B1736", margin: "0 auto 2.2rem", maxWidth: "1050px" }}>
                 Scale Ecommerce. <br />
                 <span style={{ background: "linear-gradient(90deg, #4F46E5 0%, #2563EB 50%, #0284C7 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", display: "inline-block" }}>
                   Not Complexity.
                 </span>
               </h1>
 
-              <p className="hero-subtitle-etail reveal" style={{ fontSize: "clamp(1.15rem, 2vw, 1.32rem)", color: "#475569", lineHeight: 1.68, marginBottom: "2.6rem", maxWidth: "900px", fontWeight: 500 }}>
+              <p className="hero-subtitle-etail reveal" style={{ fontSize: "clamp(1.12rem, 1.9vw, 1.3rem)", color: "#475569", lineHeight: 1.75, marginBottom: "3.2rem", maxWidth: "880px", fontWeight: 500 }}>
                 Good Life brings marketplace growth, D2C, pan-India fulfilment, demand planning, performance marketing, returns and revenue assurance together under one accountable operating model.
               </p>
 
-              <div className="hero-cta-wrapper reveal" style={{ display: "flex", alignItems: "center", gap: "1.2rem", flexWrap: "wrap", justifyContent: "center", width: "100%", marginBottom: "3rem" }}>
+              <div className="hero-cta-wrapper reveal" style={{ display: "flex", alignItems: "center", gap: "1.4rem", flexWrap: "wrap", justifyContent: "center", width: "100%", marginBottom: "4.5rem" }}>
                 <button
                   className="btn-primary-hero"
                   onClick={() => setDiagOpen(true)}
                   style={{
-                    height: "56px",
-                    padding: "0 2.4rem",
-                    borderRadius: "14px",
+                    height: "58px",
+                    padding: "0 2.5rem",
+                    borderRadius: "16px",
                     background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
                     color: "#FFFFFF",
                     fontSize: "1.05rem",
@@ -1185,11 +1201,11 @@ export default function HomePage() {
                   onClick={() => setVideoOpen(true)}
                   style={{
                     background: "#FFFFFF",
-                    border: "1.5px solid rgba(15,23,42,0.18)",
+                    border: "1.5px solid rgba(15,23,42,0.16)",
                     color: "#0B1736",
-                    height: "56px",
-                    borderRadius: "14px",
-                    padding: "0 2.2rem",
+                    height: "58px",
+                    borderRadius: "16px",
+                    padding: "0 2.3rem",
                     fontSize: "1.05rem",
                     fontWeight: 700,
                     cursor: "pointer",
@@ -1203,11 +1219,11 @@ export default function HomePage() {
               </div>
 
               {/* ── BRAND MARQUEE (Trusted Channels) ── */}
-              <div className="brands-marquee-section reveal" style={{ position: "relative", zIndex: 3, padding: "2rem 0 0.8rem", background: "transparent", border: "none", boxShadow: "none" }}>
-                <p className="brands-marquee-label" style={{ textAlign: "center", marginBottom: "1.4rem", fontSize: "0.82rem", fontWeight: 800, letterSpacing: "2.5px", color: "#64748B", textTransform: "uppercase" }}>
+              <div className="brands-marquee-section reveal" style={{ position: "relative", zIndex: 3, padding: "1.5rem 0 1rem", background: "transparent", border: "none", boxShadow: "none" }}>
+                <p className="brands-marquee-label" style={{ textAlign: "center", marginBottom: "1.1rem", fontSize: "0.72rem", fontWeight: 700, letterSpacing: "2.2px", color: "#64748B", textTransform: "uppercase" }}>
                   Operating across India&apos;s leading platforms
                 </p>
-                <div className="channel-strip" style={{ margin: 0 }}>
+                <div className="channel-strip" style={{ margin: 0, padding: 0 }}>
                   <div className="channel-marquee-container" style={{ margin: 0, padding: 0, maskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)", WebkitMaskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)" }}>
                     <div className="channel-marquee-track">
                       {[...channelSVGs, ...channelSVGs].map((ch, idx) => (
@@ -1218,13 +1234,13 @@ export default function HomePage() {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            padding: "0 1.5rem",
+                            padding: "0 1.85rem",
                             cursor: "default",
                             transition: "all 0.3s ease",
-                            opacity: 0.9
+                            opacity: 1
                           }}
-                          onMouseEnter={(e) => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.transform = "scale(1.08)"; }}
-                          onMouseLeave={(e) => { e.currentTarget.style.opacity = "0.9"; e.currentTarget.style.transform = "scale(1)"; }}
+                          onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.08)"; }}
+                          onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
                         >
                           {ch.svg}
                         </div>
