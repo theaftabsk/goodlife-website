@@ -10,6 +10,7 @@ interface HeaderProps {
 
 export default function Header({ onOpenDiagnostic }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [expandedMobileCategory, setExpandedMobileCategory] = useState<string | null>(null);
@@ -22,6 +23,14 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Detect mobile breakpoint in JS so inline styles apply correctly
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   const handleMenuEnter = (menuKey: string) => {
@@ -104,36 +113,59 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
     setExpandedMobileCategory(expandedMobileCategory === cat ? null : cat);
   };
 
+  // Mobile: full-width fixed bar at top. Desktop: floating pill.
+  const mobileHeaderStyle: React.CSSProperties = {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    width: "100%",
+    maxWidth: "100%",
+    transform: "none",
+    height: "60px",
+    background: "rgba(255, 255, 255, 0.97)",
+    backdropFilter: "blur(20px) saturate(180%)",
+    WebkitBackdropFilter: "blur(20px) saturate(180%)",
+    borderRadius: 0,
+    border: "none",
+    borderBottom: "1px solid #E2E8F0",
+    boxShadow: "0 2px 10px rgba(11, 23, 54, 0.06)",
+    zIndex: 99999,
+    transition: "none"
+  };
+
+  const desktopHeaderStyle: React.CSSProperties = {
+    position: "fixed",
+    top: scrolled ? "10px" : "14px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    width: "calc(100% - 2rem)",
+    maxWidth: scrolled ? "1160px" : "1240px",
+    height: scrolled ? "64px" : "70px",
+    background: "rgba(255, 255, 255, 0.94)",
+    backdropFilter: "blur(24px) saturate(190%)",
+    WebkitBackdropFilter: "blur(24px) saturate(190%)",
+    borderRadius: "999px",
+    border: "1.5px solid rgba(226, 232, 240, 0.95)",
+    boxShadow: scrolled
+      ? "0 18px 45px rgba(15, 23, 42, 0.10), 0 4px 16px rgba(37, 99, 235, 0.08)"
+      : "0 10px 30px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03)",
+    zIndex: 9999,
+    transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)"
+  };
+
   return (
-    <header ref={headerRef} className={`header-bar ${scrolled ? "scrolled" : ""}`} style={{
-      position: "fixed",
-      top: scrolled ? "10px" : "14px",
-      left: "50%",
-      transform: "translateX(-50%)",
-      width: "calc(100% - 2rem)",
-      maxWidth: scrolled ? "1160px" : "1240px",
-      height: scrolled ? "64px" : "70px",
-      background: "rgba(255, 255, 255, 0.94)",
-      backdropFilter: "blur(24px) saturate(190%)",
-      WebkitBackdropFilter: "blur(24px) saturate(190%)",
-      borderRadius: "999px",
-      border: "1.5px solid rgba(226, 232, 240, 0.95)",
-      boxShadow: scrolled
-        ? "0 18px 45px rgba(15, 23, 42, 0.10), 0 4px 16px rgba(37, 99, 235, 0.08)"
-        : "0 10px 30px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03)",
-      zIndex: 9999,
-      transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)"
-    }}>
+    <header ref={headerRef} className={`header-bar ${scrolled ? "scrolled" : ""}`} style={isMobile ? mobileHeaderStyle : desktopHeaderStyle}>
       <div style={{
         width: "100%",
-        maxWidth: scrolled ? "1140px" : "1220px",
+        maxWidth: isMobile ? "100%" : (scrolled ? "1140px" : "1220px"),
         margin: "0 auto",
         height: "100%",
-        padding: "0 1.6rem",
+        padding: isMobile ? "0 1rem" : "0 1.6rem",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+        transition: isMobile ? "none" : "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
       }}>
         
         {/* Brand Logo (Left) — smooth liquid scale */}
@@ -143,17 +175,17 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
             textDecoration: "none",
             display: "inline-flex",
             alignItems: "center",
-            transform: scrolled ? "scale(0.94)" : "scale(1)",
+            transform: isMobile ? "none" : (scrolled ? "scale(0.94)" : "scale(1)"),
             transformOrigin: "left center",
-            transition: "transform 0.35s ease"
+            transition: isMobile ? "none" : "transform 0.35s ease"
           }}
           className="header-logo-container"
         >
           <Logo height={42} mode="light" />
         </Link>
 
-        {/* Desktop Navigation Links — Liquid glass pills */}
-        <nav style={{ display: "flex", gap: "0.35rem", alignItems: "center" }} className="desktop-nav">
+        {/* Desktop Navigation Links — hidden on mobile */}
+        <nav style={{ display: isMobile ? "none" : "flex", gap: "0.35rem", alignItems: "center" }} className="desktop-nav">
           {(["solutions", "capabilities", "specialised", "proof"] as const).map((key) => {
             const labels: Record<string, string> = {
               solutions: "Solutions",
@@ -220,6 +252,7 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
             onClick={onOpenDiagnostic}
             className="header-cta-button desktop-cta-only"
             style={{
+              display: isMobile ? "none" : "inline-flex",
               height: scrolled ? "38px" : "40px",
               fontSize: "0.82rem",
               fontWeight: 750,
@@ -257,7 +290,7 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
             aria-label="Toggle navigation menu"
             aria-expanded={mobileOpen}
             style={{
-              display: "none",
+              display: isMobile ? "flex" : "none",
               width: "40px",
               height: "40px",
               borderRadius: "10px",
