@@ -90,7 +90,7 @@ export default function FixAndGrowPage() {
   ];
 
   return (
-    <div className={`solution-fix-root ${inter.className}`} style={{ background: "#FFFFFF", color: "#0B1736", minHeight: "100vh" }}>
+    <div className={`solution-fix-root ${inter.className}`} style={{ background: "#FFFFFF", color: "#0B1736", minHeight: "100vh", overflowX: "hidden", width: "100%" }}>
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* ── SECTION 1: HERO (Clean 2-Column: Left Copy, Right Margin Leak Card) ── */}
@@ -122,7 +122,7 @@ export default function FixAndGrowPage() {
             
             {/* Left Column: Heading, Paragraph, Buttons */}
             <div>
-              <div style={{
+              <div className="fix-eyebrow-pill" style={{
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "0.5rem",
@@ -141,7 +141,7 @@ export default function FixAndGrowPage() {
                 SOLUTION 02 • TURNAROUND & MARGIN RECOVERY
               </div>
 
-              <h1 style={{
+              <h1 className="fix-hero-title" style={{
                 fontSize: "clamp(2.4rem, 4.2vw, 3.6rem)",
                 fontWeight: 900,
                 lineHeight: 1.14,
@@ -860,7 +860,14 @@ export default function FixAndGrowPage() {
         @media (max-width: 980px) {
           .hero-two-column {
             grid-template-columns: 1fr !important;
-            gap: 2.5rem !important;
+            gap: 2.2rem !important;
+            width: 100% !important;
+          }
+          .hero-two-column > div {
+            min-width: 0 !important;
+            max-width: 100% !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
           }
           .leak-cards-grid {
             grid-template-columns: repeat(2, 1fr) !important;
@@ -885,6 +892,23 @@ export default function FixAndGrowPage() {
         }
 
         @media (max-width: 640px) {
+          .fix-eyebrow-pill {
+            font-size: 0.68rem !important;
+            padding: 0.35rem 0.75rem !important;
+            white-space: normal !important;
+            line-height: 1.35 !important;
+            max-width: 100% !important;
+            margin-bottom: 1rem !important;
+            box-sizing: border-box !important;
+          }
+          .fix-hero-title {
+            font-size: clamp(1.65rem, 6.5vw, 2.2rem) !important;
+            letter-spacing: -1px !important;
+            line-height: 1.15 !important;
+            margin-bottom: 1rem !important;
+            word-break: break-word !important;
+            overflow-wrap: break-word !important;
+          }
           .hero-btn-row {
             flex-direction: column !important;
             width: 100% !important;
@@ -895,8 +919,14 @@ export default function FixAndGrowPage() {
             justify-content: center !important;
           }
           .margin-leak-card {
-            padding: 1.4rem 1.15rem !important;
-            border-radius: 18px !important;
+            padding: 1.25rem 1rem !important;
+            border-radius: 16px !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+          }
+          .margin-leak-card * {
+            box-sizing: border-box !important;
           }
           .leak-cards-grid {
             grid-template-columns: 1fr !important;

@@ -59,7 +59,7 @@ export default function ScalePanIndiaPage() {
   ];
 
   return (
-    <div className={`solution-scale-root ${inter.className}`} style={{ background: "#FFFFFF", color: "#0B1736", minHeight: "100vh" }}>
+    <div className={`solution-scale-root ${inter.className}`} style={{ background: "#FFFFFF", color: "#0B1736", minHeight: "100vh", overflowX: "hidden", width: "100%" }}>
       {/* 01. FIXED HEADER */}
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
@@ -90,7 +90,7 @@ export default function ScalePanIndiaPage() {
             
             {/* Left 55% Content */}
             <div>
-              <div style={{
+              <div className="scale-eyebrow-pill" style={{
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "0.5rem",
@@ -109,7 +109,7 @@ export default function ScalePanIndiaPage() {
                 SOLUTION 03 • NATIONAL FULFILMENT & SPEED DOMINANCE
               </div>
 
-              <h1 style={{
+              <h1 className="scale-hero-title" style={{
                 fontSize: "clamp(2.3rem, 4vw, 3.6rem)",
                 fontWeight: 900,
                 lineHeight: 1.14,
@@ -796,6 +796,13 @@ export default function ScalePanIndiaPage() {
           .hero-grid {
             grid-template-columns: 1fr !important;
             gap: 2rem !important;
+            width: 100% !important;
+          }
+          .hero-grid > div {
+            min-width: 0 !important;
+            max-width: 100% !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
           }
           .zone-cards-grid {
             grid-template-columns: repeat(2, 1fr) !important;
@@ -808,6 +815,23 @@ export default function ScalePanIndiaPage() {
         }
 
         @media (max-width: 640px) {
+          .scale-eyebrow-pill {
+            font-size: 0.68rem !important;
+            padding: 0.35rem 0.75rem !important;
+            white-space: normal !important;
+            line-height: 1.35 !important;
+            max-width: 100% !important;
+            margin-bottom: 1rem !important;
+            box-sizing: border-box !important;
+          }
+          .scale-hero-title {
+            font-size: clamp(1.65rem, 6.5vw, 2.2rem) !important;
+            letter-spacing: -1px !important;
+            line-height: 1.15 !important;
+            margin-bottom: 1rem !important;
+            word-break: break-word !important;
+            overflow-wrap: break-word !important;
+          }
           .zone-cards-grid {
             grid-template-columns: 1fr !important;
           }

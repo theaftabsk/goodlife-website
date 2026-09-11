@@ -158,7 +158,7 @@ export default function LaunchOnlinePage() {
   const readinessStatus = getReadinessStatus();
 
   return (
-    <div className={`launch-online-page ${inter.className}`} style={{ background: "#F8FAFC", color: "#0B1736", minHeight: "100vh" }}>
+    <div className={`launch-online-page ${inter.className}`} style={{ background: "#F8FAFC", color: "#0B1736", minHeight: "100vh", overflowX: "hidden", width: "100%" }}>
       {/* ── 01: HEADER ── */}
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
@@ -193,13 +193,13 @@ export default function LaunchOnlinePage() {
           zIndex: 0
         }} />
 
-        <div className="container" style={{ position: "relative", zIndex: 2, maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem" }}>
+        <div className="container launch-hero-container" style={{ position: "relative", zIndex: 2, maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem" }}>
           <div style={{ display: "grid", gridTemplateColumns: "1.2fr 0.9fr", gap: "3.5rem", alignItems: "center" }} className="launch-hero-split">
             
             {/* Left Side Content */}
             <div>
               {/* Eyebrow */}
-              <div style={{
+              <div className="launch-eyebrow-pill" style={{
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "0.5rem",
@@ -219,12 +219,12 @@ export default function LaunchOnlinePage() {
               </div>
 
               {/* H1 Heading */}
-              <h1 style={{
-                fontSize: "clamp(2.6rem, 5vw, 4.2rem)",
+              <h1 className="launch-hero-title" style={{
+                fontSize: "clamp(2.4rem, 4.8vw, 4.2rem)",
                 fontWeight: 800,
-                lineHeight: 1.05,
+                lineHeight: 1.08,
                 color: "#0B1736",
-                letterSpacing: "-2.5px",
+                letterSpacing: "-2px",
                 margin: "0 0 1.4rem"
               }}>
                 Launch Online: <br />
@@ -232,8 +232,8 @@ export default function LaunchOnlinePage() {
               </h1>
 
               {/* Description */}
-              <p style={{
-                fontSize: "clamp(1.08rem, 1.8vw, 1.22rem)",
+              <p className="launch-hero-desc" style={{
+                fontSize: "clamp(1.04rem, 1.8vw, 1.22rem)",
                 color: "#53627A",
                 lineHeight: 1.7,
                 marginBottom: "2.5rem",
@@ -393,10 +393,10 @@ export default function LaunchOnlinePage() {
                         )}
                       </div>
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontSize: "0.81rem", fontWeight: 700, color: isChecked ? "#1E3A8A" : "#1E293B", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                        <div style={{ fontSize: "0.81rem", fontWeight: 700, color: isChecked ? "#1E3A8A" : "#1E293B", whiteSpace: "normal", wordBreak: "break-word" }}>
                           {item.title}
                         </div>
-                        <div style={{ fontSize: "0.70rem", color: "#64748B", marginTop: "1px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                        <div style={{ fontSize: "0.70rem", color: "#64748B", marginTop: "1px", whiteSpace: "normal", wordBreak: "break-word", lineHeight: 1.3 }}>
                           {item.sub}
                         </div>
                       </div>
@@ -1298,7 +1298,19 @@ export default function LaunchOnlinePage() {
         @media (max-width: 980px) {
           .launch-hero-split {
             grid-template-columns: 1fr !important;
-            gap: 2.5rem !important;
+            gap: 2.2rem !important;
+            width: 100% !important;
+          }
+          .launch-hero-split > div {
+            min-width: 0 !important;
+            max-width: 100% !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+          }
+          .launch-readiness-card {
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
           }
           .channel-conflict-section {
             padding: 4rem 0 4.5rem !important;
@@ -1359,8 +1371,36 @@ export default function LaunchOnlinePage() {
         }
 
         @media (max-width: 640px) {
+          .launch-hero-container {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+          }
           .launch-hero-split {
-            gap: 2rem !important;
+            gap: 1.8rem !important;
+          }
+          .launch-eyebrow-pill {
+            font-size: 0.68rem !important;
+            padding: 0.35rem 0.75rem !important;
+            white-space: normal !important;
+            line-height: 1.35 !important;
+            max-width: 100% !important;
+            margin-bottom: 1rem !important;
+            box-sizing: border-box !important;
+          }
+          .launch-hero-title {
+            font-size: clamp(1.65rem, 6.5vw, 2.2rem) !important;
+            letter-spacing: -1px !important;
+            line-height: 1.15 !important;
+            margin-bottom: 1rem !important;
+            word-break: break-word !important;
+            overflow-wrap: break-word !important;
+          }
+          .launch-hero-desc {
+            font-size: 0.92rem !important;
+            line-height: 1.6 !important;
+            margin-bottom: 1.8rem !important;
+            max-width: 100% !important;
+            word-break: break-word !important;
           }
           .launch-hero-btn-row {
             flex-direction: column !important;
@@ -1372,8 +1412,11 @@ export default function LaunchOnlinePage() {
             justify-content: center !important;
           }
           .launch-readiness-card {
-            padding: 1.2rem 1rem 1.25rem !important;
+            padding: 1.15rem 1rem !important;
             border-radius: 16px !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
           }
           .launch-metrics-grid {
             grid-template-columns: 1fr !important;
