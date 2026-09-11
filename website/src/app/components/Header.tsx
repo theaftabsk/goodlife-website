@@ -731,6 +731,38 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
             display: flex !important;
           }
         }
+
+        @media (max-width: 768px) {
+          .header-bar {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            transform: none !important;
+            height: 60px !important;
+            border-radius: 0 !important;
+            border-top: none !important;
+            border-left: none !important;
+            border-right: none !important;
+            border-bottom: 1px solid #E2E8F0 !important;
+            background: rgba(255, 255, 255, 0.96) !important;
+            backdrop-filter: blur(20px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+            box-shadow: 0 2px 10px rgba(11, 23, 54, 0.05) !important;
+            z-index: 99999 !important;
+            margin: 0 !important;
+          }
+          .header-bar > div {
+            padding: 0 1rem !important;
+            max-width: 100% !important;
+            height: 100% !important;
+          }
+          .header-logo-container {
+            transform: none !important;
+          }
+        }
       `,
         }}
       />

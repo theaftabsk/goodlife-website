@@ -94,7 +94,7 @@ export default function FixAndGrowPage() {
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* ── SECTION 1: HERO (Clean 2-Column: Left Copy, Right Margin Leak Card) ── */}
-      <section style={{
+      <section className="fix-hero-section" style={{
         position: "relative",
         paddingTop: "8.5rem",
         paddingBottom: "5rem",
@@ -892,6 +892,10 @@ export default function FixAndGrowPage() {
         }
 
         @media (max-width: 640px) {
+          .fix-hero-section {
+            padding-top: 5rem !important;
+            padding-bottom: 3.5rem !important;
+          }
           .fix-eyebrow-pill {
             font-size: 0.68rem !important;
             padding: 0.35rem 0.75rem !important;

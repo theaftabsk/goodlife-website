@@ -64,7 +64,7 @@ export default function ScalePanIndiaPage() {
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* 02. BREADCRUMB & 03. HERO SECTION */}
-      <section style={{
+      <section className="scale-hero-section" style={{
         position: "relative",
         paddingTop: "8.5rem",
         paddingBottom: "5.5rem",
@@ -815,6 +815,10 @@ export default function ScalePanIndiaPage() {
         }
 
         @media (max-width: 640px) {
+          .scale-hero-section {
+            padding-top: 5rem !important;
+            padding-bottom: 3.5rem !important;
+          }
           .scale-eyebrow-pill {
             font-size: 0.68rem !important;
             padding: 0.35rem 0.75rem !important;

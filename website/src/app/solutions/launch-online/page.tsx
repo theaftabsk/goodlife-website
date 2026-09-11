@@ -163,7 +163,7 @@ export default function LaunchOnlinePage() {
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* ── 02: BREADCRUMB ── */}
-      <div style={{ paddingTop: "7.5rem", paddingBottom: "1rem", maxWidth: "1200px", margin: "0 auto", paddingLeft: "1.5rem", paddingRight: "1.5rem" }}>
+      <div className="launch-breadcrumb-wrap" style={{ paddingTop: "7.5rem", paddingBottom: "1rem", maxWidth: "1200px", margin: "0 auto", paddingLeft: "1.5rem", paddingRight: "1.5rem" }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontSize: "0.85rem", fontWeight: 600 }}>
           <Link href="/" style={{ color: "#2563EB", textDecoration: "none" }}>Home</Link>
           <span style={{ color: "#94A3B8" }}>/</span>
@@ -1371,6 +1371,12 @@ export default function LaunchOnlinePage() {
         }
 
         @media (max-width: 640px) {
+          .launch-breadcrumb-wrap {
+            padding-top: 4.8rem !important;
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+            padding-bottom: 0.4rem !important;
+          }
           .launch-hero-container {
             padding-left: 1rem !important;
             padding-right: 1rem !important;
