@@ -819,6 +819,10 @@ export default function ScalePanIndiaPage() {
             padding-top: 5rem !important;
             padding-bottom: 3.5rem !important;
           }
+          .scale-hero-section .container {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+          }
           .scale-eyebrow-pill {
             font-size: 0.68rem !important;
             padding: 0.35rem 0.75rem !important;
@@ -829,12 +833,26 @@ export default function ScalePanIndiaPage() {
             box-sizing: border-box !important;
           }
           .scale-hero-title {
-            font-size: clamp(1.65rem, 6.5vw, 2.2rem) !important;
-            letter-spacing: -1px !important;
+            font-size: clamp(1.55rem, 6vw, 2rem) !important;
+            letter-spacing: -0.8px !important;
             line-height: 1.15 !important;
             margin-bottom: 1rem !important;
             word-break: break-word !important;
             overflow-wrap: break-word !important;
+          }
+          .scale-hero-desc {
+            font-size: 0.92rem !important;
+            line-height: 1.6 !important;
+            max-width: 100% !important;
+          }
+          .india-map-container {
+            width: 100% !important;
+            max-width: 100% !important;
+            overflow: hidden !important;
+          }
+          .india-map-container svg {
+            width: 100% !important;
+            height: auto !important;
           }
           .zone-cards-grid {
             grid-template-columns: 1fr !important;
@@ -847,23 +865,24 @@ export default function ScalePanIndiaPage() {
           .scale-hero-btn-row a {
             width: 100% !important;
             justify-content: center !important;
+            height: 48px !important;
           }
           .simulator-panel-card {
-            padding: 1.5rem 1.15rem !important;
-            border-radius: 18px !important;
+            padding: 1.5rem 1rem !important;
+            border-radius: 16px !important;
           }
           .freight-result-card {
             flex-direction: column !important;
             align-items: stretch !important;
             gap: 1.2rem !important;
-            padding: 1.4rem 1.15rem !important;
+            padding: 1.4rem 1rem !important;
           }
           .freight-result-card button {
             width: 100% !important;
             justify-content: center !important;
           }
           .scale-final-cta-card {
-            padding: 2.2rem 1.25rem !important;
+            padding: 2rem 1rem !important;
             border-radius: 18px !important;
           }
           .scale-final-cta-btns {
@@ -879,6 +898,15 @@ export default function ScalePanIndiaPage() {
             flex-direction: column !important;
             align-items: center !important;
             gap: 0.6rem !important;
+          }
+        }
+
+        @media (max-width: 400px) {
+          .scale-hero-title {
+            font-size: clamp(1.35rem, 7vw, 1.65rem) !important;
+          }
+          .zone-cards-grid {
+            gap: 0.75rem !important;
           }
         }
       `,

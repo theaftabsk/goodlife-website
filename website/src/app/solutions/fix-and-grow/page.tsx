@@ -896,6 +896,10 @@ export default function FixAndGrowPage() {
             padding-top: 5rem !important;
             padding-bottom: 3.5rem !important;
           }
+          .fix-hero-section .container {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+          }
           .fix-eyebrow-pill {
             font-size: 0.68rem !important;
             padding: 0.35rem 0.75rem !important;
@@ -906,12 +910,18 @@ export default function FixAndGrowPage() {
             box-sizing: border-box !important;
           }
           .fix-hero-title {
-            font-size: clamp(1.65rem, 6.5vw, 2.2rem) !important;
-            letter-spacing: -1px !important;
+            font-size: clamp(1.55rem, 6vw, 2rem) !important;
+            letter-spacing: -0.8px !important;
             line-height: 1.15 !important;
             margin-bottom: 1rem !important;
             word-break: break-word !important;
             overflow-wrap: break-word !important;
+          }
+          .fix-hero-desc {
+            font-size: 0.92rem !important;
+            line-height: 1.6 !important;
+            margin-bottom: 1.5rem !important;
+            max-width: 100% !important;
           }
           .hero-btn-row {
             flex-direction: column !important;
@@ -921,6 +931,7 @@ export default function FixAndGrowPage() {
           .hero-btn-row a {
             width: 100% !important;
             justify-content: center !important;
+            height: 48px !important;
           }
           .margin-leak-card {
             padding: 1.25rem 1rem !important;
@@ -936,15 +947,22 @@ export default function FixAndGrowPage() {
             grid-template-columns: 1fr !important;
           }
           .leak-detail-panel {
-            padding: 1.4rem 1.15rem !important;
-            border-radius: 18px !important;
-          }
-          .compare-cards-grid > div {
-            padding: 1.5rem 1.15rem !important;
+            padding: 1.4rem 1rem !important;
             border-radius: 16px !important;
           }
+          .leak-detail-panel * {
+            max-width: 100% !important;
+            word-break: break-word !important;
+          }
+          .compare-cards-grid > div {
+            padding: 1.5rem 1rem !important;
+            border-radius: 16px !important;
+          }
+          .protocol-step-card {
+            padding: 1.2rem 1rem !important;
+          }
           .final-cta-card {
-            padding: 2.2rem 1.25rem !important;
+            padding: 2rem 1rem !important;
             border-radius: 18px !important;
           }
           .final-cta-btn-row {
@@ -955,6 +973,15 @@ export default function FixAndGrowPage() {
           .final-cta-btn-row a {
             width: 100% !important;
             justify-content: center !important;
+          }
+        }
+
+        @media (max-width: 400px) {
+          .fix-hero-title {
+            font-size: clamp(1.4rem, 7vw, 1.7rem) !important;
+          }
+          .leak-cards-grid {
+            gap: 0.75rem !important;
           }
         }
       `,

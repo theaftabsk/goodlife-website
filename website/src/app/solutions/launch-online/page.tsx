@@ -172,7 +172,7 @@ export default function LaunchOnlinePage() {
       </div>
 
       {/* ── 03: HERO SECTION ── */}
-      <section style={{
+      <section className="launch-hero-section" style={{
         position: "relative",
         paddingTop: "1.5rem",
         paddingBottom: "5rem",
@@ -1466,6 +1466,26 @@ export default function LaunchOnlinePage() {
           .launch-final-cta-btns a {
             width: 100% !important;
             justify-content: center !important;
+          }
+          .launch-hero-section {
+            padding-top: 1rem !important;
+            padding-bottom: 3rem !important;
+          }
+          .launch-hero-container {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+          }
+        }
+
+        @media (max-width: 400px) {
+          .launch-hero-title {
+            font-size: clamp(1.35rem, 7vw, 1.65rem) !important;
+          }
+          .launch-metrics-grid {
+            gap: 0.75rem !important;
+          }
+          .launch-readiness-card {
+            padding: 1rem 0.85rem !important;
           }
         }
       `,
