@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import ReactDOM from "react-dom";
 import Link from "next/link";
 import Logo from "./Logo";
 
@@ -267,7 +268,6 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
               boxShadow: "0 4px 14px rgba(37, 99, 235, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.35)",
               transition: "all 0.22s ease",
               whiteSpace: "nowrap",
-              display: "inline-flex",
               alignItems: "center",
               justifyContent: "center"
             }}
@@ -413,7 +413,7 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
       )}
 
       {/* ── UNTITLED UI WHITE THEME FULL-SCREEN MOBILE MENU ── */}
-      {mobileOpen && (
+      {mobileOpen && typeof document !== "undefined" && ReactDOM.createPortal(
         <div
           className="white-fullscreen-menu"
           style={{
@@ -698,7 +698,8 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
 
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Modern Responsive Styles & Smooth Animations */}
