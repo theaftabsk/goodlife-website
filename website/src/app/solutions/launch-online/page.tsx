@@ -312,41 +312,39 @@ export default function LaunchOnlinePage() {
               </div>
             </div>
 
-            {/* ── 04 & 05: HERO RIGHT — READINESS TOOL (White Glass Anchor) ── */}
+            {/* ── 04 & 05: HERO RIGHT — READINESS TOOL (Compact Clean Enterprise Card) ── */}
             <div style={{
-              background: "rgba(255, 255, 255, 0.78)",
-              backdropFilter: "blur(26px)",
-              WebkitBackdropFilter: "blur(26px)",
-              borderRadius: "24px",
-              padding: "2.4rem",
-              border: "1.5px solid rgba(255, 255, 255, 0.95)",
-              boxShadow: "0 20px 50px rgba(11, 23, 54, 0.08), 0 4px 16px rgba(37, 99, 235, 0.05)"
+              background: "#FFFFFF",
+              borderRadius: "20px",
+              padding: "1.35rem 1.5rem 1.4rem",
+              border: "1px solid #E2E8F0",
+              boxShadow: "0 14px 36px rgba(11, 23, 54, 0.06), 0 2px 6px rgba(0, 0, 0, 0.02)"
             }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
-                <span style={{ fontSize: "0.76rem", fontWeight: 800, color: "#2563EB", textTransform: "uppercase", letterSpacing: "1px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.65rem" }}>
+                <span style={{ fontSize: "0.72rem", fontWeight: 800, color: "#2563EB", textTransform: "uppercase", letterSpacing: "0.7px" }}>
                   LAUNCHPAD READINESS TOOL
                 </span>
                 <span style={{
-                  padding: "0.3rem 0.8rem",
+                  padding: "0.22rem 0.65rem",
                   borderRadius: "999px",
                   background: readinessStatus.bg,
                   color: readinessStatus.color,
-                  fontSize: "0.8rem",
+                  fontSize: "0.74rem",
                   fontWeight: 800
                 }}>
                   {readinessStatus.text}
                 </span>
               </div>
 
-              <h3 style={{ fontSize: "1.3rem", fontWeight: 800, color: "#0B1736", margin: "0 0 0.4rem" }}>
+              <h3 style={{ fontSize: "1.08rem", fontWeight: 800, color: "#0B1736", margin: "0 0 0.2rem" }}>
                 Brand Launch Prerequisite Checker
               </h3>
-              <p style={{ fontSize: "0.86rem", color: "#53627A", margin: "0 0 1.2rem", lineHeight: 1.5 }}>
+              <p style={{ fontSize: "0.78rem", color: "#64748B", margin: "0 0 0.75rem", lineHeight: 1.4 }}>
                 {readinessStatus.desc}
               </p>
 
               {/* Progress Bar */}
-              <div style={{ width: "100%", height: "8px", background: "#E2E8F0", borderRadius: "999px", overflow: "hidden", marginBottom: "1.4rem" }}>
+              <div style={{ width: "100%", height: "5px", background: "#E2E8F0", borderRadius: "999px", overflow: "hidden", marginBottom: "0.85rem" }}>
                 <div style={{
                   width: `${readinessPercent}%`,
                   height: "100%",
@@ -357,7 +355,7 @@ export default function LaunchOnlinePage() {
               </div>
 
               {/* Checkbox List */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.65rem", marginBottom: "1.5rem" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem", marginBottom: "1rem" }}>
                 {checklist.map((item, idx) => {
                   const isChecked = !!checkedItems[idx];
                   return (
@@ -366,40 +364,39 @@ export default function LaunchOnlinePage() {
                       onClick={() => toggleCheck(idx)}
                       style={{
                         display: "flex",
-                        alignItems: "flex-start",
-                        gap: "0.75rem",
-                        padding: "0.7rem 0.9rem",
-                        borderRadius: "12px",
-                        background: isChecked ? "#EFF6FF" : "#F8FAFC",
-                        border: isChecked ? "1.5px solid #BFDBFE" : "1.5px solid #E2E8F0",
+                        alignItems: "center",
+                        gap: "0.6rem",
+                        padding: "0.45rem 0.65rem",
+                        borderRadius: "9px",
+                        background: isChecked ? "#F0F7FF" : "#F8FAFC",
+                        border: isChecked ? "1px solid #BFDBFE" : "1px solid #E2E8F0",
                         cursor: "pointer",
-                        transition: "all 0.18s ease"
+                        transition: "all 0.16s ease"
                       }}
                     >
                       <div style={{
-                        width: "18px",
-                        height: "18px",
-                        borderRadius: "6px",
+                        width: "16px",
+                        height: "16px",
+                        borderRadius: "5px",
                         border: isChecked ? "none" : "1.5px solid #94A3B8",
                         background: isChecked ? "#2563EB" : "#FFFFFF",
                         display: "inline-flex",
                         alignItems: "center",
                         justifyContent: "center",
                         flexShrink: 0,
-                        marginTop: "2px",
                         color: "#FFFFFF"
                       }}>
                         {isChecked && (
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="20 6 9 17 4 12" />
                           </svg>
                         )}
                       </div>
-                      <div>
-                        <div style={{ fontSize: "0.86rem", fontWeight: 700, color: isChecked ? "#1E3A8A" : "#1E293B" }}>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontSize: "0.81rem", fontWeight: 700, color: isChecked ? "#1E3A8A" : "#1E293B", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                           {item.title}
                         </div>
-                        <div style={{ fontSize: "0.75rem", color: "#64748B", marginTop: "1px", lineHeight: 1.35 }}>
+                        <div style={{ fontSize: "0.70rem", color: "#64748B", marginTop: "1px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                           {item.sub}
                         </div>
                       </div>
@@ -413,21 +410,36 @@ export default function LaunchOnlinePage() {
                 onClick={() => setDiagOpen(true)}
                 style={{
                   width: "100%",
-                  height: "48px",
-                  borderRadius: "12px",
+                  height: "42px",
+                  borderRadius: "10px",
                   background: "#2563EB",
                   color: "#FFFFFF",
-                  fontSize: "0.88rem",
+                  fontSize: "0.82rem",
                   fontWeight: 800,
-                  letterSpacing: "0.5px",
+                  letterSpacing: "0.4px",
                   border: "none",
                   cursor: "pointer",
-                  transition: "all 0.2s ease"
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "0.4rem",
+                  boxShadow: "0 2px 8px rgba(37, 99, 235, 0.25)",
+                  transition: "all 0.18s ease"
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.background = "#1D4ED8"}
-                onMouseLeave={(e) => e.currentTarget.style.background = "#2563EB"}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "#1D4ED8";
+                  e.currentTarget.style.boxShadow = "0 4px 14px rgba(37, 99, 235, 0.35)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "#2563EB";
+                  e.currentTarget.style.boxShadow = "0 2px 8px rgba(37, 99, 235, 0.25)";
+                }}
               >
-                REQUEST CUSTOM 45-DAY LAUNCH PLAN
+                <span>REQUEST CUSTOM 45-DAY LAUNCH PLAN</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
               </button>
             </div>
 
