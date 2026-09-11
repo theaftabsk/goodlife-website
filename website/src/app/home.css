@@ -402,8 +402,8 @@ html {
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .hero-real-section {
   position: relative;
-  padding-top: 145px;
-  padding-bottom: 75px;
+  padding-top: 130px;
+  padding-bottom: 45px;
   min-height: 100vh;
   /* Fits beautifully with grand breathing room */
   overflow: hidden;
@@ -2888,9 +2888,31 @@ html {
   line-height: 1.75;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+@media (max-width: 1024px) {
+  .desktop-nav {
+    display: none !important;
+  }
+
+  .mobile-hamburger-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .desktop-cta-only,
+  .header-cta-button {
+    display: none !important;
+  }
+
+  .cta-text-desktop,
+  .cta-text-mobile {
+    display: none !important;
+  }
+}
+
+/* â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• 
    FINAL CTA
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â•  */
 .final-cta-section {
   padding: 7rem 0;
   background: linear-gradient(135deg, #0F1F40 0%, #1E3A8A 35%, #2563EB 70%, #7C3AED 100%);
@@ -4833,17 +4855,18 @@ html {
   width: 100%;
   overflow: hidden;
   position: relative;
-  margin-top: 2.2rem;
-  padding: 0.75rem 0;
+  margin-top: 0.8rem;
+  padding: 0.5rem 0;
   mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
   -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
 }
 
 .channel-marquee-track {
   display: flex;
-  gap: 1.25rem;
+  align-items: center;
+  gap: 1.5rem;
   width: max-content;
-  animation: channelScroll 22s linear infinite;
+  animation: channelScroll 34s linear infinite;
 }
 
 .channel-marquee-track:hover {
@@ -5165,15 +5188,7 @@ html {
     transition: all 0.25s ease;
   }
 
-  .cta-text-desktop {
-    display: inline;
-  }
-
-  .cta-text-mobile {
-    display: none;
-  }
-
-  @media (max-width: 900px) {
+  @media (max-width: 1024px) {
     .desktop-nav {
       display: none !important;
     }
@@ -5182,12 +5197,11 @@ html {
       display: flex !important;
     }
 
-    .cta-text-desktop {
-      display: none !important;
-    }
-
+    .desktop-cta-only,
+    .header-cta-button,
+    .cta-text-desktop,
     .cta-text-mobile {
-      display: inline !important;
+      display: none !important;
     }
   }
 

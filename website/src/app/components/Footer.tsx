@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Logo from "./Logo";
 
-export default function Footer() {
+export default function Footer({ hideTopBanner = false }: { hideTopBanner?: boolean } = {}) {
   return (
     <footer style={{ width: "100%", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
       <style>{`
@@ -60,14 +60,15 @@ export default function Footer() {
       `}</style>
       
       {/* ── TOP BANNER SECTION ── */}
-      <div className="footer-top-banner" style={{
-        position: "relative",
-        backgroundColor: "#0F172A", 
-        color: "#FFFFFF",
-        display: "flex",
-        alignItems: "center",
-        overflow: "hidden"
-      }}>
+      {!hideTopBanner && (
+        <div className="footer-top-banner" style={{
+          position: "relative",
+          backgroundColor: "#0F172A", 
+          color: "#FFFFFF",
+          display: "flex",
+          alignItems: "center",
+          overflow: "hidden"
+        }}>
         {/* Blurred Background Image */}
         <div style={{
           position: "absolute",
@@ -115,8 +116,14 @@ export default function Footer() {
           }}>
             Request our complimentary Commerce Diagnostic to identify leakage points and unlock new channel growth.
           </p>
-          <Link 
-            href="#revenue-assurance" 
+          <button 
+            type="button"
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                const btn = document.querySelector(".nav-diagnostic-btn") as HTMLButtonElement | null;
+                if (btn) btn.click();
+              }
+            }}
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -126,26 +133,31 @@ export default function Footer() {
               padding: "0 2.2rem",
               height: "48px",
               fontSize: "0.85rem",
-              fontWeight: 700,
+              fontWeight: 800,
               letterSpacing: "1px",
               textTransform: "uppercase",
               textDecoration: "none",
               transition: "all 0.3s ease",
-              background: "transparent"
+              background: "transparent",
+              cursor: "pointer",
+              borderRadius: "4px"
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = "#FFFFFF";
-              e.currentTarget.style.color = "#0F172A";
+              e.currentTarget.style.background = "#2563EB";
+              e.currentTarget.style.borderColor = "#2563EB";
+              e.currentTarget.style.color = "#FFFFFF";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = "transparent";
+              e.currentTarget.style.borderColor = "#FFFFFF";
               e.currentTarget.style.color = "#FFFFFF";
             }}
           >
-            Request a Free Audit
-          </Link>
+            UNLOCK YOUR GROWTH →
+          </button>
         </div>
       </div>
+      )}
 
       {/* ── BOTTOM LINKS SECTION (Solid Dark Slate Background) ── */}
       <div className="footer-bottom-grid" style={{
@@ -160,43 +172,61 @@ export default function Footer() {
           
           {/* Column 1: Contact Info */}
           <div>
-            <h4 className="footer-col-title" style={{ color: "#FFFFFF", fontSize: "0.95rem", fontWeight: 500, marginBottom: "1.8rem" }}>
-              Contact
+            <h4 className="footer-col-title" style={{ color: "#FFFFFF", fontSize: "0.95rem", fontWeight: 600, marginBottom: "1.8rem", letterSpacing: "0.5px" }}>
+              Registered Office
             </h4>
             <div style={{ display: "flex", flexDirection: "column", gap: "0.8rem", fontSize: "0.85rem", lineHeight: 1.6 }}>
-              <p style={{ margin: 0 }}>022 1234 5678</p>
-              <p style={{ margin: 0 }}>hello@goodlifesutra.com</p>
-              <p style={{ margin: 0, marginTop: "0.5rem" }}>
+              <p style={{ margin: 0, color: "#94A3B8" }}>Direct Line: <strong style={{ color: "#F1F5F9" }}>022 1234 5678</strong></p>
+              <p style={{ margin: 0, color: "#94A3B8" }}>Inquiry: <strong style={{ color: "#F1F5F9" }}>hello@goodlifesutra.com</strong></p>
+              <p style={{ margin: 0, marginTop: "0.5rem", color: "#94A3B8" }}>
                 GOOD LIFE SUTRA PVT. LTD.<br/>
-                CIN: U74999MH2021PTC368942
+                CIN: U74999MH2021PTC368942<br/>
+                Mumbai, Maharashtra, India
               </p>
             </div>
           </div>
 
-          {/* Column 2: Solutions */}
+          {/* Column 2: Solutions & Specialised */}
           <div className="footer-nav-col">
-            <h4 style={{ color: "#FFFFFF", fontSize: "0.95rem", fontWeight: 500, marginBottom: "1.8rem" }}>
-              Solutions
+            <h4 style={{ color: "#FFFFFF", fontSize: "0.95rem", fontWeight: 600, marginBottom: "1.8rem", letterSpacing: "0.5px" }}>
+              Solutions & Specialised
             </h4>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.9rem" }}>
-              <li><Link href="/solutions/marketplace">Marketplace Operations</Link></li>
-              <li><Link href="/solutions/d2c">D2C Commerce</Link></li>
-              <li><Link href="/solutions/b2b">B2B & Institutional</Link></li>
-              <li><Link href="/capabilities/inventory">Inventory Planning</Link></li>
-              <li><Link href="/capabilities/revenue">Revenue Assurance</Link></li>
+              <li><Link href="/solutions/launch-online">Launch Online</Link></li>
+              <li><Link href="/solutions/fix-and-grow">Fix & Grow</Link></li>
+              <li><Link href="/solutions/scale-pan-india">Scale Pan-India</Link></li>
+              <li><Link href="/specialised/heavy-bulky-commerce">Heavy & Bulky Commerce</Link></li>
+              <li><Link href="/specialised/fulfilment-network">Fulfilment Network Map</Link></li>
+              <li><Link href="/specialised/agency-partner">Agency Partner Program</Link></li>
             </ul>
           </div>
 
-          {/* Column 3: Company */}
+          {/* Column 3: Capabilities */}
           <div className="footer-nav-col">
-            <h4 style={{ color: "#FFFFFF", fontSize: "0.95rem", fontWeight: 500, marginBottom: "1.8rem" }}>
-              Company
+            <h4 style={{ color: "#FFFFFF", fontSize: "0.95rem", fontWeight: 600, marginBottom: "1.8rem", letterSpacing: "0.5px" }}>
+              Capabilities
             </h4>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.9rem" }}>
-              <li><Link href="/about">About Us</Link></li>
-              <li><Link href="/contact">Contact</Link></li>
-              <li><Link href="/careers">Careers</Link></li>
-              <li><Link href="/terms">Terms & Conditions</Link></li>
+              <li><Link href="/capabilities/marketplace-operations">Marketplace Operations</Link></li>
+              <li><Link href="/capabilities/marketplace-growth">Marketplace Growth & Ads</Link></li>
+              <li><Link href="/capabilities/inventory-planning">Inventory & Stock Planning</Link></li>
+              <li><Link href="/capabilities/warehousing-fulfilment">Warehousing & Fulfilment</Link></li>
+              <li><Link href="/capabilities/revenue-assurance">Revenue Assurance & Audit</Link></li>
+              <li><Link href="/capabilities/returns-operations">Returns & Reverse Ops</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 4: Authority & Governance */}
+          <div className="footer-nav-col">
+            <h4 style={{ color: "#FFFFFF", fontSize: "0.95rem", fontWeight: 600, marginBottom: "1.8rem", letterSpacing: "0.5px" }}>
+              Authority & Company
+            </h4>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.9rem" }}>
+              <li><Link href="/about">About Good Life</Link></li>
+              <li><Link href="/case-studies">Case Studies & Proof</Link></li>
+              <li><Link href="/insights">Insights & Knowledge</Link></li>
+              <li><Link href="/contact">Executive Contact</Link></li>
+              <li><Link href="/faqs">Verified FAQs</Link></li>
               <li><Link href="/privacy">Privacy Policy</Link></li>
             </ul>
           </div>

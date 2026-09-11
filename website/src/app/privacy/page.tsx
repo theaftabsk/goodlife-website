@@ -1,47 +1,120 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import CommerceDiagnosticModal from "../components/CommerceDiagnosticModal";
+import { Inter } from "next/font/google";
 
-export default function PrivacyPolicy() {
+const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800", "900"] });
+
+export default function PrivacyPage() {
+  const [diagOpen, setDiagOpen] = useState(false);
+
   return (
-    <div style={{ background: "#080A12", color: "#F3F4F6", minHeight: "100vh" }}>
-      <Header onOpenDiagnostic={() => {}} />
+    <div className={`privacy-root ${inter.className}`} style={{ background: "#F8FAFC", color: "#0F172A", minHeight: "100vh" }}>
+      <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
-      <main className="container" style={{ padding: "140px 0 80px", maxWidth: "800px" }}>
-        <h1 style={{ fontSize: "2.5rem", fontWeight: 800, color: "#FFF", marginBottom: "1rem" }}>
-          Privacy Policy
-        </h1>
-        <p style={{ color: "#9CA3AF", fontSize: "0.9rem", marginBottom: "2rem" }}>
-          Last Updated: July 2026 · Good Life Sutra Pvt. Ltd.
-        </p>
+      {/* Hero Section */}
+      <section style={{
+        position: "relative",
+        paddingTop: "9rem",
+        paddingBottom: "4rem",
+        background: "linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%)",
+        borderBottom: "1px solid #E2E8F0"
+      }}>
+        <div className="container" style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.85rem", color: "#64748B", marginBottom: "1.2rem", fontWeight: 500 }}>
+            <Link href="/" style={{ color: "#2563EB", textDecoration: "none", fontWeight: 600 }}>Home</Link>
+            <span>/</span>
+            <span style={{ color: "#0F172A", fontWeight: 600 }}>Privacy & Data Governance</span>
+          </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", color: "#D1D5DB", lineHeight: 1.7, fontSize: "0.95rem" }}>
-          <section>
-            <h2 style={{ fontSize: "1.3rem", color: "#FFF", fontWeight: 700, marginBottom: "0.5rem" }}>1. Information We Collect</h2>
-            <p style={{ color: "#9CA3AF" }}>
-              We collect information you provide directly through our Commerce Diagnostic Tool, contact forms, or business enquiry submissions, including company name, designation, business email, phone number, category details, and operational parameters.
-            </p>
-          </section>
+          <h1 style={{
+            fontSize: "clamp(2.2rem, 4vw, 3.2rem)",
+            fontWeight: 900,
+            color: "#0B1736",
+            letterSpacing: "-1.5px",
+            margin: "0 0 0.8rem"
+          }}>
+            Privacy Policy & Data Security
+          </h1>
+          <p style={{ fontSize: "0.95rem", color: "#64748B", margin: 0, fontWeight: 500 }}>
+            Effective Date: September 2026 • GOOD LIFE SUTRA PVT. LTD. (CIN: U74999MH2021PTC368942)
+          </p>
+        </div>
+      </section>
 
-          <section>
-            <h2 style={{ fontSize: "1.3rem", color: "#FFF", fontWeight: 700, marginBottom: "0.5rem" }}>2. Use of Diagnostic Data</h2>
-            <p style={{ color: "#9CA3AF" }}>
-              Diagnostic and enquiry submissions are strictly used to evaluate operating fit, calculate opportunity tags, and prepare tailored commerce proposals. We do not sell or share business lead data with unauthorized third parties.
-            </p>
-          </section>
+      {/* Policy Content */}
+      <main style={{ padding: "4rem 0 6rem" }}>
+        <div className="container" style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
+          <div style={{
+            background: "#FFFFFF",
+            borderRadius: "20px",
+            padding: "3rem",
+            border: "1.5px solid #E2E8F0",
+            boxShadow: "0 10px 30px rgba(15, 23, 42, 0.03)",
+            display: "flex",
+            flexDirection: "column",
+            gap: "2.5rem"
+          }}>
+            <section>
+              <h2 style={{ fontSize: "1.3rem", fontWeight: 800, color: "#0B1736", marginBottom: "0.8rem" }}>
+                1. Scope & Enterprise Commitment
+              </h2>
+              <p style={{ fontSize: "0.95rem", color: "#475569", lineHeight: 1.7, margin: 0 }}>
+                GOOD LIFE SUTRA PVT. LTD. (&ldquo;Good Life&rdquo;, &ldquo;we&rdquo;, &ldquo;our&rdquo;) provides commercial operations, warehousing, marketplace management, and revenue assurance services to consumer brands. This Privacy Policy governs the collection, processing, and protection of business enquiry data submitted through our website and interactive Commerce Diagnostic Tool.
+              </p>
+            </section>
 
-          <section>
-            <h2 style={{ fontSize: "1.3rem", color: "#FFF", fontWeight: 700, marginBottom: "0.5rem" }}>3. Data Security & CRM Integration</h2>
-            <p style={{ color: "#9CA3AF" }}>
-              Form data is encrypted and transferred via secure server-side API webhooks directly into our enterprise CRM system.
-            </p>
-          </section>
+            <section>
+              <h2 style={{ fontSize: "1.3rem", fontWeight: 800, color: "#0B1736", marginBottom: "0.8rem" }}>
+                2. Information Collected Through Qualified Forms
+              </h2>
+              <p style={{ fontSize: "0.95rem", color: "#475569", lineHeight: 1.7, marginBottom: "0.8rem" }}>
+                When you request a Commerce Diagnostic or submit a business enquiry, we collect:
+              </p>
+              <ul style={{ paddingLeft: "1.4rem", margin: 0, color: "#475569", fontSize: "0.92rem", lineHeight: 1.7 }}>
+                <li>Company name, corporate website URL, registered legal address</li>
+                <li>Authorized contact person name, designation, business email, and phone number</li>
+                <li>Product category, annual/monthly GMV bands, active marketplace presence</li>
+                <li>Logistics requirements, warehouse locations, and operational pain points</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2 style={{ fontSize: "1.3rem", fontWeight: 800, color: "#0B1736", marginBottom: "0.8rem" }}>
+                3. Purpose of Processing & CRM Integration
+              </h2>
+              <p style={{ fontSize: "0.95rem", color: "#475569", lineHeight: 1.7, margin: 0 }}>
+                Lead data is processed exclusively to evaluate business fit, calculate commercial diagnostic benchmarks, deliver tailored proposal documents, and route qualified enquiries into our secure client CRM system. We never sell, rent, or trade your corporate information to marketing data brokers.
+              </p>
+            </section>
+
+            <section>
+              <h2 style={{ fontSize: "1.3rem", fontWeight: 800, color: "#0B1736", marginBottom: "0.8rem" }}>
+                4. Data Protection & Non-Disclosure (NDA)
+              </h2>
+              <p style={{ fontSize: "0.95rem", color: "#475569", lineHeight: 1.7, margin: 0 }}>
+                We understand that commercial operational data (GMV figures, run-rates, settlement files) is highly sensitive. Prior to detailed inventory audits or marketplace API connectivity, Good Life executes a binding bilateral Non-Disclosure Agreement (NDA) ensuring strict confidentiality.
+              </p>
+            </section>
+
+            <section>
+              <h2 style={{ fontSize: "1.3rem", fontWeight: 800, color: "#0B1736", marginBottom: "0.8rem" }}>
+                5. Contacting Our Data Protection Officer
+              </h2>
+              <p style={{ fontSize: "0.95rem", color: "#475569", lineHeight: 1.7, margin: 0 }}>
+                If you have questions regarding data privacy or wish to request deletion of your submitted enquiry information, contact our corporate legal team at <strong>legal@goodlifesutra.com</strong>.
+              </p>
+            </section>
+          </div>
         </div>
       </main>
 
       <Footer />
+      {diagOpen && <CommerceDiagnosticModal onClose={() => setDiagOpen(false)} />}
     </div>
   );
 }

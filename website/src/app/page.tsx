@@ -128,7 +128,7 @@ const SavingsCalculator: React.FC<{ onOpenDiag: () => void }> = ({ onOpenDiag })
                   boxShadow: "0 6px 20px rgba(37,99,235,0.35)",
                 }}
               >
-                Request a Free Audit →
+                UNLOCK YOUR GROWTH →
               </button>
             </div>
           </div>
@@ -598,7 +598,7 @@ const StickyBar: React.FC<{ onOpenDiag: () => void }> = ({ onOpenDiag }) => {
         <div className="sticky-bar-desktop-content">
           <div className="sticky-bar-dot" />
           <p className="sticky-bar-text"><strong>Ready to find your fee leaks?</strong> Get a complimentary Free Audit — no obligation.</p>
-          <button onClick={onOpenDiag} className="sticky-bar-btn">Request a Free Audit →</button>
+          <button onClick={onOpenDiag} className="sticky-bar-btn">UNLOCK YOUR GROWTH →</button>
         </div>
 
         {/* MOBILE CONTENT (WhatsApp) */}
@@ -910,8 +910,8 @@ export default function HomePage() {
       name: "Thorne",
       category: "Global Wellness & Nutrition",
       svg: (
-        <svg viewBox="0 0 120 30" width="120" height="30" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="5" y="21" fontFamily="Georgia, serif" fontWeight="900" fontSize="17" letterSpacing="2px" fill="#0F172A">THORNE</text>
+        <svg viewBox="0 0 145 42" width="145" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <text x="4" y="29" fontFamily="Georgia, serif" fontWeight="900" fontSize="23" letterSpacing="2.5px" fill="#0F172A">THORNE</text>
         </svg>
       )
     },
@@ -919,8 +919,8 @@ export default function HomePage() {
       name: "Puka",
       category: "Organic FMCG & Herbal",
       svg: (
-        <svg viewBox="0 0 110 30" width="110" height="30" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="5" y="21" fontFamily="'Trebuchet MS', sans-serif" fontWeight="900" fontStyle="italic" fontSize="18" fill="#15803D">PUKA</text>
+        <svg viewBox="0 0 130 42" width="130" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <text x="4" y="29" fontFamily="'Trebuchet MS', system-ui, sans-serif" fontWeight="900" fontStyle="italic" fontSize="24" fill="#15803D" letterSpacing="0.5px">PUKA</text>
         </svg>
       )
     },
@@ -928,8 +928,8 @@ export default function HomePage() {
       name: "HMS",
       category: "Industrial OEM & B2B",
       svg: (
-        <svg viewBox="0 0 90 30" width="90" height="30" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="5" y="21" fontFamily="'Arial Black', sans-serif" fontWeight="900" fontSize="18" letterSpacing="1px" fill="#2563EB">HMS</text>
+        <svg viewBox="0 0 115 42" width="115" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="24" letterSpacing="1.5px" fill="#2563EB">HMS</text>
         </svg>
       )
     },
@@ -937,9 +937,10 @@ export default function HomePage() {
       name: "Gaia Herbs",
       category: "Herbal Supplements",
       svg: (
-        <svg viewBox="0 0 140 30" width="140" height="30" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <path d="M10 20 Q15 6 20 20" stroke="#059669" strokeWidth="2.5" fill="none" />
-          <text x="26" y="21" fontFamily="Outfit, sans-serif" fontWeight="800" fontSize="14" letterSpacing="0.5px" fill="#059669">GAIA HERBS</text>
+        <svg viewBox="0 0 165 42" width="165" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <path d="M12 28 Q18 10 24 28" stroke="#059669" strokeWidth="3" fill="none" />
+          <circle cx="18" cy="11" r="3" fill="#10B981" />
+          <text x="32" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" fontSize="19" letterSpacing="0.8px" fill="#059669">GAIA HERBS</text>
         </svg>
       )
     },
@@ -947,9 +948,9 @@ export default function HomePage() {
       name: "Spark",
       category: "Consumer Electronics",
       svg: (
-        <svg viewBox="0 0 110 30" width="110" height="30" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <polygon points="12,6 15,14 23,14 17,19 19,27 12,22 5,27 7,19 1,14 9,14" fill="#F59E0B" />
-          <text x="28" y="21" fontFamily="sans-serif" fontWeight="900" fontSize="16" letterSpacing="1px" fill="#D97706">SPARK</text>
+        <svg viewBox="0 0 135 42" width="135" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <polygon points="14,8 17,18 27,18 20,24 22,34 14,28 6,34 8,24 1,18 11,18" fill="#F59E0B" />
+          <text x="34" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="21" letterSpacing="1px" fill="#D97706">SPARK</text>
         </svg>
       )
     },
@@ -957,8 +958,8 @@ export default function HomePage() {
       name: "Panasonic",
       category: "Consumer Appliances",
       svg: (
-        <svg viewBox="0 0 140 30" width="140" height="30" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="5" y="21" fontFamily="'Arial Black', sans-serif" fontWeight="900" fontSize="16" letterSpacing="0.5px" fill="#0041C2">Panasonic</text>
+        <svg viewBox="0 0 165 42" width="165" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="23" letterSpacing="0.5px" fill="#0041C2">Panasonic</text>
         </svg>
       )
     },
@@ -966,8 +967,8 @@ export default function HomePage() {
       name: "Mamaearth",
       category: "Personal Care & Beauty",
       svg: (
-        <svg viewBox="0 0 140 30" width="140" height="30" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="5" y="21" fontFamily="'Trebuchet MS', sans-serif" fontWeight="800" fontSize="16" letterSpacing="-0.5px" fill="#0D9488">mamaearth</text>
+        <svg viewBox="0 0 165 42" width="165" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <text x="4" y="29" fontFamily="'Trebuchet MS', system-ui, sans-serif" fontWeight="800" fontSize="22" letterSpacing="-0.5px" fill="#0D9488">mamaearth</text>
         </svg>
       )
     },
@@ -975,9 +976,9 @@ export default function HomePage() {
       name: "boAt",
       category: "Audio & Wearables",
       svg: (
-        <svg viewBox="0 0 110 30" width="110" height="30" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <path d="M6 22 L16 10 L24 22 Z" fill="#DC2626" />
-          <text x="30" y="21" fontFamily="'Arial Black', sans-serif" fontWeight="900" fontSize="17" fill="#0F172A">boAt</text>
+        <svg viewBox="0 0 130 42" width="130" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <path d="M6 31 L18 13 L28 31 Z" fill="#DC2626" />
+          <text x="34" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="23" fill="#0F172A">boAt</text>
         </svg>
       )
     },
@@ -985,106 +986,175 @@ export default function HomePage() {
       name: "Golf Pro",
       category: "Sports & Fitness",
       svg: (
-        <svg viewBox="0 0 130 30" width="130" height="30" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="5" y="21" fontFamily="Georgia, serif" fontWeight="800" fontSize="16" letterSpacing="1px" fill="#15803D">GOLF PRO</text>
+        <svg viewBox="0 0 155 42" width="155" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <text x="4" y="29" fontFamily="Georgia, serif" fontWeight="800" fontSize="21" letterSpacing="1px" fill="#15803D">GOLF PRO</text>
         </svg>
       )
     }
   ];
 
-  // Approved Platform Vector SVGs (Refined & Balanced 38px Scale)
+  // Approved Platform Vector SVGs (Authentic Official Brand Logos, Grand 52px Scale, Perfectly Middle-Aligned)
   const channelSVGs: { name: string; svg: React.ReactNode }[] = [
     {
       name: "Amazon",
       svg: (
-        <svg viewBox="0 0 145 38" width="145" height="38" fill="none">
-          <text x="2" y="23" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="24" fill="#131921" letterSpacing="-0.5">amazon</text>
-          <path d="M5 29 C 33 39, 70 39, 94 29" stroke="#FF9900" strokeWidth="3.5" strokeLinecap="round" fill="none" />
-          <path d="M88 25.5 L 97 29.5 L 90.5 35 Z" fill="#FF9900" />
+        <svg viewBox="0 0 155 44" width="183" height="52" style={{ height: "52px", width: "auto" }} fill="none">
+          <text x="2" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" fontSize="30" fill="#131921" letterSpacing="-0.8px">
+            amazon
+          </text>
+          <path
+            d="M 6 35 C 40 48, 80 47, 108 35"
+            stroke="#FF9900"
+            strokeWidth="3.8"
+            strokeLinecap="round"
+            fill="none"
+          />
+          <polygon points="103,29 114,35 105,42 107,35" fill="#FF9900" />
         </svg>
       ),
     },
     {
       name: "Flipkart",
       svg: (
-        <svg viewBox="0 0 155 38" width="155" height="38" fill="none">
-          <rect x="3" y="6" width="24" height="26" rx="5" fill="#2874F0" />
-          <text x="10" y="25" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="19" fill="#FFE500">f</text>
-          <text x="34" y="25" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="23" fill="#2874F0" letterSpacing="-0.5">flipkart</text>
-        </svg>
+        <img
+          src="/flipkart_official.svg"
+          alt="Flipkart"
+          style={{ height: "60px", width: "auto", display: "block", objectFit: "contain" }}
+        />
       ),
     },
     {
       name: "Meesho",
       svg: (
-        <svg viewBox="0 0 145 38" width="145" height="38" fill="none">
-          <text x="2" y="27" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="27" fill="#F43397" letterSpacing="-0.5">meesho</text>
+        <svg viewBox="0 0 145 44" width="171" height="52" style={{ height: "52px", width: "auto" }} fill="none">
+          <text x="2" y="31" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="31" fill="#F43397" letterSpacing="-0.6px">
+            meesho
+          </text>
         </svg>
-      )
+      ),
     },
     {
       name: "Myntra",
       svg: (
-        <svg viewBox="0 0 150 38" width="150" height="38" fill="none">
-          <path d="M4 27 L10 9 L17 21 L24 9 L30 27" stroke="#FF3F6C" strokeWidth="4.4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          <text x="39" y="25" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="23" fill="#282C3F" letterSpacing="0.2">myntra</text>
+        <svg viewBox="0 0 170 44" width="201" height="52" style={{ height: "52px", width: "auto" }} fill="none">
+          <defs>
+            <linearGradient id="myntraG1Real" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#FF905A" />
+              <stop offset="100%" stopColor="#FF3F6C" />
+            </linearGradient>
+            <linearGradient id="myntraG2Real" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#FF3F6C" />
+              <stop offset="100%" stopColor="#D81B60" />
+            </linearGradient>
+          </defs>
+          <path d="M 3 33 L 13 10 L 21 25 L 30 10 L 40 33" stroke="url(#myntraG1Real)" strokeWidth="5.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <path d="M 13 10 L 21 25 L 30 10" stroke="url(#myntraG2Real)" strokeWidth="5.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <text x="50" y="30" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" fontSize="28" fill="#282C3F" letterSpacing="0.2px">
+            myntra
+          </text>
         </svg>
       ),
     },
     {
       name: "Blinkit",
       svg: (
-        <svg viewBox="0 0 145 38" width="145" height="38" fill="none">
-          <rect x="2" y="5" width="28" height="28" rx="8" fill="#F8CB46" />
-          <text x="10" y="25" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="20" fill="#0C831F">b</text>
-          <text x="37" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="23" fill="#0C831F" letterSpacing="-0.4">blinkit</text>
+        <svg viewBox="0 0 165 44" width="195" height="52" style={{ height: "52px", width: "auto" }} fill="none">
+          <rect x="2" y="6" width="32" height="32" rx="9" fill="#F8CB46" />
+          <text x="10" y="30" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="26" fill="#0C831F">
+            b
+          </text>
+          <circle cx="23.5" cy="15.5" r="2.8" fill="#0C831F" />
+          <text x="44" y="30" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="28" fill="#0C831F" letterSpacing="-0.4px">
+            blinkit
+          </text>
         </svg>
       ),
     },
     {
       name: "Nykaa",
       svg: (
-        <svg viewBox="0 0 135 38" width="135" height="38" fill="none">
-          <text x="2" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="25" fill="#FC2779" fontStyle="italic" letterSpacing="0.5">NYKAA</text>
+        <svg viewBox="0 0 140 44" width="165" height="52" style={{ height: "52px", width: "auto" }} fill="none">
+          <text x="2" y="31" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontStyle="italic" fontSize="31" fill="#FC2779" letterSpacing="1px">
+            NYKAA
+          </text>
         </svg>
       ),
     },
     {
       name: "JioMart",
       svg: (
-        <svg viewBox="0 0 150 38" width="150" height="38" fill="none">
-          <text x="2" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="22" fill="#E11900">Jio</text>
-          <text x="34" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="24" fill="#008ECC" letterSpacing="-0.2">Mart</text>
+        <svg viewBox="0 0 175 44" width="207" height="52" style={{ height: "52px", width: "auto" }} fill="none">
+          <circle cx="18" cy="22" r="16" fill="#E11900" />
+          <text x="8" y="28" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="16" fill="#FFFFFF" letterSpacing="-0.2px">
+            Jio
+          </text>
+          <text x="44" y="30" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="29" fill="#008ECC" letterSpacing="-0.3px">
+            Mart
+          </text>
+          <path d="M 45 36 C 68 33, 89 37, 112 35" stroke="#008ECC" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+        </svg>
+      ),
+    },
+    {
+      name: "Zepto",
+      svg: (
+        <svg viewBox="0 0 130 44" width="154" height="52" style={{ height: "52px", width: "auto" }} fill="none">
+          <text x="2" y="31" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="31" letterSpacing="-0.5px">
+            <tspan fill="#3E0067">z</tspan>
+            <tspan fill="#FF3269">epto</tspan>
+          </text>
         </svg>
       ),
     },
     {
       name: "Moglix",
       svg: (
-        <svg viewBox="0 0 145 38" width="145" height="38" fill="none">
-          <rect x="2" y="6" width="24" height="26" rx="4" fill="#E02A26" />
-          <path d="M6 24 V12 L14 18 L22 12 V24" stroke="#FFFFFF" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          <text x="33" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="23" fill="#1F2937" letterSpacing="-0.2">moglix</text>
+        <svg viewBox="0 0 165 44" width="195" height="52" style={{ height: "52px", width: "auto" }} fill="none">
+          <rect x="2" y="6" width="32" height="32" rx="7" fill="#E02A26" />
+          <path d="M 8 28 V 13 L 18 22 L 28 13 V 28" stroke="#FFFFFF" strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <text x="44" y="30" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" fontSize="27" fill="#1E293B" letterSpacing="-0.3px">
+            moglix
+          </text>
         </svg>
       ),
     },
     {
       name: "Shopify",
       svg: (
-        <svg viewBox="0 0 145 38" width="145" height="38" fill="none">
-          <path d="M14 5 L4 12 L9 33 L26 33 L31 12 Z" fill="#95BF47" />
-          <text x="10" y="27" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#FFFFFF">S</text>
-          <text x="38" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="22" fill="#212326" letterSpacing="-0.3">shopify</text>
+        <svg viewBox="0 0 170 44" width="201" height="52" style={{ height: "52px", width: "auto" }} fill="none">
+          <path d="M 17 6 L 5 15 L 11 38 L 33 38 L 39 15 Z" fill="#95BF47" />
+          <path d="M 17 6 C 17 6, 21 2.5, 24.5 3.5 C 29 5.5, 28 10, 28 10" stroke="#5E8E3E" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+          <text x="12" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="20" fill="#FFFFFF">
+            S
+          </text>
+          <text x="46" y="30" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" fontSize="27" fill="#212326" letterSpacing="-0.4px">
+            shopify
+          </text>
+        </svg>
+      ),
+    },
+    {
+      name: "AJIO",
+      svg: (
+        <svg viewBox="0 0 135 44" width="160" height="52" style={{ height: "52px", width: "auto" }} fill="none">
+          <text x="2" y="31" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="30" fill="#1E293B" letterSpacing="2.2px">
+            AJIO
+          </text>
+          <circle cx="74" cy="11" r="3.6" fill="#00A8B5" />
         </svg>
       ),
     },
     {
       name: "Snapmint",
       svg: (
-        <svg viewBox="0 0 155 38" width="155" height="38" fill="none">
-          <circle cx="15" cy="19" r="12" fill="#00C29F" />
-          <text x="9" y="25" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#FFFFFF">S</text>
-          <text x="35" y="26" fontFamily="'Inter', system-ui, sans-serif" fontWeight="900" fontSize="22" fill="#00C29F" letterSpacing="-0.2">snapmint</text>
+        <svg viewBox="0 0 175 44" width="207" height="52" style={{ height: "52px", width: "auto" }} fill="none">
+          <circle cx="17" cy="22" r="16" fill="#00C29F" />
+          <text x="10" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="20" fill="#FFFFFF">
+            S
+          </text>
+          <text x="42" y="30" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" fontSize="26" fill="#00C29F" letterSpacing="-0.2px">
+            snapmint
+          </text>
         </svg>
       ),
     },
@@ -1170,11 +1240,11 @@ export default function HomePage() {
                 </span>
               </h1>
 
-              <p className="hero-subtitle-etail reveal" style={{ fontSize: "clamp(1.12rem, 1.9vw, 1.3rem)", color: "#475569", lineHeight: 1.75, marginBottom: "3.2rem", maxWidth: "880px", fontWeight: 500 }}>
+              <p className="hero-subtitle-etail reveal" style={{ fontSize: "clamp(1.12rem, 1.9vw, 1.3rem)", color: "#475569", lineHeight: 1.75, marginBottom: "2.2rem", maxWidth: "880px", fontWeight: 500 }}>
                 Good Life brings marketplace growth, D2C, pan-India fulfilment, demand planning, performance marketing, returns and revenue assurance together under one accountable operating model.
               </p>
 
-              <div className="hero-cta-wrapper reveal" style={{ display: "flex", alignItems: "center", gap: "1.4rem", flexWrap: "wrap", justifyContent: "center", width: "100%", marginBottom: "4.5rem" }}>
+              <div className="hero-cta-wrapper reveal" style={{ display: "flex", alignItems: "center", gap: "1.4rem", flexWrap: "wrap", justifyContent: "center", width: "100%", marginBottom: "1.75rem" }}>
                 <button
                   className="btn-primary-hero"
                   onClick={() => setDiagOpen(true)}
@@ -1194,7 +1264,7 @@ export default function HomePage() {
                   onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 14px 34px rgba(37, 99, 235, 0.45)"; }}
                   onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 10px 28px rgba(37, 99, 235, 0.35)"; }}
                 >
-                  Request a Free Audit →
+                  UNLOCK YOUR GROWTH →
                 </button>
                 <button
                   className="btn-ghost-hero"
@@ -1218,14 +1288,14 @@ export default function HomePage() {
                 </button>
               </div>
 
-              {/* ── BRAND MARQUEE (Trusted Channels) ── */}
-              <div className="brands-marquee-section reveal" style={{ position: "relative", zIndex: 3, padding: "1.5rem 0 1rem", background: "transparent", border: "none", boxShadow: "none" }}>
-                <p className="brands-marquee-label" style={{ textAlign: "center", marginBottom: "1.1rem", fontSize: "0.72rem", fontWeight: 700, letterSpacing: "2.2px", color: "#64748B", textTransform: "uppercase" }}>
+              {/* ── BRAND MARQUEE (Trusted Channels - Centered Perfectly in Lower Hero Space) ── */}
+              <div className="brands-marquee-section reveal" style={{ position: "relative", zIndex: 3, marginTop: "1.4rem", padding: "0.4rem 0 1.2rem", background: "transparent", border: "none", boxShadow: "none" }}>
+                <p className="brands-marquee-label" style={{ textAlign: "center", marginBottom: "1.75rem", fontSize: "0.76rem", fontWeight: 700, letterSpacing: "2.5px", color: "#64748B", textTransform: "uppercase" }}>
                   Operating across India&apos;s leading platforms
                 </p>
                 <div className="channel-strip" style={{ margin: 0, padding: 0 }}>
-                  <div className="channel-marquee-container" style={{ margin: 0, padding: 0, maskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)", WebkitMaskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)" }}>
-                    <div className="channel-marquee-track">
+                  <div className="channel-marquee-container" style={{ margin: 0, padding: "0.5rem 0", maskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)", WebkitMaskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)" }}>
+                    <div className="channel-marquee-track" style={{ alignItems: "center" }}>
                       {[...channelSVGs, ...channelSVGs].map((ch, idx) => (
                         <div
                           key={idx}
@@ -1234,13 +1304,20 @@ export default function HomePage() {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            padding: "0 1.85rem",
+                            padding: "0 2.4rem",
                             cursor: "default",
-                            transition: "all 0.3s ease",
-                            opacity: 1
+                            transition: "all 0.25s ease",
+                            opacity: 0.95,
+                            height: "58px"
                           }}
-                          onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.08)"; }}
-                          onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "scale(1.08)";
+                            e.currentTarget.style.opacity = "1";
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "scale(1)";
+                            e.currentTarget.style.opacity = "0.95";
+                          }}
                         >
                           {ch.svg}
                         </div>
@@ -1892,16 +1969,19 @@ export default function HomePage() {
                     justifyContent: "center",
                     padding: "0 2.2rem",
                     cursor: "default",
-                    transition: "all 0.3s ease",
-                    opacity: 0.88
+                    transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
+                    opacity: 0.92,
+                    minHeight: "52px"
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.opacity = "1";
-                    e.currentTarget.style.transform = "scale(1.1)";
+                    e.currentTarget.style.transform = "scale(1.12) translateY(-2px)";
+                    e.currentTarget.style.filter = "drop-shadow(0 6px 16px rgba(0, 0, 0, 0.08))";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.opacity = "0.88";
-                    e.currentTarget.style.transform = "scale(1)";
+                    e.currentTarget.style.opacity = "0.92";
+                    e.currentTarget.style.transform = "scale(1) translateY(0)";
+                    e.currentTarget.style.filter = "none";
                   }}
                 >
                   {brand.svg}

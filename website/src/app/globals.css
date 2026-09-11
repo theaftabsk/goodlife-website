@@ -764,3 +764,19 @@ a { text-decoration: none; color: inherit; transition: all 0.3s var(--ease-out-e
   transform: none !important;
   opacity: 1 !important;
 }
+
+/* Header & Global CTA responsive text utilities */
+.cta-text-mobile {
+  display: none !important;
+}
+.cta-text-desktop {
+  display: inline !important;
+}
+@media (max-width: 640px) {
+  .cta-text-desktop {
+    display: none !important;
+  }
+  .cta-text-mobile {
+    display: inline !important;
+  }
+}
