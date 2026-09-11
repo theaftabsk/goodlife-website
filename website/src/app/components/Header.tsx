@@ -387,7 +387,6 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
             position: "fixed",
             inset: 0,
             width: "100vw",
-            height: "100vh",
             height: "100dvh",
             background: "#FFFFFF",
             zIndex: 999999,

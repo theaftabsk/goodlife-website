@@ -130,10 +130,26 @@ export default function ContactPage() {
                     </p>
                   </div>
 
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.2rem" }}>
+                    {/* 1. Comp Name */}
                     <div>
                       <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#1E293B", marginBottom: "0.4rem" }}>
-                        Contact Name *
+                        Company / Brand Name <span style={{ color: "#2563EB" }}>*</span>
+                      </label>
+                      <input
+                        required
+                        type="text"
+                        placeholder="e.g. Prestige Home Appliances / Acme Corp"
+                        value={formData.company}
+                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                        style={{ width: "100%", height: "48px", padding: "0 1rem", borderRadius: "10px", border: "1.5px solid #CBD5E1", background: "#F8FAFC", fontSize: "0.92rem", color: "#0F172A", outline: "none" }}
+                      />
+                    </div>
+
+                    {/* 2. Person Name */}
+                    <div>
+                      <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#1E293B", marginBottom: "0.4rem" }}>
+                        Contact Person Name <span style={{ color: "#2563EB" }}>*</span>
                       </label>
                       <input
                         required
@@ -144,40 +160,14 @@ export default function ContactPage() {
                         style={{ width: "100%", height: "48px", padding: "0 1rem", borderRadius: "10px", border: "1.5px solid #CBD5E1", background: "#F8FAFC", fontSize: "0.92rem", color: "#0F172A", outline: "none" }}
                       />
                     </div>
-
-                    <div>
-                      <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#1E293B", marginBottom: "0.4rem" }}>
-                        Designation / Role *
-                      </label>
-                      <input
-                        required
-                        type="text"
-                        placeholder="e.g. Founder, Head of Ecom, CFO"
-                        value={formData.designation}
-                        onChange={(e) => setFormData({ ...formData, designation: e.target.value })}
-                        style={{ width: "100%", height: "48px", padding: "0 1rem", borderRadius: "10px", border: "1.5px solid #CBD5E1", background: "#F8FAFC", fontSize: "0.92rem", color: "#0F172A", outline: "none" }}
-                      />
-                    </div>
                   </div>
 
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.2rem" }}>
+                    {/* 3. WhatsApp No */}
                     <div>
-                      <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#1E293B", marginBottom: "0.4rem" }}>
-                        Official Business Email *
-                      </label>
-                      <input
-                        required
-                        type="email"
-                        placeholder="rajesh@brandname.com"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        style={{ width: "100%", height: "48px", padding: "0 1rem", borderRadius: "10px", border: "1.5px solid #CBD5E1", background: "#F8FAFC", fontSize: "0.92rem", color: "#0F172A", outline: "none" }}
-                      />
-                    </div>
-
-                    <div>
-                      <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#1E293B", marginBottom: "0.4rem" }}>
-                        Mobile Number *
+                      <label style={{ display: "flex", alignItems: "center", gap: "0.4rem", fontSize: "0.82rem", fontWeight: 700, color: "#1E293B", marginBottom: "0.4rem" }}>
+                        <span>WhatsApp Number <span style={{ color: "#2563EB" }}>*</span></span>
+                        <span style={{ fontSize: "0.68rem", color: "#16A34A", background: "#DCFCE7", padding: "1px 6px", borderRadius: "999px", fontWeight: 800 }}>Fast Response</span>
                       </label>
                       <input
                         required
@@ -188,90 +178,33 @@ export default function ContactPage() {
                         style={{ width: "100%", height: "48px", padding: "0 1rem", borderRadius: "10px", border: "1.5px solid #CBD5E1", background: "#F8FAFC", fontSize: "0.92rem", color: "#0F172A", outline: "none" }}
                       />
                     </div>
-                  </div>
 
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                    {/* 4. Email ID */}
                     <div>
                       <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#1E293B", marginBottom: "0.4rem" }}>
-                        Company / Brand Name *
+                        Official Email ID <span style={{ color: "#2563EB" }}>*</span>
                       </label>
                       <input
                         required
-                        type="text"
-                        placeholder="e.g. Prestige Home Appliances"
-                        value={formData.company}
-                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                        type="email"
+                        placeholder="rajesh@brandname.com"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         style={{ width: "100%", height: "48px", padding: "0 1rem", borderRadius: "10px", border: "1.5px solid #CBD5E1", background: "#F8FAFC", fontSize: "0.92rem", color: "#0F172A", outline: "none" }}
                       />
-                    </div>
-
-                    <div>
-                      <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#1E293B", marginBottom: "0.4rem" }}>
-                        Product Category
-                      </label>
-                      <select
-                        value={formData.category}
-                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                        style={{ width: "100%", height: "48px", padding: "0 0.8rem", borderRadius: "10px", border: "1.5px solid #CBD5E1", background: "#F8FAFC", fontSize: "0.92rem", color: "#0F172A", outline: "none" }}
-                      >
-                        <option>Appliances & Consumer Electronics</option>
-                        <option>Ceiling Fans & Heavy Bulky</option>
-                        <option>Kitchen Chimneys & Water Heaters</option>
-                        <option>Cookware, Kitchen & Home Basics</option>
-                        <option>Apparel, Footwear & Accessories</option>
-                        <option>Health, Personal Care & FMCG</option>
-                        <option>Industrial, Hardware & Automotive</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-                    <div>
-                      <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#1E293B", marginBottom: "0.4rem" }}>
-                        Approximate Annual / Monthly GMV
-                      </label>
-                      <select
-                        value={formData.gmvBand}
-                        onChange={(e) => setFormData({ ...formData, gmvBand: e.target.value })}
-                        style={{ width: "100%", height: "48px", padding: "0 0.8rem", borderRadius: "10px", border: "1.5px solid #CBD5E1", background: "#F8FAFC", fontSize: "0.92rem", color: "#0F172A", outline: "none" }}
-                      >
-                        <option>Pre-revenue / First-time Launch</option>
-                        <option>₹10 Lakh - ₹25 Lakh / month</option>
-                        <option>₹25 Lakh - ₹75 Lakh / month</option>
-                        <option>₹75 Lakh - ₹2 Crore / month</option>
-                        <option>₹2 Crore+ / month</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#1E293B", marginBottom: "0.4rem" }}>
-                        Primary Operational Need
-                      </label>
-                      <select
-                        value={formData.primaryNeed}
-                        onChange={(e) => setFormData({ ...formData, primaryNeed: e.target.value })}
-                        style={{ width: "100%", height: "48px", padding: "0 0.8rem", borderRadius: "10px", border: "1.5px solid #CBD5E1", background: "#F8FAFC", fontSize: "0.92rem", color: "#0F172A", outline: "none" }}
-                      >
-                        <option>Full Operating Partnership (All Channels)</option>
-                        <option>Warehousing & Pan-India Fulfilment</option>
-                        <option>Marketplace Growth & Ad Management</option>
-                        <option>Revenue Assurance & Settlement Audit</option>
-                        <option>Heavy & Bulky Category Operations</option>
-                        <option>Agency Partner Collaboration</option>
-                      </select>
                     </div>
                   </div>
 
                   <div>
                     <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#1E293B", marginBottom: "0.4rem" }}>
-                      Brief Operational Context or Challenges (Optional)
+                      Brief Operational Context or Requirements (Optional)
                     </label>
                     <textarea
-                      rows={3}
-                      placeholder="Share your existing channels, stockout issues, or growth targets..."
+                      rows={2}
+                      placeholder="Share current monthly volume, launch timeline, or specific channels..."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      style={{ width: "100%", padding: "0.8rem 1rem", borderRadius: "10px", border: "1.5px solid #CBD5E1", background: "#F8FAFC", fontSize: "0.92rem", color: "#0F172A", outline: "none", resize: "vertical" }}
+                      style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "10px", border: "1.5px solid #CBD5E1", background: "#F8FAFC", fontSize: "0.92rem", color: "#0F172A", outline: "none", resize: "vertical" }}
                     />
                   </div>
 
