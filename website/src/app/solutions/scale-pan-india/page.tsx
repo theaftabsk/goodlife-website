@@ -132,7 +132,7 @@ export default function ScalePanIndiaPage() {
                 For scaling brands constrained by single-warehouse delivery bottlenecks. Good Life deploys, balances, and fulfills your inventory across 12 strategic regional facilities to unlock same-day & next-day badges nationwide.
               </p>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="scale-hero-btn-row" style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
                 <button
                   onClick={() => setDiagOpen(true)}
                   style={{
@@ -340,7 +340,7 @@ export default function ScalePanIndiaPage() {
             </p>
           </div>
 
-          <div style={{
+          <div className="simulator-panel-card" style={{
             background: "#FFFFFF",
             borderRadius: "24px",
             padding: "3rem 2.5rem",
@@ -490,7 +490,7 @@ export default function ScalePanIndiaPage() {
             </div>
 
             {/* 06. FREIGHT SAVINGS RESULT (Large Light-Blue Glass Result Card) */}
-            <div style={{
+            <div className="freight-result-card" style={{
               background: "linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%)",
               borderRadius: "18px",
               padding: "2rem 2.2rem",
@@ -637,7 +637,7 @@ export default function ScalePanIndiaPage() {
       <section style={{ padding: "5.5rem 0 6.5rem", background: "#F8FAFC" }}>
         <div className="container" style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{
+          <div className="scale-final-cta-card" style={{
             background: "#FFFFFF",
             borderRadius: "24px",
             padding: "3.8rem 2.8rem",
@@ -687,7 +687,7 @@ export default function ScalePanIndiaPage() {
                 Run our Commerce Diagnostic to evaluate your regional stock partition model, state GST onboarding steps, and projected logistics savings.
               </p>
 
-              <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="scale-final-cta-btns" style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
                 <button
                   onClick={() => setDiagOpen(true)}
                   style={{
@@ -736,7 +736,7 @@ export default function ScalePanIndiaPage() {
                 </Link>
               </div>
 
-              <div style={{
+              <div className="scale-trust-points" style={{
                 display: "flex",
                 justifyContent: "center",
                 gap: "1.8rem",
@@ -810,6 +810,47 @@ export default function ScalePanIndiaPage() {
         @media (max-width: 640px) {
           .zone-cards-grid {
             grid-template-columns: 1fr !important;
+          }
+          .scale-hero-btn-row {
+            flex-direction: column !important;
+            width: 100% !important;
+          }
+          .scale-hero-btn-row button,
+          .scale-hero-btn-row a {
+            width: 100% !important;
+            justify-content: center !important;
+          }
+          .simulator-panel-card {
+            padding: 1.5rem 1.15rem !important;
+            border-radius: 18px !important;
+          }
+          .freight-result-card {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 1.2rem !important;
+            padding: 1.4rem 1.15rem !important;
+          }
+          .freight-result-card button {
+            width: 100% !important;
+            justify-content: center !important;
+          }
+          .scale-final-cta-card {
+            padding: 2.2rem 1.25rem !important;
+            border-radius: 18px !important;
+          }
+          .scale-final-cta-btns {
+            flex-direction: column !important;
+            width: 100% !important;
+          }
+          .scale-final-cta-btns button,
+          .scale-final-cta-btns a {
+            width: 100% !important;
+            justify-content: center !important;
+          }
+          .scale-trust-points {
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 0.6rem !important;
           }
         }
       `,

@@ -163,7 +163,7 @@ export default function FixAndGrowPage() {
                 For brands already selling online whose GMV has plateaued, ACOS has spiked, or marketplace settlement reports show shrinking net margins. Good Life audits, restructures, and operates your entire commerce flywheel under strict operational SLAs.
               </p>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="hero-btn-row" style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
                 <button
                   onClick={() => setDiagOpen(true)}
                   style={{
@@ -215,7 +215,7 @@ export default function FixAndGrowPage() {
 
             {/* Right Column: Simple Margin Leakage Glass Card */}
             <div>
-              <div style={{
+              <div className="margin-leak-card" style={{
                 background: "#FFFFFF",
                 borderRadius: "22px",
                 padding: "2.4rem 2rem",
@@ -359,7 +359,7 @@ export default function FixAndGrowPage() {
           </div>
 
           {/* SECTION 3: FINANCIAL LEAK DETAIL (Problem → Leakage → Good Life Fix) */}
-          <div style={{
+          <div className="leak-detail-panel" style={{
             background: "#F8FAFC",
             borderRadius: "20px",
             border: "1px solid #E2E8F0",
@@ -721,7 +721,7 @@ export default function FixAndGrowPage() {
       <section style={{ padding: "5.5rem 0 6.5rem", background: "#F8FAFC" }}>
         <div className="container" style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{
+          <div className="final-cta-card" style={{
             background: "#FFFFFF",
             borderRadius: "24px",
             padding: "3.8rem 2.8rem",
@@ -771,7 +771,7 @@ export default function FixAndGrowPage() {
                 Take our 10-step Commerce Diagnostic to calculate your exact net profit recovery potential across Amazon, Flipkart, and Quick Commerce channels.
               </p>
 
-              <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="final-cta-btn-row" style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
                 <button
                   onClick={() => setDiagOpen(true)}
                   style={{
@@ -885,8 +885,42 @@ export default function FixAndGrowPage() {
         }
 
         @media (max-width: 640px) {
+          .hero-btn-row {
+            flex-direction: column !important;
+            width: 100% !important;
+          }
+          .hero-btn-row button,
+          .hero-btn-row a {
+            width: 100% !important;
+            justify-content: center !important;
+          }
+          .margin-leak-card {
+            padding: 1.4rem 1.15rem !important;
+            border-radius: 18px !important;
+          }
           .leak-cards-grid {
             grid-template-columns: 1fr !important;
+          }
+          .leak-detail-panel {
+            padding: 1.4rem 1.15rem !important;
+            border-radius: 18px !important;
+          }
+          .compare-cards-grid > div {
+            padding: 1.5rem 1.15rem !important;
+            border-radius: 16px !important;
+          }
+          .final-cta-card {
+            padding: 2.2rem 1.25rem !important;
+            border-radius: 18px !important;
+          }
+          .final-cta-btn-row {
+            flex-direction: column !important;
+            width: 100% !important;
+          }
+          .final-cta-btn-row button,
+          .final-cta-btn-row a {
+            width: 100% !important;
+            justify-content: center !important;
           }
         }
       `,

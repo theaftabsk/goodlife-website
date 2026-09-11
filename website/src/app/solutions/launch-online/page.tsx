@@ -244,7 +244,7 @@ export default function LaunchOnlinePage() {
               </p>
 
               {/* CTAs */}
-              <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="launch-hero-btn-row" style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
                 <button
                   onClick={() => setDiagOpen(true)}
                   style={{
@@ -313,7 +313,7 @@ export default function LaunchOnlinePage() {
             </div>
 
             {/* ── 04 & 05: HERO RIGHT — READINESS TOOL (Compact Clean Enterprise Card) ── */}
-            <div style={{
+            <div className="launch-readiness-card" style={{
               background: "#FFFFFF",
               borderRadius: "20px",
               padding: "1.35rem 1.5rem 1.4rem",
@@ -450,7 +450,7 @@ export default function LaunchOnlinePage() {
       {/* ── 06: HERO METRICS (4 Executive Metric Cards with Top Accent) ── */}
       <section style={{ background: "#FFFFFF", borderTop: "1px solid #E2E8F0", borderBottom: "1px solid #E2E8F0", padding: "3rem 0" }}>
         <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "2.5rem" }}>
+          <div className="launch-metrics-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "2.5rem" }}>
             {[
               { num: "30–45 Days", label: "Average Time to First Dispatch", sub: "Complete legal, catalog & warehouse setup" },
               { num: "100%", label: "Channel Conflict Guardrail", sub: "Zero price disruption to offline trade dealers" },
@@ -929,7 +929,7 @@ export default function LaunchOnlinePage() {
           </div>
 
           {/* ── 12: PHASE CONTENT PANEL ── */}
-          <div style={{
+          <div className="launch-phase-panel" style={{
             background: "#FFFFFF",
             borderRadius: "24px",
             padding: "3.2rem",
@@ -961,7 +961,7 @@ export default function LaunchOnlinePage() {
                 Mandatory Operational Milestones:
               </div>
 
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))", gap: "1rem" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "1rem" }}>
                 {phases[activePhase].deliverables.map((deliv, dIdx) => (
                   <div key={dIdx} style={{
                     display: "flex",
@@ -1032,7 +1032,7 @@ export default function LaunchOnlinePage() {
           </div>
 
           {/* Interactive Pipeline Nodes */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: "1rem", marginBottom: "2rem" }}>
+          <div className="launch-journey-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: "1rem", marginBottom: "2rem" }}>
             {journeySteps.map((j, jIdx) => {
               const isActive = activeJourneyNode === jIdx;
               return (
@@ -1073,7 +1073,7 @@ export default function LaunchOnlinePage() {
           </div>
 
           {/* Selected Node Deep Dive Card */}
-          <div style={{
+          <div className="launch-journey-detail-card" style={{
             background: "#F8FAFC",
             borderRadius: "20px",
             padding: "2.2rem 2.8rem",
@@ -1189,7 +1189,7 @@ export default function LaunchOnlinePage() {
             Complete our 3-minute Commerce Diagnostic to assess your category headroom, trademark readiness, and initial warehouse allocation.
           </p>
 
-          <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
+          <div className="launch-final-cta-btns" style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
             <button
               onClick={() => setDiagOpen(true)}
               style={{
@@ -1296,6 +1296,10 @@ export default function LaunchOnlinePage() {
         }
 
         @media (max-width: 980px) {
+          .launch-hero-split {
+            grid-template-columns: 1fr !important;
+            gap: 2.5rem !important;
+          }
           .channel-conflict-section {
             padding: 4rem 0 4.5rem !important;
           }
@@ -1338,9 +1342,43 @@ export default function LaunchOnlinePage() {
           .harmonization-glass-card {
             padding: 1.6rem 1.35rem !important;
           }
+          .launch-metrics-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 1.5rem !important;
+          }
+          .launch-phase-panel {
+            padding: 2rem 1.5rem !important;
+          }
+          .launch-journey-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 0.8rem !important;
+          }
+          .launch-journey-detail-card {
+            padding: 1.8rem 1.4rem !important;
+          }
         }
 
         @media (max-width: 640px) {
+          .launch-hero-split {
+            gap: 2rem !important;
+          }
+          .launch-hero-btn-row {
+            flex-direction: column !important;
+            width: 100% !important;
+          }
+          .launch-hero-btn-row button,
+          .launch-hero-btn-row a {
+            width: 100% !important;
+            justify-content: center !important;
+          }
+          .launch-readiness-card {
+            padding: 1.2rem 1rem 1.25rem !important;
+            border-radius: 16px !important;
+          }
+          .launch-metrics-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1.2rem !important;
+          }
           .channel-conflict-section {
             padding: 3.2rem 0 3.8rem !important;
           }
@@ -1359,6 +1397,26 @@ export default function LaunchOnlinePage() {
           .harmonization-glass-card {
             padding: 1.4rem 1.1rem !important;
             border-radius: 14px !important;
+          }
+          .launch-phase-panel {
+            padding: 1.4rem 1.1rem !important;
+            border-radius: 16px !important;
+          }
+          .launch-journey-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .launch-journey-detail-card {
+            padding: 1.4rem 1.1rem !important;
+            border-radius: 16px !important;
+          }
+          .launch-final-cta-btns {
+            flex-direction: column !important;
+            width: 100% !important;
+          }
+          .launch-final-cta-btns button,
+          .launch-final-cta-btns a {
+            width: 100% !important;
+            justify-content: center !important;
           }
         }
       `,
