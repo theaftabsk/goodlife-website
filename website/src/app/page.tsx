@@ -907,87 +907,223 @@ export default function HomePage() {
 
   const portfolioLogos = [
     {
-      name: "Thorne",
-      category: "Global Wellness & Nutrition",
+      name: "Crompton",
+      category: "Seasonal Category",
       svg: (
-        <svg viewBox="0 0 145 42" width="145" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="4" y="29" fontFamily="Georgia, serif" fontWeight="900" fontSize="23" letterSpacing="2.5px" fill="#0F172A">THORNE</text>
+        <svg viewBox="0 0 165 42" width="165" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="24" letterSpacing="0.5px" fill="#004B87">Crompton</text>
         </svg>
       )
     },
     {
-      name: "Puka",
-      category: "Organic FMCG & Herbal",
+      name: "USHA",
+      category: "Sewing Machine",
       svg: (
         <svg viewBox="0 0 130 42" width="130" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="4" y="29" fontFamily="'Trebuchet MS', system-ui, sans-serif" fontWeight="900" fontStyle="italic" fontSize="24" fill="#15803D" letterSpacing="0.5px">PUKA</text>
+          <text x="4" y="30" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="28" letterSpacing="2px" fill="#ED1C24">USHA</text>
         </svg>
       )
     },
     {
-      name: "HMS",
-      category: "Industrial OEM & B2B",
-      svg: (
-        <svg viewBox="0 0 115 42" width="115" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="24" letterSpacing="1.5px" fill="#2563EB">HMS</text>
-        </svg>
-      )
-    },
-    {
-      name: "Gaia Herbs",
-      category: "Herbal Supplements",
-      svg: (
-        <svg viewBox="0 0 165 42" width="165" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <path d="M12 28 Q18 10 24 28" stroke="#059669" strokeWidth="3" fill="none" />
-          <circle cx="18" cy="11" r="3" fill="#10B981" />
-          <text x="32" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" fontSize="19" letterSpacing="0.8px" fill="#059669">GAIA HERBS</text>
-        </svg>
-      )
-    },
-    {
-      name: "Spark",
-      category: "Consumer Electronics",
-      svg: (
-        <svg viewBox="0 0 135 42" width="135" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <polygon points="14,8 17,18 27,18 20,24 22,34 14,28 6,34 8,24 1,18 11,18" fill="#F59E0B" />
-          <text x="34" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="21" letterSpacing="1px" fill="#D97706">SPARK</text>
-        </svg>
-      )
-    },
-    {
-      name: "Panasonic",
-      category: "Consumer Appliances",
-      svg: (
-        <svg viewBox="0 0 165 42" width="165" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="23" letterSpacing="0.5px" fill="#0041C2">Panasonic</text>
-        </svg>
-      )
-    },
-    {
-      name: "Mamaearth",
-      category: "Personal Care & Beauty",
-      svg: (
-        <svg viewBox="0 0 165 42" width="165" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="4" y="29" fontFamily="'Trebuchet MS', system-ui, sans-serif" fontWeight="800" fontSize="22" letterSpacing="-0.5px" fill="#0D9488">mamaearth</text>
-        </svg>
-      )
-    },
-    {
-      name: "boAt",
-      category: "Audio & Wearables",
-      svg: (
-        <svg viewBox="0 0 130 42" width="130" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <path d="M6 31 L18 13 L28 31 Z" fill="#DC2626" />
-          <text x="34" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="23" fill="#0F172A">boAt</text>
-        </svg>
-      )
-    },
-    {
-      name: "Golf Pro",
-      category: "Sports & Fitness",
+      name: "Havells",
+      category: "Home & Kitchen Appliances",
       svg: (
         <svg viewBox="0 0 155 42" width="155" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="4" y="29" fontFamily="Georgia, serif" fontWeight="800" fontSize="21" letterSpacing="1px" fill="#15803D">GOLF PRO</text>
+          <circle cx="15" cy="21" r="10" fill="#E31E24" />
+          <path d="M12 18 L18 24 M18 18 L12 24" stroke="#FFF" strokeWidth="2.5" />
+          <text x="32" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="23" fill="#E31E24" letterSpacing="0.5px">HAVELLS</text>
+        </svg>
+      )
+    },
+    {
+      name: "Hindware",
+      category: "Chimney",
+      svg: (
+        <svg viewBox="0 0 165 42" width="165" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <text x="4" y="29" fontFamily="Georgia, serif" fontWeight="900" fontSize="24" letterSpacing="1px" fill="#D32F2F">hindware</text>
+        </svg>
+      )
+    },
+    {
+      name: "Kenstar",
+      category: "Seasonal Category",
+      svg: (
+        <svg viewBox="0 0 150 42" width="150" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="24" letterSpacing="1.2px" fill="#0072CE">KENSTAR</text>
+        </svg>
+      )
+    },
+    {
+      name: "Bajaj",
+      category: "Home & Kitchen Appliances",
+      svg: (
+        <svg viewBox="0 0 140 42" width="140" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <polygon points="12,10 24,21 12,32 6,26 14,21 6,16" fill="#004A97" />
+          <text x="30" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="24" fill="#004A97" letterSpacing="1px">BAJAJ</text>
+        </svg>
+      )
+    },
+    {
+      name: "Livpure",
+      category: "Home & Kitchen Appliances",
+      svg: (
+        <svg viewBox="0 0 150 42" width="150" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" fontSize="25" fill="#00A3E0">Livpure</text>
+          <circle cx="106" cy="14" r="3" fill="#84BD00" />
+        </svg>
+      )
+    },
+    {
+      name: "Luminus",
+      category: "Invertors & Battery",
+      svg: (
+        <svg viewBox="0 0 155 42" width="155" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="24" letterSpacing="1.5px" fill="#002D72">LUMINOUS</text>
+        </svg>
+      )
+    },
+    {
+      name: "Exide",
+      category: "Invertors & Battery",
+      svg: (
+        <svg viewBox="0 0 140 42" width="140" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="26" letterSpacing="1.5px" fill="#E4002B">EXIDE</text>
+        </svg>
+      )
+    },
+    {
+      name: "Bhaburly",
+      category: "Home & Kitchen Appliances",
+      svg: (
+        <svg viewBox="0 0 155 42" width="155" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" fontSize="22" letterSpacing="1px" fill="#1E293B">BHABURLY</text>
+        </svg>
+      )
+    },
+    {
+      name: "Amplesta",
+      category: "Home & Kitchen Appliances",
+      svg: (
+        <svg viewBox="0 0 160 42" width="160" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="23" letterSpacing="1.5px" fill="#2563EB">AMPLESTA</text>
+        </svg>
+      )
+    },
+    {
+      name: "CG",
+      category: "Seasonal Category",
+      svg: (
+        <svg viewBox="0 0 120 42" width="120" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <rect x="4" y="7" width="30" height="28" rx="5" fill="#00529B" />
+          <text x="11" y="28" fontFamily="system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#FFF">CG</text>
+          <text x="40" y="29" fontFamily="system-ui, sans-serif" fontWeight="900" fontSize="22" fill="#00529B">Power</text>
+        </svg>
+      )
+    },
+    {
+      name: "VW",
+      category: "TV",
+      svg: (
+        <svg viewBox="0 0 130 42" width="130" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <rect x="4" y="6" width="32" height="30" rx="4" fill="#0F172A" />
+          <text x="8" y="28" fontFamily="system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#38BDF8">VW</text>
+          <text x="42" y="28" fontFamily="system-ui, sans-serif" fontWeight="800" fontSize="20" fill="#0F172A">Vision</text>
+        </svg>
+      )
+    },
+    {
+      name: "IVAS",
+      category: "Home & Kitchen Appliances",
+      svg: (
+        <svg viewBox="0 0 130 42" width="130" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="26" letterSpacing="2px" fill="#E65100">IVAS</text>
+        </svg>
+      )
+    },
+    {
+      name: "Faber",
+      category: "Chimney",
+      svg: (
+        <svg viewBox="0 0 140 42" width="140" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="26" fontStyle="italic" fill="#E10A17" letterSpacing="1px">FABER</text>
+        </svg>
+      )
+    },
+    {
+      name: "IKEA",
+      category: "Home & Kitchen Appliances",
+      svg: (
+        <svg viewBox="0 0 135 42" width="135" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <rect x="2" y="7" width="80" height="28" rx="4" fill="#0058A3" />
+          <ellipse cx="42" cy="21" rx="38" ry="13" fill="#FFDA1A" />
+          <text x="14" y="29" fontFamily="system-ui, sans-serif" fontWeight="900" fontSize="22" fill="#0058A3" letterSpacing="2px">IKEA</text>
+        </svg>
+      )
+    },
+    {
+      name: "Reo",
+      category: "Home & Kitchen Appliances",
+      svg: (
+        <svg viewBox="0 0 130 42" width="130" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="26" fill="#0284C7" letterSpacing="2px">REO</text>
+          <text x="68" y="29" fontFamily="system-ui, sans-serif" fontSize="11" fill="#64748B" fontWeight="700">by Havells</text>
+        </svg>
+      )
+    },
+    {
+      name: "Activa",
+      category: "Seasonal Category",
+      svg: (
+        <svg viewBox="0 0 145 42" width="145" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="24" fontStyle="italic" fill="#DC2626" letterSpacing="1px">ACTIVA</text>
+        </svg>
+      )
+    },
+    {
+      name: "Summercool",
+      category: "Seasonal Category",
+      svg: (
+        <svg viewBox="0 0 175 42" width="175" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <circle cx="16" cy="21" r="10" fill="#0284C7" />
+          <text x="32" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="21" fill="#0369A1" letterSpacing="0.5px">SUMMERCOOL</text>
+        </svg>
+      )
+    },
+    {
+      name: "Thermocool",
+      category: "Seasonal Category",
+      svg: (
+        <svg viewBox="0 0 175 42" width="175" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="21" fill="#EA580C" letterSpacing="0.5px">THERMOCOOL</text>
+        </svg>
+      )
+    },
+    {
+      name: "Power Guard",
+      category: "Invertors & Battery",
+      svg: (
+        <svg viewBox="0 0 185 42" width="185" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <path d="M12 9 L24 21 L12 33 Z" fill="#16A34A" />
+          <text x="30" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="20" fill="#15803D" letterSpacing="0.5px">POWER GUARD</text>
+        </svg>
+      )
+    },
+    {
+      name: "Sujata",
+      category: "Home & Kitchen Appliances",
+      svg: (
+        <svg viewBox="0 0 140 42" width="140" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <text x="4" y="29" fontFamily="Georgia, serif" fontWeight="900" fontSize="25" fill="#B91C1C" letterSpacing="1px">SUJATA</text>
+        </svg>
+      )
+    },
+    {
+      name: "Orient",
+      category: "Seasonal Category",
+      svg: (
+        <svg viewBox="0 0 145 42" width="145" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
+          <circle cx="14" cy="21" r="10" fill="#E11D48" />
+          <text x="30" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="24" fill="#1E293B" letterSpacing="1px">orient</text>
         </svg>
       )
     }
@@ -1021,6 +1157,42 @@ export default function HomePage() {
           alt="Flipkart"
           style={{ height: "60px", width: "auto", display: "block", objectFit: "contain" }}
         />
+      ),
+    },
+    {
+      name: "IndiaMART",
+      svg: (
+        <svg viewBox="0 0 170 44" width="200" height="52" style={{ height: "52px", width: "auto" }} fill="none">
+          <rect x="2" y="6" width="32" height="32" rx="6" fill="#0A5EB0" />
+          <path d="M8 26 L14 14 L20 22 L26 14 L26 26" stroke="#FFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <text x="40" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="24" fill="#0A5EB0" letterSpacing="-0.3px">
+            indiamart
+          </text>
+        </svg>
+      ),
+    },
+    {
+      name: "Tradeindia",
+      svg: (
+        <svg viewBox="0 0 170 44" width="200" height="52" style={{ height: "52px", width: "auto" }} fill="none">
+          <circle cx="18" cy="22" r="15" fill="#E62E2D" />
+          <text x="12" y="27" fontFamily="system-ui, sans-serif" fontWeight="900" fontSize="16" fill="#FFF">ti</text>
+          <text x="40" y="30" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" fontSize="25" fill="#1E293B" letterSpacing="-0.2px">
+            tradeindia
+          </text>
+        </svg>
+      ),
+    },
+    {
+      name: "Industrybuying",
+      svg: (
+        <svg viewBox="0 0 195 44" width="230" height="52" style={{ height: "52px", width: "auto" }} fill="none">
+          <rect x="2" y="6" width="32" height="32" rx="7" fill="#F36F21" />
+          <text x="8" y="29" fontFamily="system-ui, sans-serif" fontWeight="900" fontSize="20" fill="#FFF">IB</text>
+          <text x="42" y="28" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="20" fill="#231F20" letterSpacing="-0.2px">
+            industrybuying
+          </text>
+        </svg>
       ),
     },
     {
@@ -2032,9 +2204,9 @@ export default function HomePage() {
             {/* Filter Pills */}
             <div style={{ display: "inline-flex", background: "#F1F5F9", padding: "3px", borderRadius: "10px", gap: "3px", border: "1px solid #E2E8F0" }}>
               {[
-                { key: "all", label: "All Verticals (8)" },
-                { key: "active", label: "Active Operations (5)" },
-                { key: "upcoming", label: "Upcoming Verticals (3)" }
+                { key: "all", label: "All Verticals (9)" },
+                { key: "active", label: "Active Operations (7)" },
+                { key: "upcoming", label: "Upcoming Verticals (2)" }
               ].map((tab) => {
                 const isSelected = catFilter === tab.key;
                 return (
@@ -2071,87 +2243,7 @@ export default function HomePage() {
               {
                 id: "cat-1",
                 type: "active",
-                title: "Beauty & Personal Care",
-                badge: "Active",
-                badgeBg: "#ECFDF5",
-                badgeColor: "#059669",
-                badgeDot: "#10B981",
-                icon: (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z" />
-                  </svg>
-                ),
-                iconBg: "#F5F3FF",
-                iconBorder: "#DDD6FE",
-                desc: "Expedited turnaround under 4 hours, batch expiration & FEFO tracking, tamper seals and return QC checks.",
-                highlight: "FEFO Batch Expiration & Fragrance QC",
-                channels: ["Nykaa", "Amazon Beauty", "Tira", "Myntra", "Purplle"]
-              },
-              {
-                id: "cat-2",
-                type: "active",
-                title: "Consumer Electronics & Appliances",
-                badge: "Active",
-                badgeBg: "#ECFDF5",
-                badgeColor: "#059669",
-                badgeDot: "#10B981",
-                icon: (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284C7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect width="18" height="12" x="3" y="4" rx="2" />
-                    <line x1="2" x2="22" y1="20" y2="20" />
-                  </svg>
-                ),
-                iconBg: "#F0F9FF",
-                iconBorder: "#BAE6FD",
-                desc: "High-value serial number scan tracking, anti-theft packaging, return verification and marketplace SLA compliance.",
-                highlight: "IMEI / Serial Scan & Sealed Inspection",
-                channels: ["Amazon", "Flipkart", "JioMart", "Moglix"]
-              },
-              {
-                id: "cat-3",
-                type: "active",
-                title: "Nutraceuticals & Wellness",
-                badge: "Active",
-                badgeBg: "#ECFDF5",
-                badgeColor: "#059669",
-                badgeDot: "#10B981",
-                icon: (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D97706" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                    <path d="m9 12 2 2 4-4" />
-                  </svg>
-                ),
-                iconBg: "#FFFBEB",
-                iconBorder: "#FDE68A",
-                desc: "FSSAI-compliant storage, hygiene protocols, lot-level traceability, and temperature-monitored warehouse zones.",
-                highlight: "FSSAI Certified & Lot Traceability",
-                channels: ["Amazon", "Flipkart", "Tata 1mg", "D2C Stores"]
-              },
-              {
-                id: "cat-4",
-                type: "active",
-                title: "Fashion, Apparel & Footwear",
-                badge: "Active",
-                badgeBg: "#ECFDF5",
-                badgeColor: "#059669",
-                badgeDot: "#10B981",
-                icon: (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E11D48" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
-                    <path d="M3 6h18" />
-                    <path d="M16 10a4 4 0 0 1-8 0" />
-                  </svg>
-                ),
-                iconBg: "#FFF1F2",
-                iconBorder: "#FECDD3",
-                desc: "Complex size-color variant matrix, high-speed automated picking, and rapid 24-hour return assessment QC.",
-                highlight: "Variant SKU Matrix & Fast Returns QC",
-                channels: ["Myntra", "Ajio", "Amazon Fashion", "Flipkart"]
-              },
-              {
-                id: "cat-5",
-                type: "active",
-                title: "Home, Kitchen & Smart Living",
+                title: "Home & Kitchen Appliances",
                 badge: "Active",
                 badgeBg: "#ECFDF5",
                 badgeColor: "#059669",
@@ -2164,12 +2256,131 @@ export default function HomePage() {
                 ),
                 iconBg: "#EEF2FF",
                 iconBorder: "#C7D2FE",
-                desc: "Heavy/bulky freight handling, reinforced drop-test protective packaging, and multi-channel dealer sync.",
-                highlight: "Bulky Freight & Fragile Glass Safe Pack",
-                channels: ["Amazon", "Flipkart", "Pepperfry", "Meesho"]
+                desc: "Mixer grinders, induction cooktops, blenders, kettles, and smart kitchen small domestic appliances (SDA).",
+                highlight: "Mixer Grinders, Kettles & Cooktops",
+                channels: ["Amazon", "Flipkart", "JioMart", "Blinkit"]
+              },
+              {
+                id: "cat-2",
+                type: "active",
+                title: "TV & Smart Displays",
+                badge: "Active",
+                badgeBg: "#ECFDF5",
+                badgeColor: "#059669",
+                badgeDot: "#10B981",
+                icon: (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284C7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect width="18" height="12" x="3" y="4" rx="2" />
+                    <line x1="2" x2="22" y1="20" y2="20" />
+                  </svg>
+                ),
+                iconBg: "#F0F9FF",
+                iconBorder: "#BAE6FD",
+                desc: "Smart LED, QLED, OLED 4K displays and sound systems with serial scan tracking and transit safe packaging.",
+                highlight: "IMEI / Serial Scan & Safe Pack",
+                channels: ["Amazon", "Flipkart", "VW Stores", "Croma"]
+              },
+              {
+                id: "cat-3",
+                type: "active",
+                title: "Washing Machine",
+                badge: "Active",
+                badgeBg: "#ECFDF5",
+                badgeColor: "#059669",
+                badgeDot: "#10B981",
+                icon: (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="4" y="2" width="16" height="20" rx="2" />
+                    <circle cx="12" cy="13" r="5" />
+                    <path d="M12 8v.01" />
+                  </svg>
+                ),
+                iconBg: "#EFF6FF",
+                iconBorder: "#BFDBFE",
+                desc: "Front load, top load automatic and semi-automatic washing machines with heavy-bulky scheduled dock appointments.",
+                highlight: "Heavy Bulky Staging & Liftgate Dispatch",
+                channels: ["Amazon", "Flipkart", "Brand Stores"]
+              },
+              {
+                id: "cat-4",
+                type: "active",
+                title: "Seasonal Category",
+                badge: "Active • Peak SLA",
+                badgeBg: "#FEF3C7",
+                badgeColor: "#D97706",
+                badgeDot: "#F59E0B",
+                icon: (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EA580C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+                  </svg>
+                ),
+                iconBg: "#FFF7ED",
+                iconBorder: "#FED7AA",
+                desc: "Summer & winter climate operations covering Fans, Air Coolers, Water Heaters, and Room Heaters with 12-state buffer placement.",
+                highlight: "Fans, Air Coolers, Water & Room Heaters",
+                channels: ["Amazon", "Flipkart", "IndiaMART", "TradeIndia"]
+              },
+              {
+                id: "cat-5",
+                type: "active",
+                title: "Sewing Machine",
+                badge: "Active",
+                badgeBg: "#ECFDF5",
+                badgeColor: "#059669",
+                badgeDot: "#10B981",
+                icon: (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 19h16M4 15h16M7 15V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v3" />
+                  </svg>
+                ),
+                iconBg: "#FEF2F2",
+                iconBorder: "#FECACA",
+                desc: "Domestic stitching, industrial heavy-duty, and computerized automatic embroidery machines with cast-iron safe handling.",
+                highlight: "Domestic, Industrial & Embroidery",
+                channels: ["Amazon", "Flipkart", "USHA Network"]
               },
               {
                 id: "cat-6",
+                type: "active",
+                title: "Kitchen Chimney & Hobs",
+                badge: "Active",
+                badgeBg: "#ECFDF5",
+                badgeColor: "#059669",
+                badgeDot: "#10B981",
+                icon: (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0D9488" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 4h16v4L16 12v8H8v-8L4 8V4z" />
+                  </svg>
+                ),
+                iconBg: "#F0FDFA",
+                iconBorder: "#99F6E4",
+                desc: "Auto-clean filterless kitchen chimneys, gas hobs, and island exhaust hoods with glass-reinforced packaging.",
+                highlight: "Auto-Clean, Filterless & Island Hoods",
+                channels: ["Amazon", "Flipkart", "Dealer Network"]
+              },
+              {
+                id: "cat-7",
+                type: "active",
+                title: "Invertors & Battery",
+                badge: "Active",
+                badgeBg: "#ECFDF5",
+                badgeColor: "#059669",
+                badgeDot: "#10B981",
+                icon: (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="7" width="16" height="12" rx="2" />
+                    <line x1="22" x2="22" y1="11" y2="15" />
+                  </svg>
+                ),
+                iconBg: "#F0FDF4",
+                iconBorder: "#BBF7D0",
+                desc: "Pure sine wave home inverters, heavy tubular solar batteries, and voltage stabilizers with hazardous spill compliance.",
+                highlight: "Pure Sine Wave & Tubular Solar Batteries",
+                channels: ["Amazon", "Industrybuying", "Moglix", "B2B"]
+              },
+              {
+                id: "cat-8",
                 type: "upcoming",
                 title: "Quick-Commerce Dark Stores",
                 badge: "Upcoming • Pilot Live",
@@ -2188,7 +2399,7 @@ export default function HomePage() {
                 channels: ["Blinkit", "Zepto", "Swiggy Instamart", "BB Now"]
               },
               {
-                id: "cat-7",
+                id: "cat-9",
                 type: "upcoming",
                 title: "Industrial & B2B Spares",
                 badge: "Upcoming • In Pipeline",

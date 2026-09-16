@@ -12,6 +12,9 @@ website/.next/
 admin/.next/
 out/
 build/
+dist/
+backend/dist/
+
 
 # Local Environment & Secrets
 .env

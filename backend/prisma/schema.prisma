@@ -225,3 +225,44 @@ model AuditLog {
   ipAddress String?
   createdAt DateTime @default(now())
 }
+
+model PlatformLogo {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  slug        String   @unique
+  logoUrl     String?
+  svgCode     String?  @db.Text
+  websiteUrl  String?
+  orderIndex  Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model BrandLogo {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  slug        String   @unique
+  category    String?
+  logoUrl     String?
+  svgCode     String?  @db.Text
+  websiteUrl  String?
+  orderIndex  Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ProductCategory {
+  id            String   @id @default(uuid())
+  name          String   @unique
+  slug          String   @unique
+  description   String?
+  subcategories String[] // e.g. Fans, Aircooler, Water Heater, Room Heater for Seasonal
+  icon          String?
+  orderIndex    Int      @default(0)
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
