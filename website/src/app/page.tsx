@@ -2204,9 +2204,9 @@ export default function HomePage() {
             {/* Filter Pills */}
             <div style={{ display: "inline-flex", background: "#F1F5F9", padding: "3px", borderRadius: "10px", gap: "3px", border: "1px solid #E2E8F0" }}>
               {[
-                { key: "all", label: "All Verticals (9)" },
+                { key: "all", label: "All Verticals (10)" },
                 { key: "active", label: "Active Operations (7)" },
-                { key: "upcoming", label: "Upcoming Verticals (2)" }
+                { key: "upcoming", label: "Upcoming Verticals (3)" }
               ].map((tab) => {
                 const isSelected = catFilter === tab.key;
                 return (
@@ -2418,7 +2418,7 @@ export default function HomePage() {
                 channels: ["Moglix", "IndustryBuying", "Amazon Business"]
               },
               {
-                id: "cat-8",
+                id: "cat-10",
                 type: "upcoming",
                 title: "Luxury Goods & Fine Jewelry",
                 badge: "Upcoming • Q4 2026",
