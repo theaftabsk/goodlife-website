@@ -27,6 +27,9 @@ export interface SiteConfigurationDto {
   linkedinUrl?: string;
   twitterUrl?: string;
   youtubeUrl?: string;
+  ga4MeasurementId?: string;
+  gtmContainerId?: string;
+  googleSearchConsoleVerification?: string;
 }
 
 const DEFAULT_SETTINGS = {
@@ -56,6 +59,9 @@ const DEFAULT_SETTINGS = {
   linkedinUrl: 'https://linkedin.com/company/good-life-sutra',
   twitterUrl: 'https://x.com/goodlifesutra',
   youtubeUrl: 'https://youtube.com/@goodlifesutra',
+  ga4MeasurementId: '',
+  gtmContainerId: '',
+  googleSearchConsoleVerification: '',
 };
 
 @Injectable()

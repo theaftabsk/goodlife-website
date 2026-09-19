@@ -8,7 +8,9 @@ import {
   CheckIcon,
   DownloadIcon,
   MailIcon,
-  CheckCircleIcon
+  CheckCircleIcon,
+  GlobeIcon,
+  ExternalLinkIcon
 } from "@/components/Icons";
 
 export interface SmtpSettings {
@@ -46,12 +48,50 @@ const defaultSmtp: SmtpSettings = {
 };
 
 export default function SettingsPage() {
-  const { platforms, brands, categories, leads, showToast } = useAdminData();
+  const { platforms, brands, categories, leads, showToast, siteSettings, updateSiteSettings } = useAdminData();
 
   const [smtp, setSmtp] = useState<SmtpSettings>(defaultSmtp);
   const [isTestingSmtp, setIsTestingSmtp] = useState(false);
   const [testRecipient, setTestRecipient] = useState("admin@goodlifesutra.com");
   const [testResult, setTestResult] = useState<string | null>(null);
+
+  // Google Analytics, GTM, and Search Console State
+  const [analyticsForm, setAnalyticsForm] = useState({
+    ga4MeasurementId: siteSettings?.ga4MeasurementId || "",
+    gtmContainerId: siteSettings?.gtmContainerId || "",
+    googleSearchConsoleVerification: siteSettings?.googleSearchConsoleVerification || ""
+  });
+  const [isSavingAnalytics, setIsSavingAnalytics] = useState(false);
+  const [analyticsSavedNotice, setAnalyticsSavedNotice] = useState(false);
+
+  useEffect(() => {
+    if (siteSettings) {
+      setAnalyticsForm({
+        ga4MeasurementId: siteSettings.ga4MeasurementId || "",
+        gtmContainerId: siteSettings.gtmContainerId || "",
+        googleSearchConsoleVerification: siteSettings.googleSearchConsoleVerification || ""
+      });
+    }
+  }, [siteSettings]);
+
+  const handleSaveAnalytics = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSavingAnalytics(true);
+    try {
+      await updateSiteSettings({
+        ga4MeasurementId: analyticsForm.ga4MeasurementId.trim(),
+        gtmContainerId: analyticsForm.gtmContainerId.trim(),
+        googleSearchConsoleVerification: analyticsForm.googleSearchConsoleVerification.trim()
+      });
+      setAnalyticsSavedNotice(true);
+      setTimeout(() => setAnalyticsSavedNotice(false), 3000);
+      showToast("GA4, GTM & Search Console settings saved to database!");
+    } catch (_) {
+      showToast("Failed to save analytics settings.");
+    } finally {
+      setIsSavingAnalytics(false);
+    }
+  };
 
   // Load saved SMTP settings from localStorage
   useEffect(() => {
@@ -481,7 +521,215 @@ export default function SettingsPage() {
         )}
       </div>
 
-      {/* 2. Backup & Disaster Recovery */}
+      {/* 2. Google Analytics 4, Tag Manager & Google Search Console Suite */}
+      <div className="admin-card" style={{ padding: "1.75rem", border: "1.5px solid #E2E8F0", background: "#FFFFFF" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1.25rem" }}>
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+              <div style={{
+                width: "34px",
+                height: "34px",
+                borderRadius: "8px",
+                background: "linear-gradient(135deg, #F59E0B 0%, #EA580C 100%)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }}>
+                <GlobeIcon size={18} color="#FFFFFF" />
+              </div>
+              <div>
+                <h3 style={{ fontSize: "1.15rem", fontWeight: 800, color: "#0F172A", margin: 0 }}>
+                  Google Analytics 4, Tag Manager &amp; Search Console
+                </h3>
+                <p style={{ fontSize: "0.82rem", color: "#64748B", margin: "0.25rem 0 0" }}>
+                  Connect your live tracking measurement IDs and site ownership token. Changes are stored in PostgreSQL and delivered to the website.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", gap: "0.5rem", alignItems: "center", flexWrap: "wrap" }}>
+            <span style={{
+              fontSize: "0.75rem",
+              fontWeight: 700,
+              padding: "0.25rem 0.65rem",
+              borderRadius: "999px",
+              background: analyticsForm.ga4MeasurementId ? "#ECFDF5" : "#FEF3C7",
+              color: analyticsForm.ga4MeasurementId ? "#047857" : "#B45309",
+              border: analyticsForm.ga4MeasurementId ? "1px solid #A7F3D0" : "1px solid #FDE68A"
+            }}>
+              GA4: {analyticsForm.ga4MeasurementId ? "Connected" : "Pending"}
+            </span>
+            <span style={{
+              fontSize: "0.75rem",
+              fontWeight: 700,
+              padding: "0.25rem 0.65rem",
+              borderRadius: "999px",
+              background: analyticsForm.gtmContainerId ? "#EFF6FF" : "#FEF3C7",
+              color: analyticsForm.gtmContainerId ? "#1D4ED8" : "#B45309",
+              border: analyticsForm.gtmContainerId ? "1px solid #BFDBFE" : "1px solid #FDE68A"
+            }}>
+              GTM: {analyticsForm.gtmContainerId ? "Connected" : "Pending"}
+            </span>
+            <span style={{
+              fontSize: "0.75rem",
+              fontWeight: 700,
+              padding: "0.25rem 0.65rem",
+              borderRadius: "999px",
+              background: analyticsForm.googleSearchConsoleVerification ? "#ECFDF5" : "#FEF3C7",
+              color: analyticsForm.googleSearchConsoleVerification ? "#047857" : "#B45309",
+              border: analyticsForm.googleSearchConsoleVerification ? "1px solid #A7F3D0" : "1px solid #FDE68A"
+            }}>
+              Search Console: {analyticsForm.googleSearchConsoleVerification ? "Verified" : "Pending"}
+            </span>
+          </div>
+        </div>
+
+        <form onSubmit={handleSaveAnalytics}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem", marginBottom: "1.25rem" }}>
+            {/* GA4 Measurement ID */}
+            <div style={{
+              padding: "1rem",
+              borderRadius: "10px",
+              background: "#F8FAFC",
+              border: "1px solid #E2E8F0"
+            }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.4rem" }}>
+                <label style={{ fontSize: "0.8rem", fontWeight: 700, color: "#1E293B" }}>
+                  Google Analytics 4 (GA4) ID
+                </label>
+                {analyticsForm.ga4MeasurementId && (
+                  <span style={{ fontSize: "0.7rem", color: "#059669", fontWeight: 700 }}>● Active</span>
+                )}
+              </div>
+              <input
+                type="text"
+                value={analyticsForm.ga4MeasurementId}
+                onChange={(e) => setAnalyticsForm({ ...analyticsForm, ga4MeasurementId: e.target.value })}
+                placeholder="G-XXXXXXXXXX"
+                className="input-control"
+                style={{
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: "0.85rem",
+                  width: "100%",
+                  background: "#FFFFFF"
+                }}
+              />
+              <p style={{ fontSize: "0.73rem", color: "#64748B", margin: "0.4rem 0 0", lineHeight: 1.4 }}>
+                From Google Analytics &gt; Admin &gt; Data Streams &gt; Measurement ID.
+              </p>
+            </div>
+
+            {/* GTM Container ID */}
+            <div style={{
+              padding: "1rem",
+              borderRadius: "10px",
+              background: "#F8FAFC",
+              border: "1px solid #E2E8F0"
+            }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.4rem" }}>
+                <label style={{ fontSize: "0.8rem", fontWeight: 700, color: "#1E293B" }}>
+                  Google Tag Manager (GTM) ID
+                </label>
+                {analyticsForm.gtmContainerId && (
+                  <span style={{ fontSize: "0.7rem", color: "#2563EB", fontWeight: 700 }}>● Active</span>
+                )}
+              </div>
+              <input
+                type="text"
+                value={analyticsForm.gtmContainerId}
+                onChange={(e) => setAnalyticsForm({ ...analyticsForm, gtmContainerId: e.target.value })}
+                placeholder="GTM-XXXXXXX"
+                className="input-control"
+                style={{
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: "0.85rem",
+                  width: "100%",
+                  background: "#FFFFFF"
+                }}
+              />
+              <p style={{ fontSize: "0.73rem", color: "#64748B", margin: "0.4rem 0 0", lineHeight: 1.4 }}>
+                From GTM workspace header. Injects scripts and manages tracking tags.
+              </p>
+            </div>
+
+            {/* Google Search Console Verification */}
+            <div style={{
+              padding: "1rem",
+              borderRadius: "10px",
+              background: "#F8FAFC",
+              border: "1px solid #E2E8F0"
+            }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.4rem" }}>
+                <label style={{ fontSize: "0.8rem", fontWeight: 700, color: "#1E293B" }}>
+                  Search Console Verification
+                </label>
+                {analyticsForm.googleSearchConsoleVerification && (
+                  <span style={{ fontSize: "0.7rem", color: "#059669", fontWeight: 700 }}>● Verified</span>
+                )}
+              </div>
+              <input
+                type="text"
+                value={analyticsForm.googleSearchConsoleVerification}
+                onChange={(e) => setAnalyticsForm({ ...analyticsForm, googleSearchConsoleVerification: e.target.value })}
+                placeholder="google-site-verification code or meta"
+                className="input-control"
+                style={{
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: "0.85rem",
+                  width: "100%",
+                  background: "#FFFFFF"
+                }}
+              />
+              <p style={{ fontSize: "0.73rem", color: "#64748B", margin: "0.4rem 0 0", lineHeight: 1.4 }}>
+                HTML tag code from Search Console &gt; Settings &gt; Ownership Verification.
+              </p>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.75rem" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              {analyticsSavedNotice && (
+                <span style={{ fontSize: "0.8rem", color: "#059669", fontWeight: 700, display: "flex", alignItems: "center", gap: "0.3rem" }}>
+                  <CheckIcon size={14} color="#059669" />
+                  Saved directly to PostgreSQL database!
+                </span>
+              )}
+            </div>
+
+            <div style={{ display: "flex", gap: "0.6rem" }}>
+              <a
+                href="http://localhost:3000"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary"
+                style={{ fontSize: "0.82rem", display: "inline-flex", alignItems: "center", gap: "0.35rem", textDecoration: "none" }}
+              >
+                <span>Check Live Website</span>
+                <ExternalLinkIcon size={13} color="#475569" />
+              </a>
+
+              <button
+                type="submit"
+                disabled={isSavingAnalytics}
+                className="btn-primary"
+                style={{ fontSize: "0.82rem", display: "inline-flex", alignItems: "center", gap: "0.4rem", padding: "0.5rem 1.25rem" }}
+              >
+                {isSavingAnalytics ? (
+                  <span>Saving to Database...</span>
+                ) : (
+                  <>
+                    <CheckIcon size={15} color="#FFFFFF" />
+                    <span>Save Analytics Credentials</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      {/* 3. Backup & Disaster Recovery */}
       <div className="admin-card" style={{ padding: "1.5rem" }}>
         <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#0F172A", marginBottom: "0.25rem" }}>
           Backup &amp; Export Data

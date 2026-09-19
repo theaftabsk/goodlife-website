@@ -316,8 +316,11 @@ model SiteConfiguration {
   copyrightText       String?  @default("© 2026 Good Life Sutra Pvt. Ltd. All rights reserved.")
   linkedinUrl         String?  @default("https://linkedin.com/company/good-life-sutra")
   twitterUrl          String?  @default("https://x.com/goodlifesutra")
-  youtubeUrl          String?  @default("https://youtube.com/@goodlifesutra")
-  updatedAt           DateTime @updatedAt
+  youtubeUrl                      String?  @default("https://youtube.com/@goodlifesutra")
+  ga4MeasurementId                String?  @default("")
+  gtmContainerId                  String?  @default("")
+  googleSearchConsoleVerification String?  @default("")
+  updatedAt                       DateTime @updatedAt
   createdAt           DateTime @default(now())
 }
 

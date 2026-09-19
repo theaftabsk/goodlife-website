@@ -169,6 +169,9 @@ export interface SiteSettings {
   linkedinUrl?: string;
   twitterUrl?: string;
   youtubeUrl?: string;
+  ga4MeasurementId?: string;
+  gtmContainerId?: string;
+  googleSearchConsoleVerification?: string;
 }
 
 export interface AuthorItem {
@@ -758,7 +761,10 @@ const initialSiteSettings: SiteSettings = {
   copyrightText: "© 2026 Good Life Sutra Pvt. Ltd. All rights reserved.",
   linkedinUrl: "https://linkedin.com/company/good-life-sutra",
   twitterUrl: "https://x.com/goodlifesutra",
-  youtubeUrl: "https://youtube.com/@goodlifesutra"
+  youtubeUrl: "https://youtube.com/@goodlifesutra",
+  ga4MeasurementId: "",
+  gtmContainerId: "",
+  googleSearchConsoleVerification: ""
 };
 
 const initialAuthors: AuthorItem[] = [
@@ -944,6 +950,13 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
         if (rRes.ok) {
           const data = await rRes.json();
           if (Array.isArray(data) && data.length > 0) setRedirects(data);
+        }
+      } catch (_) {}
+      try {
+        const sRes = await fetch("http://localhost:5000/api/v1/settings");
+        if (sRes.ok) {
+          const data = await sRes.json();
+          if (data && typeof data === "object") setSiteSettings(data);
         }
       } catch (_) {}
     }
@@ -1351,13 +1364,20 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
   };
 
   // Site Settings
-  const updateSiteSettings = (settings: Partial<SiteSettings>) => {
+  const updateSiteSettings = async (settings: Partial<SiteSettings>) => {
     setSiteSettings(prev => {
       const updated = { ...prev, ...settings };
       try { localStorage.setItem("gl_admin_settings", JSON.stringify(updated)); } catch (_) {}
       return updated;
     });
-    logActivity("Updated Site Configuration", "Header, Footer & Corporate Info", "Saved global navigation, announcement banner, and corporate registration");
+    try {
+      await fetch("http://localhost:5000/api/v1/settings", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(settings),
+      });
+    } catch (_) {}
+    logActivity("Updated Site Configuration", "Settings & Analytics", "Saved global configuration, tracking IDs, and corporate registration");
     showToast("Site configuration saved successfully!");
   };
 
