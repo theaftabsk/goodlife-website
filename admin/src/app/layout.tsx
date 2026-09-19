@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { AdminDataProvider } from "@/context/AdminDataContext";
+import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
-  title: "Good Life Admin CMS | Enterprise Control Panel",
-  description: "Standalone Admin CMS Dashboard for Diagnostic Leads, Content, RBAC, and Site Operations.",
+  title: "Good Life Admin CMS | Enterprise Commerce Control Panel",
+  description: "Standalone Admin CMS Dashboard for Diagnostic Leads, Content, Platforms, and Operations.",
   robots: {
     index: false,
     follow: false,
@@ -17,7 +19,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <AuthProvider>
+          <AdminDataProvider>
+            {children}
+          </AdminDataProvider>
+        </AuthProvider>
+      </body>
     </html>
   );
 }

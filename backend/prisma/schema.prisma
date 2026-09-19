@@ -127,19 +127,34 @@ model Article {
 }
 
 model CaseStudy {
-  id          String    @id @default(uuid())
-  slug        String    @unique
-  clientName  String
-  categoryId  String?
-  category    Category? @relation(fields: [categoryId], references: [id])
-  title       String
-  stats       String
-  description String
-  challenge   String?
-  solution    String?
-  result      String?
-  coverImage  String?
-  createdAt   DateTime  @default(now())
+  id                 String    @id @default(uuid())
+  slug               String    @unique
+  clientName         String
+  industry           String?
+  location           String?
+  timeframe          String?
+  categoryId         String?
+  category           Category? @relation(fields: [categoryId], references: [id])
+  title              String
+  stats              String?
+  description        String
+  challenge          String?
+  solution           String?
+  actionTaken        String[]  @default([])
+  capabilities       String[]  @default([])
+  metrics            Json?
+  testimonialQuote   String?
+  testimonialAuthor  String?
+  testimonialRole    String?
+  testimonialCompany String?
+  result             String?
+  coverImage         String?
+  isFeatured         Boolean   @default(false)
+  isPublished        Boolean   @default(true)
+  seoTitle           String?
+  seoDesc            String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime? @updatedAt
 }
 
 model FAQ {
@@ -174,11 +189,18 @@ model Tag {
 model Author {
   id        String    @id @default(uuid())
   name      String
+  email     String?   @unique
+  password  String?
+  roleType  String    @default("Author & Contributor")
   title     String
   bio       String?
   avatarUrl String?
+  linkedin  String?
+  status    String    @default("Active")
+  lastLogin DateTime?
   articles  Article[]
   createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 }
 
 model Media {
@@ -265,4 +287,36 @@ model ProductCategory {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
+
+model SiteConfiguration {
+  id                  String   @id @default("default")
+  companyName         String   @default("Good Life Sutra Pvt. Ltd.")
+  phone               String   @default("+91 88821 57074")
+  email               String   @default("growth@goodlifesutra.com")
+  address             String   @default("Plot 42, Udyog Vihar Phase IV, Sector 18, Gurugram, Haryana 122015, India")
+  gstNumber           String   @default("06AABCG1234F1Z8")
+  whatsappNumber      String   @default("+91 88821 57074")
+  headerCtaText       String   @default("Request Diagnostic →")
+  heroHeadline        String   @default("Scale Ecommerce. Not Complexity.")
+  announcementText    String   @default("Operating across 15+ Platforms & 23+ Leading Brands Nationwide")
+  announcementEnabled Boolean  @default(true)
+  announcementLink    String   @default("/case-studies")
+  announcementTheme   String   @default("slate")
+  headerPhoneBadge    String?  @default("+91 88821 57074")
+  cinNumber           String?  @default("U74999MH2021PTC368942")
+  registeredCity      String?  @default("Gurugram, Haryana & Mumbai, India")
+  supportHours        String?  @default("Mon - Sat: 9:30 AM - 7:00 PM IST")
+  preFooterTag        String?  @default("READY TO SCALE?")
+  preFooterHeading    String?  @default("Grow your ecommerce business with us")
+  preFooterSubtext    String?  @default("Request our complimentary Commerce Diagnostic to identify leakage points and unlock new channel growth.")
+  preFooterCta        String?  @default("UNLOCK YOUR GROWTH →")
+  preFooterBgImage    String?  @default("https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")
+  copyrightText       String?  @default("© 2026 Good Life Sutra Pvt. Ltd. All rights reserved.")
+  linkedinUrl         String?  @default("https://linkedin.com/company/good-life-sutra")
+  twitterUrl          String?  @default("https://x.com/goodlifesutra")
+  youtubeUrl          String?  @default("https://youtube.com/@goodlifesutra")
+  updatedAt           DateTime @updatedAt
+  createdAt           DateTime @default(now())
+}
+
 

@@ -166,7 +166,7 @@ async function main() {
       slug: 'home-kitchen-appliances',
       description: 'Mixer grinders, induction cooktops, blenders, kettles, and smart kitchen electronics.',
       subcategories: ['Mixer Grinder', 'Induction Cooktop', 'Electric Kettle', 'Air Fryer', 'Toaster'],
-      icon: '🍳',
+      icon: 'kitchen',
       orderIndex: 1,
     },
     {
@@ -174,7 +174,7 @@ async function main() {
       slug: 'tv',
       description: 'Smart LED, QLED, OLED 4K displays and home entertainment systems.',
       subcategories: ['Smart TV', '4K UHD', 'QLED Display', 'Android TV', 'Soundbars'],
-      icon: '📺',
+      icon: 'tv',
       orderIndex: 2,
     },
     {
@@ -182,7 +182,7 @@ async function main() {
       slug: 'washing-machine',
       description: 'Front load, top load fully automatic and semi-automatic laundry solutions.',
       subcategories: ['Front Load', 'Top Load', 'Semi-Automatic', 'Dryers'],
-      icon: '🧺',
+      icon: 'washing',
       orderIndex: 3,
     },
     {
@@ -190,7 +190,7 @@ async function main() {
       slug: 'seasonal-category',
       description: 'Summer & winter climate appliances with regional multi-warehouse placement.',
       subcategories: ['Fans', 'Air Coolers', 'Water Heaters', 'Room Heaters'],
-      icon: '❄️🔥',
+      icon: 'climate',
       orderIndex: 4,
     },
     {
@@ -198,7 +198,7 @@ async function main() {
       slug: 'sewing-machine',
       description: 'Domestic, industrial, and computerized automatic embroidery sewing machines.',
       subcategories: ['Domestic Sewing', 'Electronic Stitching', 'Industrial Heavy-Duty', 'Embroidery'],
-      icon: '🪡',
+      icon: 'sewing',
       orderIndex: 5,
     },
     {
@@ -206,7 +206,7 @@ async function main() {
       slug: 'chimney',
       description: 'Auto-clean filterless kitchen chimneys, hobs, and exhaust hoods.',
       subcategories: ['Auto-Clean Chimney', 'Filterless Suction', 'Kitchen Hobs', 'Island Chimney'],
-      icon: '💨',
+      icon: 'chimney',
       orderIndex: 6,
     },
     {
@@ -214,7 +214,7 @@ async function main() {
       slug: 'invertors-battery',
       description: 'Pure sine wave inverters, tubular solar batteries, and high-capacity backup systems.',
       subcategories: ['Pure Sine Wave Inverters', 'Tubular Batteries', 'Solar Hybrid Systems', 'Voltage Stabilizers'],
-      icon: '🔋',
+      icon: 'battery',
       orderIndex: 7,
     },
   ];
@@ -227,6 +227,168 @@ async function main() {
     });
   }
   console.log(`✅ Upserted ${categories.length} product categories.`);
+
+  // 4. SEED AUTHORS & SYSTEM USERS
+  const authorsData = [
+    {
+      name: 'Rajeev Nair',
+      email: 'rajeev.nair@goodlife.in',
+      password: 'author_pass_2026',
+      roleType: 'Super Admin',
+      title: 'Head of Marketplace Operations',
+      bio: 'Ex-Amazon executive, 14+ years scaling tier-1 appliances and consumer electronics across marketplaces.',
+      avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80',
+      linkedin: 'https://linkedin.com/in/rajeev-nair-goodlife',
+      status: 'Active',
+    },
+    {
+      name: 'Pooja Verma',
+      email: 'pooja.verma@goodlife.in',
+      password: 'author_pass_2026',
+      roleType: 'Content Director',
+      title: 'VP Supply Chain & Warehousing',
+      bio: 'Leading multi-state fulfillment centers, transit damage mitigation, and same-day logistics SLAs.',
+      avatarUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&auto=format&fit=crop&q=80',
+      linkedin: 'https://linkedin.com/in/pooja-verma-goodlife',
+      status: 'Active',
+    },
+    {
+      name: 'Amitava Sen',
+      email: 'amitava.sen@goodlife.in',
+      password: 'author_pass_2026',
+      roleType: 'Senior Editor',
+      title: 'Lead Reconciliation & Settlement Cell',
+      bio: 'Specialist in marketplace escrow audit, payment dispute recovery, and commission leak plug-in.',
+      avatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=80',
+      linkedin: 'https://linkedin.com/in/amitava-sen-goodlife',
+      status: 'Active',
+    },
+  ];
+
+  for (const a of authorsData) {
+    await prisma.author.upsert({
+      where: { email: a.email },
+      update: a,
+      create: a,
+    });
+  }
+  console.log(`✅ Upserted ${authorsData.length} authors.`);
+
+  // 5. SEED CASE STUDIES
+  const caseStudiesData = [
+    {
+      slug: 'oem-appliances-marketplace-scale',
+      clientName: 'Havells / Surya Contract OEM Partner',
+      title: 'From Contract Manufacturer to ₹18 Cr/yr Direct Marketplace Brand',
+      industry: 'Small Domestic Appliances',
+      location: 'New Delhi / Pan-India',
+      timeframe: '9 Months',
+      stats: '830% GMV Surge · 99.4% SLA Adherence',
+      description: 'Scaled from zero to ₹1.5+ Cr monthly GMV within 9 months, maintaining 18.2% operating profit margin after all marketplace fees and logistics costs.',
+      challenge: 'A 25-year-old appliance manufacturer with zero direct-to-consumer presence was losing margins to traditional distributors and wanted to launch ceiling fans and induction cooktops directly on Amazon and Flipkart without alienating offline dealers.',
+      solution: 'Designed an exclusive online D2C sub-brand with unique model numbers, drop-tested master packaging, and 6 regional Good Life warehouses securing Prime/Fast delivery badges.',
+      actionTaken: [
+        'End-to-end cataloging & A+ content creation for 42 SKUs',
+        'Direct FBA & Flipkart FBF onboarding across 6 state GST registrations',
+        'Automated order ingest and dual-carrier allocation reducing late-dispatch rate to < 0.1%',
+        'Daily price monitoring & Buy Box protection algorithms'
+      ],
+      capabilities: ['Marketplace Management', 'Fulfillment & Logistics', 'Catalog & Brand Store', 'Payment Reconciliation'],
+      metrics: [
+        { val: '+830%', lbl: 'GMV Surge in 9 Months' },
+        { val: '99.4%', lbl: 'On-Time Dispatch SLA' },
+        { val: '₹18.4 Cr', lbl: 'Annualized Run-Rate' },
+        { val: '13.8%', lbl: 'Blended TACOS Efficiency' }
+      ],
+      testimonialQuote: 'Good Life transformed us from an invisible contract factory into one of the top 3 selling ceiling fan brands on Amazon within three quarters.',
+      testimonialAuthor: 'Rajesh Kulkarni',
+      testimonialRole: 'Managing Director',
+      testimonialCompany: 'Apex Appliances Ltd.',
+      result: 'Scaled to ₹18.4 Cr annual run-rate with 13.8% blended TACOS and top 3 category BSR rank.',
+      coverImage: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=1200&auto=format&fit=crop&q=80',
+      isFeatured: true,
+      isPublished: true,
+      seoTitle: 'Appliances OEM Marketplace Scale Case Study | GoodLife',
+      seoDesc: 'Learn how a contract manufacturer scaled to ₹18 Cr run-rate across Amazon and Flipkart with GoodLife operating infrastructure.'
+    },
+    {
+      slug: 'kitchen-chimney-transit-breakage-reduction',
+      clientName: 'Premium Kitchen Chimney & Cooktop Brand',
+      title: 'Eliminating Transit Damage & Slashing Return Freight from 18% to 2.8%',
+      industry: 'Large Appliances & Chimneys',
+      location: 'Pune & Bengaluru Hubs',
+      timeframe: '4 Months',
+      stats: '-82% Transit Breakage · 48h Delivery SLA',
+      description: 'Transit damage collapsed from 14.2% to under 0.4%. Customer return rate decreased from 18% to 2.8%, saving over ₹42 Lakh in quarterly freight penalties.',
+      challenge: 'High in-transit glass canopy breakage on kitchen chimneys (exceeding 14% damage rates) was eroding seller ratings and generating astronomical two-way freight debit notes from courier partners.',
+      solution: 'Engineered customized wooden crating and reinforced high-density edge buffer boards. Rerouted movements away from rough conveyor sorting into dedicated palletized surface networks.',
+      actionTaken: [
+        'Engineered ISTA-certified drop-resistant corner guards and dual-honeycomb packaging',
+        'Shifted fragile movements from conveyor express to dedicated palletized linehaul',
+        'Implemented photo verification at packing stations and delivery threshold inspections'
+      ],
+      capabilities: ['Fulfillment & Logistics', 'Packaging Engineering', 'Returns Mitigation'],
+      metrics: [
+        { val: '-82%', lbl: 'Transit Breakage Reduction' },
+        { val: '2.8%', lbl: 'Return Rate (down from 18%)' },
+        { val: '₹42L+', lbl: 'Quarterly Freight Savings' },
+        { val: '4.4 ★', lbl: 'Product Review Average' }
+      ],
+      testimonialQuote: 'Glass breakage was killing our online viability. GoodLife fixed our packaging physics and logistics network, cutting our returns to an all-time low.',
+      testimonialAuthor: 'Vikas Singhal',
+      testimonialRole: 'Chief Operating Officer',
+      testimonialCompany: 'AeroVent Home Systems',
+      result: 'Saved ₹42 Lakhs in freight claims and achieved 48-hour delivery SLAs across 8 regional hubs.',
+      coverImage: 'https://images.unsplash.com/photo-1616401784845-180882ba9ba8?w=1200&auto=format&fit=crop&q=80',
+      isFeatured: true,
+      isPublished: true,
+      seoTitle: 'Kitchen Chimney Transit Damage Reduction Case Study | GoodLife',
+      seoDesc: 'How GoodLife reduced heavy appliances transit damage by 82% and saved ₹42 Lakhs in return logistics.'
+    },
+    {
+      slug: 'heavy-bulky-inverter-battery-logistics',
+      clientName: 'National Inverter & Tubular Battery OEM',
+      title: 'Zero-Transit-Damage Fulfillment for 45kg Heavy Goods Across Tier 2/3 India',
+      industry: 'Power & Energy Storage',
+      location: '12 State Hubs',
+      timeframe: '6 Months',
+      stats: '94% Less Freight Damage · 12 State Hubs',
+      description: 'Pure sine wave inverters and tubular solar batteries fulfilled safely across 19,000+ PIN codes with multi-state GST compliance.',
+      challenge: '45kg heavy-duty tubular solar batteries faced acid leakage risks and carrier dimension re-measurement penalties during interstate transit.',
+      solution: 'Good Life deployed palletized linehaul freight, pre-registered APOB hubs in 12 states, and daily dimension scan verification.',
+      actionTaken: [
+        'Established 12 compliant APOB registrations for interstate input tax credit pass-through',
+        'Deploy heavy-grade palletized trucks with tail-lift equipment for safe unloading',
+        'Automated dead-weight vs volumetric dispute reconciliation against courier weight audit files'
+      ],
+      capabilities: ['Fulfillment & Logistics', 'Tax & Compliance', 'Reconciliation & Recovery'],
+      metrics: [
+        { val: '94%', lbl: 'Fewer Carrier Disputes' },
+        { val: '19K+', lbl: 'PIN Codes Covered' },
+        { val: '99.1%', lbl: 'On-Time Delivery SLA' },
+        { val: '100%', lbl: 'Weight Overcharge Recovery' }
+      ],
+      testimonialQuote: 'Shipping 45kg batteries across India without spills or overcharge disputes was deemed impossible until GoodLife deployed their regional logistics grid.',
+      testimonialAuthor: 'Sunil Rao',
+      testimonialRole: 'VP Operations',
+      testimonialCompany: 'PowerCore Dynamics',
+      result: 'Maintained 99.1% on-time dispatch and recovered 100% of carrier weight overcharge disputes.',
+      coverImage: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=1200&auto=format&fit=crop&q=80',
+      isFeatured: true,
+      isPublished: true,
+      seoTitle: 'Heavy Goods Fulfillment Case Study | GoodLife',
+      seoDesc: 'Explore how GoodLife manages 45kg heavy-duty power backup fulfillment with multi-state GST compliance.'
+    }
+  ];
+
+  for (const cs of caseStudiesData) {
+    await prisma.caseStudy.upsert({
+      where: { slug: cs.slug },
+      update: cs,
+      create: cs,
+    });
+  }
+  console.log(`✅ Upserted ${caseStudiesData.length} case studies.`);
 
   console.log('🎉 Database seeding completed successfully!');
 }

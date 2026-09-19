@@ -1,430 +1,776 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CommerceDiagnosticModal from "../components/CommerceDiagnosticModal";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800", "900"] });
-
-interface CaseStudy {
-  id: string;
-  tag: string;
-  category: string;
-  client: string;
-  headline: string;
-  timeframe: string;
-  metrics: { val: string; lbl: string }[];
-  challenge: string;
-  actionTaken: string[];
-  outcome: string;
-}
-
-const CASE_STUDIES: CaseStudy[] = [
-  {
-    id: "oem-appliances",
-    tag: "Launch Online",
-    category: "Launch Online",
-    client: "Tier-1 Home Appliances OEM",
-    headline: "From Contract Manufacturer to ₹18 Cr/yr Direct Marketplace Brand",
-    timeframe: "9 Months from Zero",
-    metrics: [
-      { val: "₹18.4Cr", lbl: "Annual Run-Rate" },
-      { val: "13.8%", lbl: "Blended TACOS" },
-      { val: "Top 3", lbl: "Category BSR Rank" }
-    ],
-    challenge: "A 25-year-old appliance manufacturer with zero direct-to-consumer presence was losing margins to traditional distributors and wanted to launch ceiling fans and induction cooktops directly on Amazon and Flipkart without alienating offline dealers.",
-    actionTaken: [
-      "Designed an exclusive online D2C sub-brand with unique model numbers and pricing guardrails.",
-      "Engineered drop-tested master packaging compliant with marketplace conveyor standards.",
-      "Deployed inventory across 6 regional Good Life warehouses, securing Prime/Fast delivery badges.",
-      "Structured tiered sponsored ads, keyword harvest campaigns, and brand-registry protection."
-    ],
-    outcome: "Scaled from zero to ₹1.5+ Cr monthly GMV within 9 months, maintaining 18.2% operating profit margin after all marketplace fees and logistics costs."
-  },
-  {
-    id: "bulky-appliances",
-    tag: "Heavy & Bulky",
-    category: "Heavy & Bulky",
-    client: "Premium Kitchen Chimney & Cooktop Brand",
-    headline: "Eliminating Transit Damage & Slashing Return Freight from 18% to 2.8%",
-    timeframe: "4 Months",
-    metrics: [
-      { val: "-82%", lbl: "Transit Breakage" },
-      { val: "2.8%", lbl: "Final Return Rate" },
-      { val: "48h", lbl: "Doorstep Delivery SLA" }
-    ],
-    challenge: "High in-transit glass canopy breakage on kitchen chimneys (exceeding 14% damage rates) was eroding seller ratings and generating astronomical two-way freight debit notes from courier partners.",
-    actionTaken: [
-      "Engineered customized wooden crating and reinforced high-density edge buffer boards.",
-      "Rerouted line-haul movements away from rough conveyor sorting hubs into dedicated palletized surface networks.",
-      "Deployed stock into 8 regional hubs, cutting delivery transit distances by 65%.",
-      "Integrated two-person doorstep delivery with pre-call customer delivery appointment scheduling."
-    ],
-    outcome: "Transit damage collapsed from 14.2% to under 0.4%. Customer return rate decreased from 18% to 2.8%, saving over ₹42 Lakh in quarterly freight penalties."
-  },
-  {
-    id: "revenue-recovery",
-    tag: "Revenue Assurance",
-    category: "Fix & Grow",
-    client: "Consumer Electronics & Audio Brand",
-    headline: "Auditing 14 Months of Marketplace Ledger to Recover ₹84 Lakh Leaked Capital",
-    timeframe: "60 Days Audit",
-    metrics: [
-      { val: "₹84.2L", lbl: "Cash Recovered" },
-      { val: "100%", lbl: "SAFE-T Claim SLA" },
-      { val: "+3.1%", lbl: "Net Margin Increase" }
-    ],
-    challenge: "Despite generating ₹4 Cr monthly GMV, the brand's finance team noticed continuous cash flow compression due to unverified commission debits, volumetric weight overcharges, and uncredited return parcels.",
-    actionTaken: [
-      "Ingested 14 months of raw marketplace settlement files into Good Life's algorithmic reconciliation engine.",
-      "Identified 38,000+ orders where courier volumetric dimensions were billed at higher weight tiers.",
-      "Filed 1,400+ evidence-backed SAFE-T claims for missing and damaged customer returns with unboxing video proof.",
-      "Instituted automated daily reconciliation guardrails to flag ledger anomalies within 24 hours."
-    ],
-    outcome: "Recovered ₹84.2 Lakh directly into the brand's seller settlement accounts within 60 days, providing an immediate 3.1% net margin expansion."
-  },
-  {
-    id: "pan-india-scale",
-    tag: "Scale Pan-India",
-    category: "Scale Pan-India",
-    client: "National Cookware & Kitchen Essentials Brand",
-    headline: "Transitioning from Single Factory Dispatch to 12-State Next-Day Delivery",
-    timeframe: "5 Months",
-    metrics: [
-      { val: "91%", lbl: "Next-Day Delivery Reach" },
-      { val: "+44%", lbl: "Organic Buybox Win Rate" },
-      { val: "-28%", lbl: "Per-Unit Logistics Cost" }
-    ],
-    challenge: "Operating from a single centralized factory warehouse in Gujarat, the brand suffered 5-7 day delivery SLAs to South and East India, losing the Amazon Buybox to regional competitors with next-day Prime badges.",
-    actionTaken: [
-      "Secured state GST APOB registrations across 10 additional states within 30 days.",
-      "Algorithmically partitioned national inventory based on historical pin-code demand heatmaps.",
-      "Transferred 60% of volume to regional hubs in Bhiwandi, Gurugram, Bengaluru, and Dankuni.",
-      "Integrated regional ERP stock balancing preventing regional stockouts."
-    ],
-    outcome: "Buybox ownership surged by 44%, conversion rate jumped from 3.2% to 5.4%, while overall freight costs decreased by 28% due to localized zonal shipping rates."
-  }
-];
+import { getCaseStudies, CaseStudyDetail } from "./caseStudiesData";
 
 export default function CaseStudiesPage() {
-  const [diagOpen, setDiagOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<string>("All");
+  const [caseStudiesList, setCaseStudiesList] = useState<CaseStudyDetail[]>([]);
+  const [activeFilter, setActiveFilter] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isDiagnosticOpen, setIsDiagnosticOpen] = useState(false);
+  const [quickPreviewItem, setQuickPreviewItem] = useState<CaseStudyDetail | null>(null);
 
-  const filteredStories = activeTab === "All"
-    ? CASE_STUDIES
-    : CASE_STUDIES.filter(s => s.category === activeTab);
+  useEffect(() => {
+    // Load published case studies from localStorage (or fallback seeds)
+    setCaseStudiesList(getCaseStudies());
+
+    // Listen for cross-tab or admin storage updates
+    const handleStorage = () => {
+      setCaseStudiesList(getCaseStudies());
+    };
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
+  }, []);
+
+  const categories = [
+    "All",
+    "Marketplace Scale",
+    "Heavy & Bulky",
+    "Revenue Assurance",
+    "Pan-India Logistics"
+  ];
+
+  const filteredStudies = useMemo(() => {
+    return caseStudiesList.filter((cs) => {
+      const matchFilter =
+        activeFilter === "All" ||
+        cs.category === activeFilter ||
+        cs.industry?.toLowerCase().includes(activeFilter.toLowerCase()) ||
+        cs.capabilities?.some((cap) => cap.toLowerCase().includes(activeFilter.toLowerCase()));
+
+      const matchSearch =
+        cs.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        cs.client.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        cs.shortDescription.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (cs.industry && cs.industry.toLowerCase().includes(searchQuery.toLowerCase()));
+
+      return matchFilter && matchSearch;
+    });
+  }, [caseStudiesList, activeFilter, searchQuery]);
+
+  const featuredStudy = useMemo(() => {
+    return caseStudiesList.find((c) => c.isFeatured) || caseStudiesList[0];
+  }, [caseStudiesList]);
 
   return (
-    <div className={`case-studies-root ${inter.className}`} style={{ background: "#F8FAFC", color: "#0F172A", minHeight: "100vh" }}>
-      <Header onOpenDiagnostic={() => setDiagOpen(true)} />
+    <div style={{ background: "#F8FAFC", minHeight: "100vh", color: "#0F172A", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+      <Header onOpenDiagnostic={() => setIsDiagnosticOpen(true)} />
 
-      {/* Hero Section */}
+      {/* Hero Section — Light, Crisp, High-Contrast & Beautiful */}
       <section style={{
         position: "relative",
-        paddingTop: "9rem",
+        paddingTop: "8.5rem",
         paddingBottom: "4.5rem",
-        background: "linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%)",
+        background: "linear-gradient(180deg, #FFFFFF 0%, #F0F7FF 45%, #F8FAFC 100%)",
         borderBottom: "1px solid #E2E8F0",
         overflow: "hidden"
       }}>
+        {/* Soft Sky Blue Aurora Glow */}
         <div style={{
           position: "absolute",
-          top: "10%",
+          top: "0",
           left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "1100px",
-          height: "800px",
-          background: "radial-gradient(circle, rgba(37,99,235,0.06) 0%, rgba(2,132,199,0.02) 40%, transparent 70%)",
+          transform: "translateX(-50%)",
+          width: "1200px",
+          height: "550px",
+          background: "radial-gradient(circle, rgba(37,99,235,0.09) 0%, rgba(56,189,248,0.04) 45%, transparent 70%)",
           pointerEvents: "none"
         }} />
 
-        <div className="container" style={{ position: "relative", zIndex: 2, maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.85rem", color: "#64748B", marginBottom: "1.5rem", fontWeight: 500 }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.25rem", position: "relative", zIndex: 2 }}>
+          {/* Breadcrumb Navigation */}
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            fontSize: "0.85rem",
+            color: "#64748B",
+            marginBottom: "1.2rem",
+            fontWeight: 500
+          }}>
             <Link href="/" style={{ color: "#2563EB", textDecoration: "none", fontWeight: 600 }}>Home</Link>
             <span>/</span>
-            <span style={{ color: "#0F172A", fontWeight: 600 }}>Case Studies & Proof</span>
+            <span style={{ color: "#0F172A", fontWeight: 700 }}>Case Studies &amp; Outcomes</span>
           </div>
 
-          <div style={{ maxWidth: "880px" }}>
-            <div style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              padding: "0.4rem 1.1rem",
-              borderRadius: "999px",
-              background: "#EFF6FF",
-              border: "1.5px solid #BFDBFE",
-              color: "#1D4ED8",
-              fontSize: "0.82rem",
-              fontWeight: 800,
-              letterSpacing: "0.5px",
-              textTransform: "uppercase",
-              marginBottom: "1.5rem"
-            }}>
-              <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#2563EB" }} />
-              Verified Outcomes • Operational Case Studies
-            </div>
-
-            <h1 style={{
-              fontSize: "clamp(2.4rem, 4.8vw, 3.8rem)",
-              fontWeight: 900,
-              lineHeight: 1.15,
-              color: "#0B1736",
-              letterSpacing: "-1.8px",
-              margin: "0 0 1.25rem"
-            }}>
-              Proof in Numbers: <br />
-              <span style={{ color: "#2563EB" }}>Accountable Operations in Action</span>
-            </h1>
-
-            <p style={{
-              fontSize: "clamp(1.08rem, 1.8vw, 1.22rem)",
-              color: "#475569",
-              lineHeight: 1.7,
-              marginBottom: "2.2rem",
-              maxWidth: "800px",
-              fontWeight: 500
-            }}>
-              Explore verified performance case studies detailing how Good Life helps consumer brands solve inventory stockouts, eliminate transit damage, recover leaked platform revenue, and scale pan-India.
-            </p>
-
-            <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
-              <button
-                onClick={() => setDiagOpen(true)}
-                style={{
-                  height: "54px",
-                  padding: "0 2.2rem",
-                  borderRadius: "14px",
-                  background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
-                  color: "#FFFFFF",
-                  fontSize: "1rem",
-                  fontWeight: 800,
-                  border: "none",
-                  cursor: "pointer",
-                  boxShadow: "0 8px 24px rgba(37, 99, 235, 0.32)",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "0.5rem"
-                }}
-              >
-                <span>UNLOCK YOUR GROWTH</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Filter Tabs */}
-      <section style={{ padding: "3rem 0 1rem", background: "#F8FAFC" }}>
-        <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem" }}>
-          <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", justifyContent: "center" }}>
-            {(["All", "Launch Online", "Fix & Grow", "Scale Pan-India", "Heavy & Bulky"] as const).map(tab => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                style={{
-                  padding: "0.6rem 1.3rem",
-                  borderRadius: "999px",
-                  border: activeTab === tab ? "1.5px solid #2563EB" : "1.5px solid #CBD5E1",
-                  background: activeTab === tab ? "#2563EB" : "#FFFFFF",
-                  color: activeTab === tab ? "#FFFFFF" : "#475569",
-                  fontSize: "0.88rem",
-                  fontWeight: 700,
-                  cursor: "pointer",
-                  transition: "all 0.2s ease"
-                }}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Case Studies Cards List */}
-      <section style={{ padding: "2rem 0 6rem", background: "#F8FAFC" }}>
-        <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
-            {filteredStories.map((cs) => (
-              <div
-                key={cs.id}
-                style={{
-                  background: "#FFFFFF",
-                  borderRadius: "24px",
-                  padding: "2.8rem",
-                  border: "1.5px solid #E2E8F0",
-                  boxShadow: "0 10px 30px rgba(15, 23, 42, 0.04)"
-                }}
-              >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1.2rem" }}>
-                  <div>
-                    <span style={{
-                      display: "inline-block",
-                      padding: "0.25rem 0.8rem",
-                      borderRadius: "6px",
-                      background: "#EFF6FF",
-                      color: "#1D4ED8",
-                      fontSize: "0.78rem",
-                      fontWeight: 800,
-                      textTransform: "uppercase",
-                      letterSpacing: "0.5px",
-                      marginBottom: "0.5rem"
-                    }}>
-                      {cs.tag}
-                    </span>
-                    <div style={{ fontSize: "0.85rem", color: "#64748B", fontWeight: 600 }}>{cs.client} • {cs.timeframe}</div>
-                  </div>
-                  <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
-                    {cs.metrics.map((m, mIdx) => (
-                      <div key={mIdx} style={{ textAlign: "right" }}>
-                        <div style={{ fontSize: "1.45rem", fontWeight: 900, color: "#2563EB" }}>{m.val}</div>
-                        <div style={{ fontSize: "0.76rem", fontWeight: 700, color: "#64748B", textTransform: "uppercase" }}>{m.lbl}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <h3 style={{ fontSize: "1.55rem", fontWeight: 900, color: "#0B1736", margin: "0 0 1.2rem", lineHeight: 1.3 }}>
-                  {cs.headline}
-                </h3>
-
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2rem", margin: "1.8rem 0", background: "#F8FAFC", padding: "1.6rem", borderRadius: "16px", border: "1px solid #E2E8F0" }} className="cs-detail-grid">
-                  <div>
-                    <div style={{ fontSize: "0.8rem", fontWeight: 800, color: "#DC2626", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: "0.5rem" }}>
-                      The Operational Challenge
-                    </div>
-                    <p style={{ fontSize: "0.92rem", color: "#475569", lineHeight: 1.6, margin: 0 }}>
-                      {cs.challenge}
-                    </p>
-                  </div>
-
-                  <div>
-                    <div style={{ fontSize: "0.8rem", fontWeight: 800, color: "#16A34A", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: "0.5rem" }}>
-                      Verified Business Outcome
-                    </div>
-                    <p style={{ fontSize: "0.92rem", color: "#1E293B", fontWeight: 600, lineHeight: 1.6, margin: 0 }}>
-                      {cs.outcome}
-                    </p>
-                  </div>
-                </div>
-
-                <div>
-                  <div style={{ fontSize: "0.82rem", fontWeight: 800, color: "#1E293B", marginBottom: "0.8rem", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                    Strategic Actions Deployed by Good Life:
-                  </div>
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "0.75rem" }}>
-                    {cs.actionTaken.map((act, aIdx) => (
-                      <div key={aIdx} style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem" }}>
-                        <span style={{ width: "20px", height: "20px", borderRadius: "50%", background: "#EFF6FF", color: "#2563EB", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: "2px" }}>
-                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="20 6 9 17 4 12" />
-                          </svg>
-                        </span>
-                        <span style={{ fontSize: "0.88rem", color: "#334155", lineHeight: 1.5, fontWeight: 500 }}>{act}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Conversion Banner */}
-      <section style={{ padding: "5rem 0 5.5rem", background: "#FFFFFF", borderTop: "1px solid #E2E8F0" }}>
-        <div className="container" style={{ maxWidth: "1140px", margin: "0 auto", padding: "0 1.5rem" }}>
+          {/* Eyebrow Pill */}
           <div style={{
-            background: "linear-gradient(135deg, #0B1736 0%, #0F2557 100%)",
-            borderRadius: "28px",
-            padding: "3.5rem 3rem",
-            color: "#FFFFFF",
-            textAlign: "center",
-            position: "relative",
-            overflow: "hidden",
-            boxShadow: "0 24px 60px rgba(11, 23, 54, 0.25)"
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            background: "#EFF6FF",
+            border: "1px solid #BFDBFE",
+            padding: "0.4rem 1rem",
+            borderRadius: "30px",
+            fontSize: "0.82rem",
+            fontWeight: 800,
+            color: "#1D4ED8",
+            marginBottom: "1.2rem",
+            letterSpacing: "0.4px"
           }}>
-            <div style={{ position: "relative", zIndex: 2, maxWidth: "720px", margin: "0 auto" }}>
-              <div style={{
-                display: "inline-block",
-                padding: "0.35rem 1rem",
-                borderRadius: "999px",
-                background: "rgba(255, 255, 255, 0.12)",
-                fontSize: "0.78rem",
-                fontWeight: 800,
-                letterSpacing: "1.6px",
-                textTransform: "uppercase",
-                marginBottom: "1.2rem",
-                color: "#60A5FA"
-              }}>
-                Proven Methodology
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+            VERIFIED OPERATIONAL OUTCOMES
+          </div>
+
+          {/* Main Headline — Crisp Dark Color for Perfect Visibility */}
+          <h1 style={{
+            fontSize: "clamp(2.3rem, 5vw, 3.8rem)",
+            fontWeight: 900,
+            lineHeight: 1.15,
+            letterSpacing: "-0.03em",
+            maxWidth: "960px",
+            color: "#0F172A",
+            margin: "0 0 1.2rem"
+          }}>
+            Real Proof Points in Appliance &amp;{" "}
+            <span style={{
+              background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent"
+            }}>
+              Electronics Commerce.
+            </span>
+          </h1>
+
+          {/* Subtitle */}
+          <p style={{
+            fontSize: "clamp(1.05rem, 2vw, 1.25rem)",
+            color: "#475569",
+            maxWidth: "820px",
+            lineHeight: 1.6,
+            margin: "0 0 2.8rem"
+          }}>
+            Explore how GoodLife engineers high-speed regional logistics, eliminates in-transit fragile damage, and scales Indian manufacturers to market-leading marketplace positions.
+          </p>
+
+          {/* Key Enterprise Achievements Metric Bar — Light Card, 100% Mobile Responsive */}
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gap: "1.2rem",
+            background: "#FFFFFF",
+            border: "1.5px solid #E2E8F0",
+            borderRadius: "20px",
+            padding: "1.6rem 2rem",
+            boxShadow: "0 10px 30px -10px rgba(0,0,0,0.06)"
+          }}>
+            <div style={{ padding: "0.4rem 0" }}>
+              <div style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 900, color: "#2563EB", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+                ₹420+ Cr
               </div>
-              <h2 style={{ fontSize: "clamp(2rem, 3.8vw, 3rem)", fontWeight: 900, lineHeight: 1.2, letterSpacing: "-1px", margin: "0 0 1rem" }}>
-                Ready to Author Your Brand&apos;s Growth Story?
-              </h2>
-              <p style={{ fontSize: "1.05rem", color: "#94A3B8", lineHeight: 1.65, marginBottom: "2.2rem" }}>
-                Start with our interactive Commerce Diagnostic to assess your operational health, category headroom, and warehouse readiness.
-              </p>
-              <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
-                <button
-                  onClick={() => setDiagOpen(true)}
-                  style={{
-                    height: "56px",
-                    padding: "0 2.4rem",
-                    borderRadius: "14px",
-                    background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
-                    color: "#FFFFFF",
-                    fontSize: "1rem",
+              <div style={{ fontSize: "0.85rem", color: "#64748B", fontWeight: 700, marginTop: "0.35rem" }}>
+                Annual GMV Scaled
+              </div>
+            </div>
+
+            <div style={{ padding: "0.4rem 0" }}>
+              <div style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 900, color: "#059669", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+                99.4%
+              </div>
+              <div style={{ fontSize: "0.85rem", color: "#64748B", fontWeight: 700, marginTop: "0.35rem" }}>
+                On-Time Dispatch SLA
+              </div>
+            </div>
+
+            <div style={{ padding: "0.4rem 0" }}>
+              <div style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 900, color: "#D97706", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+                0.4%
+              </div>
+              <div style={{ fontSize: "0.85rem", color: "#64748B", fontWeight: 700, marginTop: "0.35rem" }}>
+                Fragile Breakage (from 14%)
+              </div>
+            </div>
+
+            <div style={{ padding: "0.4rem 0" }}>
+              <div style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 900, color: "#7C3AED", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+                12 Hubs
+              </div>
+              <div style={{ fontSize: "0.85rem", color: "#64748B", fontWeight: 700, marginTop: "0.35rem" }}>
+                Multi-State GST Warehousing
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Content Area */}
+      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "3.5rem 1.25rem 5rem" }}>
+        {/* Featured Case Study Spotlight Card (Clean & Responsive) */}
+        {featuredStudy && activeFilter === "All" && !searchQuery && (
+          <div style={{
+            background: "#FFFFFF",
+            borderRadius: "20px",
+            border: "1.5px solid #E2E8F0",
+            boxShadow: "0 12px 32px -10px rgba(0,0,0,0.07)",
+            overflow: "hidden",
+            marginBottom: "3.5rem",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gap: "0"
+          }}>
+            <div style={{ position: "relative", minHeight: "300px", background: "#0F172A" }}>
+              <img
+                src={featuredStudy.coverImage}
+                alt={featuredStudy.title}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+              <div style={{
+                position: "absolute",
+                top: "1.2rem",
+                left: "1.2rem",
+                background: "#FEF3C7",
+                color: "#B45309",
+                fontSize: "0.76rem",
+                fontWeight: 800,
+                padding: "0.35rem 0.85rem",
+                borderRadius: "30px",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.35rem",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.15)"
+              }}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#B45309" stroke="none">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+                FEATURED SPOTLIGHT
+              </div>
+            </div>
+
+            <div style={{ padding: "clamp(1.5rem, 3vw, 2.5rem)", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+              <div>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap", marginBottom: "0.6rem" }}>
+                  <span style={{
+                    background: "#EFF6FF",
+                    color: "#1D4ED8",
+                    fontSize: "0.78rem",
                     fontWeight: 800,
-                    border: "none",
-                    cursor: "pointer",
-                    boxShadow: "0 8px 24px rgba(37, 99, 235, 0.4)",
+                    padding: "0.25rem 0.7rem",
+                    borderRadius: "6px"
+                  }}>
+                    {featuredStudy.industry || featuredStudy.category}
+                  </span>
+                  <span style={{ fontSize: "0.82rem", color: "#64748B", fontWeight: 600 }}>
+                    {featuredStudy.timeframe}
+                  </span>
+                </div>
+
+                <div style={{ fontSize: "0.85rem", fontWeight: 800, color: "#2563EB", marginBottom: "0.35rem", textTransform: "uppercase", letterSpacing: "0.4px" }}>
+                  CLIENT: {featuredStudy.client}
+                </div>
+
+                <h2 style={{ fontSize: "clamp(1.3rem, 2.2vw, 1.7rem)", fontWeight: 900, color: "#0F172A", margin: "0 0 0.8rem", lineHeight: 1.3 }}>
+                  <Link href={`/case-studies/${featuredStudy.slug}`} style={{ color: "inherit", textDecoration: "none" }}>
+                    {featuredStudy.title}
+                  </Link>
+                </h2>
+
+                <p style={{ fontSize: "0.95rem", color: "#475569", lineHeight: 1.6, margin: "0 0 1.5rem" }}>
+                  {featuredStudy.shortDescription}
+                </p>
+
+                {/* Outcome Metrics Grid */}
+                <div style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
+                  gap: "0.75rem",
+                  marginBottom: "1.8rem"
+                }}>
+                  {featuredStudy.metrics.slice(0, 3).map((m, i) => (
+                    <div key={i} style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", padding: "0.75rem 0.9rem", borderRadius: "10px" }}>
+                      <div style={{ fontSize: "1.3rem", fontWeight: 900, color: "#059669", lineHeight: 1.1 }}>{m.val}</div>
+                      <div style={{ fontSize: "0.74rem", fontWeight: 600, color: "#64748B", marginTop: "0.25rem" }}>{m.lbl}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div style={{ display: "flex", gap: "0.8rem", alignItems: "center", flexWrap: "wrap" }}>
+                <Link
+                  href={`/case-studies/${featuredStudy.slug}`}
+                  style={{
                     display: "inline-flex",
                     alignItems: "center",
-                    gap: "0.5rem"
+                    gap: "0.5rem",
+                    background: "#2563EB",
+                    color: "#FFFFFF",
+                    padding: "0.75rem 1.4rem",
+                    borderRadius: "8px",
+                    fontWeight: 800,
+                    fontSize: "0.9rem",
+                    textDecoration: "none",
+                    boxShadow: "0 4px 12px rgba(37,99,235,0.25)",
+                    transition: "all 0.15s"
                   }}
                 >
-                  <span>UNLOCK YOUR GROWTH</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  Read Full Case Study
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12" />
                     <polyline points="12 5 19 12 12 19" />
                   </svg>
-                </button>
-                <Link
-                  href="/contact"
+                </Link>
+
+                <button
+                  onClick={() => setQuickPreviewItem(featuredStudy)}
                   style={{
-                    height: "56px",
-                    padding: "0 2rem",
-                    borderRadius: "14px",
-                    background: "rgba(255, 255, 255, 0.1)",
-                    border: "1.5px solid rgba(255, 255, 255, 0.25)",
-                    color: "#FFFFFF",
-                    fontSize: "0.96rem",
-                    fontWeight: 700,
-                    textDecoration: "none",
                     display: "inline-flex",
                     alignItems: "center",
-                    justifyContent: "center"
+                    gap: "0.4rem",
+                    background: "#F1F5F9",
+                    color: "#334155",
+                    padding: "0.75rem 1.1rem",
+                    borderRadius: "8px",
+                    border: "1px solid #CBD5E1",
+                    fontWeight: 700,
+                    fontSize: "0.88rem",
+                    cursor: "pointer"
                   }}
                 >
-                  Discuss Custom Strategy
-                </Link>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                  Quick Preview
+                </button>
               </div>
             </div>
           </div>
+        )}
+
+        {/* Toolbar: Category Filters & Search (Mobile Responsive) */}
+        <div style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "1.2rem",
+          marginBottom: "2.2rem"
+        }}>
+          {/* Filter Pills with smooth mobile scroll */}
+          <div style={{
+            display: "flex",
+            gap: "0.5rem",
+            overflowX: "auto",
+            maxWidth: "100%",
+            paddingBottom: "0.3rem"
+          }}>
+            {categories.map((cat) => {
+              const active = activeFilter === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setActiveFilter(cat)}
+                  style={{
+                    padding: "0.55rem 1.1rem",
+                    borderRadius: "30px",
+                    fontSize: "0.85rem",
+                    fontWeight: 700,
+                    border: active ? "1.5px solid #2563EB" : "1px solid #CBD5E1",
+                    background: active ? "#2563EB" : "#FFFFFF",
+                    color: active ? "#FFFFFF" : "#475569",
+                    cursor: "pointer",
+                    whiteSpace: "nowrap",
+                    transition: "all 0.15s",
+                    boxShadow: active ? "0 2px 8px rgba(37,99,235,0.2)" : "none"
+                  }}
+                >
+                  {cat === "All" ? "All Breakthroughs" : cat}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Search Bar */}
+          <div style={{ position: "relative", flex: "1 1 260px", maxWidth: "380px" }}>
+            <span style={{ position: "absolute", left: "0.95rem", top: "50%", transform: "translateY(-50%)", color: "#94A3B8", display: "flex" }}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </span>
+            <input
+              type="text"
+              placeholder="Search case studies or OEM client..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "0.6rem 0.9rem 0.6rem 2.4rem",
+                borderRadius: "30px",
+                border: "1px solid #CBD5E1",
+                background: "#FFFFFF",
+                fontSize: "0.86rem",
+                outline: "none"
+              }}
+            />
+          </div>
         </div>
-      </section>
+
+        {/* Case Studies Grid (Fully Responsive) */}
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+          gap: "1.8rem"
+        }}>
+          {filteredStudies.map((cs) => (
+            <div
+              key={cs.id}
+              style={{
+                background: "#FFFFFF",
+                borderRadius: "16px",
+                border: "1.5px solid #E2E8F0",
+                overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.03)",
+                transition: "transform 0.2s, box-shadow 0.2s"
+              }}
+            >
+              {/* Cover Image Container */}
+              <div style={{ position: "relative", height: "200px", background: "#F1F5F9" }}>
+                <img
+                  src={cs.coverImage}
+                  alt={cs.title}
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+                <div style={{
+                  position: "absolute",
+                  top: "0.85rem",
+                  left: "0.85rem",
+                  background: "rgba(15, 23, 42, 0.8)",
+                  backdropFilter: "blur(4px)",
+                  color: "#FFFFFF",
+                  fontSize: "0.72rem",
+                  fontWeight: 700,
+                  padding: "0.25rem 0.65rem",
+                  borderRadius: "6px"
+                }}>
+                  {cs.industry || cs.category}
+                </div>
+
+                {cs.timeframe && (
+                  <div style={{
+                    position: "absolute",
+                    bottom: "0.85rem",
+                    right: "0.85rem",
+                    background: "rgba(255, 255, 255, 0.95)",
+                    backdropFilter: "blur(4px)",
+                    color: "#0F172A",
+                    fontSize: "0.72rem",
+                    fontWeight: 700,
+                    padding: "0.22rem 0.6rem",
+                    borderRadius: "6px"
+                  }}>
+                    {cs.timeframe}
+                  </div>
+                )}
+              </div>
+
+              {/* Card Body */}
+              <div style={{ padding: "1.5rem", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                <div>
+                  <div style={{ fontSize: "0.78rem", fontWeight: 800, color: "#2563EB", textTransform: "uppercase", marginBottom: "0.3rem" }}>
+                    CLIENT: {cs.client}
+                  </div>
+
+                  <h3 style={{ fontSize: "1.15rem", fontWeight: 800, color: "#0F172A", margin: "0 0 0.6rem", lineHeight: 1.35 }}>
+                    <Link href={`/case-studies/${cs.slug}`} style={{ color: "inherit", textDecoration: "none" }}>
+                      {cs.title}
+                    </Link>
+                  </h3>
+
+                  <p style={{ fontSize: "0.88rem", color: "#475569", lineHeight: 1.55, margin: "0 0 1.2rem" }}>
+                    {cs.shortDescription}
+                  </p>
+
+                  {/* Metrics Row */}
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.6rem", marginBottom: "1.2rem" }}>
+                    {cs.metrics.slice(0, 2).map((m, idx) => (
+                      <div key={idx} style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", padding: "0.6rem 0.75rem", borderRadius: "8px" }}>
+                        <div style={{ fontSize: "1.15rem", fontWeight: 900, color: "#059669" }}>{m.val}</div>
+                        <div style={{ fontSize: "0.72rem", fontWeight: 600, color: "#64748B" }}>{m.lbl}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Card Actions */}
+                <div style={{
+                  paddingTop: "1rem",
+                  borderTop: "1px solid #F1F5F9",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center"
+                }}>
+                  <button
+                    onClick={() => setQuickPreviewItem(cs)}
+                    style={{
+                      background: "transparent",
+                      border: "none",
+                      color: "#64748B",
+                      fontSize: "0.82rem",
+                      fontWeight: 700,
+                      cursor: "pointer",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "0.3rem",
+                      padding: "0.3rem 0"
+                    }}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                      <circle cx="12" cy="12" r="3" />
+                    </svg>
+                    Quick Preview
+                  </button>
+
+                  <Link
+                    href={`/case-studies/${cs.slug}`}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "0.35rem",
+                      color: "#2563EB",
+                      fontSize: "0.86rem",
+                      fontWeight: 800,
+                      textDecoration: "none"
+                    }}
+                  >
+                    Explore Case Study
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Empty Search Fallback */}
+        {filteredStudies.length === 0 && (
+          <div style={{
+            background: "#FFFFFF",
+            padding: "4rem 2rem",
+            borderRadius: "16px",
+            border: "1px dashed #CBD5E1",
+            textAlign: "center"
+          }}>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ margin: "0 auto 1rem" }}>
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <h3 style={{ fontSize: "1.2rem", fontWeight: 800, color: "#334155", margin: "0 0 0.4rem" }}>
+              No Matching Case Studies
+            </h3>
+            <p style={{ color: "#64748B", fontSize: "0.9rem", margin: "0 0 1.5rem" }}>
+              We couldn't find any enterprise outcomes matching your search query or filter.
+            </p>
+            <button
+              onClick={() => { setActiveFilter("All"); setSearchQuery(""); }}
+              style={{
+                padding: "0.55rem 1.2rem",
+                borderRadius: "8px",
+                background: "#2563EB",
+                color: "#FFFFFF",
+                border: "none",
+                fontWeight: 700,
+                fontSize: "0.86rem",
+                cursor: "pointer"
+              }}
+            >
+              Reset Filters
+            </button>
+          </div>
+        )}
+
+        {/* Bottom Enterprise Diagnostic CTA Card */}
+        <div style={{
+          marginTop: "5rem",
+          background: "linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%)",
+          borderRadius: "20px",
+          padding: "clamp(2rem, 4vw, 3.5rem)",
+          color: "#FFFFFF",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "2rem",
+          boxShadow: "0 15px 35px -10px rgba(15, 23, 42, 0.35)"
+        }}>
+          <div style={{ maxWidth: "650px" }}>
+            <div style={{ fontSize: "0.8rem", fontWeight: 800, color: "#60A5FA", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "0.4rem" }}>
+              Enterprise Diagnostic
+            </div>
+            <h3 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 900, color: "#FFFFFF", margin: "0 0 0.8rem", lineHeight: 1.25 }}>
+              Ready to Replicate These Results for Your Brand?
+            </h3>
+            <p style={{ fontSize: "0.95rem", color: "#CBD5E1", margin: 0, lineHeight: 1.6 }}>
+              Run our 2-minute Commerce Readiness Diagnostic to benchmark your marketplace fulfillment, transit breakage risks, and commission leakage against tier-1 brand averages.
+            </p>
+          </div>
+
+          <button
+            onClick={() => setIsDiagnosticOpen(true)}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.6rem",
+              background: "#FFFFFF",
+              color: "#0F172A",
+              padding: "0.9rem 1.8rem",
+              borderRadius: "10px",
+              border: "none",
+              fontWeight: 800,
+              fontSize: "0.95rem",
+              cursor: "pointer",
+              boxShadow: "0 4px 14px rgba(255,255,255,0.2)",
+              transition: "all 0.15s"
+            }}
+          >
+            Start Diagnostic Benchmark
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0F172A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Quick Preview Modal (Mobile Responsive) */}
+      {quickPreviewItem && (
+        <div style={{
+          position: "fixed",
+          inset: 0,
+          background: "rgba(15, 23, 42, 0.7)",
+          backdropFilter: "blur(6px)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          zIndex: 1000,
+          padding: "1rem"
+        }}>
+          <div style={{
+            background: "#FFFFFF",
+            borderRadius: "20px",
+            maxWidth: "720px",
+            width: "100%",
+            maxHeight: "90vh",
+            overflowY: "auto",
+            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.3)",
+            padding: "clamp(1.2rem, 3vw, 2rem)",
+            position: "relative"
+          }}>
+            <button
+              onClick={() => setQuickPreviewItem(null)}
+              style={{
+                position: "absolute",
+                top: "1.2rem",
+                right: "1.2rem",
+                background: "#F1F5F9",
+                border: "none",
+                borderRadius: "50%",
+                width: "32px",
+                height: "32px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                color: "#64748B",
+                fontWeight: 700
+              }}
+            >
+              ✕
+            </button>
+
+            <div style={{ height: "220px", borderRadius: "12px", overflow: "hidden", marginBottom: "1.2rem" }}>
+              <img src={quickPreviewItem.coverImage} alt={quickPreviewItem.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            </div>
+
+            <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.4rem", flexWrap: "wrap" }}>
+              <span style={{ background: "#EFF6FF", color: "#1D4ED8", fontSize: "0.75rem", fontWeight: 700, padding: "0.2rem 0.6rem", borderRadius: "6px" }}>
+                {quickPreviewItem.industry || quickPreviewItem.category}
+              </span>
+              <span style={{ fontSize: "0.8rem", color: "#64748B", fontWeight: 600 }}>
+                {quickPreviewItem.timeframe}
+              </span>
+            </div>
+
+            <div style={{ fontSize: "0.85rem", fontWeight: 800, color: "#2563EB", marginBottom: "0.2rem" }}>
+              CLIENT: {quickPreviewItem.client}
+            </div>
+
+            <h2 style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.45rem)", fontWeight: 900, color: "#0F172A", margin: "0 0 0.8rem", lineHeight: 1.3 }}>
+              {quickPreviewItem.title}
+            </h2>
+
+            <p style={{ fontSize: "0.92rem", color: "#475569", lineHeight: 1.6, margin: "0 0 1.2rem" }}>
+              {quickPreviewItem.shortDescription}
+            </p>
+
+            {/* Metrics Showcase */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: "0.75rem", marginBottom: "1.5rem" }}>
+              {quickPreviewItem.metrics.map((m, idx) => (
+                <div key={idx} style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", padding: "0.75rem 0.9rem", borderRadius: "10px", textAlign: "center" }}>
+                  <div style={{ fontSize: "1.25rem", fontWeight: 900, color: "#059669" }}>{m.val}</div>
+                  <div style={{ fontSize: "0.72rem", fontWeight: 600, color: "#64748B", marginTop: "0.2rem" }}>{m.lbl}</div>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "1rem", borderTop: "1px solid #E2E8F0", flexWrap: "wrap", gap: "0.8rem" }}>
+              <button
+                onClick={() => setQuickPreviewItem(null)}
+                style={{
+                  padding: "0.6rem 1.2rem",
+                  borderRadius: "8px",
+                  background: "#F1F5F9",
+                  color: "#475569",
+                  border: "none",
+                  fontWeight: 700,
+                  fontSize: "0.86rem",
+                  cursor: "pointer"
+                }}
+              >
+                Close Preview
+              </button>
+
+              <Link
+                href={`/case-studies/${quickPreviewItem.slug}`}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.4rem",
+                  background: "#2563EB",
+                  color: "#FFFFFF",
+                  padding: "0.65rem 1.3rem",
+                  borderRadius: "8px",
+                  fontWeight: 700,
+                  fontSize: "0.88rem",
+                  textDecoration: "none"
+                }}
+              >
+                View Full Detailed Case Study
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Commerce Diagnostic Modal */}
+      {isDiagnosticOpen && <CommerceDiagnosticModal onClose={() => setIsDiagnosticOpen(false)} />}
 
       <Footer />
-      {diagOpen && <CommerceDiagnosticModal onClose={() => setDiagOpen(false)} />}
     </div>
   );
 }

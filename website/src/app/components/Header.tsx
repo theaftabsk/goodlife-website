@@ -18,6 +18,29 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
   const menuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const headerRef = useRef<HTMLElement>(null);
 
+  const [settings, setSettings] = useState({
+    announcementEnabled: true,
+    announcementText: "Operating across 15+ Platforms & 23+ Leading Brands Nationwide",
+    announcementLink: "/case-studies",
+    announcementTheme: "slate",
+    headerCtaText: "Request Diagnostic →",
+    phone: "+91 88821 57074"
+  });
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/v1/settings")
+      .then((res) => {
+        if (res.ok) return res.json();
+        throw new Error();
+      })
+      .then((data) => {
+        if (data && data.companyName) {
+          setSettings((prev) => ({ ...prev, ...data }));
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 25);
@@ -137,7 +160,7 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
 
   const desktopHeaderStyle: React.CSSProperties = {
     position: "fixed",
-    top: scrolled ? "10px" : "14px",
+    top: scrolled ? "10px" : (settings.announcementEnabled ? "48px" : "14px"),
     left: "50%",
     transform: "translateX(-50%)",
     width: "calc(100% - 2rem)",
@@ -156,7 +179,35 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
   };
 
   return (
-    <header ref={headerRef} className={`header-bar ${scrolled ? "scrolled" : ""}`} style={isMobile ? mobileHeaderStyle : desktopHeaderStyle}>
+    <>
+      {/* Dynamic Top Announcement Bar from PostgreSQL */}
+      {settings.announcementEnabled && !scrolled && (
+        <div style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "36px",
+          background: settings.announcementTheme === "navy" ? "#1E3A8A" : settings.announcementTheme === "sky" ? "#0284C7" : settings.announcementTheme === "gradient" ? "linear-gradient(90deg, #1E3A8A 0%, #0284C7 100%)" : "#0F172A",
+          color: "#FFFFFF",
+          fontSize: "0.78rem",
+          fontWeight: 600,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          zIndex: 10000,
+          padding: "0 1rem",
+          boxShadow: "0 1px 3px rgba(0,0,0,0.12)"
+        }}>
+          <Link href={settings.announcementLink || "/case-studies"} style={{ color: "#FFFFFF", textDecoration: "none", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <span style={{ padding: "0.1rem 0.4rem", borderRadius: "4px", background: "rgba(56, 189, 248, 0.2)", color: "#38BDF8", fontSize: "0.68rem", fontWeight: 800 }}>NOTICE</span>
+            <span>{settings.announcementText}</span>
+            <span style={{ color: "#38BDF8", fontWeight: 700 }}>Explore →</span>
+          </Link>
+        </div>
+      )}
+
+      <header ref={headerRef} className={`header-bar ${scrolled ? "scrolled" : ""}`} style={isMobile ? mobileHeaderStyle : desktopHeaderStyle}>
       <div style={{
         width: "100%",
         maxWidth: isMobile ? "100%" : (scrolled ? "1140px" : "1220px"),
@@ -280,7 +331,7 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
               e.currentTarget.style.boxShadow = "0 4px 14px rgba(37, 99, 235, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.35)";
             }}
           >
-            <span>UNLOCK YOUR GROWTH →</span>
+            <span>{settings.headerCtaText || "Request Diagnostic →"}</span>
           </button>
 
           {/* Animated Minimal Hamburger Button (Untitled UI style) */}
@@ -801,5 +852,6 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
         }}
       />
     </header>
+    </>
   );
 }

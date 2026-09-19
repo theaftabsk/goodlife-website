@@ -11,7 +11,9 @@ export default function CommerceDiagnosticModal({ onClose }: CommerceDiagnosticM
     companyName: "",
     personName: "",
     whatsapp: "",
-    email: ""
+    email: "",
+    category: "Home & Kitchen Appliances",
+    gmv: "₹5 Cr - ₹15 Cr"
   });
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -21,26 +23,52 @@ export default function CommerceDiagnosticModal({ onClose }: CommerceDiagnosticM
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.companyName.trim() || !formData.personName.trim() || !formData.whatsapp.trim() || !formData.email.trim()) {
-      setErrorMsg("Please fill in all 4 required fields.");
+      setErrorMsg("Please fill in all required fields.");
       return;
     }
     setErrorMsg("");
     setSubmitting(true);
 
+    const payload = {
+      company: formData.companyName.trim(),
+      contactName: formData.personName.trim(),
+      mobile: formData.whatsapp.trim(),
+      email: formData.email.trim(),
+      category: formData.category,
+      gmvBand: formData.gmv,
+      source: "Diagnostic Tool (Quick 4-Field Modal)",
+      intent: "Request Custom 45-Day Launch Plan",
+      date: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })
+    };
+
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
-      await fetch(`${apiUrl}/api/v1/leads/diagnostic`, {
+      const res = await fetch(`${apiUrl}/api/v1/leads/diagnostic`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          company: formData.companyName,
-          contactName: formData.personName,
-          mobile: formData.whatsapp,
-          email: formData.email,
-          source: "Simple Customer Form Modal",
-          intent: "Customer Enquiry / Audit Request"
-        })
+        body: JSON.stringify(payload)
       });
+
+      // Also persist to localStorage for instant multi-tab Admin sync
+      try {
+        const existing = localStorage.getItem("gl_admin_leads");
+        const list = existing ? JSON.parse(existing) : [];
+        const newLeadItem = {
+          id: `lead-${Date.now()}`,
+          company: payload.company,
+          contact: payload.contactName,
+          mobile: payload.mobile,
+          email: payload.email,
+          category: payload.category,
+          gmv: payload.gmvBand,
+          source: payload.source,
+          intent: payload.intent,
+          date: payload.date,
+          crmStatus: "Synced to Zoho CRM",
+          tags: ["Direct Modal", "High Priority"]
+        };
+        localStorage.setItem("gl_admin_leads", JSON.stringify([newLeadItem, ...list]));
+      } catch (_) {}
     } catch (err) {
       console.log("[LEAD SUBMIT EXCEPTION]", err);
     } finally {
@@ -148,7 +176,10 @@ export default function CommerceDiagnosticModal({ onClose }: CommerceDiagnosticM
             e.currentTarget.style.transform = "rotate(0deg)";
           }}
         >
-          ✕
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
         </button>
 
         {!submitted ? (
@@ -377,6 +408,72 @@ export default function CommerceDiagnosticModal({ onClose }: CommerceDiagnosticM
                       fontWeight: 500
                     }}
                   />
+                </div>
+              </div>
+
+              {/* 5 & 6. Category & Annual GMV Scale (2-Column Grid) */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+                {/* Category Dropdown */}
+                <div>
+                  <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 700, color: "#1E293B", marginBottom: "0.35rem" }}>
+                    Product Category
+                  </label>
+                  <select
+                    value={formData.category}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                    style={{
+                      width: "100%",
+                      height: "44px",
+                      padding: "0 0.75rem",
+                      borderRadius: "12px",
+                      border: "1.5px solid #E2E8F0",
+                      background: "#F8FAFC",
+                      fontSize: "0.82rem",
+                      color: "#0F172A",
+                      fontWeight: 600,
+                      outline: "none",
+                      cursor: "pointer"
+                    }}
+                  >
+                    <option value="Home & Kitchen Appliances">Home & Kitchen</option>
+                    <option value="TV & Electronics">TV & Electronics</option>
+                    <option value="Invertors & Battery">Invertor & Battery</option>
+                    <option value="Washing Machine & Laundry">Washing Machine</option>
+                    <option value="Cooler & Fan">Cooler & Fan</option>
+                    <option value="Sewing Machine">Sewing Machine</option>
+                    <option value="Chimney & Kitchen Hobs">Chimney & Hobs</option>
+                    <option value="OEM Contract Manufacturing">OEM Manufacturing</option>
+                  </select>
+                </div>
+
+                {/* Annual GMV Scale */}
+                <div>
+                  <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 700, color: "#1E293B", marginBottom: "0.35rem" }}>
+                    Annual GMV / Headroom
+                  </label>
+                  <select
+                    value={formData.gmv}
+                    onChange={(e) => setFormData({ ...formData, gmv: e.target.value })}
+                    style={{
+                      width: "100%",
+                      height: "44px",
+                      padding: "0 0.75rem",
+                      borderRadius: "12px",
+                      border: "1.5px solid #E2E8F0",
+                      background: "#F8FAFC",
+                      fontSize: "0.82rem",
+                      color: "#0F172A",
+                      fontWeight: 600,
+                      outline: "none",
+                      cursor: "pointer"
+                    }}
+                  >
+                    <option value="Under ₹2 Cr">Under ₹2 Cr</option>
+                    <option value="₹2 Cr - ₹5 Cr">₹2 Cr - ₹5 Cr</option>
+                    <option value="₹5 Cr - ₹15 Cr">₹5 Cr - ₹15 Cr</option>
+                    <option value="₹15 Cr - ₹30 Cr">₹15 Cr - ₹30 Cr</option>
+                    <option value="₹30 Cr+">₹30 Cr+ (Scale)</option>
+                  </select>
                 </div>
               </div>
 

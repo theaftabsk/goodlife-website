@@ -5,6 +5,37 @@ import Link from "next/link";
 import Logo from "./Logo";
 
 export default function Footer({ hideTopBanner = false }: { hideTopBanner?: boolean } = {}) {
+  const [settings, setSettings] = React.useState({
+    companyName: "GOOD LIFE SUTRA PVT. LTD.",
+    phone: "+91 88821 57074",
+    email: "growth@goodlifesutra.com",
+    address: "Plot 42, Udyog Vihar Phase IV, Sector 18, Gurugram, Haryana 122015, India",
+    cinNumber: "U74999MH2021PTC368942",
+    registeredCity: "Mumbai & Gurugram, India",
+    preFooterTag: "READY TO SCALE?",
+    preFooterHeading: "Grow your ecommerce business with us",
+    preFooterSubtext: "Request our complimentary Commerce Diagnostic to identify leakage points and unlock new channel growth.",
+    preFooterCta: "UNLOCK YOUR GROWTH →",
+    preFooterBgImage: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+    copyrightText: "Copyright © 2026 Goodlife Sutra Pvt Ltd. All rights reserved.",
+    linkedinUrl: "https://linkedin.com/company/good-life-sutra",
+    twitterUrl: "https://x.com/goodlifesutra"
+  });
+
+  React.useEffect(() => {
+    fetch("http://localhost:5000/api/v1/settings")
+      .then((res) => {
+        if (res.ok) return res.json();
+        throw new Error("Failed to fetch settings");
+      })
+      .then((data) => {
+        if (data && data.companyName) {
+          setSettings((prev) => ({ ...prev, ...data }));
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <footer style={{ width: "100%", fontFamily: "var(--font-sans, 'Inter', sans-serif)" }}>
       <style>{`
@@ -73,7 +104,7 @@ export default function Footer({ hideTopBanner = false }: { hideTopBanner?: bool
         <div style={{
           position: "absolute",
           inset: 0,
-          backgroundImage: "url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')",
+          backgroundImage: `url('${settings.preFooterBgImage || "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"}')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           filter: "blur(5px)",
@@ -99,7 +130,7 @@ export default function Footer({ hideTopBanner = false }: { hideTopBanner?: bool
             marginBottom: "1.2rem",
             color: "#E2E8F0"
           }}>
-            Ready to Scale?
+            {settings.preFooterTag || "Ready to Scale?"}
           </h4>
           <h2 className="footer-heading" style={{ 
             fontWeight: 400, 
@@ -107,14 +138,14 @@ export default function Footer({ hideTopBanner = false }: { hideTopBanner?: bool
             lineHeight: 1.1,
             color: "#FFFFFF"
           }}>
-            Grow your ecommerce<br />business with us
+            {settings.preFooterHeading || "Grow your ecommerce business with us"}
           </h2>
           <p className="footer-subtext" style={{ 
             lineHeight: 1.6, 
             color: "#CBD5E1", 
             fontWeight: 400
           }}>
-            Request our complimentary Commerce Diagnostic to identify leakage points and unlock new channel growth.
+            {settings.preFooterSubtext || "Request our complimentary Commerce Diagnostic to identify leakage points and unlock new channel growth."}
           </p>
           <button 
             type="button"
@@ -153,7 +184,7 @@ export default function Footer({ hideTopBanner = false }: { hideTopBanner?: bool
               e.currentTarget.style.color = "#FFFFFF";
             }}
           >
-            UNLOCK YOUR GROWTH →
+            {settings.preFooterCta || "UNLOCK YOUR GROWTH →"}
           </button>
         </div>
       </div>
@@ -176,12 +207,12 @@ export default function Footer({ hideTopBanner = false }: { hideTopBanner?: bool
               Registered Office
             </h4>
             <div style={{ display: "flex", flexDirection: "column", gap: "0.8rem", fontSize: "0.85rem", lineHeight: 1.6 }}>
-              <p style={{ margin: 0, color: "#94A3B8" }}>Direct Line: <strong style={{ color: "#F1F5F9" }}>022 1234 5678</strong></p>
-              <p style={{ margin: 0, color: "#94A3B8" }}>Inquiry: <strong style={{ color: "#F1F5F9" }}>hello@goodlifesutra.com</strong></p>
+              <p style={{ margin: 0, color: "#94A3B8" }}>Direct Line: <strong style={{ color: "#F1F5F9" }}>{settings.phone}</strong></p>
+              <p style={{ margin: 0, color: "#94A3B8" }}>Inquiry: <strong style={{ color: "#F1F5F9" }}>{settings.email}</strong></p>
               <p style={{ margin: 0, marginTop: "0.5rem", color: "#94A3B8" }}>
-                GOOD LIFE SUTRA PVT. LTD.<br/>
-                CIN: U74999MH2021PTC368942<br/>
-                Mumbai, Maharashtra, India
+                {settings.companyName}<br/>
+                CIN: {settings.cinNumber}<br/>
+                {settings.address}
               </p>
             </div>
           </div>
@@ -285,14 +316,14 @@ export default function Footer({ hideTopBanner = false }: { hideTopBanner?: bool
           paddingTop: "2rem"
         }}>
           <div style={{ fontSize: "0.8rem", color: "#94A3B8", fontWeight: 500 }}>
-            Copyright © 2026 Goodlife Sutra Pvt Ltd
+            {settings.copyrightText || "Copyright © 2026 Goodlife Sutra Pvt Ltd. All rights reserved."}
           </div>
           
           <div style={{ display: "flex", gap: "1.5rem" }}>
-            <a href="#" style={{ color: "#94A3B8", textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={(e) => e.currentTarget.style.color = "#FFF"} onMouseLeave={(e) => e.currentTarget.style.color = "#94A3B8"}>
+            <a href={settings.linkedinUrl || "https://linkedin.com/company/good-life-sutra"} target="_blank" rel="noreferrer" style={{ color: "#94A3B8", textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={(e) => e.currentTarget.style.color = "#FFF"} onMouseLeave={(e) => e.currentTarget.style.color = "#94A3B8"} title="LinkedIn">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
             </a>
-            <a href="#" style={{ color: "#94A3B8", textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={(e) => e.currentTarget.style.color = "#FFF"} onMouseLeave={(e) => e.currentTarget.style.color = "#94A3B8"}>
+            <a href={settings.twitterUrl || "https://x.com/goodlifesutra"} target="_blank" rel="noreferrer" style={{ color: "#94A3B8", textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={(e) => e.currentTarget.style.color = "#FFF"} onMouseLeave={(e) => e.currentTarget.style.color = "#94A3B8"} title="Twitter / X">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
             </a>
           </div>

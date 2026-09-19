@@ -532,11 +532,12 @@ export default function FixAndGrowPage() {
                   color: "#DC2626",
                   display: "inline-flex",
                   alignItems: "center",
-                  justifyContent: "center",
-                  fontWeight: 900,
-                  fontSize: "0.9rem"
+                  justifyContent: "center"
                 }}>
-                  ✕
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#DC2626" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
                 </span>
                 <h3 style={{ fontSize: "1.35rem", fontWeight: 900, color: "#991B1B", margin: 0 }}>
                   Stagnant Setup (Fragmented Vendors)
@@ -585,11 +586,11 @@ export default function FixAndGrowPage() {
                   color: "#2563EB",
                   display: "inline-flex",
                   alignItems: "center",
-                  justifyContent: "center",
-                  fontWeight: 900,
-                  fontSize: "0.9rem"
+                  justifyContent: "center"
                 }}>
-                  ✓
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
                 </span>
                 <h3 style={{ fontSize: "1.35rem", fontWeight: 900, color: "#1D4ED8", margin: 0 }}>
                   Good Life Operating Partner
@@ -830,9 +831,18 @@ export default function FixAndGrowPage() {
                 fontWeight: 600,
                 flexWrap: "wrap"
               }}>
-                <span>✓ Zero Disruption to Active Listings</span>
-                <span>✓ 100% Operational SLA Guarantee</span>
-                <span>✓ Direct Margin Reconciliation</span>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem" }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                  <span>Zero Disruption to Active Listings</span>
+                </span>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem" }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                  <span>100% Operational SLA Guarantee</span>
+                </span>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem" }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                  <span>Direct Margin Reconciliation</span>
+                </span>
               </div>
             </div>
           </div>

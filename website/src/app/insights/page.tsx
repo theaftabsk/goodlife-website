@@ -1,91 +1,65 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CommerceDiagnosticModal from "../components/CommerceDiagnosticModal";
 import { Inter } from "next/font/google";
+import { DEFAULT_INSIGHTS, InsightArticle } from "@/data/insightsData";
 
 const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800", "900"] });
 
-interface Article {
-  id: string;
-  category: string;
-  title: string;
-  date: string;
-  readTime: string;
-  excerpt: string;
-  author: string;
-  takeaways: string[];
-}
+type Article = InsightArticle;
 
-const ARTICLES: Article[] = [
-  {
-    id: "oem-brand-incubation",
-    category: "Marketplace Strategy",
-    title: "How Indian OEM Manufacturers Can Build High-Margin Direct Brands in 2026",
-    date: "September 2026",
-    readTime: "7 min read",
-    author: "Commerce Operations Practice",
-    excerpt: "Contract manufacturers across Rajkot, Pune, and Coimbatore are transitioning from thin OEM margins to direct digital brand ownership. Here is the operational blueprint for avoiding channel conflict and safeguarding wholesale relationships.",
-    takeaways: [
-      "Launch separate digital-exclusive model numbers to protect offline dealer networks.",
-      "Calculate true net realization after marketplace commissions, logistics, and reverse QC.",
-      "Deploy regional buffer inventory to capture Amazon Prime badges without heavy capex."
-    ]
-  },
-  {
-    id: "marketplace-reconciliation-leakage",
-    category: "Revenue Assurance",
-    title: "The Silent Profit Killer: Auditing ₹1Cr+ in Uncredited Marketplace Deductions",
-    date: "August 2026",
-    readTime: "9 min read",
-    author: "Financial Engineering Group",
-    excerpt: "A forensic analysis of over 500,000 marketplace settlement line items revealed that the average brand leaks 1.8% of GMV to miscalculated volumetric weight slabs, uncredited customer returns, and phantom closing fees.",
-    takeaways: [
-      "Volumetric weight overcharges represent 42% of all recoverable marketplace discrepancies.",
-      "SAFE-T dispute limitation windows require automated unboxing photo and video archives.",
-      "Programmatic daily UTR matching prevents month-end balance sheet suspense accounts."
-    ]
-  },
-  {
-    id: "heavy-bulky-logistics-playbook",
-    category: "Warehousing & Logistics",
-    title: "Heavy & Bulky Ecommerce Playbook: Solving The 15kg+ Transit Conundrum",
-    date: "August 2026",
-    readTime: "8 min read",
-    author: "Fulfilment Engineering Team",
-    excerpt: "Why standard courier chutes destroy consumer appliances and how regional palletized line-haul networks reduce transit breakage from 14% to under 0.5% while cutting two-way return freight costs.",
-    takeaways: [
-      "ISTA drop-test standards and honeycombed edge protectors prevent glass canopy shattering.",
-      "Scheduled two-person delivery eliminates buyer refusal at doorstep.",
-      "Synchronizing parcel arrival with local installation technicians cuts return rates by 35%."
-    ]
-  },
-  {
-    id: "pan-india-inventory-allocation",
-    category: "Operating Economics",
-    title: "Algorithmically Distributing Inventory Across 12 States to Win The Buybox",
-    date: "July 2026",
-    readTime: "6 min read",
-    author: "Inventory Intelligence Practice",
-    excerpt: "Single-warehouse fulfillment is commercially dead. Discover how strategic 12-state inventory splitting yields same-day delivery badges, improves organic Buybox ownership by 40%, and reduces per-unit shipping expenses.",
-    takeaways: [
-      "Pin-code demand heatmapping prevents slow-moving stock accumulation in remote hubs.",
-      "APOB registrations can be executed within 30 days under compliant commercial lease agreements.",
-      "Buffer stock triggers prevent localized stockouts during festival promotional spikes."
-    ]
-  }
+const CATEGORIES = [
+  "All",
+  "Marketplace Growth & Advertising",
+  "Inventory & Stock Planning",
+  "Revenue Assurance & Reconciliation",
+  "Returns & Reverse Operations",
+  "Marketplace Operations",
+  "Heavy & Bulky Commerce",
+  "Business Insights"
 ];
 
 export default function InsightsPage() {
   const [diagOpen, setDiagOpen] = useState(false);
   const [selectedCat, setSelectedCat] = useState<string>("All");
+  const [search, setSearch] = useState("");
+  const [articles, setArticles] = useState<Article[]>(DEFAULT_INSIGHTS);
 
-  const filteredArticles = selectedCat === "All"
-    ? ARTICLES
-    : ARTICLES.filter(a => a.category === selectedCat);
+  // Sync with local database / CMS storage
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("gl_admin_articles");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          // Only show published articles on the public website
+          const published = parsed.filter((a: any) => a.status === "Published");
+          if (published.length > 0) {
+            setArticles(published);
+            return;
+          }
+        }
+      }
+    } catch (_) {}
+    setArticles(DEFAULT_INSIGHTS.filter(a => a.status === "Published"));
+  }, []);
+
+  const filteredArticles = articles.filter(a => {
+    const matchesCategory = selectedCat === "All" || a.category === selectedCat;
+    const matchesSearch =
+      a.title.toLowerCase().includes(search.toLowerCase()) ||
+      a.excerpt.toLowerCase().includes(search.toLowerCase()) ||
+      (a.tags && a.tags.some(t => t.toLowerCase().includes(search.toLowerCase()))) ||
+      a.author.toLowerCase().includes(search.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+  const featured = filteredArticles[0] || articles[0];
+  const regularList = filteredArticles.length > 1 ? filteredArticles.slice(1) : filteredArticles;
 
   return (
     <div className={`insights-root ${inter.className}`} style={{ background: "#F8FAFC", color: "#0F172A", minHeight: "100vh" }}>
@@ -115,7 +89,7 @@ export default function InsightsPage() {
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.85rem", color: "#64748B", marginBottom: "1.5rem", fontWeight: 500 }}>
             <Link href="/" style={{ color: "#2563EB", textDecoration: "none", fontWeight: 600 }}>Home</Link>
             <span>/</span>
-            <span style={{ color: "#0F172A", fontWeight: 600 }}>Insights & Knowledge</span>
+            <span style={{ color: "#0F172A", fontWeight: 600 }}>Insights &amp; Knowledge</span>
           </div>
 
           <div style={{ maxWidth: "880px" }}>
@@ -139,249 +113,308 @@ export default function InsightsPage() {
             </div>
 
             <h1 style={{
-              fontSize: "clamp(2.4rem, 4.8vw, 3.8rem)",
+              fontSize: "clamp(2.4rem, 5vw, 3.8rem)",
               fontWeight: 900,
-              lineHeight: 1.15,
-              color: "#0B1736",
-              letterSpacing: "-1.8px",
-              margin: "0 0 1.25rem"
+              letterSpacing: "-0.03em",
+              lineHeight: 1.1,
+              color: "#0F172A",
+              marginBottom: "1.5rem"
             }}>
-              Operational Insights & <br />
-              <span style={{ color: "#2563EB" }}>Commerce Strategy Intelligence</span>
+              Operational Insights &amp;
+              <span style={{
+                background: "linear-gradient(135deg, #1D4ED8 0%, #0284C7 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                display: "block"
+              }}>
+                Commerce Strategy Intelligence
+              </span>
             </h1>
 
-            <p style={{
-              fontSize: "clamp(1.08rem, 1.8vw, 1.22rem)",
-              color: "#475569",
-              lineHeight: 1.7,
-              marginBottom: "2.2rem",
-              maxWidth: "800px",
-              fontWeight: 500
-            }}>
+            <p style={{ fontSize: "1.15rem", color: "#475569", lineHeight: 1.6, maxWidth: "720px", marginBottom: "2rem" }}>
               Deep tactical briefings on marketplace unit economics, regional warehouse deployment, heavy-bulky freight management, and algorithmic settlement reconciliation written by hands-on commerce operators.
             </p>
 
-            <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
-              <button
-                onClick={() => setDiagOpen(true)}
+            {/* Search Bar */}
+            <div style={{ position: "relative", maxWidth: "480px" }}>
+              <input
+                type="text"
+                placeholder="Search insights by topic, marketplace, keyword..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
                 style={{
-                  height: "54px",
-                  padding: "0 2.2rem",
-                  borderRadius: "14px",
-                  background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
-                  color: "#FFFFFF",
-                  fontSize: "1rem",
-                  fontWeight: 800,
-                  border: "none",
-                  cursor: "pointer",
-                  boxShadow: "0 8px 24px rgba(37, 99, 235, 0.32)",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "0.5rem"
-                }}
-              >
-                <span>UNLOCK YOUR GROWTH</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Category Filter */}
-      <section style={{ padding: "3rem 0 1rem", background: "#F8FAFC" }}>
-        <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem" }}>
-          <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", justifyContent: "center" }}>
-            {(["All", "Marketplace Strategy", "Revenue Assurance", "Warehousing & Logistics", "Operating Economics"] as const).map(cat => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCat(cat)}
-                style={{
-                  padding: "0.6rem 1.3rem",
-                  borderRadius: "999px",
-                  border: selectedCat === cat ? "1.5px solid #2563EB" : "1.5px solid #CBD5E1",
-                  background: selectedCat === cat ? "#2563EB" : "#FFFFFF",
-                  color: selectedCat === cat ? "#FFFFFF" : "#475569",
-                  fontSize: "0.88rem",
-                  fontWeight: 700,
-                  cursor: "pointer",
-                  transition: "all 0.2s ease"
-                }}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Articles Grid */}
-      <section style={{ padding: "2rem 0 6rem", background: "#F8FAFC" }}>
-        <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))", gap: "2rem" }}>
-            {filteredArticles.map((art) => (
-              <article
-                key={art.id}
-                style={{
+                  width: "100%",
+                  padding: "0.85rem 1.2rem 0.85rem 2.8rem",
+                  borderRadius: "12px",
+                  border: "1.5px solid #CBD5E1",
                   background: "#FFFFFF",
-                  borderRadius: "20px",
-                  padding: "2.4rem",
-                  border: "1.5px solid #E2E8F0",
-                  boxShadow: "0 10px 30px rgba(15, 23, 42, 0.04)",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between"
+                  fontSize: "0.92rem",
+                  outline: "none",
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.04)"
                 }}
-              >
-                <div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
-                    <span style={{
-                      padding: "0.25rem 0.75rem",
-                      borderRadius: "6px",
-                      background: "#EFF6FF",
-                      color: "#1D4ED8",
-                      fontSize: "0.76rem",
-                      fontWeight: 800,
-                      textTransform: "uppercase",
-                      letterSpacing: "0.5px"
-                    }}>
-                      {art.category}
-                    </span>
-                    <span style={{ fontSize: "0.8rem", color: "#64748B", fontWeight: 600 }}>{art.date} • {art.readTime}</span>
-                  </div>
-
-                  <h3 style={{ fontSize: "1.35rem", fontWeight: 900, color: "#0B1736", margin: "0 0 1rem", lineHeight: 1.35 }}>
-                    {art.title}
-                  </h3>
-
-                  <p style={{ fontSize: "0.92rem", color: "#475569", lineHeight: 1.6, marginBottom: "1.4rem" }}>
-                    {art.excerpt}
-                  </p>
-
-                  <div style={{ background: "#F8FAFC", padding: "1.2rem", borderRadius: "12px", border: "1px solid #E2E8F0", marginBottom: "1.5rem" }}>
-                    <div style={{ fontSize: "0.78rem", fontWeight: 800, color: "#1E293B", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "0.6rem" }}>
-                      Key Operational Takeaways:
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                      {art.takeaways.map((tk, tIdx) => (
-                        <div key={tIdx} style={{ display: "flex", alignItems: "flex-start", gap: "0.5rem" }}>
-                          <span style={{ color: "#2563EB", fontWeight: 800, fontSize: "0.8rem", marginTop: "1px" }}>•</span>
-                          <span style={{ fontSize: "0.84rem", color: "#475569", lineHeight: 1.45 }}>{tk}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <div style={{ paddingTop: "1.2rem", borderTop: "1px solid #F1F5F9", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ fontSize: "0.82rem", color: "#64748B", fontWeight: 600 }}>By {art.author}</span>
-                  <button
-                    onClick={() => setDiagOpen(true)}
-                    style={{
-                      background: "transparent",
-                      border: "none",
-                      color: "#2563EB",
-                      fontSize: "0.88rem",
-                      fontWeight: 800,
-                      cursor: "pointer",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "0.3rem"
-                    }}
-                  >
-                    <span>Assess Brand Fit</span>
-                    <span>→</span>
-                  </button>
-                </div>
-              </article>
-            ))}
+              />
+              <span style={{ position: "absolute", left: "1rem", top: "50%", transform: "translateY(-50%)", color: "#94A3B8", display: "flex", alignItems: "center" }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Conversion Banner */}
-      <section style={{ padding: "5rem 0 5.5rem", background: "#FFFFFF", borderTop: "1px solid #E2E8F0" }}>
-        <div className="container" style={{ maxWidth: "1140px", margin: "0 auto", padding: "0 1.5rem" }}>
-          <div style={{
-            background: "linear-gradient(135deg, #0B1736 0%, #0F2557 100%)",
-            borderRadius: "28px",
-            padding: "3.5rem 3rem",
-            color: "#FFFFFF",
-            textAlign: "center",
-            position: "relative",
-            overflow: "hidden",
-            boxShadow: "0 24px 60px rgba(11, 23, 54, 0.25)"
-          }}>
-            <div style={{ position: "relative", zIndex: 2, maxWidth: "720px", margin: "0 auto" }}>
-              <div style={{
-                display: "inline-block",
-                padding: "0.35rem 1rem",
-                borderRadius: "999px",
-                background: "rgba(255, 255, 255, 0.12)",
-                fontSize: "0.78rem",
-                fontWeight: 800,
-                letterSpacing: "1.6px",
-                textTransform: "uppercase",
-                marginBottom: "1.2rem",
-                color: "#60A5FA"
-              }}>
-                Operating Intelligence
-              </div>
-              <h2 style={{ fontSize: "clamp(2rem, 3.8vw, 3rem)", fontWeight: 900, lineHeight: 1.2, letterSpacing: "-1px", margin: "0 0 1rem" }}>
-                Diagnose Your Channel Economics in Under 3 Minutes
-              </h2>
-              <p style={{ fontSize: "1.05rem", color: "#94A3B8", lineHeight: 1.65, marginBottom: "2.2rem" }}>
-                Our proprietary Commerce Diagnostic benchmarks your inventory run-rates, platform deductions, and logistics SLAs against top-tier category leaders.
-              </p>
-              <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
+      {/* Category Filter Navigation */}
+      <section style={{ background: "#FFFFFF", borderBottom: "1px solid #E2E8F0", position: "sticky", top: "72px", zIndex: 30 }}>
+        <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0.75rem 1.5rem", overflowX: "auto" }}>
+          <div style={{ display: "flex", gap: "0.6rem", minWidth: "max-content" }}>
+            {CATEGORIES.map((cat) => {
+              const active = selectedCat === cat;
+              return (
                 <button
-                  onClick={() => setDiagOpen(true)}
+                  key={cat}
+                  onClick={() => setSelectedCat(cat)}
                   style={{
-                    height: "56px",
-                    padding: "0 2.4rem",
-                    borderRadius: "14px",
-                    background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
-                    color: "#FFFFFF",
-                    fontSize: "1rem",
-                    fontWeight: 800,
-                    border: "none",
+                    padding: "0.55rem 1.15rem",
+                    borderRadius: "999px",
+                    fontSize: "0.82rem",
+                    fontWeight: active ? 800 : 600,
                     cursor: "pointer",
-                    boxShadow: "0 8px 24px rgba(37, 99, 235, 0.4)",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "0.5rem"
+                    border: active ? "1.5px solid #2563EB" : "1.5px solid #E2E8F0",
+                    background: active ? "#2563EB" : "#F8FAFC",
+                    color: active ? "#FFFFFF" : "#475569",
+                    transition: "all 0.15s ease",
+                    boxShadow: active ? "0 4px 12px rgba(37, 99, 235, 0.25)" : "none"
                   }}
                 >
-                  <span>UNLOCK YOUR GROWTH</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                    <polyline points="12 5 19 12 12 19" />
-                  </svg>
+                  {cat}
                 </button>
-                <Link
-                  href="/contact"
-                  style={{
-                    height: "56px",
-                    padding: "0 2rem",
-                    borderRadius: "14px",
-                    background: "rgba(255, 255, 255, 0.1)",
-                    border: "1.5px solid rgba(255, 255, 255, 0.25)",
-                    color: "#FFFFFF",
-                    fontSize: "0.96rem",
-                    fontWeight: 700,
-                    textDecoration: "none",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center"
-                  }}
-                >
-                  Speak With Author
-                </Link>
-              </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURED INSIGHT BANNER (Point 14) */}
+      {featured && selectedCat === "All" && !search && (
+        <section style={{ padding: "3.5rem 0 1rem 0" }}>
+          <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem" }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontSize: "0.76rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1px", color: "#2563EB", marginBottom: "0.85rem" }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#2563EB">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+              <span>Featured Strategic Briefing</span>
             </div>
+
+            <Link href={`/insights/${featured.slug}`} style={{ textDecoration: "none", color: "inherit" }}>
+              <div style={{
+                background: "#FFFFFF",
+                borderRadius: "20px",
+                border: "1.5px solid #E2E8F0",
+                overflow: "hidden",
+                display: "grid",
+                gridTemplateColumns: "1.2fr 1fr",
+                boxShadow: "0 10px 30px -5px rgba(0,0,0,0.06)",
+                transition: "all 0.2s ease"
+              }}>
+                <div style={{ height: "100%", minHeight: "340px", overflow: "hidden", background: "#F1F5F9" }}>
+                  <img
+                    src={featured.featuredImage || "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&auto=format&fit=crop&q=80"}
+                    alt={featured.title}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
+                </div>
+
+                <div style={{ padding: "2.5rem 2.75rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                  <div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.8rem" }}>
+                      <span style={{ fontSize: "0.74rem", fontWeight: 800, color: "#1D4ED8", background: "#EFF6FF", padding: "0.25rem 0.65rem", borderRadius: "999px", border: "1px solid #BFDBFE" }}>
+                        {featured.category}
+                      </span>
+                      <span style={{ fontSize: "0.78rem", color: "#94A3B8" }}>•</span>
+                      <span style={{ fontSize: "0.78rem", color: "#64748B", fontWeight: 600 }}>{featured.date}</span>
+                      <span style={{ fontSize: "0.78rem", color: "#94A3B8" }}>•</span>
+                      <span style={{ fontSize: "0.78rem", color: "#64748B", fontWeight: 600 }}>{featured.readTime || "6 min"}</span>
+                    </div>
+
+                    <h2 style={{ fontSize: "1.65rem", fontWeight: 900, color: "#0F172A", lineHeight: 1.3, marginBottom: "0.9rem" }}>
+                      {featured.title}
+                    </h2>
+
+                    <p style={{ fontSize: "0.95rem", color: "#475569", lineHeight: 1.6, margin: 0 }}>
+                      {featured.excerpt}
+                    </p>
+                  </div>
+
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "1.5rem", borderTop: "1px solid #F1F5F9", marginTop: "1.5rem" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                      {featured.authorPhoto && (
+                        <img src={featured.authorPhoto} alt={featured.author} style={{ width: "34px", height: "34px", borderRadius: "50%", objectFit: "cover" }} />
+                      )}
+                      <div>
+                        <div style={{ fontWeight: 800, fontSize: "0.85rem", color: "#0F172A" }}>{featured.author}</div>
+                        <div style={{ fontSize: "0.72rem", color: "#64748B" }}>{featured.authorRole || "Good Life Operations"}</div>
+                      </div>
+                    </div>
+
+                    <span style={{ fontWeight: 800, color: "#2563EB", fontSize: "0.88rem" }}>
+                      Read Article →
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </div>
+        </section>
+      )}
+
+      {/* Latest Articles Grid (Point 14) */}
+      <section style={{ padding: "3.5rem 0 6rem 0" }}>
+        <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
+            <h3 style={{ fontSize: "1.5rem", fontWeight: 900, color: "#0F172A", margin: 0 }}>
+              {selectedCat === "All" ? "Latest Published Briefings" : `${selectedCat} Articles`} ({filteredArticles.length})
+            </h3>
+          </div>
+
+          {filteredArticles.length === 0 ? (
+            <div style={{ textAlign: "center", padding: "5rem 1rem", background: "#FFFFFF", borderRadius: "16px", border: "1px solid #E2E8F0" }}>
+              <div style={{ display: "inline-flex", justifyContent: "center", alignItems: "center", width: "56px", height: "56px", borderRadius: "50%", background: "#F1F5F9", color: "#64748B", marginBottom: "1rem" }}>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </div>
+              <h3 style={{ fontSize: "1.2rem", fontWeight: 800, color: "#0F172A" }}>No articles found for "{search}"</h3>
+              <p style={{ fontSize: "0.85rem", color: "#64748B" }}>Try searching for Amazon, Buybox, Inventory, or choose "All Categories".</p>
+            </div>
+          ) : (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(350px, 1fr))", gap: "2rem" }}>
+              {filteredArticles.map((art) => (
+                <Link
+                  key={art.id}
+                  href={`/insights/${art.slug}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <div style={{
+                    background: "#FFFFFF",
+                    borderRadius: "16px",
+                    overflow: "hidden",
+                    border: "1.5px solid #E2E8F0",
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.03)",
+                    transition: "transform 0.2s ease, box-shadow 0.2s ease"
+                  }}>
+                    {/* Thumbnail */}
+                    <div style={{ height: "190px", overflow: "hidden", background: "#F1F5F9" }}>
+                      <img
+                        src={art.featuredImage || "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&auto=format&fit=crop&q=80"}
+                        alt={art.title}
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                      />
+                    </div>
+
+                    <div style={{ padding: "1.5rem", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                      <div>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.6rem" }}>
+                          <span style={{ fontSize: "0.72rem", fontWeight: 800, color: "#1D4ED8", background: "#EFF6FF", padding: "0.2rem 0.55rem", borderRadius: "999px" }}>
+                            {art.category}
+                          </span>
+                          <span style={{ fontSize: "0.74rem", color: "#64748B" }}>
+                            {art.date}
+                          </span>
+                        </div>
+
+                        <h4 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#0F172A", lineHeight: 1.35, marginBottom: "0.6rem" }}>
+                          {art.title}
+                        </h4>
+
+                        <p style={{
+                          fontSize: "0.85rem",
+                          color: "#64748B",
+                          lineHeight: 1.55,
+                          margin: 0,
+                          display: "-webkit-box",
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden"
+                        }}>
+                          {art.excerpt}
+                        </p>
+                      </div>
+
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "1.2rem", borderTop: "1px solid #F1F5F9", marginTop: "1.2rem" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                          {art.authorPhoto && (
+                            <img src={art.authorPhoto} alt={art.author} style={{ width: "26px", height: "26px", borderRadius: "50%", objectFit: "cover" }} />
+                          )}
+                          <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "#334155" }}>{art.author}</span>
+                        </div>
+
+                        <span style={{ fontSize: "0.8rem", fontWeight: 800, color: "#2563EB" }}>
+                          Read Article →
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Complimentary Diagnostic CTA */}
+      <section style={{
+        background: "linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%)",
+        padding: "5rem 0",
+        color: "#FFFFFF",
+        textAlign: "center"
+      }}>
+        <div className="container" style={{ maxWidth: "800px", margin: "0 auto", padding: "0 1.5rem" }}>
+          <div style={{ fontSize: "0.82rem", fontWeight: 800, letterSpacing: "1.5px", color: "#38BDF8", textTransform: "uppercase", marginBottom: "1rem" }}>
+            Operating Intelligence
+          </div>
+          <h2 style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)", fontWeight: 900, marginBottom: "1rem", lineHeight: 1.2 }}>
+            Diagnose Your Channel Economics in Under 3 Minutes
+          </h2>
+          <p style={{ fontSize: "1.05rem", color: "#CBD5E1", lineHeight: 1.6, marginBottom: "2.5rem" }}>
+            Our proprietary Commerce Diagnostic benchmarks your inventory run-rates, platform deductions, and logistics SLAs against top-tier category leaders.
+          </p>
+          <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
+            <button
+              onClick={() => setDiagOpen(true)}
+              style={{
+                padding: "0.95rem 2rem",
+                borderRadius: "12px",
+                background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
+                color: "#FFFFFF",
+                fontWeight: 800,
+                fontSize: "0.95rem",
+                border: "none",
+                cursor: "pointer",
+                boxShadow: "0 4px 20px rgba(37,99,235,0.4)"
+              }}
+            >
+              UNLOCK YOUR GROWTH
+            </button>
+            <Link
+              href="/contact"
+              style={{
+                padding: "0.95rem 1.8rem",
+                borderRadius: "12px",
+                background: "rgba(255,255,255,0.1)",
+                color: "#FFFFFF",
+                fontWeight: 700,
+                fontSize: "0.95rem",
+                border: "1px solid rgba(255,255,255,0.25)",
+                textDecoration: "none"
+              }}
+            >
+              Speak With Author
+            </Link>
           </div>
         </div>
       </section>
