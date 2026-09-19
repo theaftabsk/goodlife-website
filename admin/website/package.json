@@ -1,0 +1,8 @@
+{
+  "name": "goodlife-website-proxy",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "cd .. && npm install"
+  }
+}
