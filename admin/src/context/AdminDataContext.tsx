@@ -39,6 +39,7 @@ export interface CategoryItem {
 
 export interface LeadItem {
   id: string;
+  leadCode?: string;
   company: string;
   website?: string;
   contact: string;
@@ -223,11 +224,18 @@ export interface SeoPageItem {
 }
 
 export interface CrmConfig {
-  provider: "Zoho CRM" | "HubSpot" | "Custom Webhook" | "Zapier / Make";
+  id?: string;
+  isConnected: boolean;
+  provider: string;
   webhookUrl: string;
+  apiKey?: string;
   autoSync: boolean;
   notificationEmail: string;
   lastSyncStatus: string;
+  lastSyncTime?: string | null;
+  lastErrorMessage?: string | null;
+  totalSyncedCount?: number;
+  totalFailedCount?: number;
 }
 
 interface AdminDataContextType {
@@ -284,7 +292,10 @@ interface AdminDataContextType {
   deleteSeoPage: (id: string) => void;
 
   crmConfig: CrmConfig;
-  updateCrmConfig: (config: Partial<CrmConfig>) => void;
+  updateCrmConfig: (config: Partial<CrmConfig>) => Promise<void>;
+  testCrmWebhook: (dto?: { provider?: string; webhookUrl?: string; apiKey?: string }) => Promise<{ success: boolean; message: string; httpCode?: number }>;
+  disconnectCrm: () => Promise<void>;
+  syncPendingLeadsToCrm: () => Promise<{ success: boolean; message: string }>;
 
   caseStudies: CaseStudyItem[];
   saveCaseStudy: (item: Partial<CaseStudyItem>, id?: string) => void;
@@ -872,11 +883,18 @@ const initialSeoPages: SeoPageItem[] = [
 ];
 
 const initialCrmConfig: CrmConfig = {
-  provider: "Zoho CRM",
-  webhookUrl: "https://flow.zoho.in/72819/flow/v1/webhook/incoming",
-  autoSync: true,
-  notificationEmail: "leads@goodlifesutra.com",
-  lastSyncStatus: "Connected · Auto-push enabled"
+  id: "default",
+  isConnected: false,
+  provider: "",
+  webhookUrl: "",
+  apiKey: "",
+  autoSync: false,
+  notificationEmail: "",
+  lastSyncStatus: "Not Connected",
+  lastSyncTime: null,
+  lastErrorMessage: null,
+  totalSyncedCount: 0,
+  totalFailedCount: 0,
 };
 
 const AdminDataContext = createContext<AdminDataContextType | undefined>(undefined);
@@ -966,6 +984,13 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
         if (cRes.ok) {
           const data = await cRes.json();
           if (Array.isArray(data) && data.length > 0) setCategories(data);
+        }
+      } catch (_) {}
+      try {
+        const crmRes = await fetch("http://localhost:5000/api/v1/crm");
+        if (crmRes.ok) {
+          const data = await crmRes.json();
+          if (data && typeof data === "object") setCrmConfig(data);
         }
       } catch (_) {}
     }
@@ -1813,10 +1838,91 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
     showToast(`Duplicated: ${existing.title}`);
   };
 
-  // CRM Integration Config
-  const updateCrmConfig = (config: Partial<CrmConfig>) => {
-    setCrmConfig(prev => ({ ...prev, ...config }));
-    showToast(`CRM Integration updated (${config.provider || crmConfig.provider})`);
+  // Real CRM Integration Methods (Persisted to PostgreSQL & NestJS API)
+  const updateCrmConfig = async (config: Partial<CrmConfig>) => {
+    const updated = { ...crmConfig, ...config };
+    setCrmConfig(updated);
+    try {
+      localStorage.setItem("gl_admin_crm", JSON.stringify(updated));
+    } catch (_) {}
+
+    try {
+      const res = await fetch("http://localhost:5000/api/v1/crm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(config),
+      });
+      if (res.ok) {
+        const saved = await res.json();
+        setCrmConfig(saved);
+        showToast("CRM configuration saved to PostgreSQL!");
+      }
+    } catch (e) {
+      showToast("CRM config updated locally (backend sync pending)");
+    }
+  };
+
+  const testCrmWebhook = async (dto?: { provider?: string; webhookUrl?: string; apiKey?: string }) => {
+    try {
+      const res = await fetch("http://localhost:5000/api/v1/crm/test", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dto || {}),
+      });
+      const data = await res.json();
+      if (data.success) {
+        showToast(data.message || "Webhook verified successfully!");
+        const refreshed = await fetch("http://localhost:5000/api/v1/crm").then(r => r.json()).catch(() => null);
+        if (refreshed) setCrmConfig(refreshed);
+      } else {
+        showToast(data.message || "Webhook test failed.");
+      }
+      return data;
+    } catch (err: any) {
+      const msg = "Network error while connecting to CRM endpoint";
+      showToast(msg);
+      return { success: false, message: msg };
+    }
+  };
+
+  const disconnectCrm = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/v1/crm/disconnect", { method: "POST" });
+      if (res.ok) {
+        const saved = await res.json();
+        setCrmConfig(saved);
+      } else {
+        setCrmConfig(prev => ({ ...prev, isConnected: false, autoSync: false, lastSyncStatus: "Disconnected", provider: "", webhookUrl: "" }));
+      }
+      showToast("CRM disconnected. Inbound leads remain exclusively in local database.");
+    } catch (_) {
+      setCrmConfig(prev => ({ ...prev, isConnected: false, autoSync: false, lastSyncStatus: "Disconnected", provider: "", webhookUrl: "" }));
+      showToast("CRM disconnected.");
+    }
+  };
+
+  const syncPendingLeadsToCrm = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/v1/crm/sync-now", { method: "POST" });
+      const data = await res.json();
+      if (res.ok) {
+        showToast(data.message || "Leads pushed to CRM successfully!");
+        const [refreshedLeads, refreshedCrm] = await Promise.all([
+          fetch("http://localhost:5000/api/v1/leads").then(r => r.json()).catch(() => null),
+          fetch("http://localhost:5000/api/v1/crm").then(r => r.json()).catch(() => null),
+        ]);
+        if (Array.isArray(refreshedLeads)) setLeads(refreshedLeads);
+        if (refreshedCrm) setCrmConfig(refreshedCrm);
+        return { success: true, message: data.message };
+      } else {
+        showToast(data.message || "Failed to sync leads to CRM.");
+        return { success: false, message: data.message };
+      }
+    } catch (e: any) {
+      const msg = "Failed to communicate with CRM sync service.";
+      showToast(msg);
+      return { success: false, message: msg };
+    }
   };
 
   return (
@@ -1876,6 +1982,9 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
         crmConfig,
         updateCrmConfig,
+        testCrmWebhook,
+        disconnectCrm,
+        syncPendingLeadsToCrm,
 
         caseStudies,
         saveCaseStudy,

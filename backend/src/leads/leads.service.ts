@@ -100,13 +100,83 @@ export class LeadsService {
           fitScore: 85,
           fitLabel: 'Direct Inbound Lead',
           tags: ['Real Inbound Lead'],
-          crmStatus: 'New Inbound', // Real status (Zoho is not connected)
+          crmStatus: 'New Inbound',
           utmSource: detectedSource,
           utmCampaign: dto.utmCampaign || 'Organic Direct',
         },
       });
 
       this.logger.log(`Saved genuine inbound lead: ${lead.company} (${lead.leadCode}) from ${detectedSource}`);
+
+      // Check if CRM auto-sync is active
+      try {
+        const crm = await this.prisma.crmIntegration.findUnique({ where: { id: 'default' } });
+        if (crm && crm.isConnected && crm.autoSync && crm.webhookUrl) {
+          const payload = {
+            event: 'goodlife.lead.created',
+            timestamp: new Date().toISOString(),
+            lead: {
+              leadCode: lead.leadCode,
+              company: lead.company,
+              contactName: lead.contactName,
+              email: lead.email,
+              mobile: lead.mobile,
+              category: lead.category,
+              gmvBand: lead.gmvBand,
+              source: detectedSource,
+              timeline: lead.timeline,
+              intent: lead.intent,
+            },
+          };
+
+          const headers: Record<string, string> = {
+            'Content-Type': 'application/json',
+            'User-Agent': 'GoodLifeSutra-CRM-Gateway/2026.1',
+          };
+          if (crm.apiKey) {
+            headers['Authorization'] = `Bearer ${crm.apiKey}`;
+          }
+
+          const res = await fetch(crm.webhookUrl, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify(payload),
+          });
+
+          if (res.status >= 200 && res.status < 300) {
+            await this.prisma.diagnosticLead.update({
+              where: { id: lead.id },
+              data: { crmStatus: `Synced to ${crm.provider || 'CRM'}` },
+            });
+            await this.prisma.crmAuditLog.create({
+              data: {
+                leadId: lead.id,
+                leadCompany: lead.company,
+                leadEmail: lead.email,
+                action: 'AUTO_SYNC',
+                status: 'SUCCESS',
+                httpCode: res.status,
+                response: `Auto-synced lead ${lead.leadCode} to ${crm.provider || 'CRM'} (HTTP ${res.status})`,
+              },
+            });
+          } else {
+            await this.prisma.crmAuditLog.create({
+              data: {
+                leadId: lead.id,
+                leadCompany: lead.company,
+                leadEmail: lead.email,
+                action: 'AUTO_SYNC',
+                status: 'FAILED',
+                httpCode: res.status,
+                errorMessage: `Auto-sync failed with HTTP ${res.status}`,
+              },
+            });
+          }
+        }
+      } catch (crmErr: any) {
+        this.logger.warn(`CRM auto-sync failed: ${crmErr.message}`);
+      }
+
       return lead;
     } catch (error) {
       this.logger.error('Failed to create diagnostic lead', error);

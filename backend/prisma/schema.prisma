@@ -319,4 +319,33 @@ model SiteConfiguration {
   createdAt           DateTime @default(now())
 }
 
+model CrmIntegration {
+  id                String    @id @default("default")
+  isConnected       Boolean   @default(false)
+  provider          String    @default("")
+  webhookUrl        String    @default("")
+  apiKey            String?   @default("")
+  autoSync          Boolean   @default(false)
+  notificationEmail String?   @default("")
+  lastSyncStatus    String    @default("Not Connected")
+  lastSyncTime      DateTime?
+  lastErrorMessage  String?
+  totalSyncedCount  Int       @default(0)
+  totalFailedCount  Int       @default(0)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
 
+model CrmAuditLog {
+  id           String    @id @default(uuid())
+  leadId       String?
+  leadCompany  String?
+  leadEmail    String?
+  action       String    // "TEST_CONNECTION", "PUSH_LEAD", "AUTO_SYNC", "CONFIG_UPDATED", "DISCONNECTED"
+  status       String    // "SUCCESS", "FAILED", "WARNING"
+  httpCode     Int?
+  payload      Json?
+  response     String?
+  errorMessage String?
+  createdAt    DateTime  @default(now())
+}

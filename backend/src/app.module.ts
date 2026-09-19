@@ -7,6 +7,7 @@ import { LandingPagesModule } from './landing-pages/landing-pages.module';
 import { FaqsModule } from './faqs/faqs.module';
 import { SettingsModule } from './settings/settings.module';
 import { LeadsModule } from './leads/leads.module';
+import { CrmModule } from './crm/crm.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { LeadsModule } from './leads/leads.module';
     FaqsModule,
     SettingsModule,
     LeadsModule,
+    CrmModule,
   ],
 })
 export class AppModule {}
