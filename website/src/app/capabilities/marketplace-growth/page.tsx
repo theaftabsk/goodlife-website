@@ -674,117 +674,88 @@ export default function MarketplaceGrowthPage() {
         </div>
       </section>
 
-      {/* ── 3. FOUR GROWTH LEVERS ARCHITECTURE (INTERACTIVE 4-QUADRANT) ── */}
+      {/* ── 3. FOUR GROWTH LEVERS ARCHITECTURE (INTERACTIVE 2x2 MATRIX GRID) ── */}
       <section style={{ padding: "5.5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
         <div className="container" style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
           <div style={{ textAlign: "center", maxWidth: "750px", margin: "0 auto 3.5rem" }}>
             <span style={{ display: "inline-block", fontSize: "0.75rem", fontWeight: 800, letterSpacing: "2px", color: "#7C3AED", textTransform: "uppercase", marginBottom: "0.75rem" }}>
-              Core Growth Engine
+              Category Domination Engine
             </span>
             <h2 style={{ fontSize: "clamp(1.9rem, 3.2vw, 2.6rem)", fontWeight: 900, color: "#0B1736", margin: "0 0 1rem", letterSpacing: "-0.8px" }}>
               The Four Proprietary Levers That Drive Category Domination
             </h2>
             <p style={{ fontSize: "1rem", color: "#64748B", lineHeight: 1.6 }}>
-              Explore each component of our algorithmic growth engine to see how we protect your margins, conquer competitor listings, and convert paid traffic into permanent rank momentum.
+              Unlike generic ad agencies that bid randomly, Good Life coordinates four interconnected algorithmic levers to systematically drive organic rank momentum.
             </p>
           </div>
 
-          {/* 4 Interactive Selector Tabs */}
-          <div className="growth-pill-tabs" style={{
+          {/* 2x2 Bespoke Visual Matrix Grid */}
+          <div style={{
             display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "0.75rem",
-            marginBottom: "2.5rem"
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: "2rem"
           }}>
-            {growthLevers.map((lv, idx) => {
-              const isSelected = activeLever === idx;
-              return (
-                <button
-                  key={lv.id}
-                  onClick={() => setActiveLever(idx)}
-                  style={{
-                    padding: "1.1rem 1rem",
-                    borderRadius: "16px",
-                    border: isSelected ? "2px solid #7C3AED" : "1.5px solid #E2E8F0",
-                    background: isSelected ? "#FFFFFF" : "rgba(255, 255, 255, 0.6)",
-                    boxShadow: isSelected ? "0 8px 24px rgba(124, 58, 237, 0.12)" : "none",
-                    cursor: "pointer",
-                    textAlign: "left",
-                    transition: "all 0.2s ease"
-                  }}
-                >
-                  <div style={{ fontSize: "0.7rem", fontWeight: 800, color: isSelected ? "#7C3AED" : "#94A3B8", textTransform: "uppercase" }}>
-                    {lv.badge}
-                  </div>
-                  <div style={{ fontSize: "0.95rem", fontWeight: 800, color: isSelected ? "#0F172A" : "#475569", marginTop: "0.3rem" }}>
-                    {lv.title.split("&")[0]}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Active Lever Detailed Showcase Card */}
-          {(() => {
-            const current = growthLevers[activeLever];
-            return (
-              <div className="growth-glass-card" style={{
-                padding: "3rem",
-                display: "grid",
-                gridTemplateColumns: "1.2fr 0.8fr",
-                gap: "3rem",
-                alignItems: "center"
-              }}>
+            {growthLevers.map((lv, idx) => (
+              <div
+                key={lv.id}
+                className="growth-glass-card"
+                style={{
+                  padding: "2.5rem",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  position: "relative",
+                  overflow: "hidden"
+                }}
+              >
                 <div>
-                  <span style={{ fontSize: "0.75rem", fontWeight: 800, color: "#7C3AED", background: "#FAF5FF", padding: "4px 12px", borderRadius: "999px", textTransform: "uppercase" }}>
-                    {current.badge} • ARCHITECTURE BREAKDOWN
-                  </span>
-                  <h3 style={{ fontSize: "1.85rem", fontWeight: 900, color: "#0B1736", margin: "1rem 0 1rem", letterSpacing: "-0.5px" }}>
-                    {current.title}
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.2rem" }}>
+                    <span style={{ fontSize: "0.75rem", fontWeight: 800, color: "#7C3AED", background: "#FAF5FF", padding: "4px 12px", borderRadius: "999px", textTransform: "uppercase" }}>
+                      {lv.badge}
+                    </span>
+                    <span style={{ fontSize: "1.3rem", fontWeight: 900, color: "#7C3AED" }}>
+                      {lv.metric}
+                    </span>
+                  </div>
+
+                  <h3 style={{ fontSize: "1.35rem", fontWeight: 900, color: "#0B1736", margin: "0 0 0.8rem", lineHeight: 1.3 }}>
+                    {lv.title}
                   </h3>
-                  <p style={{ fontSize: "1.05rem", color: "#475569", lineHeight: 1.7, marginBottom: "1.8rem" }}>
-                    {current.desc}
+
+                  <p style={{ fontSize: "0.92rem", color: "#475569", lineHeight: 1.6, marginBottom: "1.5rem" }}>
+                    {lv.desc}
                   </p>
 
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "0.75rem" }}>
-                    {current.deliverables.map((del, dIdx) => (
-                      <div key={dIdx} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
-                        <span style={{ color: "#7C3AED", fontWeight: 900, fontSize: "1.1rem", lineHeight: 1.2 }}>✓</span>
-                        <span style={{ fontSize: "0.92rem", color: "#1E293B", fontWeight: 600 }}>{del}</span>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "0.65rem", marginBottom: "1.5rem" }}>
+                    {lv.deliverables.map((del, dIdx) => (
+                      <div key={dIdx} style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem" }}>
+                        <span style={{ color: "#7C3AED", fontWeight: 900, fontSize: "1rem", lineHeight: 1.2 }}>✓</span>
+                        <span style={{ fontSize: "0.85rem", color: "#1E293B", fontWeight: 600 }}>{del}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                {/* Right Stat & Configuration Box */}
                 <div style={{
                   background: "#F8FAFC",
-                  border: "1.5px solid #E2E8F0",
-                  borderRadius: "20px",
-                  padding: "2rem"
+                  borderRadius: "14px",
+                  padding: "1rem",
+                  border: "1px solid #E2E8F0",
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: "0.75rem"
                 }}>
-                  <div style={{ textAlign: "center", paddingBottom: "1.5rem", borderBottom: "1px solid #E2E8F0", marginBottom: "1.5rem" }}>
-                    <div style={{ fontSize: "3rem", fontWeight: 900, color: "#7C3AED", lineHeight: 1, letterSpacing: "-1px" }}>
-                      {current.metric}
+                  {lv.cardItems.slice(0, 2).map((item, iIdx) => (
+                    <div key={iIdx}>
+                      <div style={{ fontSize: "0.7rem", color: "#64748B" }}>{item.label}</div>
+                      <div style={{ fontSize: "0.95rem", fontWeight: 800, color: "#0F172A", marginTop: "2px" }}>{item.value}</div>
                     </div>
-                    <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#475569", marginTop: "0.4rem" }}>
-                      {current.metricLabel}
-                    </div>
-                  </div>
-
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "0.85rem" }}>
-                    {current.cardItems.map((item, iIdx) => (
-                      <div key={iIdx} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#FFFFFF", padding: "0.75rem 1rem", borderRadius: "10px", border: "1px solid #E2E8F0" }}>
-                        <span style={{ fontSize: "0.8rem", color: "#64748B", fontWeight: 600 }}>{item.label}</span>
-                        <span style={{ fontSize: "0.85rem", fontWeight: 800, color: "#0F172A" }}>{item.value}</span>
-                      </div>
-                    ))}
-                  </div>
+                  ))}
                 </div>
               </div>
-            );
-          })()}
+            ))}
+          </div>
 
         </div>
       </section>

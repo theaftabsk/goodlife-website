@@ -490,7 +490,7 @@ export default function WarehousingFulfilmentPage() {
         </div>
       </section>
 
-      {/* ── 2. INTERACTIVE 12-NODE REGIONAL HUB EXPLORER ── */}
+      {/* ── 2. PAN-INDIA SUPER-HUB FACILITY DIRECTORY (GRID ARCHITECTURE) ── */}
       <section style={{ padding: "5.5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
         <div className="container" style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
@@ -499,117 +499,74 @@ export default function WarehousingFulfilmentPage() {
               Physical Network Infrastructure
             </span>
             <h2 style={{ fontSize: "clamp(1.9rem, 3.2vw, 2.6rem)", fontWeight: 900, color: "#0B1736", margin: "0 0 1rem", letterSpacing: "-0.8px" }}>
-              Explore Good Life Regional Fulfillment Hubs
+              Regional Fulfillment Super-Hub Network
             </h2>
             <p style={{ fontSize: "1rem", color: "#64748B", lineHeight: 1.6 }}>
-              Select a facility node below to review dock specifications, daily parcel handling capacity, carrier integrations, and regional delivery SLAs.
+              Strategic Grade-A fulfillment hubs located along India's major industrial transport corridors, equipped for automated barcode picking and same-day carrier handoffs.
             </p>
           </div>
 
-          {/* Hub Selector Pills */}
-          <div className="wh-pill-grid" style={{
+          {/* High-Tech Facility Card Grid */}
+          <div style={{
             display: "grid",
-            gridTemplateColumns: "repeat(5, 1fr)",
-            gap: "0.75rem",
-            marginBottom: "2.5rem"
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "1.75rem"
           }}>
-            {regionalHubs.map((hub, idx) => {
-              const isSelected = activeHub === idx;
-              return (
-                <button
-                  key={hub.id}
-                  onClick={() => setActiveHub(idx)}
-                  style={{
-                    padding: "1.1rem 1rem",
-                    borderRadius: "16px",
-                    border: isSelected ? "2px solid #D97706" : "1.5px solid #E2E8F0",
-                    background: isSelected ? "#FFFFFF" : "rgba(255, 255, 255, 0.6)",
-                    boxShadow: isSelected ? "0 8px 24px rgba(217, 119, 6, 0.12)" : "none",
-                    cursor: "pointer",
-                    textAlign: "left",
-                    transition: "all 0.2s ease"
-                  }}
-                >
-                  <div style={{ fontSize: "0.7rem", fontWeight: 800, color: isSelected ? "#D97706" : "#94A3B8", textTransform: "uppercase" }}>
-                    {hub.badge}
-                  </div>
-                  <div style={{ fontSize: "0.92rem", fontWeight: 800, color: isSelected ? "#0F172A" : "#475569", marginTop: "0.3rem" }}>
-                    {hub.name.split("(")[0]}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Active Hub Details Showcase */}
-          {(() => {
-            const current = regionalHubs[activeHub];
-            return (
-              <div className="amber-glass-card wh-hub-detail" style={{
-                padding: "3rem",
-                display: "grid",
-                gridTemplateColumns: "1.2fr 0.8fr",
-                gap: "3rem",
-                alignItems: "center"
-              }}>
+            {regionalHubs.map((hub, idx) => (
+              <div
+                key={hub.id}
+                className="amber-glass-card"
+                style={{
+                  padding: "2rem",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  background: "#FFFFFF",
+                  border: "1.5px solid #E2E8F0"
+                }}
+              >
                 <div>
-                  <span style={{ fontSize: "0.75rem", fontWeight: 800, color: "#D97706", background: "#FFFBEB", padding: "4px 12px", borderRadius: "999px", textTransform: "uppercase" }}>
-                    {current.badge} • HUB SPECIFICATION
-                  </span>
-                  <h3 style={{ fontSize: "1.85rem", fontWeight: 900, color: "#0B1736", margin: "1rem 0 1rem", letterSpacing: "-0.5px" }}>
-                    {current.name}
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
+                    <span style={{ fontSize: "0.72rem", fontWeight: 800, color: "#D97706", background: "#FFFBEB", padding: "3px 10px", borderRadius: "999px", textTransform: "uppercase" }}>
+                      {hub.badge}
+                    </span>
+                    <span style={{ fontSize: "0.78rem", fontWeight: 800, color: "#1D4ED8" }}>
+                      {hub.docks}
+                    </span>
+                  </div>
+
+                  <h3 style={{ fontSize: "1.2rem", fontWeight: 900, color: "#0F172A", margin: "0 0 0.5rem", lineHeight: 1.3 }}>
+                    {hub.name}
                   </h3>
-                  <p style={{ fontSize: "1.05rem", color: "#475569", lineHeight: 1.7, marginBottom: "1.8rem" }}>
-                    {current.highlight}
+
+                  <p style={{ fontSize: "0.82rem", color: "#64748B", lineHeight: 1.55, marginBottom: "1.25rem" }}>
+                    {hub.highlight}
                   </p>
 
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-                    <div style={{ background: "#F8FAFC", padding: "1rem", borderRadius: "12px", border: "1px solid #E2E8F0" }}>
-                      <div style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 700 }}>FACILITY AREA</div>
-                      <div style={{ fontSize: "1.15rem", fontWeight: 900, color: "#0F172A", marginTop: "3px" }}>{current.sqft}</div>
+                  <div style={{ background: "#F8FAFC", borderRadius: "12px", padding: "0.85rem", border: "1px solid #E2E8F0", marginBottom: "1rem", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.5rem" }}>
+                    <div>
+                      <div style={{ fontSize: "0.68rem", color: "#64748B" }}>AREA</div>
+                      <div style={{ fontSize: "0.88rem", fontWeight: 800, color: "#0F172A" }}>{hub.sqft}</div>
                     </div>
-                    <div style={{ background: "#F8FAFC", padding: "1rem", borderRadius: "12px", border: "1px solid #E2E8F0" }}>
-                      <div style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 700 }}>DOCK ACCESS</div>
-                      <div style={{ fontSize: "1.15rem", fontWeight: 900, color: "#0F172A", marginTop: "3px" }}>{current.docks}</div>
+                    <div>
+                      <div style={{ fontSize: "0.68rem", color: "#64748B" }}>THROUGHPUT</div>
+                      <div style={{ fontSize: "0.88rem", fontWeight: 800, color: "#D97706" }}>{hub.throughput.split(" ")[0]} / day</div>
                     </div>
                   </div>
                 </div>
 
-                {/* Right Stat Tile */}
-                <div style={{
-                  background: "#F8FAFC",
-                  border: "1.5px solid #E2E8F0",
-                  borderRadius: "20px",
-                  padding: "2rem"
-                }}>
-                  <div style={{ textAlign: "center", paddingBottom: "1.5rem", borderBottom: "1px solid #E2E8F0", marginBottom: "1.5rem" }}>
-                    <div style={{ fontSize: "2.6rem", fontWeight: 900, color: "#D97706", lineHeight: 1 }}>
-                      {current.throughput}
-                    </div>
-                    <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#475569", marginTop: "0.4rem" }}>
-                      Peak Daily Outbound Capacity
-                    </div>
-                  </div>
-
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "0.85rem" }}>
-                    <div style={{ background: "#FFFFFF", padding: "0.75rem 1rem", borderRadius: "10px", border: "1px solid #E2E8F0" }}>
-                      <span style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 700, display: "block" }}>Integrated Carrier Fleets:</span>
-                      <span style={{ fontSize: "0.85rem", fontWeight: 800, color: "#1D4ED8" }}>{current.carriers}</span>
-                    </div>
-                    <div style={{ background: "#FFFFFF", padding: "0.75rem 1rem", borderRadius: "10px", border: "1px solid #E2E8F0" }}>
-                      <span style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 700, display: "block" }}>Storage Architecture:</span>
-                      <span style={{ fontSize: "0.85rem", fontWeight: 800, color: "#0F172A" }}>{current.storageType}</span>
-                    </div>
-                  </div>
+                <div style={{ paddingTop: "0.85rem", borderTop: "1px solid #F1F5F9", fontSize: "0.75rem", color: "#1E293B", fontWeight: 600 }}>
+                  <span style={{ color: "#64748B", display: "block", marginBottom: "2px" }}>Carrier Links:</span>
+                  {hub.carriers}
                 </div>
               </div>
-            );
-          })()}
+            ))}
+          </div>
 
         </div>
       </section>
 
-      {/* ── 3. INTERACTIVE 5-LAYER DROP-TEST PACKAGING SHOWCASE ── */}
+      {/* ── 3. 5-LAYER DROP-TEST PACKAGING (VERTICAL ARCHITECTURAL STACK) ── */}
       <section style={{ padding: "5.5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
         <div className="container" style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
@@ -621,88 +578,51 @@ export default function WarehousingFulfilmentPage() {
               5-Layer Bulky &amp; Fragile Drop-Tested Packaging Architecture
             </h2>
             <p style={{ fontSize: "1rem", color: "#64748B", lineHeight: 1.6 }}>
-              Transit returns due to cracked screens, scratched paint, or dented boxes destroy e-commerce margins. Inspect how Good Life engineers custom packaging that drops breakage rates below 0.2%.
+              Transit returns due to cracked screens, scratched paint, or dented boxes destroy e-commerce margins. Inspect our 5 physical packaging layers engineered for ISTA-1A drop protection.
             </p>
           </div>
 
-          {/* Layer Selector */}
-          <div className="wh-pill-grid" style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(5, 1fr)",
-            gap: "0.75rem",
-            marginBottom: "2.5rem"
-          }}>
-            {packagingLayers.map((layer, idx) => {
-              const isSelected = activeLayer === idx;
-              return (
-                <button
-                  key={layer.layer}
-                  onClick={() => setActiveLayer(idx)}
-                  style={{
-                    padding: "1.1rem 1rem",
-                    borderRadius: "16px",
-                    border: isSelected ? "2px solid #D97706" : "1.5px solid #E2E8F0",
-                    background: isSelected ? "#FFFFFF" : "rgba(255, 255, 255, 0.6)",
-                    boxShadow: isSelected ? "0 8px 24px rgba(217, 119, 6, 0.12)" : "none",
-                    cursor: "pointer",
-                    textAlign: "left",
-                    transition: "all 0.2s ease"
-                  }}
-                >
-                  <div style={{ fontSize: "0.7rem", fontWeight: 800, color: isSelected ? "#D97706" : "#94A3B8" }}>
-                    LAYER {layer.layer}
-                  </div>
-                  <div style={{ fontSize: "0.85rem", fontWeight: 800, color: isSelected ? "#0F172A" : "#475569", marginTop: "0.3rem" }}>
+          {/* Vertical Architectural Exploded Stack */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1rem", maxWidth: "1000px", margin: "0 auto" }}>
+            {packagingLayers.map((layer, idx) => (
+              <div
+                key={layer.layer}
+                className="amber-glass-card"
+                style={{
+                  padding: "1.75rem 2rem",
+                  display: "grid",
+                  gridTemplateColumns: "90px 1.5fr 1fr",
+                  gap: "1.75rem",
+                  alignItems: "center",
+                  background: "#FFFFFF",
+                  border: "1.5px solid #E2E8F0"
+                }}
+              >
+                <div style={{ textAlign: "center", background: "#FFFBEB", border: "1px solid #FDE68A", padding: "0.8rem 0.5rem", borderRadius: "14px" }}>
+                  <div style={{ fontSize: "0.7rem", fontWeight: 800, color: "#D97706" }}>LAYER</div>
+                  <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "#D97706", lineHeight: 1 }}>{layer.layer}</div>
+                </div>
+
+                <div>
+                  <div style={{ fontSize: "0.72rem", fontWeight: 800, color: "#D97706", textTransform: "uppercase", marginBottom: "0.2rem" }}>
                     {layer.tag}
                   </div>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Active Layer Details */}
-          {(() => {
-            const current = packagingLayers[activeLayer];
-            return (
-              <div className="amber-glass-card wh-pack-detail" style={{
-                padding: "3rem",
-                display: "grid",
-                gridTemplateColumns: "1.2fr 0.8fr",
-                gap: "3rem",
-                alignItems: "center"
-              }}>
-                <div>
-                  <span style={{ fontSize: "0.75rem", fontWeight: 800, color: "#D97706", background: "#FFFBEB", padding: "4px 12px", borderRadius: "999px", textTransform: "uppercase" }}>
-                    PACKAGING LAYER {current.layer} • {current.tag}
-                  </span>
-                  <h3 style={{ fontSize: "1.85rem", fontWeight: 900, color: "#0B1736", margin: "1rem 0 1rem", letterSpacing: "-0.5px" }}>
-                    {current.name}
-                  </h3>
-                  <p style={{ fontSize: "1.05rem", color: "#475569", lineHeight: 1.7, margin: 0 }}>
-                    {current.desc}
+                  <h4 style={{ fontSize: "1.15rem", fontWeight: 900, color: "#0F172A", margin: "0 0 0.4rem" }}>
+                    {layer.name}
+                  </h4>
+                  <p style={{ fontSize: "0.85rem", color: "#475569", lineHeight: 1.5, margin: 0 }}>
+                    {layer.desc}
                   </p>
                 </div>
 
-                <div style={{
-                  background: "#F8FAFC",
-                  border: "1.5px solid #E2E8F0",
-                  borderRadius: "20px",
-                  padding: "2.5rem 2rem",
-                  textAlign: "center"
-                }}>
-                  <div style={{ fontSize: "3rem", fontWeight: 900, color: "#D97706", lineHeight: 1, letterSpacing: "-1px" }}>
-                    {current.metric}
-                  </div>
-                  <div style={{ fontSize: "0.9rem", fontWeight: 700, color: "#1E293B", marginTop: "0.6rem" }}>
-                    {current.metricLabel}
-                  </div>
-                  <div style={{ fontSize: "0.75rem", color: "#16A34A", fontWeight: 700, marginTop: "0.5rem" }}>
-                    ✓ 100% Marketplace Carrier Approved
-                  </div>
+                <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", padding: "1rem 1.25rem", borderRadius: "14px", textAlign: "right" }}>
+                  <div style={{ fontSize: "1.6rem", fontWeight: 900, color: "#D97706" }}>{layer.metric}</div>
+                  <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#1E293B" }}>{layer.metricLabel}</div>
+                  <div style={{ fontSize: "0.7rem", color: "#16A34A", marginTop: "2px", fontWeight: 600 }}>✓ Verified SLA</div>
                 </div>
               </div>
-            );
-          })()}
+            ))}
+          </div>
 
         </div>
       </section>

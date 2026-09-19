@@ -487,118 +487,82 @@ export default function ReturnsOperationsPage() {
         </div>
       </section>
 
-      {/* ── 2. INTERACTIVE 4-TIER RETURN GRADING STATION ── */}
+      {/* ── 2. 4-STATION PHYSICAL TRIAGE WORKSTATION GRID ── */}
       <section style={{ padding: "5.5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
         <div className="container" style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
           <div style={{ textAlign: "center", maxWidth: "760px", margin: "0 auto 3.5rem" }}>
             <span style={{ display: "inline-block", fontSize: "0.75rem", fontWeight: 800, letterSpacing: "2px", color: "#E11D48", textTransform: "uppercase", marginBottom: "0.75rem" }}>
-              Dynamic Restock Classification
+              Forensic Triage Architecture
             </span>
             <h2 style={{ fontSize: "clamp(1.9rem, 3.2vw, 2.6rem)", fontWeight: 900, color: "#0B1736", margin: "0 0 1rem", letterSpacing: "-0.8px" }}>
-              The 4-Tier Inventory Recovery Grading Matrix
+              The 4-Station Physical Triage &amp; Restock Workstation Grid
             </h2>
             <p style={{ fontSize: "1rem", color: "#64748B", lineHeight: 1.6 }}>
-              Every returned product is forensically triaged into one of four grading categories to maximize capital recovery and prevent slow-moving depreciation.
+              Every returned unit is routed to a dedicated physical triage bay to extract maximum salvage value and file instantaneous dispute claims on damaged or fraudulent items.
             </p>
           </div>
 
-          {/* 4 Interactive Selector Tabs */}
-          <div className="returns-pill-grid" style={{
+          {/* 4 Dedicated Physical Triage Bays */}
+          <div style={{
             display: "grid",
             gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "0.75rem",
-            marginBottom: "2.5rem"
+            gap: "1.5rem"
           }}>
-            {gradingTiers.map((t, idx) => {
-              const isSelected = activeGrade === idx;
-              return (
-                <button
-                  key={t.grade}
-                  onClick={() => setActiveGrade(idx)}
-                  style={{
-                    padding: "1.1rem 1rem",
-                    borderRadius: "16px",
-                    border: isSelected ? `2px solid ${t.color}` : "1.5px solid #E2E8F0",
-                    background: isSelected ? "#FFFFFF" : "rgba(255, 255, 255, 0.6)",
-                    boxShadow: isSelected ? `0 8px 24px ${t.border}` : "none",
-                    cursor: "pointer",
-                    textAlign: "left",
-                    transition: "all 0.2s ease"
-                  }}
-                >
-                  <div style={{ fontSize: "0.7rem", fontWeight: 800, color: t.color }}>
-                    {t.grade}
-                  </div>
-                  <div style={{ fontSize: "0.92rem", fontWeight: 800, color: isSelected ? "#0F172A" : "#475569", marginTop: "0.3rem" }}>
-                    {t.name.split("/")[0]}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Active Grade Showcase */}
-          {(() => {
-            const current = gradingTiers[activeGrade];
-            return (
-              <div className="rose-glass-card grading-detail-grid" style={{
-                padding: "3rem",
-                display: "grid",
-                gridTemplateColumns: "1.2fr 0.8fr",
-                gap: "3rem",
-                alignItems: "center"
-              }}>
+            {gradingTiers.map((t) => (
+              <div
+                key={t.grade}
+                className="rose-glass-card"
+                style={{
+                  padding: "2rem 1.5rem",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  background: "#FFFFFF",
+                  border: `1.5px solid ${t.border}`
+                }}
+              >
                 <div>
-                  <span style={{ fontSize: "0.75rem", fontWeight: 800, color: current.color, background: current.bg, padding: "4px 12px", borderRadius: "999px", textTransform: "uppercase" }}>
-                    {current.grade} • {current.badge}
-                  </span>
-                  <h3 style={{ fontSize: "1.85rem", fontWeight: 900, color: "#0B1736", margin: "1rem 0 1rem", letterSpacing: "-0.5px" }}>
-                    {current.name}
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
+                    <span style={{ fontSize: "0.75rem", fontWeight: 800, color: t.color, background: t.bg, padding: "3px 10px", borderRadius: "999px" }}>
+                      {t.grade}
+                    </span>
+                    <span style={{ fontSize: "0.75rem", fontWeight: 800, color: "#0F172A" }}>
+                      {t.recoveryShare.split(" ")[0]}
+                    </span>
+                  </div>
+
+                  <h3 style={{ fontSize: "1.15rem", fontWeight: 900, color: "#0F172A", margin: "0 0 0.5rem", lineHeight: 1.3 }}>
+                    {t.name}
                   </h3>
-                  <p style={{ fontSize: "1.05rem", color: "#475569", lineHeight: 1.7, marginBottom: "1.8rem" }}>
-                    {current.desc}
+
+                  <div style={{ fontSize: "0.75rem", fontWeight: 700, color: t.color, marginBottom: "0.85rem" }}>
+                    {t.badge}
+                  </div>
+
+                  <p style={{ fontSize: "0.82rem", color: "#475569", lineHeight: 1.55, marginBottom: "1.25rem" }}>
+                    {t.desc}
                   </p>
 
-                  <div style={{ fontSize: "0.85rem", fontWeight: 800, color: "#0F172A", marginBottom: "0.8rem", textTransform: "uppercase" }}>
-                    Standard Operating Procedure:
-                  </div>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "0.6rem" }}>
-                    {current.steps.map((st, sIdx) => (
-                      <div key={sIdx} style={{ display: "flex", alignItems: "center", gap: "0.6rem", background: "#FFFFFF", padding: "0.65rem 1rem", borderRadius: "10px", border: "1px solid #E2E8F0", fontSize: "0.88rem", fontWeight: 600, color: "#1E293B" }}>
-                        <span style={{ color: current.color, fontWeight: 900 }}>✓</span>
-                        {st}
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "0.45rem", marginBottom: "1.25rem" }}>
+                    {t.steps.map((st, sIdx) => (
+                      <div key={sIdx} style={{ fontSize: "0.78rem", color: "#1E293B", display: "flex", alignItems: "flex-start", gap: "0.4rem" }}>
+                        <span style={{ color: t.color, fontWeight: 900 }}>•</span>
+                        <span>{st}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                {/* Right Statistics Box */}
-                <div style={{
-                  background: "#F8FAFC",
-                  border: "1.5px solid #E2E8F0",
-                  borderRadius: "20px",
-                  padding: "2rem"
-                }}>
-                  <div style={{ textAlign: "center", paddingBottom: "1.5rem", borderBottom: "1px solid #E2E8F0", marginBottom: "1.5rem" }}>
-                    <div style={{ fontSize: "2.8rem", fontWeight: 900, color: current.color, lineHeight: 1 }}>
-                      {current.recoveryShare}
-                    </div>
-                    <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#475569", marginTop: "0.4rem" }}>
-                      Portfolio Distribution
-                    </div>
-                  </div>
-
-                  <div style={{ background: "#FFFFFF", padding: "1rem", borderRadius: "12px", border: "1px solid #E2E8F0", textAlign: "center" }}>
-                    <span style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 700, display: "block" }}>Commercial Outcome:</span>
-                    <span style={{ fontSize: "1rem", fontWeight: 900, color: current.color, marginTop: "4px", display: "block" }}>
-                      {current.action}
-                    </span>
+                <div style={{ background: t.bg, padding: "0.85rem", borderRadius: "12px", border: `1px solid ${t.border}`, textAlign: "center" }}>
+                  <div style={{ fontSize: "0.7rem", color: "#64748B", fontWeight: 700 }}>RECOVERY RESOLUTION</div>
+                  <div style={{ fontSize: "0.88rem", fontWeight: 900, color: t.color, marginTop: "2px" }}>
+                    {t.action}
                   </div>
                 </div>
               </div>
-            );
-          })()}
+            ))}
+          </div>
 
         </div>
       </section>

@@ -567,7 +567,7 @@ export default function RevenueAssurancePage() {
         </div>
       </section>
 
-      {/* ── 3. THE 4-POINT RECONCILIATION LEAKAGE RADAR (BESPOKE LAYOUT) ── */}
+      {/* ── 3. FOUR AUTOMATED RECONCILIATION RADARS (AUDIT BOARD GRID) ── */}
       <section style={{ padding: "5.5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
         <div className="container" style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
@@ -579,94 +579,57 @@ export default function RevenueAssurancePage() {
               Four Automated Reconciliation Radars
             </h2>
             <p style={{ fontSize: "1rem", color: "#64748B", lineHeight: 1.6 }}>
-              Inspect how our software scans every line item on Amazon Seller Central, Flipkart Payment Settlement, and courier manifests to detect and reclaim leaked funds.
+              Our proprietary reconciliation software scans every transaction line item on Amazon, Flipkart, and courier billing files to detect and reclaim leaked funds.
             </p>
           </div>
 
-          <div className="rev-radar-grid" style={{
+          {/* 4 Dedicated Forensic Audit Panels */}
+          <div style={{
             display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "1.25rem",
-            marginBottom: "2.5rem"
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: "2rem"
           }}>
-            {radarItems.map((item, idx) => {
-              const isSelected = activeRadarItem === idx;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => setActiveRadarItem(idx)}
-                  style={{
-                    padding: "1.5rem 1.25rem",
-                    borderRadius: "18px",
-                    border: isSelected ? `2px solid ${item.color}` : "1.5px solid #E2E8F0",
-                    background: isSelected ? "#FFFFFF" : "rgba(255, 255, 255, 0.6)",
-                    boxShadow: isSelected ? "0 8px 24px rgba(16, 185, 129, 0.12)" : "none",
-                    cursor: "pointer",
-                    textAlign: "left",
-                    transition: "all 0.2s ease"
-                  }}
-                >
-                  <div style={{ fontSize: "0.7rem", fontWeight: 800, color: item.color }}>
-                    {item.badge}
-                  </div>
-                  <div style={{ fontSize: "0.95rem", fontWeight: 800, color: isSelected ? "#0F172A" : "#475569", margin: "0.4rem 0 0.3rem", lineHeight: 1.3 }}>
-                    {item.name.split(" ")[0]} {item.name.split(" ")[1]}
-                  </div>
-                  <div style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 600 }}>
-                    {item.lossShare}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Active Radar Showcase */}
-          {(() => {
-            const current = radarItems[activeRadarItem];
-            return (
-              <div className="rev-glass-card" style={{
-                padding: "3rem",
-                display: "grid",
-                gridTemplateColumns: "1.2fr 0.8fr",
-                gap: "3rem",
-                alignItems: "center"
-              }}>
+            {radarItems.map((item) => (
+              <div
+                key={item.id}
+                className="rev-glass-card"
+                style={{
+                  padding: "2.5rem",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  background: "#FFFFFF",
+                  border: `1.5px solid #E2E8F0`
+                }}
+              >
                 <div>
-                  <span style={{ fontSize: "0.75rem", fontWeight: 800, color: current.color, background: "#F1F5F9", padding: "4px 12px", borderRadius: "999px", textTransform: "uppercase" }}>
-                    {current.badge} • {current.lossShare}
-                  </span>
-                  <h3 style={{ fontSize: "1.85rem", fontWeight: 900, color: "#0B1736", margin: "1rem 0 1rem", letterSpacing: "-0.5px" }}>
-                    {current.name}
-                  </h3>
-                  <p style={{ fontSize: "1.05rem", color: "#475569", lineHeight: 1.7, marginBottom: "1.5rem" }}>
-                    {current.desc}
-                  </p>
-                  <div style={{ background: "#FFFFFF", padding: "1rem", borderRadius: "12px", border: "1px solid #E2E8F0", fontSize: "0.9rem", color: "#1E293B", fontWeight: 600 }}>
-                    <span style={{ color: current.color, fontWeight: 900, marginRight: "0.5rem" }}>✓ DELIVERABLE:</span>
-                    {current.deliverable}
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.2rem" }}>
+                    <span style={{ fontSize: "0.75rem", fontWeight: 800, color: item.color, background: "#F1F5F9", padding: "4px 12px", borderRadius: "999px", textTransform: "uppercase" }}>
+                      {item.badge} • {item.lossShare}
+                    </span>
+                    <span style={{ fontSize: "1.35rem", fontWeight: 900, color: item.color }}>
+                      {item.metric}
+                    </span>
                   </div>
+
+                  <h3 style={{ fontSize: "1.35rem", fontWeight: 900, color: "#0B1736", margin: "0 0 0.8rem", lineHeight: 1.3 }}>
+                    {item.name}
+                  </h3>
+
+                  <p style={{ fontSize: "0.92rem", color: "#475569", lineHeight: 1.6, marginBottom: "1.5rem" }}>
+                    {item.desc}
+                  </p>
                 </div>
 
-                <div style={{
-                  background: "#F8FAFC",
-                  border: "1.5px solid #E2E8F0",
-                  borderRadius: "20px",
-                  padding: "2.5rem 2rem",
-                  textAlign: "center"
-                }}>
-                  <div style={{ fontSize: "3.2rem", fontWeight: 900, color: current.color, lineHeight: 1, letterSpacing: "-1px" }}>
-                    {current.metric}
-                  </div>
-                  <div style={{ fontSize: "0.9rem", fontWeight: 700, color: "#1E293B", marginTop: "0.6rem" }}>
-                    {current.metricLabel}
-                  </div>
-                  <div style={{ fontSize: "0.75rem", color: "#16A34A", fontWeight: 700, marginTop: "0.5rem" }}>
-                    ✓ Automated Daily Telemetry Run
+                <div style={{ background: "#F8FAFC", borderRadius: "14px", padding: "1.1rem", border: "1px solid #E2E8F0" }}>
+                  <div style={{ fontSize: "0.72rem", color: "#64748B", fontWeight: 700, textTransform: "uppercase" }}>SYSTEM DELIVERABLE:</div>
+                  <div style={{ fontSize: "0.85rem", color: "#0F172A", fontWeight: 700, marginTop: "3px" }}>
+                    {item.deliverable}
                   </div>
                 </div>
               </div>
-            );
-          })()}
+            ))}
+          </div>
 
         </div>
       </section>
