@@ -8,6 +8,7 @@ import { FaqsModule } from './faqs/faqs.module';
 import { SettingsModule } from './settings/settings.module';
 import { LeadsModule } from './leads/leads.module';
 import { CrmModule } from './crm/crm.module';
+import { RedirectsModule } from './redirects/redirects.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { CrmModule } from './crm/crm.module';
     SettingsModule,
     LeadsModule,
     CrmModule,
+    RedirectsModule,
   ],
 })
 export class AppModule {}

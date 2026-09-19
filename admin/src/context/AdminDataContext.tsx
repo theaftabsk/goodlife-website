@@ -322,59 +322,9 @@ interface AdminDataContextType {
   showToast: (msg: string) => void;
 }
 
-const initialPlatforms: PlatformItem[] = [
-  { id: "p-1", name: "Amazon India", slug: "amazon", websiteUrl: "https://www.amazon.in", orderIndex: 1, isActive: true, channelType: "General Marketplaces", svgCode: `<svg viewBox="0 0 155 44" width="155" height="44" fill="none"><text x="2" y="29" font-family="sans-serif" font-weight="800" font-size="28" fill="#131921">amazon</text><path d="M 6 35 C 40 48, 80 47, 108 35" stroke="#FF9900" stroke-width="3.5" stroke-linecap="round" fill="none" /><polygon points="103,29 114,35 105,42 107,35" fill="#FF9900" /></svg>` },
-  { id: "p-2", name: "Flipkart", slug: "flipkart", websiteUrl: "https://www.flipkart.com", orderIndex: 2, isActive: true, channelType: "General Marketplaces", svgCode: `<svg viewBox="0 0 160 44" width="160" height="44" fill="none"><text x="4" y="31" font-family="sans-serif" font-weight="900" font-size="28" font-style="italic" fill="#2874F0">Flipkart</text><polygon points="126,8 142,8 138,20 122,20" fill="#FFE500" /></svg>` },
-  { id: "p-3", name: "IndiaMART", slug: "indiamart", websiteUrl: "https://www.indiamart.com", orderIndex: 3, isActive: true, channelType: "B2B Wholesale", svgCode: `<svg viewBox="0 0 160 44" width="160" height="44" fill="none"><rect x="2" y="6" width="30" height="30" rx="6" fill="#0A5EB0"/><text x="38" y="28" font-family="sans-serif" font-weight="900" font-size="22" fill="#0A5EB0">indiamart</text></svg>` },
-  { id: "p-4", name: "Tradeindia", slug: "tradeindia", websiteUrl: "https://www.tradeindia.com", orderIndex: 4, isActive: true, channelType: "B2B Wholesale", svgCode: `<svg viewBox="0 0 160 44" width="160" height="44" fill="none"><circle cx="16" cy="22" r="14" fill="#E62E2D"/><text x="38" y="29" font-family="sans-serif" font-weight="800" font-size="23" fill="#1E293B">tradeindia</text></svg>` },
-  { id: "p-5", name: "Industrybuying", slug: "industrybuying", websiteUrl: "https://www.industrybuying.com", orderIndex: 5, isActive: true, channelType: "B2B Wholesale", svgCode: `<svg viewBox="0 0 180 44" width="180" height="44" fill="none"><rect x="2" y="6" width="30" height="30" rx="6" fill="#F36F21"/><text x="8" y="28" font-family="sans-serif" font-weight="900" font-size="18" fill="#FFF">IB</text><text x="38" y="27" font-family="sans-serif" font-weight="900" font-size="18" fill="#231F20">industrybuying</text></svg>` },
-  { id: "p-6", name: "Meesho", slug: "meesho", websiteUrl: "https://www.meesho.com", orderIndex: 6, isActive: true, channelType: "General Marketplaces", svgCode: `<svg viewBox="0 0 140 44" width="140" height="44" fill="none"><text x="2" y="31" font-family="sans-serif" font-weight="900" font-size="28" fill="#F43397">meesho</text></svg>` },
-  { id: "p-7", name: "Myntra", slug: "myntra", websiteUrl: "https://www.myntra.com", orderIndex: 7, isActive: true, channelType: "General Marketplaces", svgCode: `<svg viewBox="0 0 150 44" width="150" height="44" fill="none"><path d="M 3 33 L 13 10 L 21 25 L 30 10 L 40 33" stroke="#FF3F6C" stroke-width="5" stroke-linecap="round" fill="none" /><text x="48" y="29" font-family="sans-serif" font-weight="800" font-size="26" fill="#282C3F">myntra</text></svg>` },
-  { id: "p-8", name: "Blinkit", slug: "blinkit", websiteUrl: "https://www.blinkit.com", orderIndex: 8, isActive: true, channelType: "Quick-Commerce", svgCode: `<svg viewBox="0 0 150 44" width="150" height="44" fill="none"><rect x="2" y="6" width="30" height="30" rx="8" fill="#F8CB46" /><text x="40" y="29" font-family="sans-serif" font-weight="900" font-size="26" fill="#0C831F">blinkit</text></svg>` },
-  { id: "p-9", name: "JioMart", slug: "jiomart", websiteUrl: "https://www.jiomart.com", orderIndex: 9, isActive: true, channelType: "Quick-Commerce", svgCode: `<svg viewBox="0 0 150 44" width="150" height="44" fill="none"><circle cx="16" cy="22" r="14" fill="#E11900" /><text x="38" y="29" font-family="sans-serif" font-weight="900" font-size="26" fill="#008ECC">Mart</text></svg>` },
-  { id: "p-10", name: "Nykaa", slug: "nykaa", websiteUrl: "https://www.nykaa.com", orderIndex: 10, isActive: true, channelType: "General Marketplaces", svgCode: `<svg viewBox="0 0 130 44" width="130" height="44" fill="none"><text x="2" y="31" font-family="sans-serif" font-weight="900" font-style="italic" font-size="28" fill="#FC2779">NYKAA</text></svg>` },
-  { id: "p-11", name: "Zepto", slug: "zepto", websiteUrl: "https://www.zepto.com", orderIndex: 11, isActive: true, channelType: "Quick-Commerce", svgCode: `<svg viewBox="0 0 120 44" width="120" height="44" fill="none"><text x="2" y="31" font-family="sans-serif" font-weight="900" font-size="28"><tspan fill="#3E0067">z</tspan><tspan fill="#FF3269">epto</tspan></text></svg>` },
-  { id: "p-12", name: "Moglix", slug: "moglix", websiteUrl: "https://www.moglix.com", orderIndex: 12, isActive: true, channelType: "B2B Wholesale", svgCode: `<svg viewBox="0 0 150 44" width="150" height="44" fill="none"><rect x="2" y="6" width="30" height="30" rx="6" fill="#E02A26" /><text x="40" y="29" font-family="sans-serif" font-weight="800" font-size="25" fill="#1E293B">moglix</text></svg>` },
-  { id: "p-13", name: "Shopify", slug: "shopify", websiteUrl: "https://www.shopify.com", orderIndex: 13, isActive: true, channelType: "D2C Direct Storefronts", svgCode: `<svg viewBox="0 0 150 44" width="150" height="44" fill="none"><path d="M 15 6 L 4 14 L 10 36 L 30 36 L 35 14 Z" fill="#95BF47" /><text x="42" y="29" font-family="sans-serif" font-weight="800" font-size="25" fill="#212326">shopify</text></svg>` },
-  { id: "p-14", name: "AJIO", slug: "ajio", websiteUrl: "https://www.ajio.com", orderIndex: 14, isActive: true, channelType: "General Marketplaces", svgCode: `<svg viewBox="0 0 120 44" width="120" height="44" fill="none"><text x="2" y="31" font-family="sans-serif" font-weight="900" font-size="28" fill="#1E293B" letter-spacing="2px">AJIO</text></svg>` },
-  { id: "p-15", name: "Snapmint", slug: "snapmint", websiteUrl: "https://www.snapmint.com", orderIndex: 15, isActive: true, channelType: "General Marketplaces", svgCode: `<svg viewBox="0 0 160 44" width="160" height="44" fill="none"><circle cx="16" cy="22" r="14" fill="#00C29F" /><text x="38" y="29" font-family="sans-serif" font-weight="800" font-size="24" fill="#00C29F">snapmint</text></svg>` }
-];
-
-const initialBrands: BrandItem[] = [
-  { id: "b-1", name: "Crompton", slug: "crompton", category: "Seasonal Category", websiteUrl: "", orderIndex: 1, isActive: true, svgCode: `<svg viewBox="0 0 150 42" width="150" height="42" fill="none"><text x="4" y="29" font-family="sans-serif" font-weight="900" font-size="23" fill="#004B87">Crompton</text></svg>` },
-  { id: "b-2", name: "USHA", slug: "usha", category: "Sewing Machine", websiteUrl: "", orderIndex: 2, isActive: true, svgCode: `<svg viewBox="0 0 120 42" width="120" height="42" fill="none"><text x="4" y="30" font-family="sans-serif" font-weight="900" font-size="27" letter-spacing="2px" fill="#ED1C24">USHA</text></svg>` },
-  { id: "b-3", name: "Havells", slug: "havells", category: "Home & Kitchen Appliances", websiteUrl: "", orderIndex: 3, isActive: true, svgCode: `<svg viewBox="0 0 145 42" width="145" height="42" fill="none"><text x="4" y="29" font-family="sans-serif" font-weight="900" font-size="22" fill="#E31E24">HAVELLS</text></svg>` },
-  { id: "b-4", name: "Hindware", slug: "hindware", category: "Chimney", websiteUrl: "", orderIndex: 4, isActive: true, svgCode: `<svg viewBox="0 0 150 42" width="150" height="42" fill="none"><text x="4" y="29" font-family="Georgia, serif" font-weight="900" font-size="23" fill="#D32F2F">hindware</text></svg>` },
-  { id: "b-5", name: "Kenstar", slug: "kenstar", category: "Seasonal Category", websiteUrl: "", orderIndex: 5, isActive: true, svgCode: `<svg viewBox="0 0 140 42" width="140" height="42" fill="none"><text x="4" y="29" font-family="sans-serif" font-weight="900" font-size="23" fill="#0072CE">KENSTAR</text></svg>` },
-  { id: "b-6", name: "Bajaj", slug: "bajaj", category: "Home & Kitchen Appliances", websiteUrl: "", orderIndex: 6, isActive: true, svgCode: `<svg viewBox="0 0 130 42" width="130" height="42" fill="none"><text x="4" y="29" font-family="sans-serif" font-weight="900" font-size="23" fill="#004A97">BAJAJ</text></svg>` },
-  { id: "b-7", name: "Livpure", slug: "livpure", category: "Home & Kitchen Appliances", websiteUrl: "", orderIndex: 7, isActive: true, svgCode: `<svg viewBox="0 0 140 42" width="140" height="42" fill="none"><text x="4" y="29" font-family="sans-serif" font-weight="800" font-size="24" fill="#00A3E0">Livpure</text></svg>` },
-  { id: "b-8", name: "Luminus", slug: "luminus", category: "Invertors & Battery", websiteUrl: "", orderIndex: 8, isActive: true, svgCode: `<svg viewBox="0 0 145 42" width="145" height="42" fill="none"><text x="4" y="29" font-family="sans-serif" font-weight="900" font-size="23" fill="#002D72">LUMINOUS</text></svg>` },
-  { id: "b-9", name: "Exide", slug: "exide", category: "Invertors & Battery", websiteUrl: "", orderIndex: 9, isActive: true, svgCode: `<svg viewBox="0 0 130 42" width="130" height="42" fill="none"><text x="4" y="29" font-family="sans-serif" font-weight="900" font-size="25" fill="#E4002B">EXIDE</text></svg>` },
-  { id: "b-10", name: "Bhaburly", slug: "bhaburly", category: "Home & Kitchen Appliances", websiteUrl: "", orderIndex: 10, isActive: true, svgCode: `<svg viewBox="0 0 145 42" width="145" height="42" fill="none"><text x="4" y="29" font-family="sans-serif" font-weight="800" font-size="21" fill="#1E293B">BHABURLY</text></svg>` },
-  { id: "b-11", name: "Amplesta", slug: "amplesta", category: "Home & Kitchen Appliances", websiteUrl: "", orderIndex: 11, isActive: true, svgCode: `<svg viewBox="0 0 150 42" width="150" height="42" fill="none"><text x="4" y="29" font-family="sans-serif" font-weight="900" font-size="22" fill="#2563EB">AMPLESTA</text></svg>` },
-  { id: "b-12", name: "CG", slug: "cg", category: "Seasonal Category", websiteUrl: "", orderIndex: 12, isActive: true, svgCode: `<svg viewBox="0 0 110 42" width="110" height="42" fill="none"><rect x="4" y="7" width="28" height="26" rx="5" fill="#00529B"/><text x="10" y="26" font-family="sans-serif" font-weight="900" font-size="16" fill="#FFF">CG</text><text x="38" y="28" font-family="sans-serif" font-weight="900" font-size="21" fill="#00529B">Power</text></svg>` },
-  { id: "b-13", name: "VW", slug: "vw", category: "TV", websiteUrl: "", orderIndex: 13, isActive: true, svgCode: `<svg viewBox="0 0 120 42" width="120" height="42" fill="none"><rect x="4" y="6" width="30" height="28" rx="4" fill="#0F172A"/><text x="8" y="26" font-family="sans-serif" font-weight="900" font-size="17" fill="#38BDF8">VW</text><text x="40" y="27" font-family="sans-serif" font-weight="800" font-size="19" fill="#0F172A">Vision</text></svg>` },
-  { id: "b-14", name: "IVAS", slug: "ivas", category: "Home & Kitchen Appliances", websiteUrl: "", orderIndex: 14, isActive: true, svgCode: `<svg viewBox="0 0 120 42" width="120" height="42" fill="none"><text x="4" y="29" font-family="sans-serif" font-weight="900" font-size="25" fill="#E65100">IVAS</text></svg>` },
-  { id: "b-15", name: "Faber", slug: "faber", category: "Chimney", websiteUrl: "", orderIndex: 15, isActive: true, svgCode: `<svg viewBox="0 0 130 42" width="130" height="42" fill="none"><text x="4" y="29" font-family="sans-serif" font-weight="900" font-size="25" font-style="italic" fill="#E10A17">FABER</text></svg>` },
-  { id: "b-16", name: "IKEA", slug: "ikea", category: "Home & Kitchen Appliances", websiteUrl: "", orderIndex: 16, isActive: true, svgCode: `<svg viewBox="0 0 125 42" width="125" height="42" fill="none"><rect x="2" y="7" width="76" height="26" rx="4" fill="#0058A3"/><ellipse cx="40" cy="20" rx="36" ry="12" fill="#FFDA1A"/><text x="12" y="27" font-family="sans-serif" font-weight="900" font-size="20" fill="#0058A3">IKEA</text></svg>` },
-  { id: "b-17", name: "Reo", slug: "reo", category: "Home & Kitchen Appliances", websiteUrl: "", orderIndex: 17, isActive: true, svgCode: `<svg viewBox="0 0 115 42" width="115" height="42" fill="none"><text x="4" y="29" font-family="sans-serif" font-weight="900" font-size="25" fill="#0284C7">REO</text></svg>` },
-  { id: "b-18", name: "Activa", slug: "activa", category: "Seasonal Category", websiteUrl: "", orderIndex: 18, isActive: true, svgCode: `<svg viewBox="0 0 135 42" width="135" height="42" fill="none"><text x="4" y="29" font-family="sans-serif" font-weight="900" font-size="23" font-style="italic" fill="#DC2626">ACTIVA</text></svg>` },
-  { id: "b-19", name: "Summercool", slug: "summercool", category: "Seasonal Category", websiteUrl: "", orderIndex: 19, isActive: true, svgCode: `<svg viewBox="0 0 165 42" width="165" height="42" fill="none"><text x="4" y="29" font-family="sans-serif" font-weight="900" font-size="20" fill="#0369A1">SUMMERCOOL</text></svg>` },
-  { id: "b-20", name: "Thermocool", slug: "thermocool", category: "Seasonal Category", websiteUrl: "", orderIndex: 20, isActive: true, svgCode: `<svg viewBox="0 0 165 42" width="165" height="42" fill="none"><text x="4" y="29" font-family="sans-serif" font-weight="900" font-size="20" fill="#EA580C">THERMOCOOL</text></svg>` },
-  { id: "b-21", name: "Power Guard", slug: "power-guard", category: "Invertors & Battery", websiteUrl: "", orderIndex: 21, isActive: true, svgCode: `<svg viewBox="0 0 170 42" width="170" height="42" fill="none"><text x="4" y="29" font-family="sans-serif" font-weight="900" font-size="19" fill="#15803D">POWER GUARD</text></svg>` },
-  { id: "b-22", name: "Sujata", slug: "sujata", category: "Home & Kitchen Appliances", websiteUrl: "", orderIndex: 22, isActive: true, svgCode: `<svg viewBox="0 0 130 42" width="130" height="42" fill="none"><text x="4" y="29" font-family="Georgia, serif" font-weight="900" font-size="24" fill="#B91C1C">SUJATA</text></svg>` },
-  { id: "b-23", name: "Orient", slug: "orient", category: "Seasonal Category", websiteUrl: "", orderIndex: 23, isActive: true, svgCode: `<svg viewBox="0 0 135 42" width="135" height="42" fill="none"><text x="4" y="29" font-family="sans-serif" font-weight="900" font-size="23" fill="#1E293B">orient</text></svg>` }
-];
-
-const initialCategories: CategoryItem[] = [
-  { id: "c-1", name: "Home & Kitchen Appliances", slug: "home-kitchen-appliances", icon: "kitchen", orderIndex: 1, isActive: true, description: "Mixer grinders, induction cooktops, blenders, kettles, and smart kitchen electronics.", subcategories: ["Mixer Grinder", "Induction Cooktop", "Electric Kettle", "Air Fryer", "Toaster"] },
-  { id: "c-2", name: "TV", slug: "tv", icon: "tv", orderIndex: 2, isActive: true, description: "Smart LED, QLED, OLED 4K displays and home entertainment systems.", subcategories: ["Smart TV", "4K UHD", "QLED Display", "Android TV", "Soundbars"] },
-  { id: "c-3", name: "Washing Machine", slug: "washing-machine", icon: "washing", orderIndex: 3, isActive: true, description: "Front load, top load fully automatic and semi-automatic laundry solutions.", subcategories: ["Front Load", "Top Load", "Semi-Automatic", "Dryers"] },
-  { id: "c-4", name: "Seasonal Category (Fans, Cooler, Heaters)", slug: "seasonal-category", icon: "climate", orderIndex: 4, isActive: true, description: "Summer & winter climate appliances with regional multi-warehouse placement.", subcategories: ["Fans", "Air Coolers", "Water Heaters", "Room Heaters"] },
-  { id: "c-5", name: "Sewing Machine", slug: "sewing-machine", icon: "sewing", orderIndex: 5, isActive: true, description: "Domestic, industrial, and computerized automatic embroidery sewing machines.", subcategories: ["Domestic Sewing", "Electronic Stitching", "Industrial Heavy-Duty", "Embroidery"] },
-  { id: "c-6", name: "Chimney", slug: "chimney", icon: "chimney", orderIndex: 6, isActive: true, description: "Auto-clean filterless kitchen chimneys, hobs, and exhaust hoods.", subcategories: ["Auto-Clean Chimney", "Filterless Suction", "Kitchen Hobs", "Island Chimney"] },
-  { id: "c-7", name: "Invertors & Battery", slug: "invertors-battery", icon: "battery", orderIndex: 7, isActive: true, description: "Pure sine wave inverters, tubular solar batteries, and high-capacity backup systems.", subcategories: ["Pure Sine Wave Inverters", "Tubular Batteries", "Solar Hybrid Systems", "Voltage Stabilizers"] }
-];
+const initialPlatforms: PlatformItem[] = [];
+const initialBrands: BrandItem[] = [];
+const initialCategories: CategoryItem[] = [];
 
 const initialLeads: LeadItem[] = [];
 
@@ -781,11 +731,7 @@ const initialFaqs: FaqItem[] = [
   }
 ];
 
-const initialRedirects: RedirectItem[] = [
-  { id: "r-1", from: "/services", to: "/capabilities/marketplace-operations", code: 301, clicks: 124 },
-  { id: "r-2", from: "/contact-us", to: "/contact", code: 301, clicks: 88 },
-  { id: "r-3", from: "/solutions/scale", to: "/solutions/scale-pan-india", code: 301, clicks: 43 }
-];
+const initialRedirects: RedirectItem[] = [];
 
 const initialSiteSettings: SiteSettings = {
   companyName: "Good Life Sutra Pvt. Ltd.",
@@ -991,6 +937,13 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
         if (crmRes.ok) {
           const data = await crmRes.json();
           if (data && typeof data === "object") setCrmConfig(data);
+        }
+      } catch (_) {}
+      try {
+        const rRes = await fetch("http://localhost:5000/api/v1/redirects");
+        if (rRes.ok) {
+          const data = await rRes.json();
+          if (Array.isArray(data) && data.length > 0) setRedirects(data);
         }
       } catch (_) {}
     }
@@ -1395,44 +1348,6 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
       return updated;
     });
     showToast(`Duplicated draft: ${existing.title}`);
-  };
-
-
-
-  // Redirects actions
-  const saveRedirect = (item: Partial<RedirectItem>, id?: string) => {
-    if (!item.from?.trim() || !item.to?.trim()) return;
-    if (id) {
-      setRedirects(prev => {
-        const updated = prev.map(r => r.id === id ? { ...r, ...item } : r);
-        try { localStorage.setItem("gl_admin_redirects", JSON.stringify(updated)); } catch (_) {}
-        return updated;
-      });
-      showToast("Redirect rule updated");
-    } else {
-      const newR: RedirectItem = {
-        id: "r-" + Date.now(),
-        from: item.from,
-        to: item.to,
-        code: item.code || 301,
-        clicks: 0
-      };
-      setRedirects(prev => {
-        const updated = [...prev, newR];
-        try { localStorage.setItem("gl_admin_redirects", JSON.stringify(updated)); } catch (_) {}
-        return updated;
-      });
-      showToast("Redirect rule created");
-    }
-  };
-
-  const deleteRedirect = (id: string) => {
-    setRedirects(prev => {
-      const updated = prev.filter(r => r.id !== id);
-      try { localStorage.setItem("gl_admin_redirects", JSON.stringify(updated)); } catch (_) {}
-      return updated;
-    });
-    showToast("Redirect deleted");
   };
 
   // Site Settings
@@ -1923,6 +1838,69 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
       showToast(msg);
       return { success: false, message: msg };
     }
+  };
+
+  // Real Redirects Actions (Persisted to PostgreSQL & NestJS Backend)
+  const saveRedirect = async (item: Partial<RedirectItem>, id?: string) => {
+    if (!item.from?.trim() || !item.to?.trim()) return;
+    let fromUrl = item.from.trim();
+    if (!fromUrl.startsWith("/") && !fromUrl.startsWith("http")) fromUrl = `/${fromUrl}`;
+    const toUrl = item.to.trim();
+    const code = Number(item.code) || 301;
+
+    try {
+      if (id) {
+        const res = await fetch(`http://localhost:5000/api/v1/redirects/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ from: fromUrl, to: toUrl, code }),
+        });
+        if (res.ok) {
+          const updated = await res.json();
+          setRedirects(prev => prev.map(r => r.id === id ? { ...r, ...updated } : r));
+          showToast(`Redirect rule updated: ${fromUrl} → ${toUrl}`);
+        } else {
+          showToast("Failed to update redirect rule in database.");
+        }
+      } else {
+        const res = await fetch("http://localhost:5000/api/v1/redirects", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ from: fromUrl, to: toUrl, code }),
+        });
+        if (res.ok) {
+          const created = await res.json();
+          setRedirects(prev => [created, ...prev]);
+          showToast(`Redirect created: ${fromUrl} → ${toUrl}`);
+        } else {
+          const err = await res.json().catch(() => ({ message: "Failed to create" }));
+          showToast(err.message || "Failed to create redirect in database.");
+        }
+      }
+    } catch (e) {
+      // Local fallback
+      if (id) {
+        setRedirects(prev => prev.map(r => r.id === id ? { ...r, from: fromUrl, to: toUrl, code } : r));
+      } else {
+        const localItem: RedirectItem = {
+          id: "r-" + Date.now(),
+          from: fromUrl,
+          to: toUrl,
+          code,
+          clicks: 0,
+        };
+        setRedirects(prev => [localItem, ...prev]);
+      }
+      showToast("Redirect rule saved locally.");
+    }
+  };
+
+  const deleteRedirect = async (id: string) => {
+    try {
+      await fetch(`http://localhost:5000/api/v1/redirects/${id}`, { method: "DELETE" });
+    } catch (_) {}
+    setRedirects(prev => prev.filter(r => r.id !== id));
+    showToast("Redirect rule deleted from database.");
   };
 
   return (

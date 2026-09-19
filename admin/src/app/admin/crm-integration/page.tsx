@@ -162,10 +162,10 @@ export default function CrmIntegrationPage() {
   };
 
   // Metrics
+  const isCurrentlyConnected = Boolean(crmConfig.isConnected && crmConfig.webhookUrl);
   const totalLeads = leads.length;
-  const syncedCount = leads.filter((l) => l.crmStatus && l.crmStatus.startsWith("Synced to")).length;
+  const syncedCount = isCurrentlyConnected ? leads.filter((l) => l.crmStatus && l.crmStatus.startsWith("Synced to")).length : 0;
   const pendingCount = totalLeads - syncedCount;
-  const isCurrentlyConnected = crmConfig.isConnected && Boolean(crmConfig.webhookUrl);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", maxWidth: "1100px" }}>
@@ -386,24 +386,19 @@ export default function CrmIntegrationPage() {
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1rem" }}>
-          {/* Provider Selection */}
+          {/* Direct CRM Name Input (No dropdown options) */}
           <div>
             <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#334155", marginBottom: "0.35rem" }}>
-              CRM Platform Provider
+              CRM Platform Name
             </label>
-            <select
+            <input
+              type="text"
+              placeholder="Enter CRM Name (e.g. Zoho, HubSpot, Custom...)"
               value={provider}
               onChange={(e) => setProvider(e.target.value)}
               className="input-control"
               style={{ width: "100%", fontSize: "0.85rem" }}
-            >
-              <option value="">-- Select CRM / Integration Type --</option>
-              <option value="Zoho CRM">Zoho CRM (Zoho Flow / Inbound Webhook)</option>
-              <option value="HubSpot">HubSpot CRM</option>
-              <option value="Salesforce">Salesforce CRM</option>
-              <option value="Zapier / Make">Zapier / Make / n8n Automation</option>
-              <option value="Custom Webhook">Custom Inbound API Endpoint</option>
-            </select>
+            />
           </div>
 
           {/* Fallback Notification Email */}
