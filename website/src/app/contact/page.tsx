@@ -5,6 +5,7 @@ import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CommerceDiagnosticModal from "../components/CommerceDiagnosticModal";
+import CalendarBookingWidget from "../components/CalendarBookingWidget";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800", "900"] });
@@ -24,9 +25,32 @@ export default function ContactPage() {
     message: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormSubmitted(true);
+
+    try {
+      await fetch("http://localhost:5000/api/v1/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          company: formData.company || "Direct Enquiry",
+          contactName: formData.name,
+          designation: formData.designation,
+          email: formData.email,
+          mobile: formData.phone,
+          category: formData.category,
+          gmvBand: formData.gmvBand,
+          intent: formData.primaryNeed,
+          timeline: "Immediate",
+          source: "Contact Page",
+          answers: [
+            { step: 1, question: "Primary Need", answer: formData.primaryNeed },
+            { step: 2, question: "Message", answer: formData.message }
+          ]
+        })
+      });
+    } catch (_) {}
   };
 
   return (
@@ -239,40 +263,51 @@ export default function ContactPage() {
                   </div>
                 </form>
               ) : (
-                <div style={{ textAlign: "center", padding: "3rem 1.5rem" }}>
+                <div style={{ textAlign: "center", padding: "2rem 1.5rem" }}>
                   <div style={{
-                    width: "60px",
-                    height: "60px",
+                    width: "56px",
+                    height: "56px",
                     borderRadius: "50%",
                     background: "#DCFCE7",
                     color: "#15803D",
                     display: "inline-flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    marginBottom: "1.5rem"
+                    marginBottom: "1rem"
                   }}>
-                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
                   </div>
-                  <h3 style={{ fontSize: "1.6rem", fontWeight: 900, color: "#0B1736", margin: "0 0 0.6rem" }}>
+                  <h3 style={{ fontSize: "1.5rem", fontWeight: 900, color: "#0B1736", margin: "0 0 0.5rem" }}>
                     Enquiry Received Successfully
                   </h3>
-                  <p style={{ fontSize: "1rem", color: "#475569", lineHeight: 1.6, maxWidth: "500px", margin: "0 auto 2rem" }}>
-                    Thank you, <strong>{formData.name}</strong>. An executive partner from Good Life Sutra will review your brand details and contact you at <strong>{formData.email}</strong> within 24 hours.
+                  <p style={{ fontSize: "0.95rem", color: "#475569", lineHeight: 1.6, maxWidth: "550px", margin: "0 auto 1.5rem" }}>
+                    Thank you, <strong>{formData.name}</strong>. An executive partner from Good Life Sutra will review your brand details. You can also <strong>lock in an immediate 30-min strategy session</strong> on our calendar right now:
                   </p>
+
+                  <div style={{ margin: "1.5rem 0", textAlign: "left" }}>
+                    <CalendarBookingWidget
+                      prefillName={formData.name}
+                      prefillEmail={formData.email}
+                      prefillCompany={formData.company}
+                    />
+                  </div>
+
                   <button
                     type="button"
                     onClick={() => setFormSubmitted(false)}
                     style={{
-                      height: "46px",
-                      padding: "0 1.8rem",
+                      height: "42px",
+                      padding: "0 1.5rem",
                       borderRadius: "10px",
                       background: "#F1F5F9",
                       border: "1.5px solid #CBD5E1",
                       color: "#334155",
+                      fontSize: "0.85rem",
                       fontWeight: 700,
-                      cursor: "pointer"
+                      cursor: "pointer",
+                      marginTop: "1rem"
                     }}
                   >
                     Submit Another Enquiry

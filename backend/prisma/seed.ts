@@ -628,6 +628,78 @@ async function main() {
   }
   console.log(`✅ Upserted ${faqsData.length} FAQs in PostgreSQL.`);
 
+  // 7. SEED CALENDAR CONFIG
+  await (prisma as any).calendarConfig.upsert({
+    where: { id: 'default' },
+    update: {
+      provider: 'Calendly',
+      bookingUrl: 'https://calendly.com/goodlifesutra/commerce-diagnostic',
+      embedType: 'Inline_Widget',
+      autoRemindersEnabled: true,
+      reminder24hEnabled: true,
+      reminder1hEnabled: true,
+      adminNotificationEmail: 'leads@goodlifesutra.com'
+    },
+    create: {
+      id: 'default',
+      provider: 'Calendly',
+      bookingUrl: 'https://calendly.com/goodlifesutra/commerce-diagnostic',
+      embedType: 'Inline_Widget',
+      autoRemindersEnabled: true,
+      reminder24hEnabled: true,
+      reminder1hEnabled: true,
+      adminNotificationEmail: 'leads@goodlifesutra.com'
+    }
+  });
+  console.log('✅ Upserted default CalendarConfig in PostgreSQL.');
+
+  // 8. SEED SAMPLE MEETINGS
+  const sampleMeetings = [
+    {
+      id: 'meet-1',
+      clientName: 'Suresh Kumar',
+      clientEmail: 'suresh@apexappliances.in',
+      clientPhone: '+91 98102 33445',
+      company: 'Apex Appliances India',
+      category: 'Home & Kitchen Appliances',
+      meetingDate: new Date(Date.now() + 86400000),
+      meetingTime: '03:30 PM IST',
+      timezone: 'Asia/Kolkata',
+      provider: 'Calendly',
+      meetingUrl: 'https://meet.google.com/xyz-goodlife-audit',
+      status: 'Scheduled',
+      notes: 'Diagnostic Fit Score 85/100. Focus: 12-state warehousing and safe transport for 28kg air fryers.',
+      reminder24hSent: false,
+      reminder1hSent: false
+    },
+    {
+      id: 'meet-2',
+      clientName: 'Nisha Agarwal',
+      clientEmail: 'nisha@ecokettle.com',
+      clientPhone: '+91 99200 44556',
+      company: 'EcoKettle Electronics',
+      category: 'Small Domestic Appliances',
+      meetingDate: new Date(Date.now() + 172800000),
+      meetingTime: '11:00 AM IST',
+      timezone: 'Asia/Kolkata',
+      provider: 'Calendly',
+      meetingUrl: 'https://meet.google.com/abc-goodlife-audit',
+      status: 'Scheduled',
+      notes: 'Focus: Reverse logistics damage reduction and Flipkart Assured onboarding.',
+      reminder24hSent: false,
+      reminder1hSent: false
+    }
+  ];
+
+  for (const m of sampleMeetings) {
+    await (prisma as any).meetingBooking.upsert({
+      where: { id: m.id },
+      update: m,
+      create: m
+    });
+  }
+  console.log(`✅ Upserted ${sampleMeetings.length} sample meeting bookings in PostgreSQL.`);
+
   console.log('🎉 Database seeding completed successfully!');
 }
 

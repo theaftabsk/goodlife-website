@@ -241,12 +241,50 @@ export interface CrmConfig {
   totalFailedCount?: number;
 }
 
+export interface MeetingItem {
+  id: string;
+  clientName: string;
+  clientEmail: string;
+  clientCompany?: string;
+  clientPhone?: string;
+  topic?: string;
+  startTime: string;
+  endTime?: string;
+  status: "CONFIRMED" | "CANCELLED" | "COMPLETED";
+  meetingUrl?: string;
+  calendarEventId?: string;
+  provider: string;
+  reminder24hSent: boolean;
+  reminder1hSent: boolean;
+  notes?: string;
+  createdAt: string;
+}
+
+export interface CalendarConfigItem {
+  id?: string;
+  provider: string;
+  bookingUrl: string;
+  embedType: string;
+  remindersEnabled: boolean;
+  reminder24h: boolean;
+  reminder1h: boolean;
+  notificationEmail: string;
+}
+
 interface AdminDataContextType {
   platforms: PlatformItem[];
   setPlatforms: React.Dispatch<React.SetStateAction<PlatformItem[]>>;
   savePlatform: (item: Partial<PlatformItem>, id?: string) => void;
   deletePlatform: (id: string) => void;
   togglePlatformStatus: (id: string) => void;
+
+  meetings: MeetingItem[];
+  calendarConfig: CalendarConfigItem | null;
+  saveMeeting: (item: Partial<MeetingItem>, id?: string) => Promise<void>;
+  updateMeetingStatus: (id: string, status: "CONFIRMED" | "CANCELLED" | "COMPLETED") => Promise<void>;
+  deleteMeeting: (id: string) => Promise<void>;
+  sendMeetingReminder: (id: string, type?: "24h" | "1h" | "manual") => Promise<boolean>;
+  updateCalendarConfig: (config: Partial<CalendarConfigItem>) => Promise<void>;
 
   brands: BrandItem[];
   setBrands: React.Dispatch<React.SetStateAction<BrandItem[]>>;
@@ -558,10 +596,16 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
   const [faqs, setFaqs] = useState<FaqItem[]>(initialFaqs);
   const [redirects, setRedirects] = useState<RedirectItem[]>(initialRedirects);
   const [siteSettings, setSiteSettings] = useState<SiteSettings>(initialSiteSettings);
+  const [meetings, setMeetings] = useState<MeetingItem[]>([]);
+  const [calendarConfig, setCalendarConfig] = useState<CalendarConfigItem | null>(null);
   const [toast, setToast] = useState<string | null>(null);
 
   // Load stored state if available
   useEffect(() => {
+    try {
+      const savedMeetings = localStorage.getItem("gl_admin_meetings");
+      if (savedMeetings) setMeetings(JSON.parse(savedMeetings));
+    } catch (_) {}
     try {
       const savedPlatforms = localStorage.getItem("gl_admin_platforms");
       if (savedPlatforms) {
@@ -679,6 +723,23 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
             setCurrentUser(prev => prev || data[0]);
             try { localStorage.setItem("gl_admin_authors", JSON.stringify(data)); } catch (_) {}
           }
+        }
+      } catch (_) {}
+      try {
+        const mRes = await fetch("http://localhost:5000/api/v1/meetings");
+        if (mRes.ok) {
+          const data = await mRes.json();
+          if (Array.isArray(data)) {
+            setMeetings(data);
+            try { localStorage.setItem("gl_admin_meetings", JSON.stringify(data)); } catch (_) {}
+          }
+        }
+      } catch (_) {}
+      try {
+        const mcRes = await fetch("http://localhost:5000/api/v1/meetings/config");
+        if (mcRes.ok) {
+          const data = await mcRes.json();
+          if (data && typeof data === "object") setCalendarConfig(data);
         }
       } catch (_) {}
     }
@@ -1768,6 +1829,119 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
     showToast("Redirect rule deleted from database.");
   };
 
+  const saveMeeting = async (item: Partial<MeetingItem>, id?: string) => {
+    try {
+      if (id) {
+        const res = await fetch(`http://localhost:5000/api/v1/meetings/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(item),
+        });
+        if (res.ok) {
+          const updated = await res.json();
+          setMeetings(prev => prev.map(m => m.id === id ? updated : m));
+          try {
+            const list = JSON.parse(localStorage.getItem("gl_admin_meetings") || "[]");
+            localStorage.setItem("gl_admin_meetings", JSON.stringify(list.map((m: any) => m.id === id ? updated : m)));
+          } catch (_) {}
+          showToast(`Meeting with ${updated.clientName} updated`);
+        }
+      } else {
+        const res = await fetch("http://localhost:5000/api/v1/meetings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(item),
+        });
+        if (res.ok) {
+          const created = await res.json();
+          setMeetings(prev => [created, ...prev]);
+          try {
+            const list = JSON.parse(localStorage.getItem("gl_admin_meetings") || "[]");
+            localStorage.setItem("gl_admin_meetings", JSON.stringify([created, ...list]));
+          } catch (_) {}
+          showToast(`Meeting scheduled with ${created.clientName}`);
+        }
+      }
+    } catch (_) {
+      showToast("Error saving meeting details");
+    }
+  };
+
+  const updateMeetingStatus = async (id: string, status: "CONFIRMED" | "CANCELLED" | "COMPLETED") => {
+    try {
+      const res = await fetch(`http://localhost:5000/api/v1/meetings/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+      });
+      if (res.ok) {
+        setMeetings(prev => prev.map(m => m.id === id ? { ...m, status } : m));
+        try {
+          const list = JSON.parse(localStorage.getItem("gl_admin_meetings") || "[]");
+          localStorage.setItem("gl_admin_meetings", JSON.stringify(list.map((m: any) => m.id === id ? { ...m, status } : m)));
+        } catch (_) {}
+        showToast(`Meeting status marked as ${status}`);
+      }
+    } catch (_) {
+      showToast("Error updating meeting status");
+    }
+  };
+
+  const deleteMeeting = async (id: string) => {
+    try {
+      await fetch(`http://localhost:5000/api/v1/meetings/${id}`, { method: "DELETE" });
+      setMeetings(prev => prev.filter(m => m.id !== id));
+      try {
+        const list = JSON.parse(localStorage.getItem("gl_admin_meetings") || "[]");
+        localStorage.setItem("gl_admin_meetings", JSON.stringify(list.filter((m: any) => m.id !== id)));
+      } catch (_) {}
+      showToast("Meeting booking removed");
+    } catch (_) {
+      showToast("Error deleting meeting");
+    }
+  };
+
+  const sendMeetingReminder = async (id: string, type: "24h" | "1h" | "manual" = "manual"): Promise<boolean> => {
+    try {
+      const res = await fetch(`http://localhost:5000/api/v1/meetings/${id}/remind`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setMeetings(prev => prev.map(m => m.id === id ? {
+          ...m,
+          reminder24hSent: type === "24h" ? true : m.reminder24hSent,
+          reminder1hSent: type === "1h" ? true : m.reminder1hSent,
+        } : m));
+        showToast(`Reminder dispatched successfully (${type})`);
+        return true;
+      }
+      return false;
+    } catch (_) {
+      showToast("Failed to dispatch reminder");
+      return false;
+    }
+  };
+
+  const updateCalendarConfig = async (config: Partial<CalendarConfigItem>) => {
+    try {
+      const res = await fetch("http://localhost:5000/api/v1/meetings/config", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(config),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setCalendarConfig(data);
+        showToast("Calendar booking configuration saved successfully");
+      }
+    } catch (_) {
+      showToast("Error updating calendar settings");
+    }
+  };
+
   return (
     <AdminDataContext.Provider
       value={{
@@ -1776,6 +1950,14 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
         savePlatform,
         deletePlatform,
         togglePlatformStatus,
+
+        meetings,
+        calendarConfig,
+        saveMeeting,
+        updateMeetingStatus,
+        deleteMeeting,
+        sendMeetingReminder,
+        updateCalendarConfig,
 
         brands,
         setBrands,

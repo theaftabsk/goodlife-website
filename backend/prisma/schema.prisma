@@ -360,3 +360,38 @@ model CrmAuditLog {
   errorMessage String?
   createdAt    DateTime  @default(now())
 }
+
+model MeetingBooking {
+  id              String    @id @default(uuid())
+  clientName      String
+  clientEmail     String
+  clientPhone     String?
+  company         String?
+  category        String?
+  meetingDate     DateTime
+  meetingTime     String    // e.g. "04:30 PM IST"
+  timezone        String    @default("Asia/Kolkata")
+  provider        String    @default("Calendly") // Calendly, Google_Calendar, Cal_com, Custom
+  meetingUrl      String?   // Google Meet / Zoom link
+  externalEventId String?
+  status          String    @default("Scheduled") // Scheduled, Completed, Rescheduled, Cancelled, No_Show
+  notes           String?   @db.Text
+  reminder24hSent Boolean   @default(false)
+  reminder1hSent  Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime? @updatedAt
+}
+
+model CalendarConfig {
+  id                     String    @id @default("default")
+  provider               String    @default("Calendly") // Calendly, Google_Calendar, Cal_com, Custom
+  bookingUrl             String    @default("https://calendly.com/goodlifesutra/commerce-diagnostic")
+  embedType              String    @default("Inline_Widget") // Inline_Widget, Popup_Modal, Direct_Redirect
+  autoRemindersEnabled   Boolean   @default(true)
+  reminder24hEnabled     Boolean   @default(true)
+  reminder1hEnabled      Boolean   @default(true)
+  adminNotificationEmail String?   @default("leads@goodlifesutra.com")
+  webhookSecret          String?   @default("")
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+}

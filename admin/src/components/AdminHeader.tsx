@@ -63,6 +63,10 @@ const routeTitles: Record<string, HeaderInfo> = {
   "/admin/profile": {
     title: "Admin Security & Profile Settings",
     subtitle: "Manage your administrator Login ID, rotate access passwords, and audit active sessions."
+  },
+  "/admin/calendar": {
+    title: "Executive Meeting & Calendar Bookings",
+    subtitle: "Real-time calendar sessions, client schedule management, and automated 24h/1h reminder workflow."
   }
 };
 

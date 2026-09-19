@@ -11,6 +11,7 @@ import { CrmModule } from './crm/crm.module';
 import { RedirectsModule } from './redirects/redirects.module';
 import { ArticlesModule } from './articles/articles.module';
 import { AuthorsModule } from './authors/authors.module';
+import { MeetingsModule } from './meetings/meetings.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { AuthorsModule } from './authors/authors.module';
     RedirectsModule,
     ArticlesModule,
     AuthorsModule,
+    MeetingsModule,
   ],
 })
 export class AppModule {}

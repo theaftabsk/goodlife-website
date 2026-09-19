@@ -24,7 +24,8 @@ import {
   LandingPageIcon,
   SeoIcon,
   CrmIcon,
-  ShieldCheckIcon
+  ShieldCheckIcon,
+  CalendarIcon
 } from "@/components/Icons";
 
 interface NavItem {
@@ -42,7 +43,7 @@ interface NavGroup {
 
 export default function AdminSidebar() {
   const pathname = usePathname();
-  const { platforms, brands, categories, leads, redirects, authors, landingPages } = useAdminData();
+  const { platforms, brands, categories, leads, redirects, authors, landingPages, meetings } = useAdminData();
   const { credentials } = useAuth();
 
   const navGroups: NavGroup[] = [
@@ -87,6 +88,7 @@ export default function AdminSidebar() {
       title: "Leads & CRM Integration",
       items: [
         { href: "/admin/leads", label: "Inbound Leads", icon: LeadIcon, count: leads.length, badge: "Live" },
+        { href: "/admin/calendar", label: "Meeting Bookings", icon: CalendarIcon, count: meetings?.length || 0, badge: "Live" },
         { href: "/admin/crm-integration", label: "CRM Integration Hub", icon: CrmIcon },
       ]
     },
