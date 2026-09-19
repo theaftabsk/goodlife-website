@@ -9,6 +9,8 @@ import { SettingsModule } from './settings/settings.module';
 import { LeadsModule } from './leads/leads.module';
 import { CrmModule } from './crm/crm.module';
 import { RedirectsModule } from './redirects/redirects.module';
+import { ArticlesModule } from './articles/articles.module';
+import { AuthorsModule } from './authors/authors.module';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { RedirectsModule } from './redirects/redirects.module';
     LeadsModule,
     CrmModule,
     RedirectsModule,
+    ArticlesModule,
+    AuthorsModule,
   ],
 })
 export class AppModule {}

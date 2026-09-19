@@ -22,26 +22,46 @@ export default function SingleInsightPage({ params }: { params: Promise<{ slug: 
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    let allArticles: ArticleData[] = DEFAULT_INSIGHTS;
-    try {
-      const saved = localStorage.getItem("gl_admin_articles");
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          allArticles = parsed;
+    async function loadArticle() {
+      let allArticles: ArticleData[] = [];
+      try {
+        const res = await fetch("http://localhost:5000/api/v1/articles");
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            allArticles = data;
+          }
         }
-      }
-    } catch (_) {}
+      } catch (_) {}
 
-    const found = allArticles.find(a => a.slug === slug);
-    if (found) {
-      setArticle(found);
-      const related = allArticles.filter(a => a.id !== found.id && a.status === "Published").slice(0, 3);
-      setRelatedArticles(related);
-    } else {
-      // Fallback to first available
-      setArticle(allArticles[0] || null);
+      if (allArticles.length === 0) {
+        try {
+          const saved = localStorage.getItem("gl_admin_articles");
+          if (saved) {
+            const parsed = JSON.parse(saved);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              allArticles = parsed;
+            }
+          }
+        } catch (_) {}
+      }
+
+      if (allArticles.length === 0) {
+        allArticles = DEFAULT_INSIGHTS;
+      }
+
+      const found = allArticles.find(a => a.slug === slug);
+      if (found) {
+        setArticle(found);
+        const related = allArticles.filter(a => a.id !== found.id && a.status === "Published").slice(0, 3);
+        setRelatedArticles(related);
+      } else {
+        // Fallback to first available
+        setArticle(allArticles[0] || null);
+      }
     }
+
+    loadArticle();
   }, [slug]);
 
   const handleShare = () => {

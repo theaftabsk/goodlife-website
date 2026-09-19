@@ -27,25 +27,41 @@ export default function InsightsPage() {
   const [diagOpen, setDiagOpen] = useState(false);
   const [selectedCat, setSelectedCat] = useState<string>("All");
   const [search, setSearch] = useState("");
-  const [articles, setArticles] = useState<Article[]>(DEFAULT_INSIGHTS);
+  const [articles, setArticles] = useState<Article[]>([]);
 
-  // Sync with local database / CMS storage
+  // Sync with PostgreSQL database / CMS backend API
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem("gl_admin_articles");
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          // Only show published articles on the public website
-          const published = parsed.filter((a: any) => a.status === "Published");
-          if (published.length > 0) {
+    async function loadArticles() {
+      try {
+        const res = await fetch("http://localhost:5000/api/v1/articles");
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            const published = data.filter((a: any) => a.status === "Published");
             setArticles(published);
             return;
           }
         }
-      }
-    } catch (_) {}
-    setArticles(DEFAULT_INSIGHTS.filter(a => a.status === "Published"));
+      } catch (_) {}
+
+      try {
+        const saved = localStorage.getItem("gl_admin_articles");
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            const published = parsed.filter((a: any) => a.status === "Published");
+            if (published.length > 0) {
+              setArticles(published);
+              return;
+            }
+          }
+        }
+      } catch (_) {}
+
+      setArticles(DEFAULT_INSIGHTS.filter(a => a.status === "Published"));
+    }
+
+    loadArticles();
   }, []);
 
   const filteredArticles = articles.filter(a => {

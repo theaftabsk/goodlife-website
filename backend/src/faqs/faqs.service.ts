@@ -6,174 +6,128 @@ export interface FaqDto {
   question: string;
   answer: string;
   category?: string;
+  status?: string;
   isPublished?: boolean;
   orderIndex?: number;
+  isFeatured?: boolean;
 }
-
-const DEFAULT_FAQS = [
-  {
-    id: "faq-1",
-    question: "How does Good Life Sutra differ from standard 3PL logistics providers?",
-    answer: "Standard 3PLs only provide warehouse space and transport. Good Life provides unified commercial accountability: multi-state warehousing, marketplace listing defense, buy-box algorithms, and daily escrow reconciliation to prevent settlement leakages.",
-    category: "Operations",
-    orderIndex: 1,
-    isPublished: true
-  },
-  {
-    id: "faq-2",
-    question: "How fast can an appliance brand be onboarded across 12 Indian states?",
-    answer: "Our standardized APOB registration and bonded hub inbound workflows enable national distribution within 10 to 14 business days.",
-    category: "Onboarding",
-    orderIndex: 2,
-    isPublished: true
-  },
-  {
-    id: "faq-3",
-    question: "How are customer returns and damaged appliances handled?",
-    answer: "Every regional hub features an on-site technical inspection cell. Returned units are triaged within 24 hours: restockable units are refurbished, and transit damages trigger automated claim filing against carriers.",
-    category: "Fulfillment",
-    orderIndex: 3,
-    isPublished: true
-  },
-  {
-    id: "faq-4",
-    question: "Does Good Life integrate directly with SAP or custom enterprise ERPs?",
-    answer: "Yes, our proprietary API gateway syncs bidirectionally with SAP, Oracle, Zoho, and custom warehouse management systems with 99.9% uptime SLAs.",
-    category: "Operations",
-    orderIndex: 4,
-    isPublished: true
-  }
-];
 
 @Injectable()
 export class FaqsService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll() {
-    try {
-      const items = await this.prisma.fAQ.findMany({
-        orderBy: { orderIndex: 'asc' },
-        include: { category: true }
-      });
-      if (items && items.length > 0) {
-        return items.map(f => ({
-          id: f.id,
-          question: f.question,
-          answer: f.answer,
-          category: f.category?.name || "Operations",
-          isPublished: f.isPublished,
-          orderIndex: f.orderIndex,
-          createdAt: f.createdAt
-        }));
-      }
-    } catch (err) {
-      // Prisma FAQ table might not be migrated yet; fallback to Setting store
+  async findAll(category?: string) {
+    const where: any = {};
+    if (category && category !== 'ALL') {
+      where.category = { equals: category, mode: 'insensitive' };
     }
 
-    try {
-      const record = await this.prisma.setting.findUnique({
-        where: { key: 'faqs' }
-      });
-      if (record && record.value) {
-        return JSON.parse(record.value);
-      }
-    } catch (_) {}
+    const items = await this.prisma.fAQ.findMany({
+      where,
+      orderBy: { orderIndex: 'asc' },
+    });
 
-    return DEFAULT_FAQS;
+    return items;
   }
 
   async findOne(id: string) {
-    try {
-      const faq = await this.prisma.fAQ.findUnique({ where: { id } });
-      if (faq) return faq;
-    } catch (_) {}
-
-    const all = await this.findAll();
-    const found = all.find((f: any) => f.id === id);
-    if (!found) throw new NotFoundException('FAQ not found');
-    return found;
+    const faq = await this.prisma.fAQ.findUnique({ where: { id } });
+    if (!faq) throw new NotFoundException(`FAQ with id "${id}" not found`);
+    return faq;
   }
 
   async create(data: FaqDto) {
     const id = data.id || `faq-${Date.now()}`;
-    const newFaq = {
-      id,
-      question: data.question,
-      answer: data.answer || '',
-      category: data.category || 'Operations',
-      isPublished: data.isPublished ?? true,
-      orderIndex: data.orderIndex ?? 0
-    };
+    const status = data.status || (data.isPublished === false ? 'Draft' : 'Published');
+    const isPublished = status === 'Published';
 
-    try {
-      await this.prisma.fAQ.create({
-        data: {
-          id,
-          question: newFaq.question,
-          answer: newFaq.answer,
-          isPublished: newFaq.isPublished,
-          orderIndex: newFaq.orderIndex
-        }
-      });
-    } catch (_) {
-      // Backup to setting store
-    }
+    const count = await this.prisma.fAQ.count();
+    const orderIndex = data.orderIndex !== undefined ? Number(data.orderIndex) : count + 1;
 
-    try {
-      const all = await this.findAll();
-      const updated = [...all.filter((f: any) => f.id !== id), newFaq];
-      await this.prisma.setting.upsert({
-        where: { key: 'faqs' },
-        update: { value: JSON.stringify(updated) },
-        create: { key: 'faqs', value: JSON.stringify(updated) }
-      });
-    } catch (_) {}
-
-    return newFaq;
+    return this.prisma.fAQ.create({
+      data: {
+        id,
+        question: data.question,
+        answer: data.answer || '',
+        category: data.category || 'General',
+        status,
+        isPublished,
+        orderIndex,
+        isFeatured: data.isFeatured ?? false,
+      },
+    });
   }
 
   async update(id: string, data: Partial<FaqDto>) {
-    try {
-      await this.prisma.fAQ.update({
-        where: { id },
-        data: {
-          ...(data.question && { question: data.question }),
-          ...(data.answer && { answer: data.answer }),
-          ...(data.isPublished !== undefined && { isPublished: data.isPublished }),
-          ...(data.orderIndex !== undefined && { orderIndex: data.orderIndex })
-        }
-      });
-    } catch (_) {}
+    const existing = await this.findOne(id);
+    const updateData: any = {};
 
-    try {
-      const all = await this.findAll();
-      const updated = all.map((f: any) => f.id === id ? { ...f, ...data } : f);
-      await this.prisma.setting.upsert({
-        where: { key: 'faqs' },
-        update: { value: JSON.stringify(updated) },
-        create: { key: 'faqs', value: JSON.stringify(updated) }
-      });
-      return updated.find((f: any) => f.id === id);
-    } catch (_) {}
+    if (data.question !== undefined) updateData.question = data.question;
+    if (data.answer !== undefined) updateData.answer = data.answer;
+    if (data.category !== undefined) updateData.category = data.category;
+    if (data.orderIndex !== undefined) updateData.orderIndex = Number(data.orderIndex);
+    if (data.isFeatured !== undefined) updateData.isFeatured = data.isFeatured;
 
-    return { id, ...data };
+    if (data.status !== undefined) {
+      updateData.status = data.status;
+      updateData.isPublished = data.status === 'Published';
+    } else if (data.isPublished !== undefined) {
+      updateData.isPublished = data.isPublished;
+      updateData.status = data.isPublished ? 'Published' : 'Draft';
+    }
+
+    return this.prisma.fAQ.update({
+      where: { id },
+      data: updateData,
+    });
   }
 
   async delete(id: string) {
-    try {
-      await this.prisma.fAQ.delete({ where: { id } });
-    } catch (_) {}
-
-    try {
-      const all = await this.findAll();
-      const updated = all.filter((f: any) => f.id !== id);
-      await this.prisma.setting.upsert({
-        where: { key: 'faqs' },
-        update: { value: JSON.stringify(updated) },
-        create: { key: 'faqs', value: JSON.stringify(updated) }
-      });
-    } catch (_) {}
-
+    await this.findOne(id);
+    await this.prisma.fAQ.delete({ where: { id } });
     return { success: true, id };
+  }
+
+  async toggleStatus(id: string) {
+    const existing = await this.findOne(id);
+    const newStatus = existing.status === 'Published' ? 'Draft' : 'Published';
+    const isPublished = newStatus === 'Published';
+
+    return this.prisma.fAQ.update({
+      where: { id },
+      data: {
+        status: newStatus,
+        isPublished,
+      },
+    });
+  }
+
+  async toggleFeatured(id: string) {
+    const existing = await this.findOne(id);
+    return this.prisma.fAQ.update({
+      where: { id },
+      data: {
+        isFeatured: !existing.isFeatured,
+      },
+    });
+  }
+
+  async duplicate(id: string) {
+    const src = await this.findOne(id);
+    const newId = `faq-${Date.now()}`;
+    const count = await this.prisma.fAQ.count();
+
+    return this.prisma.fAQ.create({
+      data: {
+        id: newId,
+        question: `${src.question} (Copy)`,
+        answer: src.answer,
+        category: src.category,
+        status: 'Draft',
+        isPublished: false,
+        orderIndex: count + 1,
+        isFeatured: false,
+      },
+    });
   }
 }

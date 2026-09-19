@@ -4,8 +4,10 @@ import {
   Post,
   Put,
   Delete,
+  Patch,
   Body,
   Param,
+  Query,
 } from '@nestjs/common';
 import { FaqsService, FaqDto } from './faqs.service';
 
@@ -14,8 +16,8 @@ export class FaqsController {
   constructor(private readonly faqsService: FaqsService) {}
 
   @Get()
-  findAll() {
-    return this.faqsService.findAll();
+  findAll(@Query('category') category?: string) {
+    return this.faqsService.findAll(category);
   }
 
   @Get(':id')
@@ -36,5 +38,20 @@ export class FaqsController {
   @Delete(':id')
   delete(@Param('id') id: string) {
     return this.faqsService.delete(id);
+  }
+
+  @Patch(':id/toggle')
+  toggleStatus(@Param('id') id: string) {
+    return this.faqsService.toggleStatus(id);
+  }
+
+  @Patch(':id/featured')
+  toggleFeatured(@Param('id') id: string) {
+    return this.faqsService.toggleFeatured(id);
+  }
+
+  @Post(':id/duplicate')
+  duplicate(@Param('id') id: string) {
+    return this.faqsService.duplicate(id);
   }
 }

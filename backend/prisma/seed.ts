@@ -231,48 +231,57 @@ async function main() {
   // 4. SEED AUTHORS & SYSTEM USERS
   const authorsData = [
     {
+      id: 'auth-1',
       name: 'Rajeev Nair',
-      email: 'rajeev.nair@goodlife.in',
-      password: 'author_pass_2026',
+      email: 'rajeev.nair@goodlifesutra.com',
+      password: 'gl_admin_2026',
       roleType: 'Super Admin',
-      title: 'Head of Marketplace Operations',
+      role: 'Head of Marketplace Operations',
       bio: 'Ex-Amazon executive, 14+ years scaling tier-1 appliances and consumer electronics across marketplaces.',
-      avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80',
       linkedin: 'https://linkedin.com/in/rajeev-nair-goodlife',
+      articlesCount: 5,
       status: 'Active',
+      lastLogin: 'Today, 04:35 PM',
     },
     {
+      id: 'auth-2',
       name: 'Pooja Verma',
-      email: 'pooja.verma@goodlife.in',
-      password: 'author_pass_2026',
-      roleType: 'Content Director',
-      title: 'VP Supply Chain & Warehousing',
+      email: 'pooja.verma@goodlifesutra.com',
+      password: 'supply_chain_26',
+      roleType: 'Author & Editor',
+      role: 'VP Supply Chain & Warehousing',
       bio: 'Leading multi-state fulfillment centers, transit damage mitigation, and same-day logistics SLAs.',
-      avatarUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&auto=format&fit=crop&q=80',
+      avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&auto=format&fit=crop&q=80',
       linkedin: 'https://linkedin.com/in/pooja-verma-goodlife',
+      articlesCount: 3,
       status: 'Active',
+      lastLogin: 'Yesterday, 11:20 AM',
     },
     {
+      id: 'auth-3',
       name: 'Amitava Sen',
-      email: 'amitava.sen@goodlife.in',
-      password: 'author_pass_2026',
-      roleType: 'Senior Editor',
-      title: 'Lead Reconciliation & Settlement Cell',
+      email: 'amitava.sen@goodlifesutra.com',
+      password: 'settle_audit_26',
+      roleType: 'Author & Editor',
+      role: 'Lead Reconciliation & Settlement Cell',
       bio: 'Specialist in marketplace escrow audit, payment dispute recovery, and commission leak plug-in.',
-      avatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=80',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=80',
       linkedin: 'https://linkedin.com/in/amitava-sen-goodlife',
+      articlesCount: 2,
       status: 'Active',
+      lastLogin: '18 Sep, 02:15 PM',
     },
   ];
 
   for (const a of authorsData) {
     await prisma.author.upsert({
-      where: { email: a.email },
+      where: { id: a.id },
       update: a,
       create: a,
     });
   }
-  console.log(`✅ Upserted ${authorsData.length} authors.`);
+  console.log(`✅ Upserted ${authorsData.length} authors in PostgreSQL.`);
 
   // 5. SEED CASE STUDIES
   const caseStudiesData = [
@@ -389,6 +398,235 @@ async function main() {
     });
   }
   console.log(`✅ Upserted ${caseStudiesData.length} case studies.`);
+
+  // 6. SEED ARTICLES / INSIGHTS
+  const articlesData = [
+    {
+      title: "How Brands Can Scale Marketplace Operations Profitably in 2026",
+      slug: "how-brands-can-scale-marketplace-operations",
+      excerpt: "Discover how contract manufacturers and consumer brands scale Amazon & Flipkart GMV while protecting distributor margins and eliminating price wars.",
+      content: `### Executive Summary\n\nContract manufacturers across Rajkot, Pune, and Coimbatore are transitioning from thin OEM contract margins to direct digital brand ownership. However, expanding without an integrated commerce operating partner frequently leads to channel conflict, listing price wars, and high return penalties.\n\n### 1. The Multi-Channel Expansion Framework\n\nSelling simultaneously on Amazon, Flipkart, AJIO, and Quick-Commerce requires distinct catalog segmentation:\n\n* **Digital-Exclusive SKUs:** Launch separate model numbers online to protect offline wholesale networks and prevent dealer margin complaints.\n* **Algorithmic Buybox Protection:** Monitor 24/7 seller price suppression and automated repricing bots to keep organic Buybox win rates above 88%.\n* **SLA Compliance:** Marketplace delivery algorithms heavily reward 24-hour dispatch. Regional fulfillment hubs are essential to maintain seller tiering.\n\n### 2. Safeguarding Operating Margins\n\nTrue marketplace profitability isn't GMV—it's net bank realization after deducting platform fees, reverse shipping, and advertising:\n\n1. Calculate net contribution margin per unit after all fee slabs.\n2. Automate daily unboxing video logging for damaged customer returns.\n3. Integrate real-time payment reconciliation to claim uncredited returns within the 30-day SAFE-T window.\n\n### Conclusion\n\nScaling across 15+ marketplaces demands enterprise operational rigor. Good Life Sutra partners with leading OEM brands to manage end-to-end cataloging, ads, warehousing, and revenue assurance under a shared success model.`,
+      featuredImage: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&auto=format&fit=crop&q=80",
+      imageAlt: "Modern automated fulfillment warehouse for multi-channel marketplace commerce",
+      category: "Marketplace Growth & Advertising",
+      status: "Published",
+      author: "Rajeev Nair",
+      authorRole: "Head of Marketplace Operations",
+      authorPhoto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80",
+      tags: ["Marketplace", "Growth", "Amazon", "Flipkart"],
+      date: "19 Sep 2026",
+      publishedAt: new Date("2026-09-19T09:00:00.000Z"),
+      seoTitle: "How Brands Can Scale Marketplace Operations Profitably | Good Life Sutra",
+      seoDesc: "Learn how consumer brands and OEM manufacturers scale Amazon, Flipkart, and Quick-Commerce while protecting dealer margins and recovering fee leakages.",
+      canonicalUrl: "/insights/how-brands-can-scale-marketplace-operations",
+      ogImage: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&auto=format&fit=crop&q=80",
+      readTime: "6 min read"
+    },
+    {
+      title: "12-State Distributed Inventory Planning: Winning Prime & Assured Badges",
+      slug: "12-state-distributed-inventory-planning",
+      excerpt: "Why a single national warehouse kills your marketplace Buybox win rate, and how algorithmic 12-state stock splitting delivers same-day customer dispatch.",
+      content: `### Why Single-Warehouse Fulfillment Is Dead\n\nMarketplace algorithms on Amazon and Flipkart strictly prioritize local delivery speed. When a customer in Chennai or Kolkata searches for an appliance, a seller fulfilling from a single Delhi NCR warehouse is pushed down by regional sellers who offer 1-day delivery.\n\n### Key Benefits of 12-State Inventory Splitting:\n\n* **Buybox Win Rate Surge:** Up to 42% higher Buybox share due to expedited delivery promise badges.\n* **40% Lower Freight Costs:** Local zone logistics fees cost significantly less than national long-haul shipping.\n* **Reduced In-Transit Breakage:** Less handling transfers reduce transit damage from 12% down to 0.4%.\n\n### Overcoming Regulatory & Tax Roadblocks\n\nSetting up 12 state hubs traditionally required months of APOB (Additional Place of Business) GST registrations. Good Life Sutra deploys pre-registered, GST-compliant warehouse nodes across all commercial zones—enabling national fulfillment in under 30 days.`,
+      featuredImage: "https://images.unsplash.com/photo-1553413077-190dd305871c?w=1200&auto=format&fit=crop&q=80",
+      imageAlt: "High-tech palletized inventory storage in regional logistics center",
+      category: "Inventory & Stock Planning",
+      status: "Published",
+      author: "Pooja Verma",
+      authorRole: "VP Supply Chain & Warehousing",
+      authorPhoto: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&auto=format&fit=crop&q=80",
+      tags: ["Inventory", "Fulfilment", "Buybox", "Amazon"],
+      date: "14 Sep 2026",
+      publishedAt: new Date("2026-09-14T11:30:00.000Z"),
+      seoTitle: "12-State Distributed Inventory Planning for Marketplaces | Good Life Sutra",
+      seoDesc: "Strategic guide to multi-state inventory allocation across India to unlock Amazon Prime and Flipkart Assured badges with 40% lower shipping expenses.",
+      canonicalUrl: "/insights/12-state-distributed-inventory-planning",
+      ogImage: "https://images.unsplash.com/photo-1553413077-190dd305871c?w=1200&auto=format&fit=crop&q=80",
+      readTime: "7 min read"
+    },
+    {
+      title: "The Silent Profit Killer: Auditing ₹1Cr+ in Uncredited Marketplace Deductions",
+      slug: "auditing-uncredited-marketplace-deductions",
+      excerpt: "Forensic audit of 500,000+ settlement line items reveals that brands leak 1.8% of GMV to volumetric weight errors, return fraud, and phantom fee charges.",
+      content: `### The Anatomy of Marketplace Financial Leakage\n\nEvery month, high-volume consumer goods brands lose lakhs of rupees to automated marketplace billing discrepancies. Without line-item reconciliation, these losses compound quietly on balance sheets.\n\n### Top Leakage Categories Recovered:\n\n1. **Volumetric Weight Overcharges (44%):** Carrier optical scanners erroneously record oversized dimensions on master cartons, billing heavy bulky freight rates on standard parcels.\n2. **Customer Return Non-Receipt (31%):** Platform refunds issued to buyers where the returned inventory never arrives back at the seller warehouse.\n3. **Closing Fee Mismatches & Duplicate Commission Deductions (25%):** Systemic calculation bugs during high-traffic festival flash sales.\n\n### How Good Life Sutra Recovers Your Capital\n\nOur proprietary audit engine scans every single order transaction against bank remittances, carrier manifests, and return inspection proof. We automatically assemble and submit substantiated dispute claims to recover lost capital within official settlement windows.`,
+      featuredImage: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&auto=format&fit=crop&q=80",
+      imageAlt: "Financial audit and reconciliation dashboard showing recovered revenue",
+      category: "Revenue Assurance & Reconciliation",
+      status: "Published",
+      author: "Amitava Sen",
+      authorRole: "Lead Reconciliation & Settlement Cell",
+      authorPhoto: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=80",
+      tags: ["Revenue", "Reconciliation", "Marketplace"],
+      date: "05 Sep 2026",
+      publishedAt: new Date("2026-09-05T14:15:00.000Z"),
+      seoTitle: "Marketplace Reconciliation & Fee Leakage Audit Playbook | Good Life Sutra",
+      seoDesc: "Discover how to audit ₹1Cr+ in uncredited marketplace deductions, dispute fraudulent returns, and recover lost cash flow with daily automated UTR matching.",
+      canonicalUrl: "/insights/auditing-uncredited-marketplace-deductions",
+      ogImage: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&auto=format&fit=crop&q=80",
+      readTime: "8 min read"
+    },
+    {
+      title: "Heavy & Bulky Reverse Logistics: Cutting Damage Rates From 14% to Under 0.5%",
+      slug: "heavy-bulky-reverse-logistics-playbook",
+      excerpt: "Specialized palletized linehaul networks, packaging reinforcement standards, and local technician doorstep testing protocols for heavy consumer appliances.",
+      content: `### The Heavy Goods Transit Challenge\n\nShipping large items like kitchen chimneys, air coolers, inverters, and water heaters through standard parcel hubs inevitably causes severe denting and shattered glass.\n\n### Tactical Solutions for Fragile Shipments:\n\n* **Honeycombed Edge Protectors:** Custom molded pulp and corner cushions certified to ISTA drop standards.\n* **Technician Doorstep Verification:** Local service partners inspect installations to eliminate false 'defective' return requests.\n* **Direct Regional Refurbishment:** Salvaging returned goods locally rather than incurring expensive two-way cross-country freight.`,
+      featuredImage: "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?w=1200&auto=format&fit=crop&q=80",
+      imageAlt: "Packaging and palletized handling for fragile home appliances",
+      category: "Returns & Reverse Operations",
+      status: "Draft",
+      author: "Pooja Verma",
+      authorRole: "VP Supply Chain & Warehousing",
+      authorPhoto: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&auto=format&fit=crop&q=80",
+      tags: ["Returns", "Fulfilment", "Marketplace"],
+      date: "18 Sep 2026",
+      publishedAt: null,
+      seoTitle: "Heavy & Bulky Reverse Logistics Playbook | Good Life Sutra",
+      seoDesc: "How appliance brands mitigate high return rates, prevent transit breakage, and manage palletized reverse logistics across India.",
+      canonicalUrl: "/insights/heavy-bulky-reverse-logistics-playbook",
+      ogImage: "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?w=1200&auto=format&fit=crop&q=80",
+      readTime: "5 min read"
+    },
+    {
+      title: "Quick-Commerce for Appliances: How Blinkit, Zepto & JioMart Deliver in 15 Minutes",
+      slug: "quick-commerce-consumer-appliances-playbook",
+      excerpt: "Hyperlocal dark store inventory allocation strategies for high-rotation kitchen electronics and emergency home essentials.",
+      content: `### The Rapid Rise of Instant Appliance Commerce\n\nQuick-commerce is no longer just for groceries. Mixers, kettles, irons, and room heaters are now routinely ordered on 15-minute delivery platforms.\n\n### Operating Strategies for Brands:\n\n* Selecting top 15% high-velocity SKUs suited for dark store shelf dimensions.\n* Real-time API stock syncing to avoid out-of-stock delisting penalties.\n* Dynamic localized promotional pricing during evening peak shopping hours.`,
+      featuredImage: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=1200&auto=format&fit=crop&q=80",
+      imageAlt: "Quick commerce delivery fleet and hyperlocal fulfillment",
+      category: "Marketplace Operations",
+      status: "Draft",
+      author: "Rajeev Nair",
+      authorRole: "Head of Marketplace Operations",
+      authorPhoto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80",
+      tags: ["Quick Commerce", "Blinkit", "Zepto", "Growth"],
+      date: "01 Oct 2026",
+      publishedAt: null,
+      seoTitle: "Quick Commerce for Appliances: 15-Min Delivery Playbook | Good Life Sutra",
+      seoDesc: "How leading electronics and appliance brands leverage Blinkit, Zepto, and JioMart for instant hyperlocal sales expansion.",
+      canonicalUrl: "/insights/quick-commerce-consumer-appliances-playbook",
+      ogImage: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=1200&auto=format&fit=crop&q=80",
+      readTime: "6 min read"
+    }
+  ];
+
+  for (const art of articlesData) {
+    await prisma.article.upsert({
+      where: { slug: art.slug },
+      update: art,
+      create: art,
+    });
+  }
+  // 6. SEED FAQS
+  const faqsData = [
+    {
+      id: "faq-1",
+      question: "What services does Good Life provide?",
+      answer: "Good Life provides marketplace operations, marketplace growth & advertising, inventory & stock planning, warehousing & fulfilment, revenue assurance & reconciliation, and returns & reverse operations.",
+      category: "General",
+      status: "Published",
+      isPublished: true,
+      orderIndex: 1,
+      isFeatured: true
+    },
+    {
+      id: "faq-2",
+      question: "Who can work with Good Life?",
+      answer: "Good Life works with brands and businesses looking to launch, improve, or scale their commerce operations across India's leading marketplace channels.",
+      category: "General",
+      status: "Published",
+      isPublished: true,
+      orderIndex: 2,
+      isFeatured: true
+    },
+    {
+      id: "faq-3",
+      question: "Can Good Life help us launch our online marketplace presence?",
+      answer: "Yes. Good Life provides end-to-end support for launching online commerce operations, establishing brand registry, creating optimized catalog listings, and configuring multi-state GST logistics.",
+      category: "Launch Online",
+      status: "Published",
+      isPublished: true,
+      orderIndex: 3,
+      isFeatured: true
+    },
+    {
+      id: "faq-4",
+      question: "Can Good Life manage marketplace operations?",
+      answer: "Yes. Marketplace Operations is one of Good Life's core capabilities, encompassing daily catalog hygiene, Buybox protection algorithms, performance marketing, and operational account compliance.",
+      category: "Marketplace",
+      status: "Published",
+      isPublished: true,
+      orderIndex: 4,
+      isFeatured: true
+    },
+    {
+      id: "faq-5",
+      question: "Does Good Life provide warehousing and fulfilment support?",
+      answer: "Yes. Warehousing & Fulfilment is delivered through our 12 regional fulfillment centers, securing Amazon Prime, Flipkart Assured, and sub-24hr doorstep delivery badges.",
+      category: "Fulfilment",
+      status: "Published",
+      isPublished: true,
+      orderIndex: 5,
+      isFeatured: true
+    },
+    {
+      id: "faq-6",
+      question: "Does Good Life help with inventory planning?",
+      answer: "Yes. Inventory & Stock Planning is one of the core capabilities, leveraging algorithmic sales velocity forecasting to prevent out-of-stock events and eliminate excess dead inventory.",
+      category: "Inventory",
+      status: "Published",
+      isPublished: true,
+      orderIndex: 6,
+      isFeatured: false
+    },
+    {
+      id: "faq-7",
+      question: "Can Good Life help reduce revenue leakage?",
+      answer: "Good Life provides Revenue Assurance & Reconciliation as a dedicated capability, forensic auditing marketplace fee deductions, volumetric weight overcharges, and recovering SAFE-T return claims.",
+      category: "Revenue Assurance",
+      status: "Published",
+      isPublished: true,
+      orderIndex: 7,
+      isFeatured: true
+    },
+    {
+      id: "faq-8",
+      question: "Does Good Life handle returns and reverse operations?",
+      answer: "Yes. Returns & Reverse Operations is one of the core capabilities, featuring packing station video verification, damage grading, repackaging, and claims dispute resolution.",
+      category: "Returns",
+      status: "Published",
+      isPublished: true,
+      orderIndex: 8,
+      isFeatured: false
+    },
+    {
+      id: "faq-9",
+      question: "Can Good Life help with heavy and bulky products?",
+      answer: "Yes. Heavy & Bulky Commerce is a specialised area within the Good Life offering, engineered specifically for large appliances, chimneys, cooktops, and high-capacity solar batteries with palletized freight.",
+      category: "Heavy & Bulky Commerce",
+      status: "Published",
+      isPublished: true,
+      orderIndex: 9,
+      isFeatured: true
+    },
+    {
+      id: "faq-10",
+      question: "How can I get started with Good Life?",
+      answer: "You can use the Commerce Diagnostic Tool or submit a direct enquiry to start a conversation with the Good Life team and benchmark your operational headroom.",
+      category: "Getting Started",
+      status: "Published",
+      isPublished: true,
+      orderIndex: 10,
+      isFeatured: true
+    }
+  ];
+
+  for (const faq of faqsData) {
+    await prisma.fAQ.upsert({
+      where: { id: faq.id },
+      update: faq,
+      create: faq,
+    });
+  }
+  console.log(`✅ Upserted ${faqsData.length} FAQs in PostgreSQL.`);
 
   console.log('🎉 Database seeding completed successfully!');
 }

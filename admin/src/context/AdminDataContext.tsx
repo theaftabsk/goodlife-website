@@ -331,179 +331,7 @@ const initialCategories: CategoryItem[] = [];
 
 const initialLeads: LeadItem[] = [];
 
-const initialArticles: ArticleItem[] = [
-  {
-    id: "art-1",
-    title: "How Brands Can Scale Marketplace Operations Profitably in 2026",
-    slug: "how-brands-can-scale-marketplace-operations",
-    excerpt: "Discover how contract manufacturers and consumer brands scale Amazon & Flipkart GMV while protecting distributor margins and eliminating price wars.",
-    content: `### Executive Summary
-
-Contract manufacturers across Rajkot, Pune, and Coimbatore are transitioning from thin OEM contract margins to direct digital brand ownership. However, expanding without an integrated commerce operating partner frequently leads to channel conflict, listing price wars, and high return penalties.
-
-### 1. The Multi-Channel Expansion Framework
-
-Selling simultaneously on Amazon, Flipkart, AJIO, and Quick-Commerce requires distinct catalog segmentation:
-
-* **Digital-Exclusive SKUs:** Launch separate model numbers online to protect offline wholesale networks and prevent dealer margin complaints.
-* **Algorithmic Buybox Protection:** Monitor 24/7 seller price suppression and automated repricing bots to keep organic Buybox win rates above 88%.
-* **SLA Compliance:** Marketplace delivery algorithms heavily reward 24-hour dispatch. Regional fulfillment hubs are essential to maintain seller tiering.
-
-### 2. Safeguarding Operating Margins
-
-True marketplace profitability isn't GMV—it's net bank realization after deducting platform fees, reverse shipping, and advertising:
-
-1. Calculate net contribution margin per unit after all fee slabs.
-2. Automate daily unboxing video logging for damaged customer returns.
-3. Integrate real-time payment reconciliation to claim uncredited returns within the 30-day SAFE-T window.
-
-### Conclusion
-
-Scaling across 15+ marketplaces demands enterprise operational rigor. Good Life Sutra partners with leading OEM brands to manage end-to-end cataloging, ads, warehousing, and revenue assurance under a shared success model.`,
-    featuredImage: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&auto=format&fit=crop&q=80",
-    imageAlt: "Modern automated fulfillment warehouse for multi-channel marketplace commerce",
-    category: "Marketplace Growth & Advertising",
-    status: "Published",
-    author: "Rajeev Nair",
-    authorRole: "Head of Marketplace Operations",
-    authorPhoto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80",
-    tags: ["Marketplace", "Growth", "Amazon", "Flipkart"],
-    date: "19 Sep 2026",
-    publishedAt: "2026-09-19T09:00:00.000Z",
-    seoTitle: "How Brands Can Scale Marketplace Operations Profitably | Good Life Sutra",
-    seoDesc: "Learn how consumer brands and OEM manufacturers scale Amazon, Flipkart, and Quick-Commerce while protecting dealer margins and recovering fee leakages.",
-    canonicalUrl: "/insights/how-brands-can-scale-marketplace-operations",
-    ogImage: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&auto=format&fit=crop&q=80",
-    readTime: "6 min read"
-  },
-  {
-    id: "art-2",
-    title: "12-State Distributed Inventory Planning: Winning Prime & Assured Badges",
-    slug: "12-state-distributed-inventory-planning",
-    excerpt: "Why a single national warehouse kills your marketplace Buybox win rate, and how algorithmic 12-state stock splitting delivers same-day customer dispatch.",
-    content: `### Why Single-Warehouse Fulfillment Is Dead
-
-Marketplace algorithms on Amazon and Flipkart strictly prioritize local delivery speed. When a customer in Chennai or Kolkata searches for an appliance, a seller fulfilling from a single Delhi NCR warehouse is pushed down by regional sellers who offer 1-day delivery.
-
-### Key Benefits of 12-State Inventory Splitting:
-
-* **Buybox Win Rate Surge:** Up to 42% higher Buybox share due to expedited delivery promise badges.
-* **40% Lower Freight Costs:** Local zone logistics fees cost significantly less than national long-haul shipping.
-* **Reduced In-Transit Breakage:** Less handling transfers reduce transit damage from 12% down to 0.4%.
-
-### Overcoming Regulatory & Tax Roadblocks
-
-Setting up 12 state hubs traditionally required months of APOB (Additional Place of Business) GST registrations. Good Life Sutra deploys pre-registered, GST-compliant warehouse nodes across all commercial zones—enabling national fulfillment in under 30 days.`,
-    featuredImage: "https://images.unsplash.com/photo-1553413077-190dd305871c?w=1200&auto=format&fit=crop&q=80",
-    imageAlt: "High-tech palletized inventory storage in regional logistics center",
-    category: "Inventory & Stock Planning",
-    status: "Published",
-    author: "Pooja Verma",
-    authorRole: "VP Supply Chain & Warehousing",
-    authorPhoto: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&auto=format&fit=crop&q=80",
-    tags: ["Inventory", "Fulfilment", "Buybox", "Amazon"],
-    date: "14 Sep 2026",
-    publishedAt: "2026-09-14T11:30:00.000Z",
-    seoTitle: "12-State Distributed Inventory Planning for Marketplaces | Good Life Sutra",
-    seoDesc: "Strategic guide to multi-state inventory allocation across India to unlock Amazon Prime and Flipkart Assured badges with 40% lower shipping expenses.",
-    canonicalUrl: "/insights/12-state-distributed-inventory-planning",
-    ogImage: "https://images.unsplash.com/photo-1553413077-190dd305871c?w=1200&auto=format&fit=crop&q=80",
-    readTime: "7 min read"
-  },
-  {
-    id: "art-3",
-    title: "The Silent Profit Killer: Auditing ₹1Cr+ in Uncredited Marketplace Deductions",
-    slug: "auditing-uncredited-marketplace-deductions",
-    excerpt: "Forensic audit of 500,000+ settlement line items reveals that brands leak 1.8% of GMV to volumetric weight errors, return fraud, and phantom fee charges.",
-    content: `### The Anatomy of Marketplace Financial Leakage
-
-Every month, high-volume consumer goods brands lose lakhs of rupees to automated marketplace billing discrepancies. Without line-item reconciliation, these losses compound quietly on balance sheets.
-
-### Top Leakage Categories Recovered:
-
-1. **Volumetric Weight Overcharges (44%):** Carrier optical scanners erroneously record oversized dimensions on master cartons, billing heavy bulky freight rates on standard parcels.
-2. **Customer Return Non-Receipt (31%):** Platform refunds issued to buyers where the returned inventory never arrives back at the seller warehouse.
-3. **Closing Fee Mismatches & Duplicate Commission Deductions (25%):** Systemic calculation bugs during high-traffic festival flash sales.
-
-### How Good Life Sutra Recovers Your Capital
-
-Our proprietary audit engine scans every single order transaction against bank remittances, carrier manifests, and return inspection proof. We automatically assemble and submit substantiated dispute claims to recover lost capital within official settlement windows.`,
-    featuredImage: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&auto=format&fit=crop&q=80",
-    imageAlt: "Financial audit and reconciliation dashboard showing recovered revenue",
-    category: "Revenue Assurance & Reconciliation",
-    status: "Published",
-    author: "Amitava Sen",
-    authorRole: "Lead Reconciliation & Settlement Cell",
-    authorPhoto: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=80",
-    tags: ["Revenue", "Reconciliation", "Marketplace"],
-    date: "05 Sep 2026",
-    publishedAt: "2026-09-05T14:15:00.000Z",
-    seoTitle: "Marketplace Reconciliation & Fee Leakage Audit Playbook | Good Life Sutra",
-    seoDesc: "Discover how to audit ₹1Cr+ in uncredited marketplace deductions, dispute fraudulent returns, and recover lost cash flow with daily automated UTR matching.",
-    canonicalUrl: "/insights/auditing-uncredited-marketplace-deductions",
-    ogImage: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&auto=format&fit=crop&q=80",
-    readTime: "8 min read"
-  },
-  {
-    id: "art-4",
-    title: "Heavy & Bulky Reverse Logistics: Cutting Damage Rates From 14% to Under 0.5%",
-    slug: "heavy-bulky-reverse-logistics-playbook",
-    excerpt: "Specialized palletized linehaul networks, packaging reinforcement standards, and local technician doorstep testing protocols for heavy consumer appliances.",
-    content: `### The Heavy Goods Transit Challenge
-
-Shipping large items like kitchen chimneys, air coolers, inverters, and water heaters through standard parcel hubs inevitably causes severe denting and shattered glass.
-
-### Tactical Solutions for Fragile Shipments:
-
-* **Honeycombed Edge Protectors:** Custom molded pulp and corner cushions certified to ISTA drop standards.
-* **Technician Doorstep Verification:** Local service partners inspect installations to eliminate false 'defective' return requests.
-* **Direct Regional Refurbishment:** Salvaging returned goods locally rather than incurring expensive two-way cross-country freight.`,
-    featuredImage: "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?w=1200&auto=format&fit=crop&q=80",
-    imageAlt: "Packaging and palletized handling for fragile home appliances",
-    category: "Returns & Reverse Operations",
-    status: "Draft",
-    author: "Pooja Verma",
-    authorRole: "VP Supply Chain & Warehousing",
-    authorPhoto: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&auto=format&fit=crop&q=80",
-    tags: ["Returns", "Fulfilment", "Marketplace"],
-    date: "18 Sep 2026",
-    seoTitle: "Heavy & Bulky Reverse Logistics Playbook | Good Life Sutra",
-    seoDesc: "How appliance brands mitigate high return rates, prevent transit breakage, and manage palletized reverse logistics across India.",
-    canonicalUrl: "/insights/heavy-bulky-reverse-logistics-playbook",
-    ogImage: "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?w=1200&auto=format&fit=crop&q=80",
-    readTime: "5 min read"
-  },
-  {
-    id: "art-5",
-    title: "Quick-Commerce for Appliances: How Blinkit, Zepto & JioMart Deliver in 15 Minutes",
-    slug: "quick-commerce-consumer-appliances-playbook",
-    excerpt: "Hyperlocal dark store inventory allocation strategies for high-rotation kitchen electronics and emergency home essentials.",
-    content: `### The Rapid Rise of Instant Appliance Commerce
-
-Quick-commerce is no longer just for groceries. Mixers, kettles, irons, and room heaters are now routinely ordered on 15-minute delivery platforms.
-
-### Operating Strategies for Brands:
-
-* Selecting top 15% high-velocity SKUs suited for dark store shelf dimensions.
-* Real-time API stock syncing to avoid out-of-stock delisting penalties.
-* Dynamic localized promotional pricing during evening peak shopping hours.`,
-    featuredImage: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=1200&auto=format&fit=crop&q=80",
-    imageAlt: "Quick commerce delivery fleet and hyperlocal fulfillment",
-    category: "Marketplace Operations",
-    status: "Scheduled",
-    scheduledAt: "2026-10-01",
-    author: "Rajeev Nair",
-    authorRole: "Head of Marketplace Operations",
-    authorPhoto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80",
-    tags: ["Quick Commerce", "Blinkit", "Zepto", "Growth"],
-    date: "Scheduled (01 Oct 2026)",
-    seoTitle: "Quick Commerce for Appliances: 15-Min Delivery Playbook | Good Life Sutra",
-    seoDesc: "How leading electronics and appliance brands leverage Blinkit, Zepto, and JioMart for instant hyperlocal sales expansion.",
-    canonicalUrl: "/insights/quick-commerce-consumer-appliances-playbook",
-    ogImage: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=1200&auto=format&fit=crop&q=80",
-    readTime: "6 min read"
-  }
-];
+const initialArticles: ArticleItem[] = [];
 
 const initialCaseStudies: CaseStudyItem[] = [
   {
@@ -641,98 +469,7 @@ const initialCaseStudies: CaseStudyItem[] = [
   }
 ];
 
-const initialFaqs: FaqItem[] = [
-  {
-    id: "faq-1",
-    question: "What services does Good Life provide?",
-    answer: "Good Life provides marketplace operations, marketplace growth & advertising, inventory & stock planning, warehousing & fulfilment, revenue assurance & reconciliation, and returns & reverse operations.",
-    category: "General",
-    status: "Published",
-    orderIndex: 1,
-    isFeatured: true
-  },
-  {
-    id: "faq-2",
-    question: "Who can work with Good Life?",
-    answer: "Good Life works with brands and businesses looking to launch, improve, or scale their commerce operations across India's leading marketplace channels.",
-    category: "General",
-    status: "Published",
-    orderIndex: 2,
-    isFeatured: true
-  },
-  {
-    id: "faq-3",
-    question: "Can Good Life help us launch our online marketplace presence?",
-    answer: "Yes. Good Life provides end-to-end support for launching online commerce operations, establishing brand registry, creating optimized catalog listings, and configuring multi-state GST logistics.",
-    category: "Launch Online",
-    status: "Published",
-    orderIndex: 3,
-    isFeatured: true
-  },
-  {
-    id: "faq-4",
-    question: "Can Good Life manage marketplace operations?",
-    answer: "Yes. Marketplace Operations is one of Good Life's core capabilities, encompassing daily catalog hygiene, Buybox protection algorithms, performance marketing, and operational account compliance.",
-    category: "Marketplace",
-    status: "Published",
-    orderIndex: 4,
-    isFeatured: true
-  },
-  {
-    id: "faq-5",
-    question: "Does Good Life provide warehousing and fulfilment support?",
-    answer: "Yes. Warehousing & Fulfilment is delivered through our 12 regional fulfillment centers, securing Amazon Prime, Flipkart Assured, and sub-24hr doorstep delivery badges.",
-    category: "Fulfilment",
-    status: "Published",
-    orderIndex: 5,
-    isFeatured: true
-  },
-  {
-    id: "faq-6",
-    question: "Does Good Life help with inventory planning?",
-    answer: "Yes. Inventory & Stock Planning is one of the core capabilities, leveraging algorithmic sales velocity forecasting to prevent out-of-stock events and eliminate excess dead inventory.",
-    category: "Inventory",
-    status: "Published",
-    orderIndex: 6,
-    isFeatured: false
-  },
-  {
-    id: "faq-7",
-    question: "Can Good Life help reduce revenue leakage?",
-    answer: "Good Life provides Revenue Assurance & Reconciliation as a dedicated capability, forensic auditing marketplace fee deductions, volumetric weight overcharges, and recovering SAFE-T return claims.",
-    category: "Revenue Assurance",
-    status: "Published",
-    orderIndex: 7,
-    isFeatured: true
-  },
-  {
-    id: "faq-8",
-    question: "Does Good Life handle returns and reverse operations?",
-    answer: "Yes. Returns & Reverse Operations is one of the core capabilities, featuring packing station video verification, damage grading, repackaging, and claims dispute resolution.",
-    category: "Returns",
-    status: "Published",
-    orderIndex: 8,
-    isFeatured: false
-  },
-  {
-    id: "faq-9",
-    question: "Can Good Life help with heavy and bulky products?",
-    answer: "Yes. Heavy & Bulky Commerce is a specialised area within the Good Life offering, engineered specifically for large appliances, chimneys, cooktops, and high-capacity solar batteries with palletized freight.",
-    category: "Heavy & Bulky Commerce",
-    status: "Published",
-    orderIndex: 9,
-    isFeatured: true
-  },
-  {
-    id: "faq-10",
-    question: "How can I get started with Good Life?",
-    answer: "You can use the Commerce Diagnostic Tool or submit a direct enquiry to start a conversation with the Good Life team and benchmark your operational headroom.",
-    category: "Getting Started",
-    status: "Published",
-    orderIndex: 10,
-    isFeatured: true
-  }
-];
+const initialFaqs: FaqItem[] = [];
 
 const initialRedirects: RedirectItem[] = [];
 
@@ -767,53 +504,7 @@ const initialSiteSettings: SiteSettings = {
   googleSearchConsoleVerification: ""
 };
 
-const initialAuthors: AuthorItem[] = [
-  {
-    id: "auth-1",
-    name: "Rajeev Nair",
-    role: "Head of Marketplace Operations",
-    roleType: "Super Admin",
-    email: "rajeev.nair@goodlifesutra.com",
-    password: "gl_admin_2026",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80",
-    bio: "Ex-Amazon executive with 14+ years managing marketplace growth, algorithmic Buybox defense, and multi-channel appliance catalog expansion.",
-    linkedin: "https://linkedin.com/in/rajeev-nair-goodlife",
-    articlesCount: 5,
-    status: "Active",
-    lastLogin: "Today, 04:35 PM",
-    createdAt: "2026-01-10"
-  },
-  {
-    id: "auth-2",
-    name: "Pooja Verma",
-    role: "VP Supply Chain & Warehousing",
-    roleType: "Author & Editor",
-    email: "pooja.verma@goodlifesutra.com",
-    password: "supply_chain_26",
-    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&auto=format&fit=crop&q=80",
-    bio: "Expert in 12-state distributed warehouse networks, fragile appliance packaging engineering, and sub-24hr marketplace fulfillment SLAs.",
-    linkedin: "https://linkedin.com/in/pooja-verma-goodlife",
-    articlesCount: 3,
-    status: "Active",
-    lastLogin: "Yesterday, 11:20 AM",
-    createdAt: "2026-02-14"
-  },
-  {
-    id: "auth-3",
-    name: "Amitava Sen",
-    role: "Lead Reconciliation & Settlement Cell",
-    roleType: "Author & Editor",
-    email: "amitava.sen@goodlifesutra.com",
-    password: "settle_audit_26",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=80",
-    bio: "Financial auditor specializing in marketplace deduction forensic review, SAFE-T claims, volumetric weight error disputes, and escrow reconciliation.",
-    linkedin: "https://linkedin.com/in/amitava-sen-goodlife",
-    articlesCount: 2,
-    status: "Active",
-    lastLogin: "18 Sep, 02:15 PM",
-    createdAt: "2026-03-01"
-  }
-];
+const initialAuthors: AuthorItem[] = [];
 
 const initialAuditLogs: AuditLogItem[] = [
   { id: "log-1", userId: "auth-1", userName: "Rajeev Nair", userRole: "Super Admin", userAvatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80", action: "Logged In", target: "Admin Security Portal", timestamp: "Today, 04:35 PM" },
@@ -957,6 +648,37 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
         if (sRes.ok) {
           const data = await sRes.json();
           if (data && typeof data === "object") setSiteSettings(data);
+        }
+      } catch (_) {}
+      try {
+        const artRes = await fetch("http://localhost:5000/api/v1/articles");
+        if (artRes.ok) {
+          const data = await artRes.json();
+          if (Array.isArray(data)) {
+            setArticles(data);
+            try { localStorage.setItem("gl_admin_articles", JSON.stringify(data)); } catch (_) {}
+          }
+        }
+      } catch (_) {}
+      try {
+        const faqRes = await fetch("http://localhost:5000/api/v1/faqs");
+        if (faqRes.ok) {
+          const data = await faqRes.json();
+          if (Array.isArray(data)) {
+            setFaqs(data);
+            try { localStorage.setItem("gl_admin_faqs", JSON.stringify(data)); } catch (_) {}
+          }
+        }
+      } catch (_) {}
+      try {
+        const authRes = await fetch("http://localhost:5000/api/v1/authors");
+        if (authRes.ok) {
+          const data = await authRes.json();
+          if (Array.isArray(data) && data.length > 0) {
+            setAuthors(data);
+            setCurrentUser(prev => prev || data[0]);
+            try { localStorage.setItem("gl_admin_authors", JSON.stringify(data)); } catch (_) {}
+          }
         }
       } catch (_) {}
     }
@@ -1284,6 +1006,16 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
         return updated;
       });
       showToast("Insight updated successfully");
+
+      setTimeout(async () => {
+        try {
+          await fetch(`http://localhost:5000/api/v1/articles/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ...item, slug: item.slug || slug }),
+          });
+        } catch (_) {}
+      }, 50);
     } else {
       const newA: ArticleItem = {
         id: "art-" + Date.now(),
@@ -1314,6 +1046,22 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
         return updated;
       });
       showToast("New Insight created successfully");
+
+      setTimeout(async () => {
+        try {
+          const res = await fetch("http://localhost:5000/api/v1/articles", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newA),
+          });
+          if (res.ok) {
+            const created = await res.json();
+            if (created && created.id) {
+              setArticles(prev => prev.map(a => a.id === newA.id ? created : a));
+            }
+          }
+        } catch (_) {}
+      }, 50);
     }
   };
 
@@ -1324,6 +1072,12 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
       return updated;
     });
     showToast("Insight deleted");
+
+    setTimeout(async () => {
+      try {
+        await fetch(`http://localhost:5000/api/v1/articles/${id}`, { method: "DELETE" });
+      } catch (_) {}
+    }, 50);
   };
 
   const toggleArticleStatus = (id: string) => {
@@ -1341,6 +1095,12 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
       return updated;
     });
     showToast("Publication status updated");
+
+    setTimeout(async () => {
+      try {
+        await fetch(`http://localhost:5000/api/v1/articles/${id}/toggle`, { method: "PATCH" });
+      } catch (_) {}
+    }, 50);
   };
 
   const duplicateArticle = (id: string) => {
@@ -1361,6 +1121,18 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
       return updated;
     });
     showToast(`Duplicated draft: ${existing.title}`);
+
+    setTimeout(async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/v1/articles/${id}/duplicate`, { method: "POST" });
+        if (res.ok) {
+          const dup = await res.json();
+          if (dup && dup.id) {
+            setArticles(prev => prev.map(a => a.id === newA.id ? dup : a));
+          }
+        }
+      } catch (_) {}
+    }, 50);
   };
 
   // Site Settings
@@ -1400,6 +1172,16 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
       });
       logActivity("Updated Author Profile", item.name, `Role: ${item.role || "Author"}`);
       showToast(`Updated author profile: ${item.name}`);
+
+      setTimeout(async () => {
+        try {
+          await fetch(`http://localhost:5000/api/v1/authors/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(item),
+          });
+        } catch (_) {}
+      }, 50);
     } else {
       const newAuth: AuthorItem = {
         id: "auth-" + Date.now(),
@@ -1423,6 +1205,22 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
       });
       logActivity("Created Author Account", newAuth.name, `Login ID: ${newAuth.email}`);
       showToast(`Created author account: ${newAuth.name}`);
+
+      setTimeout(async () => {
+        try {
+          const res = await fetch("http://localhost:5000/api/v1/authors", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newAuth),
+          });
+          if (res.ok) {
+            const created = await res.json();
+            if (created && created.id) {
+              setAuthors(prev => prev.map(a => a.id === newAuth.id ? created : a));
+            }
+          }
+        } catch (_) {}
+      }, 50);
     }
   };
 
@@ -1437,6 +1235,12 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
       logActivity("Deleted Author Account", existing.name);
     }
     showToast("Author profile removed");
+
+    setTimeout(async () => {
+      try {
+        await fetch(`http://localhost:5000/api/v1/authors/${id}`, { method: "DELETE" });
+      } catch (_) {}
+    }, 50);
   };
 
   const toggleAuthorStatus = (id: string) => {
@@ -1449,6 +1253,12 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
       return updated;
     });
     showToast("Author account status updated");
+
+    setTimeout(async () => {
+      try {
+        await fetch(`http://localhost:5000/api/v1/authors/${id}/toggle`, { method: "PATCH" });
+      } catch (_) {}
+    }, 50);
   };
 
   // Landing Page Actions (Predefined Section Builder)
@@ -1527,7 +1337,6 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
   // FAQ Actions with Database and LocalStorage Persistence
   const saveFaq = (item: Partial<FaqItem>, id?: string) => {
     if (!item.question?.trim()) return;
-    let updatedList: FaqItem[] = [];
 
     if (id) {
       setFaqs(prev => {
@@ -1539,12 +1348,21 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
           orderIndex: item.orderIndex !== undefined ? Number(item.orderIndex) : f.orderIndex,
           isFeatured: item.isFeatured !== undefined ? !!item.isFeatured : f.isFeatured
         } : f);
-        updatedList = updated;
         try { localStorage.setItem("gl_admin_faqs", JSON.stringify(updated)); } catch (_) {}
         return updated;
       });
       logActivity("Updated FAQ", item.question.slice(0, 35) + "...", `Category: ${item.category || "General"}`);
       showToast(`FAQ updated: "${item.question.slice(0, 32)}..."`);
+
+      setTimeout(async () => {
+        try {
+          await fetch(`http://localhost:5000/api/v1/faqs/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(item),
+          });
+        } catch (_) {}
+      }, 50);
     } else {
       const newF: FaqItem = {
         id: "faq-" + Date.now(),
@@ -1557,31 +1375,34 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
       };
       setFaqs(prev => {
         const updated = [...prev, newF];
-        updatedList = updated;
         try { localStorage.setItem("gl_admin_faqs", JSON.stringify(updated)); } catch (_) {}
         return updated;
       });
       logActivity("Created FAQ", newF.question.slice(0, 35) + "...", `Category: ${newF.category}`);
       showToast("Added new FAQ to Database");
-    }
 
-    setTimeout(async () => {
-      try {
-        await fetch("http://localhost:5000/api/v1/faqs", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(updatedList)
-        });
-      } catch (_) {}
-    }, 100);
+      setTimeout(async () => {
+        try {
+          const res = await fetch("http://localhost:5000/api/v1/faqs", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newF),
+          });
+          if (res.ok) {
+            const created = await res.json();
+            if (created && created.id) {
+              setFaqs(prev => prev.map(f => f.id === newF.id ? created : f));
+            }
+          }
+        } catch (_) {}
+      }, 50);
+    }
   };
 
   const deleteFaq = (id: string) => {
     const target = faqs.find(f => f.id === id);
-    let updatedList: FaqItem[] = [];
     setFaqs(prev => {
       const updated = prev.filter(f => f.id !== id);
-      updatedList = updated;
       try { localStorage.setItem("gl_admin_faqs", JSON.stringify(updated)); } catch (_) {}
       return updated;
     });
@@ -1594,7 +1415,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
       try {
         await fetch(`http://localhost:5000/api/v1/faqs/${id}`, { method: "DELETE" });
       } catch (_) {}
-    }, 100);
+    }, 50);
   };
 
   const toggleFaqStatus = (id: string) => {
@@ -1614,6 +1435,12 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
     });
     logActivity(newStatus === "Published" ? "Published FAQ" : "Unpublished FAQ", targetQ.slice(0, 35) + "...", `Status set to ${newStatus}`);
     showToast(`FAQ status changed to ${newStatus}`);
+
+    setTimeout(async () => {
+      try {
+        await fetch(`http://localhost:5000/api/v1/faqs/${id}/toggle`, { method: "PATCH" });
+      } catch (_) {}
+    }, 50);
   };
 
   const toggleFaqFeatured = (id: string) => {
@@ -1633,6 +1460,12 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
     });
     logActivity(isNowFeatured ? "Pinned Featured FAQ" : "Unpinned Featured FAQ", targetQ.slice(0, 35) + "...");
     showToast(isNowFeatured ? "FAQ pinned as Featured" : "FAQ unpinned from Featured");
+
+    setTimeout(async () => {
+      try {
+        await fetch(`http://localhost:5000/api/v1/faqs/${id}/featured`, { method: "PATCH" });
+      } catch (_) {}
+    }, 50);
   };
 
   const duplicateFaq = (id: string) => {
@@ -1652,6 +1485,18 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
     });
     logActivity("Duplicated FAQ", copy.question.slice(0, 35) + "...", "Created draft copy");
     showToast("FAQ duplicated as Draft");
+
+    setTimeout(async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/v1/faqs/${id}/duplicate`, { method: "POST" });
+        if (res.ok) {
+          const dup = await res.json();
+          if (dup && dup.id) {
+            setFaqs(prev => prev.map(f => f.id === copy.id ? dup : f));
+          }
+        }
+      } catch (_) {}
+    }, 50);
   };
 
   // Case Study Actions with Full CMS Attributes
