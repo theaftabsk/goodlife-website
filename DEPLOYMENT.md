@@ -1,131 +1,295 @@
-# GOOD LIFE SUTRA — ENTERPRISE DEPLOYMENT & TECHNICAL DOCUMENTATION
+# GOOD LIFE SUTRA — CLIENT HANDOVER & TECHNICAL DEPLOYMENT DOCUMENTATION
 
-**Prepared for**: Good Life Sutra Pvt. Ltd.  
-**Version**: 5.0.0 (Enterprise NestJS + PostgreSQL + Next.js 16)  
-**Handover Guarantee**: Full source code ownership & 45-day free bug-fix support commitment (within 12 office hours).
+**Prepared for**: Good Life Sutra Pvt. Ltd. (Attention: Harish Team)  
+**Engaged Project**: Enterprise B2B Commerce Operating Partner Website & Standalone Admin CMS  
+**Repository**: [https://github.com/theaftabsk/goodlife-website.git](https://github.com/theaftabsk/goodlife-website.git)  
+**Version**: 5.2.0 (NestJS 10 + PostgreSQL 16 + Prisma ORM + Next.js 16 App Router)  
+**Handover Status**: Complete & Validated  
 
 ---
 
-## 🏛️ System Architecture Summary
+## 📋 Executive Scope Compliance Matrix
 
-The Good Life Enterprise platform consists of 3 decoupled, independent applications:
+Below is the item-by-item reconciliation against the requirements received from the GoodLife team:
+
+| # | GoodLife Requirement | Delivered? | Delivery Details & Technical Implementation |
+|---|---|:---:|---|
+| **1** | **Full Source Code & Git Repository Ownership** | **YES** | Complete Git repository with 100% commit history, branch structure, decoupled microservices, and environment templates. Zero third-party proprietary vendor lock-in. |
+| **2** | **Reusable CMS Blocks** | **YES** | Custom Admin CMS with dedicated management modules for **Blogs / Insights**, **Case Studies**, **FAQs**, and **Author Profiles** with rich text editors, status toggles, and metadata controls. |
+| **3** | **Editable Global Header / Footer / Contact Details** | **YES** | Real-time CMS editing of company name, corporate email, phone, registered office, CIN, GSTIN, WhatsApp badge, announcement banner, pre-footer CTA strip, and social links saved to PostgreSQL database. |
+| **4** | **Media / Document Library** | **YES** | Asset library with upload/preview, format filtering, byte size counters, direct CDN/R2 URL generators, coupled with granular per-page SEO Meta Title, Description, Canonical URL, and robots indexing controls. |
+| **5** | **Future Landing-Page Capability** | **PARTIAL (As Agreed)** | Modular landing page assembly system utilizing predefined, reusable sections (**Hero**, **Features Grid**, **Proof Metrics**, **CTA Strip**, **FAQ Accordion**, **Diagnostic Lead Form**). *(Clarification: Full drag-and-drop canvas builder is excluded as confirmed in the scope document).* |
+| **6** | **301 / 302 Redirect Capability** | **YES** | Database-backed URL redirect engine with live HTTP 301/302 status codes, real-time click hit counters, duplicate prevention, and automated Edge Next.js Middleware routing. |
+| **7** | **Written Deployment Documentation** | **YES** | Comprehensive deployment instructions provided below for Local Development, Vercel Serverless, and Ubuntu Linux Dedicated/VPS production with PM2, Nginx, SSL, and PostgreSQL. |
+| **8** | **Bug Response-Time Commitment** | **YES** | **45 Days** of complimentary post-launch bug-fix support with an outer limit response commitment of **12 Office Hours**. |
+
+---
+
+## 🏛️ System Architecture Overview
+
+The GoodLife platform is built on an enterprise 3-tier decoupled architecture:
 
 ```
 GOODLIFE/
-├── website/     # Next.js 16 Public Website (Port 3000)
-├── admin/       # Next.js 16 Standalone Admin CMS (Port 3001)
-├── backend/     # NestJS Enterprise API + PostgreSQL Prisma ORM (Port 5000)
-└── DEPLOYMENT.md
+├── website/     # Next.js 16 Public B2B Commerce Storefront (Port 3000)
+├── admin/       # Next.js 16 Standalone Admin CMS Command Center (Port 3001)
+├── backend/     # NestJS Enterprise API + Prisma ORM + PostgreSQL (Port 5000)
+└── DEPLOYMENT.md # Official Handover & Technical Deployment Documentation
 ```
+
+### Key Technical Specs:
+- **Frontend / CMS**: Next.js 16.2.10 (App Router, Turbopack, React 19, Server Components)
+- **Backend API**: NestJS 10.3 (TypeScript, RESTful architecture, Modular Service-Controller pattern)
+- **Database**: PostgreSQL 16 managed via Prisma ORM 5.10
+- **Redirects Middleware**: Next.js Edge Middleware with dynamic `/api/v1/redirects/resolve` resolution
+- **Tracking & Analytics**: Google Analytics 4 (GA4), Google Tag Manager (GTM), Google Search Console (GSC) verification injected dynamically from PostgreSQL
 
 ---
 
-## 🗄️ 1. Local PostgreSQL Database Setup
+## 🗄️ 1. Database Architecture & Setup
 
-### Connection Credentials
-- **Host**: `localhost`
-- **Port**: `5432`
-- **User**: `postgres`
-- **Password**: `123456`
-- **Database**: `goodlife_db`
-- **Connection URL**: `postgresql://postgres:123456@localhost:5432/goodlife_db?schema=public`
+### Database Credentials (.env)
+```env
+DATABASE_URL="postgresql://postgres:123456@localhost:5432/goodlife_db?schema=public"
+PORT=5000
+NODE_ENV=production
+```
 
-### Database Sync & Seeding Commands
+### PostgreSQL Database Initialization
 ```bash
 cd backend
 
-# 1. Push schema to local PostgreSQL
-npm run db:push
+# Install dependencies
+npm install
 
-# 2. Seed database with 15 Platform logos, 23 Brand logos & 7 Categories
+# Push Prisma schema directly to PostgreSQL
+npx prisma db push
+
+# (Optional) Seed initial operating platforms, brands, and categories
 npm run db:seed
-
-# 3. Open visual database manager (Prisma Studio)
-npm run db:studio
 ```
+
+### Prisma Schema Models:
+1. `PlatformLogo`: Marketplaces and B2B wholesale platforms (Amazon, Flipkart, IndiaMART, Blinkit, etc.).
+2. `BrandLogo`: Brand partner logos (Crompton, Havells, USHA, Kenstar, etc.).
+3. `ProductCategory`: Commerce product verticals and seasonal subcategories.
+4. `SiteConfiguration`: Header, footer, corporate registrations, announcement banner, GA4, GTM, and GSC credentials.
+5. `Redirect`: Permanent (301) and temporary (302) URL redirection mappings with hit counters.
+6. `DiagnosticLead`: 10-step enterprise diagnostic submissions with fit score, revenue band, GMV, and challenges.
+7. `CrmIntegration` & `CrmAuditLog`: CRM endpoint settings, auto-sync toggle, and dispatch audit logs.
+8. `Article` & `User`: Insights/blogs and author team accounts.
 
 ---
 
-## 🚀 2. Running Applications in Development
+## 🚀 2. Local Development Quickstart
 
-### Application 1: NestJS Backend API (Port 5000)
+To run all 3 applications simultaneously in development mode:
+
+### Terminal 1: Backend API (Port 5000)
 ```bash
 cd backend
 npm install
-npm run dev        # Development server with hot-reload
-npm run build      # Compile TypeScript production bundle
-npm run start:prod # Start production bundle
-```
-- API Base URL: `http://localhost:5000`
-- Operating Platforms Endpoint: `http://localhost:5000/api/v1/platforms`
-- Brand Logos Endpoint: `http://localhost:5000/api/v1/brands`
-- Categories Endpoint: `http://localhost:5000/api/v1/categories`
-
-### Application 2: Standalone Admin CMS (Port 3001)
-```bash
-cd admin
-npm install
-npm run dev        # Local Dev: http://localhost:3001
-npm run build      # Production build check
-npm run start      # Production server
+npm run dev
+# Running at: http://localhost:5000
 ```
 
-### Application 3: Public Website (Port 3000)
+### Terminal 2: Public Website (Port 3000)
 ```bash
 cd website
 npm install
-npm run dev        # Local Dev: http://localhost:3000
-npm run build      # Production prerender (31 static pages)
-npm run start      # Production server
+npm run dev
+# Running at: http://localhost:3000
+```
+
+### Terminal 3: Admin CMS (Port 3001)
+```bash
+cd admin
+npm install
+npm run dev
+# Running at: http://localhost:3001
 ```
 
 ---
 
-## 🧭 3. Admin CMS Features Guide (`http://localhost:3001/admin`)
+## 🧭 3. Admin CMS Features & Capabilities (`http://localhost:3001/admin`)
 
-| Module | Feature Description |
-|:---|:---|
-| **🌐 Platform Logos** | Full management for "Operating across India's leading platforms" (IndiaMART, TradeIndia, Industrybuying, Amazon, Flipkart, etc.). Add, edit SVG code, toggle active/inactive, reorder. |
-| **🏷️ Brand Logos** | Full management for 23+ brands (Crompton, USHA, Havells, Hindware, Kenstar, Bajaj, Livpure, Luminus, Exide, etc.). Category filtering, SVG preview, active toggle. |
-| **📦 Product Categories** | Management of 7 categories including Seasonal subcategories (Fans, Air Coolers, Water Heaters, Room Heaters), TV, Washing Machine, Chimney, etc. |
-| **🧭 Header & Footer** | Editable corporate phone, email, registered office address, GSTIN, WhatsApp number, and header CTA button text. |
-| **🔀 301 Redirects** | Add/manage 301 permanent and 302 temporary redirects with automatic click hit counting. |
-| **📥 Diagnostic Leads** | Full view of 10-step Diagnostic Tool submissions with one-click CSV export. |
-| **📝 Insights & FAQs** | Create and publish articles and schema-enabled FAQ items. |
+| Admin Module | Route | Operational Capability |
+|---|---|---|
+| **Overview Dashboard** | `/admin` | Real-time lead count, top inbound categories, revenue band telemetry, and recent inquiry feed. |
+| **Diagnostic Leads** | `/admin/leads` | Full inspection of all 10 diagnostic answers, fit score (80-99%), GMV tier, CRM sync status, and one-click CSV export. |
+| **CRM Integration** | `/admin/crm-integration` | Configure any CRM platform (Zoho, HubSpot, Salesforce, LeadSquared, Custom Webhook) with live test connection, auto-sync toggle, and PostgreSQL audit log. |
+| **Platforms Manager** | `/admin/platforms` | Add, reorder, and toggle visibility of 15+ marketplace & wholesale logos with custom SVG rendering. |
+| **Brands Manager** | `/admin/brands` | Manage 23+ brand partner logos across categories with direct SVG preview. |
+| **Product Categories** | `/admin/categories` | Manage 7 major categories and seasonal subcategories (Fans, Coolers, Water Heaters, etc.). |
+| **Insights / Blogs** | `/admin/insights` | Reusable rich article publisher with status toggles (Draft / Published), reading time, tags, and author assignment. |
+| **Case Studies** | `/admin/case-studies` | Deep-dive OEM case study publisher with challenge, action taken, verified stats, and client testimonials. |
+| **FAQs Library** | `/admin/faqs` | Manage question/answer pairs categorized by capability with automated FAQ Schema markup. |
+| **301 Redirects Suite** | `/admin/redirects` | Add and monitor 301 permanent and 302 temporary redirection rules with real-time hit counts and live verification. |
+| **SEO & Google Analytics** | `/admin/seo` | Configure per-route Meta Titles, Descriptions, Canonical links, XML Sitemap generator, plus direct fields for GA4 Measurement ID, GTM Container ID, and Search Console verification. |
+| **Global Header & Footer** | `/admin/header-footer` | Live editing of company contacts, GSTIN, CIN, WhatsApp number, announcement banner, and pre-footer CTA strip. |
+| **Media & Assets** | `/admin/media` | Media library with file size validation, MIME filtering, and image preview. |
+| **Landing Pages** | `/admin/landing-pages` | Assemble new landing pages using modular reusable blocks (Hero, Features, Proof Stats, FAQ, CTA, Diagnostic Form). |
+| **Author Profiles** | `/admin/authors` | Multi-user CMS author roles (Super Admin, Author & Editor, Content Specialist). |
+| **Global Settings** | `/admin/settings` | SMTP email gateway credentials, live email test dispatch, GA4/GTM credentials, and full CMS JSON backup export. |
 
 ---
 
 ## 🌐 4. Production Deployment Guidelines
 
-### Option A: Vercel (Recommended for Website & Admin)
-1. Link GitHub repository to Vercel.
-2. Set Root Directory to `website` for the public site.
-3. Deploy a second project with Root Directory `admin` on a subdomain (e.g., `admin.goodlifesutra.com`).
+### Option A: Cloud / Serverless Deployment (Vercel + Managed PostgreSQL)
+Recommended for instant global CDN edge distribution and zero-maintenance scaling.
 
-### Option B: VPS / Dedicated Server (Ubuntu Linux with PM2 + Nginx)
+1. **Database**: Provision a managed PostgreSQL instance (Supabase, Neon, AWS RDS, or Render).
+2. **Backend API**:
+   - Deploy `backend` to Render, Railway, AWS ECS, or DigitalOcean App Platform.
+   - Configure environment variables: `DATABASE_URL`, `PORT=5000`, `NODE_ENV=production`.
+   - Build command: `npm install && npx prisma db push && npm run build`.
+   - Start command: `node dist/main.js`.
+3. **Website & Admin on Vercel**:
+   - Create Project 1 on Vercel: Set Root Directory to `website`, link custom domain `goodlifesutra.com`.
+   - Create Project 2 on Vercel: Set Root Directory to `admin`, link custom domain `admin.goodlifesutra.com`.
+   - Add environment variables in Vercel:
+     - `NEXT_PUBLIC_BACKEND_URL`: `https://api.goodlifesutra.com`
+
+---
+
+### Option B: Linux VPS / Dedicated Server (Ubuntu 22.04 / 24.04 LTS)
+
+#### Step 1: Install Node.js 20, PostgreSQL & PM2
 ```bash
-# Install Node.js & PM2
+sudo apt update && sudo apt upgrade -y
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt-get install -y nodejs
+sudo apt install -y nodejs postgresql postgresql-contrib nginx git
+
 sudo npm install -g pm2
+```
 
-# Clone & Build All Apps
-cd /var/www/goodlife
-cd backend && npm install && npm run build && npm run db:push
-cd ../admin && npm install && npm run build
-cd ../website && npm install && npm run build
+#### Step 2: Configure PostgreSQL Database
+```bash
+sudo -u postgres psql
+CREATE DATABASE goodlife_db;
+CREATE USER goodlife_user WITH ENCRYPTED PASSWORD 'StrongSecurePassword2026!';
+GRANT ALL PRIVILEGES ON DATABASE goodlife_db TO goodlife_user;
+\q
+```
 
-# Start with PM2
+#### Step 3: Clone Repository & Build Applications
+```bash
+cd /var/www
+git clone https://github.com/theaftabsk/goodlife-website.git
+cd goodlife-website
+
+# 1. Build Backend
+cd backend
+echo 'DATABASE_URL="postgresql://goodlife_user:StrongSecurePassword2026!@localhost:5432/goodlife_db?schema=public"' > .env
+npm install
+npx prisma db push
+npm run build
+
+# 2. Build Admin
+cd ../admin
+npm install
+npm run build
+
+# 3. Build Website
+cd ../website
+npm install
+npm run build
+```
+
+#### Step 4: Process Management with PM2
+```bash
+cd /var/www/goodlife-website
+
+# Start Backend API on Port 5000
 pm2 start backend/dist/main.js --name "goodlife-backend"
+
+# Start Admin CMS on Port 3001
 pm2 start "npm --prefix admin run start" --name "goodlife-admin"
+
+# Start Public Website on Port 3000
 pm2 start "npm --prefix website run start" --name "goodlife-website"
+
+# Save PM2 process list and configure automatic system startup
 pm2 save
 pm2 startup
 ```
 
+#### Step 5: Nginx Reverse Proxy Configuration
+Create `/etc/nginx/sites-available/goodlife`:
+```nginx
+# 1. Public Website
+server {
+    server_name goodlifesutra.com www.goodlifesutra.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+# 2. Admin CMS
+server {
+    server_name admin.goodlifesutra.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:3001;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+# 3. Backend REST API
+server {
+    server_name api.goodlifesutra.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+Enable site and install free SSL certificate:
+```bash
+sudo ln -s /etc/nginx/sites-available/goodlife /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+
+# Install Let's Encrypt SSL
+sudo apt install -y certbot python3-certbot-nginx
+sudo certbot --nginx -d goodlifesutra.com -d www.goodlifesutra.com -d admin.goodlifesutra.com -d api.goodlifesutra.com
+```
+
 ---
 
-## 🛡️ 5. Post-Launch Bug Support Terms
-- **Duration**: 45 Days of complimentary post-launch bug-fix support.
-- **Response Commitment**: Within **12 office hours** (outer limit).
-- **Scope**: Covers fixing errors in delivered features, layout responsiveness, database syncing, and form workflows.
+## 🛡️ 5. Post-Launch Bug Support Commitment
+
+As agreed with the Harish team:
+- **Duration**: **45 Days** of free bug-fix support following official go-live.
+- **Response SLA**: Maximum outer limit of **12 Hours** within regular office hours.
+- **Coverage**:
+  - Resolution of any runtime or build issues.
+  - Correction of unexpected layout or cross-browser styling discrepancies.
+  - Rectification of database synchronization, edge redirection, or API communication faults.
+  - Rectification of diagnostic lead submission or webhook dispatch failures.
+- **Exclusions**: Creation of brand-new modules or features outside the confirmed project scope (such as open canvas drag-and-drop page builders).
+
+---
+
+## 📞 Support Contacts & Verification
+
+- **Primary Repository**: `https://github.com/theaftabsk/goodlife-website.git`
+- **Current Branch**: `main`
+- **Build Status**: Verified 0 errors across TypeScript, Next.js, and NestJS build pipelines.
