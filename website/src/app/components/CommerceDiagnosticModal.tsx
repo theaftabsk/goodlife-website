@@ -4,10 +4,12 @@ import React, { useState } from "react";
 import Link from "next/link";
 
 interface CommerceDiagnosticModalProps {
+  isOpen?: boolean;
   onClose: () => void;
 }
 
-export default function CommerceDiagnosticModal({ onClose }: CommerceDiagnosticModalProps) {
+export default function CommerceDiagnosticModal({ isOpen = true, onClose }: CommerceDiagnosticModalProps) {
+  if (isOpen === false) return null;
   const [formData, setFormData] = useState({
     companyName: "",
     personName: "",

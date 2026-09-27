@@ -131,7 +131,7 @@ export default function BookMeetingPage() {
       </section>
 
       <Footer />
-      {diagOpen && <CommerceDiagnosticModal onClose={() => setDiagOpen(true)} />}
+      {diagOpen && <CommerceDiagnosticModal onClose={() => setDiagOpen(false)} />}
     </div>
   );
 }
