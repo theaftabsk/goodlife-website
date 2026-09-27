@@ -8,7 +8,93 @@ import CommerceDiagnosticModal from "../../components/CommerceDiagnosticModal";
 
 export default function MarketplaceOperationsPage() {
   const [diagOpen, setDiagOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeModule, setActiveModule] = useState(0);
+  const [activeCadence, setActiveCadence] = useState(0);
+
+  const telemetryMetrics = [
+    {
+      platform: "Amazon IN",
+      label: "Amazon Buybox Win Rate",
+      value: "98.4%",
+      target: "Target >97.0%",
+      status: "PROTECTED",
+      statusColor: "#16A34A",
+      statusBg: "#ECFDF3",
+      progress: 98.4,
+      trend: "+1.2% vs 30d avg"
+    },
+    {
+      platform: "Multi-Channel",
+      label: "Order Defect Rate (ODR)",
+      value: "0.08%",
+      target: "Amazon Ceiling <1.00%",
+      status: "OPTIMAL",
+      statusColor: "#16A34A",
+      statusBg: "#ECFDF3",
+      progress: 8,
+      trend: "Zero Policy Strikes"
+    },
+    {
+      platform: "Global Master",
+      label: "Active Catalog Health",
+      value: "99.8%",
+      target: "2,400+ Active SKUs",
+      status: "HEALTHY",
+      statusColor: "#16A34A",
+      statusBg: "#ECFDF3",
+      progress: 99.8,
+      trend: "0 Search Suppressed"
+    },
+    {
+      platform: "Flipkart",
+      label: "Flipkart Assured Badge",
+      value: "100%",
+      target: "Gold Tier Fulfillment SLA",
+      status: "SYNCHRONIZED",
+      statusColor: "#16A34A",
+      statusBg: "#ECFDF3",
+      progress: 100,
+      trend: "100% In-Stock Node"
+    }
+  ];
+
+  const liveEvents = [
+    { time: "09:14 AM", platform: "Amazon IN", desc: "Rogue reseller undercutting MAP detected. Price enforcement resolved in 4 mins.", tag: "RESOLVED" },
+    { time: "08:45 AM", platform: "Flipkart", desc: "240 units synchronized to Bhiwandi hub. Inventory buffer restored to 100%.", tag: "SYNCED" },
+    { time: "08:12 AM", platform: "Blinkit", desc: "Flash stock replenishment triggered across 18 dark stores before morning rush.", tag: "DISPATCHED" },
+    { time: "07:30 AM", platform: "Multi-Node", desc: "Automated flat-file indexing audit completed across 2,400+ PDPs. Zero suppressions.", tag: "VERIFIED" }
+  ];
+
+  const fourMetrics = [
+    {
+      num: "99.8%",
+      label: "Catalog Health Index",
+      desc: "Zero hidden search suppressions, automated variation parenting, and synchronized attribute tagging.",
+      badge: "Zero Suppression",
+      progress: "99.8%"
+    },
+    {
+      num: "98.4%",
+      label: "Buybox Shield Win Rate",
+      desc: "Sub-5 min automated repricing engine neutralizing rogue resellers and unauthorized price undercutters.",
+      badge: "Algorithmic Protection",
+      progress: "98.4%"
+    },
+    {
+      num: "<45m",
+      label: "Order Dispatch Velocity",
+      desc: "Direct ERP-to-dock routing with automated batch tax invoicing and courier pickup lock-in.",
+      badge: "Same-Day Hand-off",
+      progress: "96.5%"
+    },
+    {
+      num: "0.08%",
+      label: "Account Armor & Health",
+      desc: "Strict SLA buffer monitoring keeping late dispatches and pre-fulfillment cancels far below policy limits.",
+      badge: "SLA Compliant",
+      progress: "99.2%"
+    }
+  ];
 
   const pillars = [
     {
@@ -22,13 +108,10 @@ export default function MarketplaceOperationsPage() {
         "A+ Enhanced Brand Content (EBC) with dynamic comparison matrices",
         "Automated backend attribute auditing to prevent stealth search suppression"
       ],
-      metric: "99.8%",
-      metricLabel: "Listing Health Index",
-      previewTitle: "Catalog Quality Scorecard",
-      previewItems: [
+      scorecard: [
         { label: "Title Keyword Density", value: "98/100", status: "Optimal" },
         { label: "Backend Search Terms Index", value: "249/250 bytes", status: "Full" },
-        { label: "Variation Tree Health", value: "100% Parented", status: "Active" },
+        { label: "Variation Tree Health", value: "100% Active", status: "Active" },
         { label: "A+ Content Conversion Lift", value: "+28.4%", status: "Verified" }
       ]
     },
@@ -43,10 +126,7 @@ export default function MarketplaceOperationsPage() {
         "Real-time Buybox win telemetry with sub-5 minute displacement alerts",
         "Cross-platform price parity checks across Amazon, Flipkart, and Quick Commerce"
       ],
-      metric: "98.4%",
-      metricLabel: "Average Buybox Win Rate",
-      previewTitle: "Buybox Algorithm Monitor",
-      previewItems: [
+      scorecard: [
         { label: "Prime/Assured Eligibility", value: "100%", status: "Guaranteed" },
         { label: "Unauthorized Seller Detection", value: "0 Active", status: "Clean" },
         { label: "MAP Price Compliance", value: "99.9%", status: "Protected" },
@@ -64,10 +144,7 @@ export default function MarketplaceOperationsPage() {
         "Immediate resolution of counterfeit claims, trademark warnings, and safety flags",
         "Custom Plan of Action (POA) documentation for reinstated ASINs within 48 hours"
       ],
-      metric: "0.08%",
-      metricLabel: "Order Defect Rate (SLA < 1%)",
-      previewTitle: "Seller Central Health Dossier",
-      previewItems: [
+      scorecard: [
         { label: "Account Health Rating", value: "250 / 250", status: "Healthy" },
         { label: "Late Dispatch Rate (LDR)", value: "0.04%", status: "Exceptional" },
         { label: "Pre-Fulfillment Cancel Rate", value: "0.01%", status: "Zero Strike" },
@@ -85,10 +162,7 @@ export default function MarketplaceOperationsPage() {
         "Deep integration with Amazon Easy Ship, Flipkart Smart, and specialized bulky 3PLs",
         "Automated buffer alarms that hold inventory before out-of-stock penalties occur"
       ],
-      metric: "< 45m",
-      metricLabel: "Order-to-Manifest Cycle Time",
-      previewTitle: "Dispatch SLA Radar",
-      previewItems: [
+      scorecard: [
         { label: "Daily Batch Manifests", value: "3 Cycles / Day", status: "On-Time" },
         { label: "Carrier Pickup SLA", value: "99.7%", status: "Met" },
         { label: "Cross-Dock Transit Sync", value: "Real-Time", status: "Active" },
@@ -106,10 +180,7 @@ export default function MarketplaceOperationsPage() {
         "Pre-sale stock allocation across strategic regional warehouse fulfillment centers",
         "Real-time event pricing and inventory velocity adjustments during peak traffic hours"
       ],
-      metric: "4.8x",
-      metricLabel: "Peak Festive Velocity Surge",
-      previewTitle: "Mega Sale Command Console",
-      previewItems: [
+      scorecard: [
         { label: "Deal Slot Approval Rate", value: "94.2%", status: "Prime Slots" },
         { label: "Pre-Allocated Festive Stock", value: "100%", status: "Staged" },
         { label: "AOV Lift via Bundling", value: "+32%", status: "Expanded" },
@@ -127,10 +198,7 @@ export default function MarketplaceOperationsPage() {
         "Proactive publishing of verified customer FAQs directly on high-traffic PDP listings",
         "Compliant automated review request sequences to build organic 4.5+ star review moats"
       ],
-      metric: "4.6 ★",
-      metricLabel: "Portfolio Average Rating",
-      previewTitle: "Customer Sentiment Analytics",
-      previewItems: [
+      scorecard: [
         { label: "Buyer Message Response Time", value: "3.4 Hours", status: "Fast" },
         { label: "Positive Review Ratio", value: "92.1%", status: "Moat" },
         { label: "Packaging Feedback Loop", value: "Weekly", status: "Iterated" },
@@ -144,51 +212,31 @@ export default function MarketplaceOperationsPage() {
       time: "09:00 AM",
       phase: "Morning Dawn Sweep",
       badge: "Compliance & Sync",
-      tasks: [
-        "Audit overnight orders across Amazon, Flipkart, Myntra & Blinkit",
-        "Inspect Account Health dashboard for policy warnings or intellectual property flags",
-        "Verify Buybox status across top 20% revenue-driving hero SKUs"
-      ]
+      desc: "Audit overnight orders across Amazon, Flipkart, Myntra & Blinkit. Inspect Account Health for policy warnings or intellectual property flags. Verify Buybox status across top 20% revenue-driving hero SKUs."
     },
     {
       time: "11:30 AM",
       phase: "First Dispatch Cutoff",
       badge: "Logistics Hand-off",
-      tasks: [
-        "Generate unified batch picklists and GST tax invoices for warehouse docks",
-        "Synchronize courier tracking IDs and schedule Amazon Easy Ship / 3PL pickups",
-        "Verify dark-store purchase orders for Blinkit, Zepto, and Instamart"
-      ]
+      desc: "Generate unified batch picklists and GST tax invoices for warehouse docks. Synchronize courier tracking IDs and schedule Amazon Easy Ship / 3PL pickups. Verify dark-store purchase orders for Blinkit, Zepto, and Instamart."
     },
     {
       time: "03:00 PM",
       phase: "Pricing & Buybox Recalibration",
       badge: "Margin Defense",
-      tasks: [
-        "Run automated MAP compliance scan to catch rogue third-party seller discounts",
-        "Adjust automated repricing limits based on real-time competitor stock depletion",
-        "Audit ad-spend attribution to ensure Buybox is active on sponsored listings"
-      ]
+      desc: "Run automated MAP compliance scan to catch rogue third-party seller discounts. Adjust automated repricing limits based on real-time competitor stock depletion. Audit ad-spend attribution to ensure Buybox is active on sponsored listings."
     },
     {
       time: "06:30 PM",
       phase: "Evening Carrier Manifest",
       badge: "SLA Lock",
-      tasks: [
-        "Finalize end-of-day carrier pickup reconciliation and signed manifest filing",
-        "Resolve buyer inquiries within Buyer-Seller Messaging before the 12-hour timer",
-        "Flag return shipments in transit and schedule replacement orders where required"
-      ]
+      desc: "Finalize end-of-day carrier pickup reconciliation and signed manifest filing. Resolve buyer inquiries within Buyer-Seller Messaging before the 12-hour timer. Flag return shipments in transit and schedule replacement orders where required."
     },
     {
       time: "11:00 PM",
       phase: "Night Automated Guard",
       badge: "24/7 Watchdog",
-      tasks: [
-        "Automated scraper checks for midnight unauthorized pricing violations",
-        "Buffer alarms prevent out-of-stock listings from receiving unfillable orders",
-        "Daily operational summary and GMV telemetry pushed to executive dashboards"
-      ]
+      desc: "Automated scraper checks for midnight unauthorized pricing violations. Buffer alarms prevent out-of-stock listings from receiving unfillable orders. Daily operational summary and GMV telemetry pushed to executive dashboards."
     }
   ];
 
@@ -221,336 +269,319 @@ export default function MarketplaceOperationsPage() {
   ];
 
   return (
-    <div style={{ background: "#F8FAFC", color: "#0F172A", minHeight: "100vh" }}>
+    <div style={{ background: "#FFFFFF", color: "#0F172A", minHeight: "100vh", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
       <style>{`
-        @keyframes floatSlow {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-8px); }
+        .light-panel {
+          background: #FFFFFF;
+          border: 1px solid #E2E8F0;
+          border-radius: 20px;
+          box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
         }
-        @keyframes pulseRing {
-          0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
-          70% { box-shadow: 0 0 0 10px rgba(37, 99, 235, 0); }
-          100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+        .light-panel:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 12px 30px rgba(37, 99, 235, 0.08);
+          border-color: #BFDBFE;
         }
-        .glass-card {
-          background: rgba(255, 255, 255, 0.88);
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-          border: 1px solid rgba(255, 255, 255, 0.95);
-          box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02);
-          border-radius: 22px;
-          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        .ops-pulse {
+          display: inline-block;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #16A34A;
+          box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.5);
+          animation: opsPulseRing 2s infinite;
         }
-        .glass-card:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 20px 45px rgba(37, 99, 235, 0.12), 0 2px 6px rgba(15, 23, 42, 0.04);
-          border-color: rgba(37, 99, 235, 0.35);
+        @keyframes opsPulseRing {
+          0% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.5); }
+          70% { box-shadow: 0 0 0 8px rgba(22, 163, 74, 0); }
+          100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
+        }
+        .touch-scroll-row {
+          display: flex;
+          gap: 1rem;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: thin;
+          padding-bottom: 0.5rem;
         }
         @media (max-width: 991px) {
-          .ops-hero-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
-          .ops-tabs-container { grid-template-columns: repeat(2, 1fr) !important; }
-          .ops-active-card { grid-template-columns: 1fr !important; padding: 1.8rem !important; gap: 2rem !important; }
-          .stats-grid-responsive { grid-template-columns: 1fr 1fr !important; }
+          .ops-hero-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
+          .ops-modules-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .ops-detail-split { grid-template-columns: 1fr !important; gap: 2rem !important; }
+          .metrics-4-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .timeline-desktop { display: none !important; }
+          .timeline-mobile { display: flex !important; }
         }
         @media (max-width: 640px) {
-          .ops-tabs-container { grid-template-columns: 1fr !important; }
-          .stats-grid-responsive { grid-template-columns: 1fr !important; }
-          .ops-banner-box { padding: 2rem 1.5rem !important; }
+          .ops-modules-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .metrics-4-grid { grid-template-columns: 1fr !important; }
+          .cadence-tabs { flex-wrap: wrap !important; }
+          .cta-inner-box { padding: 2rem 1.5rem !important; }
         }
       `}</style>
       
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
-      {/* ── 1. SIGNATURE LIGHT ICE-BLUE HERO ── */}
+      {/* ── 1. LIGHT BESPOKE HERO ── */}
       <section style={{
-        position: "relative",
         paddingTop: "9rem",
-        paddingBottom: "5rem",
-        background: "linear-gradient(180deg, #E0F2FE 0%, #E8F4FE 20%, #F0F7FF 45%, #FAFCFE 70%, #FFFFFF 92%, #FFFFFF 100%)",
-        overflow: "hidden"
+        paddingBottom: "5.5rem",
+        background: "linear-gradient(180deg, #F4F8FF 0%, #FFFFFF 100%)",
+        borderBottom: "1px solid #E2E8F0",
+        position: "relative"
       }}>
-        {/* Soft Ambient Aurora Orbs */}
-        <div style={{
-          position: "absolute",
-          top: "-10%",
-          left: "-5%",
-          width: "600px",
-          height: "600px",
-          background: "radial-gradient(circle, rgba(125, 211, 252, 0.35) 0%, transparent 70%)",
-          filter: "blur(120px)",
-          pointerEvents: "none"
-        }} />
-        <div style={{
-          position: "absolute",
-          top: "10%",
-          right: "-5%",
-          width: "550px",
-          height: "550px",
-          background: "radial-gradient(circle, rgba(147, 197, 253, 0.3) 0%, transparent 70%)",
-          filter: "blur(120px)",
-          pointerEvents: "none"
-        }} />
-
-        <div className="container" style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem", position: "relative", zIndex: 2 }}>
+        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          {/* Breadcrumb Navigation */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.85rem", color: "#64748B", marginBottom: "1.5rem" }}>
-            <Link href="/" style={{ color: "#2563EB", textDecoration: "none", fontWeight: 600 }}>Home</Link>
-            <span>/</span>
-            <span style={{ color: "#64748B" }}>Capabilities</span>
-            <span>/</span>
-            <span style={{ color: "#0F172A", fontWeight: 700 }}>Marketplace Operations</span>
-          </div>
-
-          <div className="ops-hero-grid" style={{ display: "grid", gridTemplateColumns: "1.15fr 0.85fr", gap: "3.5rem", alignItems: "center" }}>
+          <div className="ops-hero-grid" style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: "3.5rem", alignItems: "center" }}>
             
-            {/* Left: Mission Statement & Positioning */}
+            {/* Left: Authority & Messaging */}
             <div>
-              <div style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                padding: "0.45rem 1.1rem",
-                borderRadius: "999px",
-                background: "linear-gradient(135deg, #EFF6FF 0%, #E0E7FF 100%)",
-                border: "1.5px solid #BFDBFE",
-                color: "#1D4ED8",
-                fontSize: "0.8rem",
-                fontWeight: 800,
-                letterSpacing: "0.5px",
-                textTransform: "uppercase",
-                marginBottom: "1.5rem",
-                boxShadow: "0 4px 16px rgba(37, 99, 235, 0.08)"
-              }}>
-                <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#2563EB" }} />
-                CAPABILITY 01 • MISSION-CRITICAL PLATFORM OPERATIONS
+              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.35rem 0.85rem", background: "#EFF6FF", border: "1px solid #BFDBFE", borderRadius: "999px", marginBottom: "1.25rem" }}>
+                <span className="ops-pulse" />
+                <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#2563EB", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+                  CAPABILITY 01 // MISSION-CRITICAL PLATFORM OPERATIONS
+                </span>
               </div>
 
               <h1 style={{
-                fontSize: "clamp(2.4rem, 4.2vw, 3.8rem)",
-                fontWeight: 900,
-                lineHeight: 1.15,
-                color: "#0B1736",
-                letterSpacing: "-1.5px",
-                margin: "0 0 1.5rem"
+                fontSize: "clamp(2.3rem, 4.5vw, 3.8rem)",
+                fontWeight: 800,
+                color: "#0F172A",
+                lineHeight: 1.05,
+                letterSpacing: "-0.03em",
+                margin: "0 0 1.25rem"
               }}>
-                Marketplace Operations: <br />
-                <span style={{ background: "linear-gradient(135deg, #2563EB 0%, #0284C7 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                  Zero-SLA-Defect Precision &amp; 99.8% Buybox Defense
-                </span>
+                Commerce Mission Control for High-Growth Enterprise Brands
               </h1>
 
               <p style={{
-                fontSize: "clamp(1.05rem, 1.6vw, 1.2rem)",
+                fontSize: "clamp(1rem, 1.8vw, 1.15rem)",
                 color: "#475569",
-                lineHeight: 1.7,
-                marginBottom: "2.2rem",
-                fontWeight: 500
+                lineHeight: 1.65,
+                margin: "0 0 2rem",
+                maxWidth: "580px"
               }}>
-                Marketplace algorithms ruthlessly penalize late dispatches, broken variations, out-of-stock cancellations, and suppressed listings. Good Life provides enterprise-grade 24/7 seller operations across Amazon, Flipkart, Blinkit, and Myntra with automated catalog monitoring, dynamic repricing, and guaranteed policy compliance.
+                Good Life provides dedicated brand operations cells executing daily catalog maintenance, buybox defense, order synchronization, and account health compliance across Amazon, Flipkart, Blinkit, and quick commerce.
               </p>
 
-              {/* Action Buttons */}
               <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
-                <Link
-                  href="/book-meeting"
-                  style={{
-                    height: "52px",
-                    padding: "0 1.8rem",
-                    borderRadius: "999px",
-                    background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
-                    color: "#FFFFFF",
-                    fontSize: "0.95rem",
-                    fontWeight: 800,
-                    textDecoration: "none",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: "0.5rem",
-                    boxShadow: "0 8px 24px rgba(37, 99, 235, 0.28)",
-                    transition: "all 0.2s ease"
-                  }}
-                >
-                  <span>SCHEDULE OPERATIONS AUDIT →</span>
-                </Link>
-
                 <button
                   onClick={() => setDiagOpen(true)}
                   style={{
-                    height: "52px",
-                    padding: "0 1.6rem",
-                    borderRadius: "999px",
-                    background: "#FFFFFF",
-                    border: "1.5px solid #CBD5E1",
-                    color: "#0F172A",
-                    fontSize: "0.95rem",
+                    height: "50px",
+                    padding: "0 1.8rem",
+                    borderRadius: "12px",
+                    background: "#2563EB",
+                    color: "#FFFFFF",
                     fontWeight: 700,
+                    fontSize: "0.95rem",
+                    border: "none",
                     cursor: "pointer",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                    boxShadow: "0 4px 14px rgba(0,0,0,0.04)",
+                    boxShadow: "0 4px 14px rgba(37, 99, 235, 0.25)",
                     transition: "all 0.2s ease"
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "#1D4ED8")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "#2563EB")}
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2.5">
-                    <circle cx="12" cy="12" r="10" />
-                    <polygon points="10 8 16 12 10 16 10 8" />
-                  </svg>
-                  <span>Evaluate Channel Gaps</span>
+                  REQUEST DIAGNOSTIC →
                 </button>
-              </div>
 
+                <Link
+                  href="/book-meeting"
+                  style={{
+                    height: "50px",
+                    padding: "0 1.6rem",
+                    borderRadius: "12px",
+                    background: "#FFFFFF",
+                    border: "1px solid #BFDBFE",
+                    color: "#2563EB",
+                    fontWeight: 700,
+                    fontSize: "0.95rem",
+                    textDecoration: "none",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    transition: "all 0.2s ease"
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "#EFF6FF";
+                    e.currentTarget.style.borderColor = "#2563EB";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "#FFFFFF";
+                    e.currentTarget.style.borderColor = "#BFDBFE";
+                  }}
+                >
+                  Schedule Strategy Session
+                </Link>
+              </div>
             </div>
 
-            {/* Right: Live Operations Console Mockup (Floating Glass Card) */}
-            <div>
-              <div className="glass-card" style={{
-                padding: "2rem",
-                background: "rgba(255, 255, 255, 0.9)",
-                border: "1.5px solid rgba(255, 255, 255, 0.95)",
-                boxShadow: "0 20px 50px rgba(37, 99, 235, 0.08), 0 2px 6px rgba(0,0,0,0.02)",
-                position: "relative",
-                animation: "floatSlow 8s ease-in-out infinite"
+            {/* Right: Bespoke Live Operations Control Center (Large White Dashboard) */}
+            <div style={{
+              background: "#FFFFFF",
+              border: "1.5px solid #BFDBFE",
+              borderRadius: "24px",
+              boxShadow: "0 12px 35px rgba(15, 23, 42, 0.05), 0 2px 6px rgba(37, 99, 235, 0.04)",
+              overflow: "hidden"
+            }}>
+              {/* Dashboard Header Bar */}
+              <div style={{
+                padding: "1rem 1.5rem",
+                background: "#F8FAFC",
+                borderBottom: "1px solid #E2E8F0",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between"
               }}>
-                {/* Console Header */}
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #E2E8F0", paddingBottom: "1rem", marginBottom: "1.25rem" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-                    <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#16A34A", boxShadow: "0 0 8px #16A34A" }} />
-                    <span style={{ fontSize: "0.82rem", fontWeight: 800, letterSpacing: "0.5px", textTransform: "uppercase", color: "#1E3A8A" }}>
-                      Operations Control Center
-                    </span>
-                  </div>
-                  <span style={{ fontSize: "0.72rem", color: "#2563EB", background: "#EFF6FF", padding: "3px 8px", borderRadius: "6px", fontWeight: 700 }}>
-                    LIVE TELEMETRY
+                <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                  <span className="ops-pulse" />
+                  <span style={{ fontSize: "0.8rem", fontWeight: 800, color: "#0F172A", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+                    LIVE OPERATIONS CONTROL CENTER
                   </span>
                 </div>
-
-                {/* 4 Health Telemetry Tiles */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.85rem", marginBottom: "1.25rem" }}>
-                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", padding: "0.9rem", borderRadius: "14px" }}>
-                    <div style={{ fontSize: "0.7rem", color: "#64748B", textTransform: "uppercase", fontWeight: 700 }}>Amazon Buybox</div>
-                    <div style={{ fontSize: "1.35rem", fontWeight: 900, color: "#2563EB", marginTop: "2px" }}>98.4%</div>
-                    <div style={{ fontSize: "0.68rem", color: "#16A34A", marginTop: "2px", fontWeight: 700 }}>▲ +4.2% vs industry avg</div>
-                  </div>
-
-                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", padding: "0.9rem", borderRadius: "14px" }}>
-                    <div style={{ fontSize: "0.7rem", color: "#64748B", textTransform: "uppercase", fontWeight: 700 }}>Order Defect Rate</div>
-                    <div style={{ fontSize: "1.35rem", fontWeight: 900, color: "#059669", marginTop: "2px" }}>0.08%</div>
-                    <div style={{ fontSize: "0.68rem", color: "#64748B", marginTop: "2px", fontWeight: 600 }}>SLA Threshold: &lt;1.00%</div>
-                  </div>
-
-                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", padding: "0.9rem", borderRadius: "14px" }}>
-                    <div style={{ fontSize: "0.7rem", color: "#64748B", textTransform: "uppercase", fontWeight: 700 }}>Catalog Health</div>
-                    <div style={{ fontSize: "1.35rem", fontWeight: 900, color: "#D97706", marginTop: "2px" }}>99.8%</div>
-                    <div style={{ fontSize: "0.68rem", color: "#64748B", marginTop: "2px", fontWeight: 600 }}>Zero search suppression</div>
-                  </div>
-
-                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", padding: "0.9rem", borderRadius: "14px" }}>
-                    <div style={{ fontSize: "0.7rem", color: "#64748B", textTransform: "uppercase", fontWeight: 700 }}>Flipkart Assured</div>
-                    <div style={{ fontSize: "1.35rem", fontWeight: 900, color: "#7C3AED", marginTop: "2px" }}>100%</div>
-                    <div style={{ fontSize: "0.68rem", color: "#16A34A", marginTop: "2px", fontWeight: 700 }}>Full badge coverage</div>
-                  </div>
+                <div style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 600 }}>
+                  UPDATED JUST NOW • UTC+05:30
                 </div>
+              </div>
 
-                {/* Real-time incident stream */}
-                <div style={{ background: "#F1F5F9", borderRadius: "12px", padding: "0.85rem", border: "1px solid #E2E8F0" }}>
-                  <div style={{ fontSize: "0.7rem", fontWeight: 800, color: "#1E3A8A", marginBottom: "0.5rem", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                    Automated Event Stream
-                  </div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.45rem", fontSize: "0.76rem", color: "#334155" }}>
-                    <div style={{ display: "flex", gap: "0.5rem" }}>
-                      <span style={{ color: "#16A34A", fontWeight: 800 }}>[09:14]</span>
-                      <span>Amazon IN: Rogue reseller undercutting MAP detected. Price enforcement resolved.</span>
+              {/* 4 Telemetry Rows */}
+              <div style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
+                {telemetryMetrics.map((tm, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      background: "#F8FAFC",
+                      border: "1px solid #E2E8F0",
+                      borderRadius: "14px",
+                      padding: "1rem 1.25rem"
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.4rem" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                        <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#2563EB", background: "#EFF6FF", padding: "0.15rem 0.45rem", borderRadius: "6px" }}>
+                          {tm.platform}
+                        </span>
+                        <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "#1E293B" }}>
+                          {tm.label}
+                        </span>
+                      </div>
+                      <div style={{ fontSize: "0.72rem", fontWeight: 700, color: tm.statusColor, background: tm.statusBg, padding: "0.2rem 0.5rem", borderRadius: "6px" }}>
+                        ✓ {tm.status}
+                      </div>
                     </div>
-                    <div style={{ display: "flex", gap: "0.5rem" }}>
-                      <span style={{ color: "#2563EB", fontWeight: 800 }}>[08:45]</span>
-                      <span>Flipkart: 240 units synchronized to Bhiwandi hub for Big Billion Days staging.</span>
+
+                    <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: "0.5rem" }}>
+                      <div style={{ fontSize: "1.65rem", fontWeight: 800, color: "#0F172A", letterSpacing: "-0.02em" }}>
+                        {tm.value}
+                      </div>
+                      <div style={{ fontSize: "0.78rem", color: "#64748B", fontWeight: 600 }}>
+                        {tm.target}
+                      </div>
+                    </div>
+
+                    {/* Progress Fill Visualization */}
+                    <div style={{ width: "100%", height: "6px", background: "#E2E8F0", borderRadius: "999px", overflow: "hidden" }}>
+                      <div style={{ width: `${Math.min(tm.progress, 100)}%`, height: "100%", background: "linear-gradient(90deg, #2563EB 0%, #16A34A 100%)", borderRadius: "999px" }} />
                     </div>
                   </div>
-                </div>
-
-                <div style={{ marginTop: "1rem", paddingTop: "0.85rem", borderTop: "1px solid #E2E8F0", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ fontSize: "0.74rem", color: "#64748B", fontWeight: 600 }}>142 incidents prevented this quarter</span>
-                  <span style={{ fontSize: "0.74rem", color: "#2563EB", fontWeight: 800 }}>All Systems Nominal ✓</span>
-                </div>
+                ))}
               </div>
             </div>
 
           </div>
 
-          {/* ── 4 FLOATING GLASS STATS CARDS (Matching Home Page Screenshot 2) ── */}
-          <div className="stats-grid-responsive" style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "1.25rem",
-            marginTop: "3.5rem"
-          }}>
-            {[
-              {
-                value: "99.8%",
-                label: "Listing Health Index",
-                description: "Zero search suppression across 15+ marketplaces",
-                tag: "Catalog Health",
-                tagColor: "#2563EB",
-                tagBg: "#EFF6FF",
-                borderColor: "rgba(37, 99, 235, 0.2)",
-                subText: "100% Parented Variations"
-              },
-              {
-                value: "98.4%",
-                label: "Average Buybox Win",
-                description: "Algorithmic repricing protecting offline dealer margins",
-                tag: "Buybox Shield",
-                tagColor: "#0D9488",
-                tagBg: "#F0FDFA",
-                borderColor: "rgba(13, 148, 136, 0.2)",
-                subText: "Sub-5 Min Recapture Time"
-              },
-              {
-                value: "< 45m",
-                label: "Order-to-Manifest SLA",
-                description: "Automated warehouse batch picking & courier handoff",
-                tag: "Dispatch Velocity",
-                tagColor: "#7C3AED",
-                tagBg: "#FAF5FF",
-                borderColor: "rgba(124, 58, 237, 0.2)",
-                subText: "3 Daily Outbound Cycles"
-              },
-              {
-                value: "0.08%",
-                label: "Order Defect Rate (ODR)",
-                description: "Strict policy compliance avoiding category gating",
-                tag: "Account Armor",
-                tagColor: "#059669",
-                tagBg: "#F0FDF4",
-                borderColor: "rgba(5, 150, 105, 0.2)",
-                subText: "SLA Threshold < 1.00%",
-                showBar: true
-              }
-            ].map((st, idx) => (
-              <div key={idx} className="glass-card" style={{ padding: "1.75rem 1.5rem", borderColor: st.borderColor }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.85rem" }}>
-                  <span style={{ fontSize: "0.72rem", fontWeight: 800, color: st.tagColor, background: st.tagBg, padding: "3px 8px", borderRadius: "6px", textTransform: "uppercase" }}>
-                    {st.tag}
+        </div>
+      </section>
+
+      {/* ── 2. LIVE EVENT STREAM ── */}
+      <section style={{ padding: "2rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
+          
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem", flexWrap: "wrap", gap: "0.75rem" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <span className="ops-pulse" />
+              <span style={{ fontSize: "0.78rem", fontWeight: 800, letterSpacing: "0.08em", color: "#0F172A", textTransform: "uppercase" }}>
+                AUTOMATED EVENT STREAM
+              </span>
+            </div>
+            <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#16A34A", background: "#ECFDF3", padding: "0.25rem 0.75rem", borderRadius: "999px", border: "1px solid #A7F3D0" }}>
+              ✓ 142 incidents prevented this quarter
+            </div>
+          </div>
+
+          <div className="touch-scroll-row">
+            {liveEvents.map((evt, idx) => (
+              <div
+                key={idx}
+                style={{
+                  minWidth: "280px",
+                  flex: "1 1 280px",
+                  background: "#FFFFFF",
+                  border: "1px solid #E2E8F0",
+                  borderRadius: "14px",
+                  padding: "1rem 1.2rem",
+                  boxShadow: "0 2px 8px rgba(15, 23, 42, 0.02)"
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.4rem" }}>
+                  <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#64748B" }}>
+                    {evt.time} • {evt.platform}
+                  </span>
+                  <span style={{ fontSize: "0.7rem", fontWeight: 700, color: "#2563EB", background: "#EFF6FF", padding: "0.15rem 0.45rem", borderRadius: "4px" }}>
+                    {evt.tag}
                   </span>
                 </div>
-                <div style={{ fontSize: "2.2rem", fontWeight: 900, color: "#0B1736", letterSpacing: "-0.8px", lineHeight: 1 }}>
-                  {st.value}
+                <p style={{ fontSize: "0.82rem", color: "#334155", margin: 0, lineHeight: 1.45, fontWeight: 500 }}>
+                  {evt.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── 3. FOUR OPERATIONS METRICS (Subtle Variations) ── */}
+      <section style={{ padding: "4.5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
+        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
+          
+          <div style={{ textAlign: "center", maxWidth: "680px", margin: "0 auto 3rem" }}>
+            <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#2563EB", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
+              OPERATIONAL PERFORMANCE BENCHMARKS
+            </span>
+            <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.5rem)", fontWeight: 800, color: "#0F172A", margin: "0 0 0.75rem", letterSpacing: "-0.02em" }}>
+              Engineered for Zero-Defect Marketplace Execution
+            </h2>
+            <p style={{ fontSize: "0.98rem", color: "#64748B", lineHeight: 1.6, margin: 0 }}>
+              Institutional metrics maintained every single operating day across all connected brand channels.
+            </p>
+          </div>
+
+          <div className="metrics-4-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem" }}>
+            {fourMetrics.map((m, idx) => (
+              <div
+                key={idx}
+                className="light-panel"
+                style={{
+                  padding: "1.75rem 1.5rem",
+                  borderTop: idx === 1 ? "3px solid #2563EB" : idx === 3 ? "3px solid #16A34A" : "1px solid #E2E8F0"
+                }}
+              >
+                <div style={{ display: "inline-block", fontSize: "0.72rem", fontWeight: 700, color: "#2563EB", background: "#EFF6FF", padding: "0.2rem 0.6rem", borderRadius: "6px", marginBottom: "0.85rem" }}>
+                  {m.badge}
                 </div>
-                <div style={{ fontSize: "0.92rem", fontWeight: 800, color: "#1E293B", marginTop: "0.4rem", marginBottom: "0.3rem" }}>
-                  {st.label}
+                <div style={{ fontSize: "2.4rem", fontWeight: 800, color: "#0F172A", letterSpacing: "-0.03em", lineHeight: 1, marginBottom: "0.5rem" }}>
+                  {m.num}
                 </div>
-                <div style={{ fontSize: "0.8rem", color: "#64748B", lineHeight: 1.45, marginBottom: "1rem" }}>
-                  {st.description}
+                <div style={{ fontSize: "0.95rem", fontWeight: 700, color: "#1E293B", marginBottom: "0.5rem" }}>
+                  {m.label}
                 </div>
-                {st.showBar && (
-                  <div style={{ width: "100%", height: "4px", background: "#E2E8F0", borderRadius: "99px", overflow: "hidden", marginBottom: "0.75rem" }}>
-                    <div style={{ width: "94%", height: "100%", background: "#059669" }} />
-                  </div>
-                )}
-                <div style={{ fontSize: "0.75rem", color: st.tagColor, fontWeight: 700 }}>
-                  ✓ {st.subText}
+                <p style={{ fontSize: "0.82rem", color: "#64748B", lineHeight: 1.5, margin: "0 0 1rem" }}>
+                  {m.desc}
+                </p>
+                <div style={{ width: "100%", height: "4px", background: "#E2E8F0", borderRadius: "99px", overflow: "hidden" }}>
+                  <div style={{ width: m.progress, height: "100%", background: "#2563EB", borderRadius: "99px" }} />
                 </div>
               </div>
             ))}
@@ -559,214 +590,206 @@ export default function MarketplaceOperationsPage() {
         </div>
       </section>
 
-      {/* ── 2. INTERACTIVE 6-TAB CONTROL STATION ── */}
-      <section style={{ padding: "5.5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
-        <div className="container" style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
+      {/* ── 4. SIX ENGINEERED DELIVERABLES (Interactive Module Selector) ── */}
+      <section style={{ padding: "5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "750px", margin: "0 auto 3.5rem" }}>
-            <span style={{ display: "inline-block", fontSize: "0.75rem", fontWeight: 800, letterSpacing: "2px", color: "#2563EB", textTransform: "uppercase", marginBottom: "0.75rem" }}>
-              Comprehensive Operations Suite
+          <div style={{ textAlign: "center", maxWidth: "720px", margin: "0 auto 3rem" }}>
+            <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#2563EB", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
+              COMPREHENSIVE OPERATIONS SUITE
             </span>
-            <h2 style={{ fontSize: "clamp(1.9rem, 3.2vw, 2.6rem)", fontWeight: 900, color: "#0B1736", margin: "0 0 1rem", letterSpacing: "-0.8px" }}>
+            <h2 style={{ fontSize: "clamp(1.9rem, 3.2vw, 2.6rem)", fontWeight: 800, color: "#0F172A", margin: "0 0 0.75rem", letterSpacing: "-0.02em" }}>
               Six Engineered Deliverables That Power Daily Marketplace Sales
             </h2>
-            <p style={{ fontSize: "1rem", color: "#64748B", lineHeight: 1.6 }}>
+            <p style={{ fontSize: "1rem", color: "#64748B", lineHeight: 1.6, margin: 0 }}>
               Select a control module below to explore how Good Life manages your listings, defends pricing integrity, protects your seller account, and executes flawless dispatches.
             </p>
           </div>
 
-          {/* Interactive Tab Selectors (Light Glassmorphic Pill Row) */}
-          <div className="ops-tabs-container" style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(6, 1fr)",
-            gap: "0.5rem",
-            background: "#F1F5F9",
-            padding: "0.5rem",
-            borderRadius: "18px",
-            marginBottom: "2.5rem"
-          }}>
-            {pillars.map((p, idx) => (
-              <button
-                key={p.id}
-                onClick={() => setActiveTab(idx)}
-                style={{
-                  padding: "0.9rem 0.6rem",
-                  borderRadius: "14px",
-                  border: "none",
-                  background: activeTab === idx ? "#FFFFFF" : "transparent",
-                  color: activeTab === idx ? "#2563EB" : "#475569",
-                  fontWeight: activeTab === idx ? 800 : 600,
-                  fontSize: "0.82rem",
-                  cursor: "pointer",
-                  boxShadow: activeTab === idx ? "0 4px 15px rgba(0,0,0,0.06)" : "none",
-                  transition: "all 0.18s ease",
-                  textAlign: "center"
-                }}
-              >
-                <div style={{ fontSize: "0.68rem", textTransform: "uppercase", color: activeTab === idx ? "#2563EB" : "#94A3B8", marginBottom: "3px" }}>
-                  {p.tag}
-                </div>
-                <div>{p.title.split("&")[0]}</div>
-              </button>
-            ))}
-          </div>
-
-          {/* Active Tab Deep-Dive Display Card */}
-          <div className="ops-active-card glass-card" style={{
-            padding: "3rem",
-            display: "grid",
-            gridTemplateColumns: "1.2fr 0.8fr",
-            gap: "3rem",
-            alignItems: "center"
-          }}>
-            {/* Left: Description & Deliverables Checklist */}
-            <div>
-              <div style={{ display: "inline-block", background: "#EFF6FF", color: "#1D4ED8", border: "1px solid #BFDBFE", padding: "0.3rem 0.8rem", borderRadius: "999px", fontSize: "0.75rem", fontWeight: 800, marginBottom: "1rem" }}>
-                {pillars[activeTab].tag}
-              </div>
-              <h3 style={{ fontSize: "1.75rem", fontWeight: 900, color: "#0B1736", margin: "0 0 1rem", letterSpacing: "-0.5px" }}>
-                {pillars[activeTab].title}
-              </h3>
-              <p style={{ fontSize: "1rem", color: "#475569", lineHeight: 1.65, marginBottom: "1.75rem" }}>
-                {pillars[activeTab].desc}
-              </p>
-
-              <div style={{ fontSize: "0.82rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.5px", color: "#0F172A", marginBottom: "0.85rem" }}>
-                Key Operational Deliverables:
-              </div>
-
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                {pillars[activeTab].deliverables.map((item, dIdx) => (
-                  <div key={dIdx} style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem" }}>
-                    <div style={{ width: "20px", height: "20px", borderRadius: "50%", background: "#DCFCE7", color: "#15803D", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: "2px", fontSize: "0.7rem", fontWeight: 900 }}>
-                      ✓
-                    </div>
-                    <span style={{ fontSize: "0.92rem", color: "#334155", lineHeight: 1.5, fontWeight: 500 }}>
-                      {item}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right: Dedicated Metric & Interactive Preview Box */}
-            <div style={{
-              background: "#F8FAFC",
-              borderRadius: "18px",
-              padding: "2rem",
-              border: "1px solid #E2E8F0"
-            }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", borderBottom: "1.5px solid #E2E8F0", paddingBottom: "1.25rem", marginBottom: "1.5rem" }}>
-                <div>
-                  <div style={{ fontSize: "0.75rem", fontWeight: 800, color: "#64748B", textTransform: "uppercase" }}>
-                    Target Benchmark
-                  </div>
-                  <div style={{ fontSize: "2.4rem", fontWeight: 900, color: "#2563EB", lineHeight: 1.1, marginTop: "0.2rem" }}>
-                    {pillars[activeTab].metric}
-                  </div>
-                </div>
-                <div style={{ fontSize: "0.82rem", fontWeight: 700, color: "#0F172A", textAlign: "right", maxWidth: "160px" }}>
-                  {pillars[activeTab].metricLabel}
-                </div>
-              </div>
-
-              <div style={{ fontSize: "0.82rem", fontWeight: 800, color: "#0F172A", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "1rem" }}>
-                {pillars[activeTab].previewTitle}
-              </div>
-
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                {pillars[activeTab].previewItems.map((pi, piIdx) => (
-                  <div key={piIdx} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.6rem 0.8rem", background: "#FFFFFF", borderRadius: "8px", border: "1px solid #E2E8F0" }}>
-                    <span style={{ fontSize: "0.82rem", color: "#475569", fontWeight: 600 }}>{pi.label}</span>
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                      <span style={{ fontSize: "0.85rem", fontWeight: 800, color: "#0F172A" }}>{pi.value}</span>
-                      <span style={{ fontSize: "0.7rem", fontWeight: 800, color: "#16A34A", background: "#DCFCE7", padding: "2px 6px", borderRadius: "4px" }}>
-                        {pi.status}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div style={{ marginTop: "1.5rem", textAlign: "center" }}>
-                <Link
-                  href="/book-meeting"
+          {/* Module Selector (2 rows x 3 modules on desktop / 2-col on mobile) */}
+          <div className="ops-modules-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem", marginBottom: "2rem" }}>
+            {pillars.map((p, idx) => {
+              const isSelected = activeModule === idx;
+              return (
+                <button
+                  key={p.id}
+                  onClick={() => setActiveModule(idx)}
                   style={{
-                    display: "block",
-                    padding: "0.75rem",
-                    borderRadius: "10px",
-                    background: "#0F172A",
-                    color: "#FFFFFF",
-                    fontSize: "0.82rem",
-                    fontWeight: 800,
-                    textDecoration: "none",
-                    textAlign: "center"
+                    padding: "1.2rem 1.25rem",
+                    borderRadius: "16px",
+                    border: isSelected ? "1.5px solid #2563EB" : "1px solid #E2E8F0",
+                    background: isSelected ? "#EFF6FF" : "#FFFFFF",
+                    textAlign: "left",
+                    cursor: "pointer",
+                    boxShadow: isSelected ? "0 4px 14px rgba(37, 99, 235, 0.08)" : "0 2px 6px rgba(15, 23, 42, 0.02)",
+                    transition: "all 0.2s ease"
                   }}
                 >
-                  Request Detailed Audit for This Pillar →
-                </Link>
-              </div>
-            </div>
+                  <div style={{ fontSize: "0.72rem", fontWeight: 800, color: isSelected ? "#2563EB" : "#94A3B8", letterSpacing: "0.06em", marginBottom: "0.3rem" }}>
+                    {p.tag}
+                  </div>
+                  <div style={{ fontSize: "0.95rem", fontWeight: 700, color: isSelected ? "#1E40AF" : "#0F172A", lineHeight: 1.35 }}>
+                    {p.title.split("&")[0]}
+                  </div>
+                </button>
+              );
+            })}
           </div>
+
+          {/* Active Pillar Detail View */}
+          {(() => {
+            const cur = pillars[activeModule];
+            return (
+              <div
+                style={{
+                  background: "#FFFFFF",
+                  border: "1px solid #BFDBFE",
+                  borderRadius: "22px",
+                  padding: "2.5rem",
+                  boxShadow: "0 8px 30px rgba(37, 99, 235, 0.05)"
+                }}
+              >
+                <div className="ops-detail-split" style={{ display: "grid", gridTemplateColumns: "1.25fr 1fr", gap: "3rem", alignItems: "center" }}>
+                  
+                  {/* Left: Operational Deliverables */}
+                  <div>
+                    <div style={{ display: "inline-block", fontSize: "0.75rem", fontWeight: 800, color: "#2563EB", background: "#EFF6FF", padding: "0.25rem 0.65rem", borderRadius: "6px", marginBottom: "0.75rem" }}>
+                      {cur.tag} ACTIVE SYSTEM
+                    </div>
+                    <h3 style={{ fontSize: "1.6rem", fontWeight: 800, color: "#0F172A", margin: "0 0 0.75rem", letterSpacing: "-0.02em" }}>
+                      {cur.title}
+                    </h3>
+                    <p style={{ fontSize: "0.95rem", color: "#475569", lineHeight: 1.6, margin: "0 0 1.5rem" }}>
+                      {cur.desc}
+                    </p>
+
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                      {cur.deliverables.map((d, dIdx) => (
+                        <div key={dIdx} style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem" }}>
+                          <span style={{ color: "#16A34A", fontWeight: 800, fontSize: "0.95rem", marginTop: "1px" }}>✓</span>
+                          <span style={{ fontSize: "0.88rem", color: "#334155", lineHeight: 1.5, fontWeight: 500 }}>{d}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Right: Target Benchmark Scorecard */}
+                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "18px", padding: "1.75rem" }}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.25rem", borderBottom: "1px solid #E2E8F0", paddingBottom: "0.75rem" }}>
+                      <span style={{ fontSize: "0.85rem", fontWeight: 800, color: "#0F172A", textTransform: "uppercase", letterSpacing: "0.04em" }}>
+                        TARGET BENCHMARK SCORECARD
+                      </span>
+                      <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#16A34A", background: "#ECFDF3", padding: "0.2rem 0.5rem", borderRadius: "6px" }}>
+                        Active SLA
+                      </span>
+                    </div>
+
+                    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                      {cur.scorecard.map((sc, sIdx) => (
+                        <div key={sIdx} style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "12px", padding: "0.85rem 1.1rem" }}>
+                          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.3rem" }}>
+                            <span style={{ fontSize: "0.82rem", color: "#64748B", fontWeight: 600 }}>{sc.label}</span>
+                            <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#2563EB", background: "#EFF6FF", padding: "0.15rem 0.45rem", borderRadius: "4px" }}>
+                              {sc.status}
+                            </span>
+                          </div>
+                          <div style={{ fontSize: "1.25rem", fontWeight: 800, color: "#0F172A" }}>
+                            {sc.value}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            );
+          })()}
 
         </div>
       </section>
 
-      {/* ── 3. THE 24-HOUR OPERATING RHYTHM (CHRONOLOGICAL TIMELINE) ── */}
-      <section style={{ padding: "5.5rem 0", background: "linear-gradient(180deg, #F8FAFC 0%, #EFF6FF 100%)", borderBottom: "1px solid #E2E8F0" }}>
-        <div className="container" style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
+      {/* ── 5. 24-HOUR OPERATOR CADENCE TIMELINE ── */}
+      <section style={{ padding: "5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
+        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "750px", margin: "0 auto 3.5rem" }}>
-            <span style={{ display: "inline-block", fontSize: "0.75rem", fontWeight: 800, letterSpacing: "2px", color: "#2563EB", textTransform: "uppercase", marginBottom: "0.75rem" }}>
-              Flawless Daily Execution
+          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+            <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#2563EB", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
+              PRECISION OPERATIONAL RHYTHM
             </span>
-            <h2 style={{ fontSize: "clamp(1.9rem, 3.2vw, 2.6rem)", fontWeight: 900, color: "#0B1736", margin: "0 0 1rem", letterSpacing: "-0.8px" }}>
-              Our 24-Hour Operator Cadence
+            <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.5rem)", fontWeight: 800, color: "#0F172A", margin: "0 0 0.75rem", letterSpacing: "-0.02em" }}>
+              The 24-Hour Operator Cadence Schedule
             </h2>
-            <p style={{ fontSize: "1rem", color: "#64748B", lineHeight: 1.6 }}>
-              Marketplaces operate around the clock. Here is the exact chronologically scheduled workflow our account managers execute every single business day.
+            <p style={{ fontSize: "0.98rem", color: "#64748B", lineHeight: 1.6, margin: 0 }}>
+              Marketplaces never sleep. Here is how our operational cell monitors, synchronizes, and executes throughout a continuous 24-hour cycle.
             </p>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1.5rem" }}>
-            {cadenceSchedule.map((cs, idx) => (
-              <div
-                key={idx}
-                className="glass-card"
-                style={{
-                  padding: "1.8rem",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between"
-                }}
-              >
-                <div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.75rem" }}>
-                    <span style={{ fontSize: "1.1rem", fontWeight: 900, color: "#2563EB", fontFamily: "monospace" }}>
-                      {cs.time}
+          {/* Desktop Horizontal Timeline */}
+          <div className="timeline-desktop" style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "0.75rem" }}>
+              {cadenceSchedule.map((c, idx) => {
+                const isSelected = activeCadence === idx;
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveCadence(idx)}
+                    style={{
+                      padding: "1.2rem 1rem",
+                      borderRadius: "14px",
+                      border: isSelected ? "1.5px solid #2563EB" : "1px solid #E2E8F0",
+                      background: isSelected ? "#EFF6FF" : "#F8FAFC",
+                      cursor: "pointer",
+                      textAlign: "left",
+                      transition: "all 0.2s ease"
+                    }}
+                  >
+                    <div style={{ fontSize: "0.85rem", fontWeight: 800, color: isSelected ? "#2563EB" : "#0F172A", marginBottom: "0.3rem" }}>
+                      {c.time}
+                    </div>
+                    <div style={{ fontSize: "0.82rem", fontWeight: 700, color: "#334155", lineHeight: 1.3, marginBottom: "0.4rem" }}>
+                      {c.phase}
+                    </div>
+                    <span style={{ fontSize: "0.68rem", fontWeight: 700, color: isSelected ? "#1D4ED8" : "#64748B", background: isSelected ? "#DBEAFE" : "#E2E8F0", padding: "0.15rem 0.45rem", borderRadius: "4px" }}>
+                      {c.badge}
                     </span>
-                    <span style={{ fontSize: "0.7rem", fontWeight: 800, color: "#1D4ED8", background: "#EFF6FF", padding: "2px 7px", borderRadius: "6px" }}>
-                      {cs.badge}
-                    </span>
-                  </div>
+                  </button>
+                );
+              })}
+            </div>
 
-                  <h4 style={{ fontSize: "1.05rem", fontWeight: 800, color: "#0F172A", margin: "0 0 1rem" }}>
-                    {cs.phase}
-                  </h4>
+            {/* Active Cadence Deep Dive */}
+            <div style={{ background: "#F8FAFC", border: "1px solid #BFDBFE", borderRadius: "18px", padding: "2rem" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.75rem" }}>
+                <span style={{ fontSize: "1.15rem", fontWeight: 800, color: "#2563EB" }}>
+                  {cadenceSchedule[activeCadence].time}
+                </span>
+                <span style={{ fontSize: "1.15rem", fontWeight: 800, color: "#0F172A" }}>
+                  — {cadenceSchedule[activeCadence].phase}
+                </span>
+              </div>
+              <p style={{ fontSize: "0.95rem", color: "#475569", lineHeight: 1.6, margin: 0 }}>
+                {cadenceSchedule[activeCadence].desc}
+              </p>
+            </div>
+          </div>
 
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem" }}>
-                    {cs.tasks.map((task, tIdx) => (
-                      <div key={tIdx} style={{ fontSize: "0.82rem", color: "#475569", lineHeight: 1.5, display: "flex", alignItems: "flex-start", gap: "0.4rem" }}>
-                        <span style={{ color: "#2563EB", fontWeight: 800 }}>•</span>
-                        <span>{task}</span>
-                      </div>
-                    ))}
-                  </div>
+          {/* Mobile Vertical Timeline */}
+          <div className="timeline-mobile" style={{ display: "none", flexDirection: "column", gap: "1.25rem" }}>
+            {cadenceSchedule.map((c, idx) => (
+              <div key={idx} style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "16px", padding: "1.25rem" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.4rem" }}>
+                  <span style={{ fontSize: "0.92rem", fontWeight: 800, color: "#2563EB" }}>{c.time}</span>
+                  <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#2563EB", background: "#EFF6FF", padding: "0.15rem 0.45rem", borderRadius: "4px" }}>
+                    {c.badge}
+                  </span>
                 </div>
-
-                <div style={{ marginTop: "1.5rem", paddingTop: "0.85rem", borderTop: "1px solid #F1F5F9", fontSize: "0.75rem", color: "#16A34A", fontWeight: 700 }}>
-                  ✓ Standardized Protocol
+                <div style={{ fontSize: "1rem", fontWeight: 800, color: "#0F172A", marginBottom: "0.5rem" }}>
+                  {c.phase}
                 </div>
+                <p style={{ fontSize: "0.85rem", color: "#475569", lineHeight: 1.55, margin: 0 }}>
+                  {c.desc}
+                </p>
               </div>
             ))}
           </div>
@@ -774,44 +797,44 @@ export default function MarketplaceOperationsPage() {
         </div>
       </section>
 
-      {/* ── 4. PROBLEM VS GOODLIFE OPERATIONAL ARCHITECTURE ── */}
-      <section style={{ padding: "5.5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
-        <div className="container" style={{ maxWidth: "1150px", margin: "0 auto", padding: "0 1.5rem" }}>
+      {/* ── 6. OPERATIONAL COMPARISON (Light Enterprise Table) ── */}
+      <section style={{ padding: "5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+        <div style={{ maxWidth: "1150px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "720px", margin: "0 auto 3rem" }}>
-            <span style={{ display: "inline-block", fontSize: "0.75rem", fontWeight: 800, letterSpacing: "2px", color: "#2563EB", textTransform: "uppercase", marginBottom: "0.75rem" }}>
-              Operational Comparison
+          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+            <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#2563EB", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
+              OPERATIONAL DIFFERENTIATION
             </span>
-            <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.5rem)", fontWeight: 900, color: "#0B1736", margin: "0 0 1rem", letterSpacing: "-0.8px" }}>
-              Traditional In-House / Agency vs. Good Life Sutra
+            <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.5rem)", fontWeight: 800, color: "#0F172A", margin: "0 0 0.75rem", letterSpacing: "-0.02em" }}>
+              Legacy / Junior In-House Model vs. Good Life Operating Cell
             </h2>
-            <p style={{ fontSize: "0.95rem", color: "#64748B", lineHeight: 1.6 }}>
-              Why brands transition from junior portal executives to our dedicated institutional commerce operating cell.
+            <p style={{ fontSize: "0.98rem", color: "#64748B", lineHeight: 1.6, margin: 0 }}>
+              Why scaling brands replace junior portal executives with Good Life's institutional operations infrastructure.
             </p>
           </div>
 
           <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
-            <div style={{ background: "#F8FAFC", borderRadius: "20px", border: "1.5px solid #E2E8F0", overflow: "hidden", minWidth: "600px" }}>
+            <div style={{ background: "#FFFFFF", borderRadius: "20px", border: "1px solid #E2E8F0", overflow: "hidden", minWidth: "620px", boxShadow: "0 4px 20px rgba(15, 23, 42, 0.03)" }}>
               <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
                 <thead>
-                  <tr style={{ background: "#0B1736", color: "#FFFFFF", fontSize: "0.85rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                    <th style={{ padding: "1.2rem 1.5rem", width: "25%" }}>Operational Metric</th>
-                    <th style={{ padding: "1.2rem 1.5rem", width: "37.5%", color: "#FCA5A5" }}>Legacy / Junior In-House Model</th>
-                    <th style={{ padding: "1.2rem 1.5rem", width: "37.5%", color: "#86EFAC" }}>Good Life Dedicated Operating Cell</th>
+                  <tr style={{ background: "#F1F5F9", borderBottom: "1px solid #E2E8F0", fontSize: "0.82rem", fontWeight: 800, letterSpacing: "0.04em", textTransform: "uppercase" }}>
+                    <th style={{ padding: "1.1rem 1.5rem", width: "25%", color: "#0F172A" }}>Operational Parameter</th>
+                    <th style={{ padding: "1.1rem 1.5rem", width: "37.5%", color: "#DC2626" }}>Legacy / Junior In-House</th>
+                    <th style={{ padding: "1.1rem 1.5rem", width: "37.5%", color: "#16A34A" }}>Good Life Dedicated Cell</th>
                   </tr>
                 </thead>
                 <tbody>
                   {comparisonRows.map((cr, idx) => (
                     <tr key={idx} style={{ borderBottom: "1px solid #E2E8F0", background: idx % 2 === 0 ? "#FFFFFF" : "#F8FAFC" }}>
-                      <td style={{ padding: "1.1rem 1.5rem", fontWeight: 800, color: "#0F172A", fontSize: "0.88rem" }}>
+                      <td style={{ padding: "1.1rem 1.5rem", fontWeight: 700, color: "#0F172A", fontSize: "0.88rem" }}>
                         {cr.metric}
                       </td>
                       <td style={{ padding: "1.1rem 1.5rem", color: "#64748B", fontSize: "0.85rem", lineHeight: 1.5 }}>
-                        <span style={{ color: "#EF4444", fontWeight: 800, marginRight: "0.35rem" }}>✗</span>
+                        <span style={{ color: "#EF4444", fontWeight: 800, marginRight: "0.4rem" }}>✕</span>
                         {cr.traditional}
                       </td>
                       <td style={{ padding: "1.1rem 1.5rem", color: "#0F172A", fontSize: "0.85rem", lineHeight: 1.5, fontWeight: 600 }}>
-                        <span style={{ color: "#16A34A", fontWeight: 800, marginRight: "0.35rem" }}>✓</span>
+                        <span style={{ color: "#16A34A", fontWeight: 800, marginRight: "0.4rem" }}>✓</span>
                         {cr.goodlife}
                       </td>
                     </tr>
@@ -824,27 +847,28 @@ export default function MarketplaceOperationsPage() {
         </div>
       </section>
 
-      {/* ── 5. STRATEGIC EXECUTIVE AUDIT BANNER (Dark Navy Luxury Finish) ── */}
-      <section style={{ padding: "5.5rem 0", background: "#FFFFFF" }}>
-        <div className="container" style={{ maxWidth: "1150px", margin: "0 auto", padding: "0 1.5rem" }}>
+      {/* ── 7. LIGHT ENTERPRISE EXECUTIVE AUDIT BANNER ── */}
+      <section style={{ padding: "5rem 0", background: "#FFFFFF" }}>
+        <div style={{ maxWidth: "1150px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div className="ops-banner-box" style={{
-            background: "linear-gradient(135deg, #0B1736 0%, #0F2557 100%)",
-            borderRadius: "28px",
-            padding: "3.5rem 3rem",
-            color: "#FFFFFF",
-            boxShadow: "0 25px 60px rgba(11, 23, 54, 0.25)",
-            position: "relative",
-            overflow: "hidden"
-          }}>
-            <div style={{ maxWidth: "680px", position: "relative", zIndex: 2 }}>
-              <span style={{ display: "inline-block", fontSize: "0.8rem", fontWeight: 800, letterSpacing: "1.5px", color: "#60A5FA", textTransform: "uppercase", marginBottom: "0.75rem" }}>
-                Ready to Upgrade Your Daily Operations?
+          <div
+            className="cta-inner-box"
+            style={{
+              background: "linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 100%)",
+              border: "1.5px solid #BFDBFE",
+              borderRadius: "24px",
+              padding: "3.5rem 3rem",
+              boxShadow: "0 10px 30px rgba(37, 99, 235, 0.06)"
+            }}
+          >
+            <div style={{ maxWidth: "720px" }}>
+              <span style={{ display: "inline-block", fontSize: "0.78rem", fontWeight: 800, letterSpacing: "0.08em", color: "#2563EB", textTransform: "uppercase", marginBottom: "0.75rem" }}>
+                COMPLIMENTARY EXECUTIVE DIAGNOSTIC
               </span>
-              <h2 style={{ fontSize: "clamp(2rem, 3.5vw, 2.8rem)", fontWeight: 900, margin: "0 0 1rem", lineHeight: 1.2, letterSpacing: "-0.8px" }}>
+              <h2 style={{ fontSize: "clamp(1.9rem, 3.2vw, 2.7rem)", fontWeight: 800, color: "#0F172A", margin: "0 0 1rem", letterSpacing: "-0.02em", lineHeight: 1.2 }}>
                 Book an Executive Account Health &amp; Operations Audit
               </h2>
-              <p style={{ fontSize: "1.05rem", color: "#94A3B8", lineHeight: 1.65, marginBottom: "2rem" }}>
+              <p style={{ fontSize: "1.05rem", color: "#475569", lineHeight: 1.65, margin: "0 0 2rem" }}>
                 Let our senior operations leadership run a forensic review of your Amazon, Flipkart, and Blinkit accounts. We uncover hidden search suppressions, Buybox leaks, and logistics SLA bottlenecks within 48 hours under NDA.
               </p>
 
@@ -854,19 +878,21 @@ export default function MarketplaceOperationsPage() {
                   style={{
                     height: "50px",
                     padding: "0 1.8rem",
-                    borderRadius: "999px",
-                    background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
+                    borderRadius: "12px",
+                    background: "#2563EB",
                     color: "#FFFFFF",
-                    fontWeight: 800,
+                    fontWeight: 700,
                     fontSize: "0.95rem",
                     textDecoration: "none",
                     display: "inline-flex",
                     alignItems: "center",
-                    gap: "0.5rem",
-                    boxShadow: "0 8px 24px rgba(37, 99, 235, 0.35)"
+                    boxShadow: "0 4px 14px rgba(37, 99, 235, 0.25)",
+                    transition: "all 0.2s ease"
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "#1D4ED8")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "#2563EB")}
                 >
-                  <span>SCHEDULE 30-MIN STRATEGY SESSION →</span>
+                  SCHEDULE 30-MIN STRATEGY SESSION →
                 </Link>
 
                 <button
@@ -874,16 +900,19 @@ export default function MarketplaceOperationsPage() {
                   style={{
                     height: "50px",
                     padding: "0 1.6rem",
-                    borderRadius: "999px",
-                    background: "rgba(255, 255, 255, 0.1)",
-                    border: "1px solid rgba(255, 255, 255, 0.25)",
-                    color: "#FFFFFF",
+                    borderRadius: "12px",
+                    background: "#FFFFFF",
+                    border: "1px solid #BFDBFE",
+                    color: "#2563EB",
                     fontWeight: 700,
-                    fontSize: "0.92rem",
-                    cursor: "pointer"
+                    fontSize: "0.95rem",
+                    cursor: "pointer",
+                    transition: "all 0.2s ease"
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "#EFF6FF")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "#FFFFFF")}
                 >
-                  Run 3-Min Diagnostic Evaluation
+                  Request Diagnostic
                 </button>
               </div>
             </div>
@@ -892,8 +921,12 @@ export default function MarketplaceOperationsPage() {
         </div>
       </section>
 
-      <Footer />
-      {diagOpen && <CommerceDiagnosticModal onClose={() => setDiagOpen(false)} />}
+      <Footer hideTopBanner={true} />
+
+      <CommerceDiagnosticModal
+        isOpen={diagOpen}
+        onClose={() => setDiagOpen(false)}
+      />
     </div>
   );
 }

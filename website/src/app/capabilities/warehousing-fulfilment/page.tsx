@@ -8,793 +8,637 @@ import CommerceDiagnosticModal from "../../components/CommerceDiagnosticModal";
 
 export default function WarehousingFulfilmentPage() {
   const [diagOpen, setDiagOpen] = useState(false);
-  const [activeHub, setActiveHub] = useState<number>(0);
+  const [activeRegion, setActiveRegion] = useState<number>(0);
   const [activeLayer, setActiveLayer] = useState<number>(0);
 
   const regionalHubs = [
     {
-      id: "bhiwandi",
-      name: "Bhiwandi Super-Hub (Mumbai / West)",
-      badge: "WEST GATEWAY",
-      sqft: "185,000 Sq. Ft.",
-      docks: "14 Automated Dock Doors",
-      throughput: "28,000 Parcels / Day",
-      carriers: "Amazon ATS, Flipkart Ekart, Delhivery, Blue Dart",
-      storageType: "Heavy Pallet Racking + VNA (Very Narrow Aisle)",
-      highlight: "Direct NH-48 port connectivity allowing 4-hour container offloading and same-day marketplace cross-docking."
-    },
-    {
-      id: "delhi-ncr",
-      name: "Sonipat Mega-FC (Delhi-NCR / North)",
+      region: "North",
+      name: "Sonipat Mega-FC (Delhi-NCR)",
       badge: "NORTH CORRIDOR",
       sqft: "160,000 Sq. Ft.",
       docks: "12 Inbound / Outbound Docks",
       throughput: "32,000 Parcels / Day",
-      carriers: "Amazon Easy Ship, Smart Fulfilment, Shadowfax, Xpressbees",
+      palletCapacity: "18,000 Pallets",
+      carriers: "Amazon Seller Flex, Flipkart Smart, Delhivery, Blue Dart, Gati",
       storageType: "Multi-Tier Mezzanine + Heavy Bulk Staging",
-      highlight: "Positioned directly inside the KMP Expressway cluster, ensuring sub-12hr dispatch across Delhi, Haryana, Punjab, and West UP."
+      highlight: "Positioned on the KMP Expressway cluster, ensuring sub-12hr dispatch across Delhi, Haryana, Punjab, and West UP."
     },
     {
-      id: "bangalore",
-      name: "Hoskote Tech-Hub (Bangalore / South)",
+      region: "West",
+      name: "Bhiwandi Super-Hub (Mumbai)",
+      badge: "WEST GATEWAY",
+      sqft: "185,000 Sq. Ft.",
+      docks: "14 Automated Dock Doors",
+      throughput: "28,000 Parcels / Day",
+      palletCapacity: "22,500 Pallets",
+      carriers: "Amazon ATS, Flipkart Ekart, Delhivery, Blue Dart, Gati",
+      storageType: "Heavy Pallet Racking + VNA (Very Narrow Aisle)",
+      highlight: "Direct NH-48 port connectivity allowing 4-hour container offloading and same-day marketplace cross-docking."
+    },
+    {
+      region: "South",
+      name: "Hoskote Tech-Hub (Bangalore)",
       badge: "SOUTH TECH CORE",
       sqft: "120,000 Sq. Ft.",
       docks: "10 Fast-Track Dock Bays",
       throughput: "22,000 Parcels / Day",
-      carriers: "Ekart, Amazon Logistics, Delhivery Prime, DTDC",
+      palletCapacity: "14,000 Pallets",
+      carriers: "Ekart, Amazon Logistics, Delhivery Prime, Blue Dart",
       storageType: "Climate-Assisted Electronics & Appliance Racks",
-      highlight: "Dedicated high-velocity packing lanes for consumer electronics, home decor, and appliances with ESD-safe workstations."
+      highlight: "Dedicated high-velocity packing lanes for consumer electronics, home decor, and appliances with ESD-safe stations."
     },
     {
-      id: "kolkata",
-      name: "Dankuni Logistics Node (Kolkata / East)",
+      region: "East",
+      name: "Dankuni Logistics Node (Kolkata)",
       badge: "EAST CORRIDOR",
       sqft: "95,000 Sq. Ft.",
       docks: "8 Multi-Modal Docks",
       throughput: "14,500 Parcels / Day",
-      carriers: "Delhivery Surface, Blue Dart Air, Ekart East Hub",
+      palletCapacity: "10,500 Pallets",
+      carriers: "Delhivery Surface, Blue Dart Air, Ekart East Hub, Gati",
       storageType: "Heavy Corrugated & Palletized Storage",
-      highlight: "Crucial eastern nexus connecting West Bengal, Odisha, Bihar, and Northeast feeder lines with zero regional choke-points."
-    },
-    {
-      id: "hyderabad",
-      name: "Shamshabad Air-Dock (Hyderabad / Deccan)",
-      badge: "DECCAN JUNCTION",
-      sqft: "85,000 Sq. Ft.",
-      docks: "6 Rapid Air-Cargo Docks",
-      throughput: "12,000 Parcels / Day",
-      carriers: "Blue Dart Aviation, Amazon Logistics, Delhivery",
-      storageType: "High-Density Selective Racking",
-      highlight: "Sub-20 minutes from RGIA air cargo terminal, guaranteeing next-morning delivery across South-Central India."
+      highlight: "Eastern nexus connecting West Bengal, Odisha, Bihar, and Northeast feeder lines with zero regional choke-points."
     }
   ];
 
-  const packagingLayers = [
+  const packagingAnatomy = [
     {
-      layer: "01",
-      name: "Heavy-Duty 5-Ply / 7-Ply Corrugated Outer Shell",
-      tag: "CRUSH RESISTANCE",
-      desc: "Engineered with 250+ GSM virgin kraft paper designed to withstand up to 45 kg of vertical stacking weight inside courier linehaul trucks without wall deformation.",
-      metric: "45 kg",
-      metricLabel: "Compression Stacking Tolerance"
+      id: "carton",
+      name: "5-Layer / 7-Layer Corrugated Master Carton",
+      spec: "250+ GSM Virgin Kraft Liner",
+      tolerance: "45 kg Vertical Compression",
+      desc: "Engineered with heavy-grade fluting to absorb multi-tier stacking inside long-haul freight trucks without sidewall buckling."
     },
     {
-      layer: "02",
-      name: "Custom-Molded EPS / High-Density EPE Foam",
-      tag: "KINETIC SHOCK DISSIPATION",
-      desc: "Precision CNC-cut foam inserts contoured exactly to the product chassis, preventing internal shifting and absorbing sudden drops from conveyor belts.",
-      metric: "ISTA-1A",
-      metricLabel: "Drop-Test Certified (1.2m Height)"
+      id: "foam",
+      name: "Custom CNC-Cut EPE Corner Foam Protectors",
+      spec: "High-Density Contoured Inserts",
+      tolerance: "ISTA-3A Drop-Test Certified",
+      desc: "Shock-absorbing polyethylene cushions molded tightly to the product frame, eliminating internal transit shifting."
     },
     {
-      layer: "03",
-      name: "Multi-Axis Rigid Corner & Edge Protectors",
-      tag: "IMPACT CORNER GUARDS",
-      desc: "Laminated compressed paperboard angle boards along all 8 corners and 12 edges, neutralizing 90% of corner crush incidents during courier rough handling.",
-      metric: "99.8%",
-      metricLabel: "Corner Impact Protection Rate"
-    },
-    {
-      layer: "04",
-      name: "Anti-Static & Moisture-Barrier Poly Sealing",
-      tag: "WEATHER & ESD SHIELD",
-      desc: "Hermetically heat-sealed 80-micron LDPE film shielding sensitive electrical circuits, metal finishes, and fabrics from monsoon humidity and dust ingress.",
-      metric: "IP-54",
-      metricLabel: "Moisture & Dust Barrier"
-    },
-    {
-      layer: "05",
-      name: "Cross-Woven Filament Strapping & Tamper Tape",
-      tag: "PILFERAGE & BURST LOCK",
-      desc: "Fiberglass reinforced strapping tape paired with serialized barcode void tape, preventing mid-transit tampering and opportunistic courier pilferage.",
-      metric: "0.01%",
-      metricLabel: "Transit Pilferage Incidence"
+      id: "strapping",
+      name: "Cross-Woven Filament Strapping & Tamper Void Tape",
+      spec: "Fiberglass Reinforced + Serialized Barcode",
+      tolerance: "Anti-Pilferage Locked",
+      desc: "High-tensile cross-weave strapping preventing burst damage, paired with tamper-evident tape that reveals open attempts."
     }
   ];
 
-  const warehouseStages = [
+  const conveyorStages = [
     {
       step: "01",
-      title: "Inbound Verification & Weight Capture",
-      desc: "Digital dock check-in with volumetric 3D scanners capturing weight, dimensions, and lot numbers into ERP within 120 minutes of unloading."
+      title: "Inwarding & Barcode Tagging",
+      desc: "Dock check-in with 3D volumetric cubing scales capturing weight, dimensions, and lot numbers into WMS within 120 minutes."
     },
     {
       step: "02",
-      title: "Barcode Binning & Dynamic Slotting",
-      desc: "High-velocity hero SKUs placed in front ergonomic picking zones; every bin scanned via handheld barcode terminals for 100% location accuracy."
+      title: "Climate-Controlled Storage",
+      desc: "Temperature-regulated zone allocation preventing cosmetic degradation, moisture ingress, or battery depreciation."
     },
     {
       step: "03",
-      title: "Wave & Batch Picking",
-      desc: "Automated route optimization directing warehouse pickers through the shortest physical path, cutting pick times down to 42 seconds per order."
+      title: "Batch Wave Picking",
+      desc: "Algorithmic pick-path sequencing guiding operators along the shortest physical warehouse route to beat hourly cutoffs."
     },
     {
       step: "04",
-      title: "Dual-Weight Verification & Pack",
-      desc: "Scales embedded in packing tables match measured parcel weight against expected SKU weight, catching missing accessories before the box is taped."
+      title: "Drop-Tested Packing",
+      desc: "Dual-scale check-weighting packing stations with barcode-verified accessory inclusion and drop-test packaging."
     },
     {
       step: "05",
-      title: "Carrier Staging & Signed Manifest",
-      desc: "Sorted by carrier (Amazon Easy Ship, Ekart, Delhivery) in dedicated loading lanes with signed digital manifests handed over before 2:00 PM cutoff."
+      title: "Carrier Manifest Handoff",
+      desc: "Dedicated dock staging lanes for Amazon Easy Ship, Ekart, and Delhivery with signed digital manifests by 2:00 PM."
     }
   ];
 
-  const comparisonData = [
-    {
-      factor: "Order-to-Carrier Dispatch SLA",
-      traditional: "24 to 48 hours; orders sit unpicked while daily carrier cutoff times are missed.",
-      goodlife: "Sub-4 hours guaranteed; orders ingested before 12 PM are handed over to couriers the same day."
-    },
-    {
-      factor: "Fragile & Bulky Handling",
-      traditional: "Standard generic cardboard boxes; 15-20% transit breakage on mirrors, furniture, and appliances.",
-      goodlife: "Drop-tested 5-layer packaging engineering with custom molded EPS inserts reducing damage to 0.18%."
-    },
-    {
-      factor: "Barcode & Inventory Accuracy",
-      traditional: "Manual paper checklists prone to human error, phantom stock cancellations, and warehouse shrinkage.",
-      goodlife: "100% handheld wireless barcode scanning at binning, picking, and packing with 99.8% accuracy."
-    },
-    {
-      factor: "Regional Node Coverage",
-      traditional: "Single warehouse location resulting in 4-6 day delivery times and losing Prime badges in other zones.",
-      goodlife: "12-state Grade-A warehouse network placing stock within 24hr delivery radius of 95% of online shoppers."
-    },
-    {
-      factor: "Weight Dispute Defense",
-      traditional: "No proof against carrier overcharging; brands lose 5-10% of revenue to courier dead-weight surcharges.",
-      goodlife: "Automated in-line digital scales photograph and record parcel dimensions and weight at the packing station."
-    }
+  const carrierCutoffs = [
+    { carrier: "Amazon Easy Ship / ATS", cutoff: "11:30 AM & 03:30 PM", sla: "Same-Day Dispatch", badge: "Direct Hand-off" },
+    { carrier: "Flipkart Smart / Ekart", cutoff: "01:00 PM & 05:00 PM", sla: "Sub-4hr Processing", badge: "Assured Lane" },
+    { carrier: "Delhivery Surface & Express", cutoff: "02:30 PM & 06:30 PM", sla: "Linehaul Manifest", badge: "Pan-India Linehaul" },
+    { carrier: "Quick Commerce (Blinkit / Zepto)", cutoff: "Hourly Continuous Flow", sla: "Sub-45m Dispatch", badge: "Dark Store Sync" }
   ];
 
   return (
-    <div style={{ background: "#F8FAFC", color: "#0F172A", minHeight: "100vh" }}>
+    <div style={{ background: "#FFFFFF", color: "#0F172A", minHeight: "100vh", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
       <style>{`
-        @keyframes floatSlow {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-8px); }
+        .light-panel {
+          background: #FFFFFF;
+          border: 1px solid #E2E8F0;
+          border-radius: 20px;
+          box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
         }
-        .amber-glass-card {
-          background: rgba(255, 255, 255, 0.88);
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-          border: 1px solid rgba(255, 255, 255, 0.95);
-          box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02);
-          border-radius: 22px;
-          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .amber-glass-card:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 20px 45px rgba(217, 119, 6, 0.12), 0 2px 6px rgba(15, 23, 42, 0.04);
-          border-color: rgba(217, 119, 6, 0.35);
+        .light-panel:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 12px 30px rgba(217, 119, 6, 0.08);
+          border-color: #FDE68A;
         }
         @media (max-width: 991px) {
-          .wh-hero-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
-          .wh-stats-grid { grid-template-columns: 1fr 1fr !important; }
-          .wh-hub-detail { grid-template-columns: 1fr !important; }
-          .wh-pack-detail { grid-template-columns: 1fr !important; }
-          .wh-stages-grid { grid-template-columns: 1fr !important; }
+          .wh-hero-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
+          .hubs-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .conveyor-desktop { display: none !important; }
+          .conveyor-mobile { display: flex !important; }
         }
         @media (max-width: 640px) {
-          .wh-stats-grid { grid-template-columns: 1fr !important; }
-          .wh-pill-grid { grid-template-columns: 1fr !important; }
-          .wh-banner-box { padding: 2rem 1.5rem !important; }
+          .hubs-grid { grid-template-columns: 1fr !important; }
+          .cta-inner-box { padding: 2rem 1.5rem !important; }
         }
       `}</style>
-
+      
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
-      {/* ── 1. SIGNATURE LIGHT ICE-BLUE HERO ── */}
+      {/* ── 1. LIGHT BESPOKE HERO ── */}
       <section style={{
-        position: "relative",
         paddingTop: "9rem",
-        paddingBottom: "5rem",
-        background: "linear-gradient(180deg, #E0F2FE 0%, #E8F4FE 20%, #F0F7FF 45%, #FAFCFE 70%, #FFFFFF 92%, #FFFFFF 100%)",
-        overflow: "hidden"
+        paddingBottom: "5.5rem",
+        background: "linear-gradient(180deg, #FFFBEB 0%, #FFFFFF 100%)",
+        borderBottom: "1px solid #E2E8F0"
       }}>
-        {/* Soft Ambient Aurora Orbs */}
-        <div style={{
-          position: "absolute",
-          top: "-10%",
-          left: "-5%",
-          width: "600px",
-          height: "600px",
-          background: "radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, transparent 70%)",
-          filter: "blur(120px)",
-          pointerEvents: "none"
-        }} />
-        <div style={{
-          position: "absolute",
-          top: "10%",
-          right: "-5%",
-          width: "550px",
-          height: "550px",
-          background: "radial-gradient(circle, rgba(147, 197, 253, 0.35) 0%, transparent 70%)",
-          filter: "blur(120px)",
-          pointerEvents: "none"
-        }} />
-
-        <div className="container" style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem", position: "relative", zIndex: 2 }}>
+        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          {/* Breadcrumb Navigation */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.85rem", color: "#64748B", marginBottom: "1.5rem" }}>
-            <Link href="/" style={{ color: "#D97706", textDecoration: "none", fontWeight: 600 }}>Home</Link>
-            <span>/</span>
-            <span style={{ color: "#64748B" }}>Capabilities</span>
-            <span>/</span>
-            <span style={{ color: "#0F172A", fontWeight: 700 }}>Warehousing &amp; Fulfilment</span>
-          </div>
-
-          <div className="wh-hero-grid" style={{ display: "grid", gridTemplateColumns: "1.15fr 0.85fr", gap: "3.5rem", alignItems: "center" }}>
+          <div className="wh-hero-grid" style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: "3.5rem", alignItems: "center" }}>
             
-            {/* Left: Mission Statement & Positioning */}
+            {/* Left: Messaging */}
             <div>
-              <div style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                padding: "0.45rem 1.1rem",
-                borderRadius: "999px",
-                background: "linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%)",
-                border: "1.5px solid #FDE68A",
-                color: "#D97706",
-                fontSize: "0.8rem",
-                fontWeight: 800,
-                letterSpacing: "0.5px",
-                textTransform: "uppercase",
-                marginBottom: "1.5rem",
-                boxShadow: "0 4px 16px rgba(217, 119, 6, 0.08)"
-              }}>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.35rem 0.85rem", background: "#FEF3C7", border: "1px solid #FDE68A", borderRadius: "999px", marginBottom: "1.25rem" }}>
                 <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#D97706" }} />
-                CAPABILITY 04 • INFRASTRUCTURE &amp; 3PL EXCELLENCE
+                <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#92400E", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+                  CAPABILITY 04 // REGIONAL FULFILMENT INFRASTRUCTURE
+                </span>
               </div>
 
               <h1 style={{
-                fontSize: "clamp(2.4rem, 4.2vw, 3.8rem)",
-                fontWeight: 900,
-                lineHeight: 1.15,
-                color: "#0B1736",
-                letterSpacing: "-1.5px",
-                margin: "0 0 1.5rem"
+                fontSize: "clamp(2.3rem, 4.5vw, 3.8rem)",
+                fontWeight: 800,
+                color: "#0F172A",
+                lineHeight: 1.05,
+                letterSpacing: "-0.03em",
+                margin: "0 0 1.25rem"
               }}>
-                Warehousing &amp; Fulfilment: <br />
-                <span style={{ background: "linear-gradient(135deg, #D97706 0%, #1D4ED8 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                  12 Regional Hubs &amp; Sub-4hr Dock Dispatch
-                </span>
+                Institutional Warehousing Built for Zero-Defect Marketplace SLAs
               </h1>
 
               <p style={{
-                fontSize: "clamp(1.05rem, 1.6vw, 1.2rem)",
+                fontSize: "clamp(1rem, 1.8vw, 1.15rem)",
                 color: "#475569",
-                lineHeight: 1.7,
-                marginBottom: "2.2rem",
-                fontWeight: 500
+                lineHeight: 1.65,
+                margin: "0 0 2rem",
+                maxWidth: "580px"
               }}>
-                Standard 3PLs miss carrier cutoffs and destroy bulky inventory in transit. Good Life operates institutional Grade-A warehouse facilities across 12 strategic states with barcode-guided picking, custom drop-tested packaging, and guaranteed sub-4 hour order-to-carrier handoff.
+                Over 645,000 sq. ft. of enterprise-grade Grade-A fulfillment centers across North, West, South, and East India. Integrated with Amazon Seller Flex, Flipkart Smart, and leading logistics networks.
               </p>
 
-              {/* Action Buttons */}
+              <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+                <button
+                  onClick={() => setDiagOpen(true)}
+                  style={{
+                    height: "50px",
+                    padding: "0 1.8rem",
+                    borderRadius: "12px",
+                    background: "#2563EB",
+                    color: "#FFFFFF",
+                    fontWeight: 700,
+                    fontSize: "0.95rem",
+                    border: "none",
+                    cursor: "pointer",
+                    boxShadow: "0 4px 14px rgba(37, 99, 235, 0.25)",
+                    transition: "all 0.2s ease"
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "#1D4ED8")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "#2563EB")}
+                >
+                  REQUEST DIAGNOSTIC →
+                </button>
+
+                <Link
+                  href="/book-meeting"
+                  style={{
+                    height: "50px",
+                    padding: "0 1.6rem",
+                    borderRadius: "12px",
+                    background: "#FFFFFF",
+                    border: "1px solid #BFDBFE",
+                    color: "#2563EB",
+                    fontWeight: 700,
+                    fontSize: "0.95rem",
+                    textDecoration: "none",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    transition: "all 0.2s ease"
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "#EFF6FF";
+                    e.currentTarget.style.borderColor = "#2563EB";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "#FFFFFF";
+                    e.currentTarget.style.borderColor = "#BFDBFE";
+                  }}
+                >
+                  Schedule Strategy Session
+                </Link>
+              </div>
+            </div>
+
+            {/* Right: Live Warehouse Dock Terminal (White Dashboard) */}
+            <div style={{
+              background: "#FFFFFF",
+              border: "1.5px solid #FDE68A",
+              borderRadius: "24px",
+              boxShadow: "0 12px 35px rgba(217, 119, 6, 0.05), 0 2px 6px rgba(15, 23, 42, 0.03)",
+              overflow: "hidden"
+            }}>
+              <div style={{
+                padding: "1rem 1.5rem",
+                background: "#FFFBEB",
+                borderBottom: "1px solid #FEF3C7",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between"
+              }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#D97706" }} />
+                  <span style={{ fontSize: "0.8rem", fontWeight: 800, color: "#92400E", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+                    LIVE WAREHOUSE DOCK TERMINAL
+                  </span>
+                </div>
+                <div style={{ fontSize: "0.72rem", color: "#D97706", fontWeight: 700, background: "#FEF3C7", padding: "0.2rem 0.5rem", borderRadius: "4px" }}>
+                  14 DOCKS OPERATIONAL
+                </div>
+              </div>
+
+              <div style={{ padding: "1.75rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+                
+                {/* Metric 1 */}
+                <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "1.1rem 1.25rem" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.3rem" }}>
+                    <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#64748B" }}>Same-Day Dispatch Rate</span>
+                    <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#16A34A", background: "#ECFDF3", padding: "0.15rem 0.45rem", borderRadius: "4px" }}>
+                      Target &gt;99.0%
+                    </span>
+                  </div>
+                  <div style={{ fontSize: "2rem", fontWeight: 800, color: "#0F172A", letterSpacing: "-0.02em", marginBottom: "0.4rem" }}>
+                    99.4%
+                  </div>
+                  <div style={{ width: "100%", height: "6px", background: "#E2E8F0", borderRadius: "999px", overflow: "hidden" }}>
+                    <div style={{ width: "99.4%", height: "100%", background: "linear-gradient(90deg, #D97706 0%, #16A34A 100%)" }} />
+                  </div>
+                </div>
+
+                {/* Metric 2 & 3 */}
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "1rem 1.2rem" }}>
+                    <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#64748B", marginBottom: "0.2rem" }}>Active Regional Nodes</div>
+                    <div style={{ fontSize: "1.6rem", fontWeight: 800, color: "#0F172A" }}>12 FCs</div>
+                    <div style={{ fontSize: "0.72rem", color: "#D97706", fontWeight: 700 }}>645,000+ sq. ft.</div>
+                  </div>
+                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "1rem 1.2rem" }}>
+                    <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#64748B", marginBottom: "0.2rem" }}>Transit Breakage Rate</div>
+                    <div style={{ fontSize: "1.6rem", fontWeight: 800, color: "#16A34A" }}>0.38%</div>
+                    <div style={{ fontSize: "0.72rem", color: "#64748B", fontWeight: 600 }}>Bench &gt;2.5%</div>
+                  </div>
+                </div>
+
+                {/* Inwarding Latency */}
+                <div style={{ background: "#FFFBEB", border: "1px solid #FDE68A", borderRadius: "12px", padding: "0.85rem 1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <span style={{ color: "#D97706", fontWeight: 800 }}>⚡</span>
+                    <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#92400E" }}>Dock-to-Stock Latency</span>
+                  </div>
+                  <span style={{ fontSize: "0.82rem", fontWeight: 800, color: "#D97706" }}>&lt;4 HOURS</span>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── 2. 12-NODE REGIONAL NETWORK EXPLORER ── */}
+      <section style={{ padding: "5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
+          
+          <div style={{ textAlign: "center", maxWidth: "720px", margin: "0 auto 3rem" }}>
+            <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#D97706", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
+              PAN-INDIA SUPER-HUB DIRECTORY
+            </span>
+            <h2 style={{ fontSize: "clamp(1.9rem, 3.2vw, 2.6rem)", fontWeight: 800, color: "#0F172A", margin: "0 0 0.75rem", letterSpacing: "-0.02em" }}>
+              12 Managed Regional Fulfillment Nodes
+            </h2>
+            <p style={{ fontSize: "1rem", color: "#64748B", lineHeight: 1.6, margin: 0 }}>
+              Select a strategic hub below to inspect dock capacities, throughput velocity, and integrated carrier partner networks.
+            </p>
+          </div>
+
+          <div className="hubs-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem", marginBottom: "2rem" }}>
+            {regionalHubs.map((h, idx) => {
+              const isSelected = activeRegion === idx;
+              return (
+                <button
+                  key={idx}
+                  onClick={() => setActiveRegion(idx)}
+                  style={{
+                    padding: "1.5rem",
+                    borderRadius: "18px",
+                    border: isSelected ? "1.5px solid #D97706" : "1px solid #E2E8F0",
+                    background: isSelected ? "#FFFBEB" : "#FFFFFF",
+                    textAlign: "left",
+                    cursor: "pointer",
+                    boxShadow: isSelected ? "0 4px 14px rgba(217, 119, 6, 0.08)" : "0 2px 6px rgba(15, 23, 42, 0.02)",
+                    transition: "all 0.2s ease"
+                  }}
+                >
+                  <div style={{ fontSize: "0.72rem", fontWeight: 800, color: isSelected ? "#D97706" : "#94A3B8", marginBottom: "0.35rem" }}>
+                    {h.badge}
+                  </div>
+                  <div style={{ fontSize: "1.05rem", fontWeight: 800, color: isSelected ? "#92400E" : "#0F172A", marginBottom: "0.5rem" }}>
+                    {h.region} Facility
+                  </div>
+                  <div style={{ fontSize: "0.82rem", color: "#64748B", lineHeight: 1.4 }}>
+                    {h.sqft} • {h.docks}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Active Facility Detail Panel */}
+          {(() => {
+            const cur = regionalHubs[activeRegion];
+            return (
+              <div style={{ background: "#FFFFFF", border: "1px solid #FDE68A", borderRadius: "22px", padding: "2.5rem", boxShadow: "0 8px 30px rgba(217, 119, 6, 0.04)" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.25rem", flexWrap: "wrap", gap: "1rem" }}>
+                  <div>
+                    <span style={{ fontSize: "0.75rem", fontWeight: 800, color: "#D97706", background: "#FEF3C7", padding: "0.25rem 0.65rem", borderRadius: "6px" }}>
+                      {cur.badge}
+                    </span>
+                    <h3 style={{ fontSize: "1.6rem", fontWeight: 800, color: "#0F172A", margin: "0.75rem 0 0.35rem" }}>
+                      {cur.name}
+                    </h3>
+                    <p style={{ fontSize: "0.95rem", color: "#475569", margin: 0, maxWidth: "700px" }}>
+                      {cur.highlight}
+                    </p>
+                  </div>
+                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "12px", padding: "0.75rem 1.25rem", textAlign: "right" }}>
+                    <div style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 600 }}>Daily Throughput</div>
+                    <div style={{ fontSize: "1.4rem", fontWeight: 800, color: "#0F172A" }}>{cur.throughput}</div>
+                  </div>
+                </div>
+
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem", borderTop: "1px solid #E2E8F0", paddingTop: "1.5rem" }}>
+                  <div style={{ background: "#F8FAFC", padding: "1rem", borderRadius: "12px" }}>
+                    <div style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 600, marginBottom: "0.25rem" }}>Integrated Carriers</div>
+                    <div style={{ fontSize: "0.88rem", fontWeight: 700, color: "#0F172A" }}>{cur.carriers}</div>
+                  </div>
+                  <div style={{ background: "#F8FAFC", padding: "1rem", borderRadius: "12px" }}>
+                    <div style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 600, marginBottom: "0.25rem" }}>Storage Infrastructure</div>
+                    <div style={{ fontSize: "0.88rem", fontWeight: 700, color: "#0F172A" }}>{cur.storageType}</div>
+                  </div>
+                  <div style={{ background: "#F8FAFC", padding: "1rem", borderRadius: "12px" }}>
+                    <div style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 600, marginBottom: "0.25rem" }}>Pallet Capacity</div>
+                    <div style={{ fontSize: "0.88rem", fontWeight: 700, color: "#0F172A" }}>{cur.palletCapacity}</div>
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
+
+        </div>
+      </section>
+
+      {/* ── 3. HEAVY & BULKY PACKAGING ANATOMY ── */}
+      <section style={{ padding: "5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
+        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
+          
+          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+            <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#2563EB", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
+              ZERO-DAMAGE TRANSIT ENGINEERING
+            </span>
+            <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.5rem)", fontWeight: 800, color: "#0F172A", margin: "0 0 0.75rem", letterSpacing: "-0.02em" }}>
+              Heavy &amp; Bulky Drop-Test Packaging Anatomy
+            </h2>
+            <p style={{ fontSize: "0.98rem", color: "#64748B", lineHeight: 1.6, margin: 0 }}>
+              How Good Life achieves a 0.38% transit breakage rate on large appliances, mirrors, and bulky furniture.
+            </p>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
+            {packagingAnatomy.map((pa, idx) => (
+              <div key={idx} className="light-panel" style={{ padding: "2rem 1.75rem" }}>
+                <div style={{ fontSize: "0.72rem", fontWeight: 800, color: "#D97706", background: "#FEF3C7", padding: "0.2rem 0.6rem", borderRadius: "6px", display: "inline-block", marginBottom: "0.85rem" }}>
+                  LAYER 0{idx + 1} SPECIFICATION
+                </div>
+                <h4 style={{ fontSize: "1.2rem", fontWeight: 800, color: "#0F172A", margin: "0 0 0.5rem", lineHeight: 1.3 }}>
+                  {pa.name}
+                </h4>
+                <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#D97706", marginBottom: "0.3rem" }}>
+                  {pa.spec}
+                </div>
+                <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#16A34A", background: "#ECFDF3", padding: "0.2rem 0.5rem", borderRadius: "4px", display: "inline-block", marginBottom: "1rem" }}>
+                  ✓ {pa.tolerance}
+                </div>
+                <p style={{ fontSize: "0.85rem", color: "#64748B", lineHeight: 1.55, margin: 0 }}>
+                  {pa.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── 4. 5-STAGE WAREHOUSE CONVEYOR FLOW ── */}
+      <section style={{ padding: "5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
+          
+          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+            <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#D97706", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
+              DOCK-TO-CARRIER EXECUTION
+            </span>
+            <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.5rem)", fontWeight: 800, color: "#0F172A", margin: "0 0 0.75rem", letterSpacing: "-0.02em" }}>
+              The 5-Stage Warehouse Conveyor Pipeline
+            </h2>
+            <p style={{ fontSize: "0.98rem", color: "#64748B", lineHeight: 1.6, margin: 0 }}>
+              From initial container unlading to sealed manifest hand-off, each step is monitored by barcoded WMS checkpoints.
+            </p>
+          </div>
+
+          {/* Desktop Horizontal */}
+          <div className="conveyor-desktop" style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "1rem" }}>
+            {conveyorStages.map((cs, idx) => (
+              <div key={idx} style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "16px", padding: "1.5rem 1.25rem", boxShadow: "0 2px 6px rgba(15, 23, 42, 0.02)" }}>
+                <div style={{ width: "32px", height: "32px", borderRadius: "8px", background: "#FEF3C7", color: "#D97706", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: "0.95rem", marginBottom: "1rem" }}>
+                  {cs.step}
+                </div>
+                <h4 style={{ fontSize: "0.98rem", fontWeight: 800, color: "#0F172A", margin: "0 0 0.5rem", lineHeight: 1.35 }}>
+                  {cs.title}
+                </h4>
+                <p style={{ fontSize: "0.8rem", color: "#64748B", lineHeight: 1.5, margin: 0 }}>
+                  {cs.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile Vertical */}
+          <div className="conveyor-mobile" style={{ display: "none", flexDirection: "column", gap: "1rem" }}>
+            {conveyorStages.map((cs, idx) => (
+              <div key={idx} style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "16px", padding: "1.25rem" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
+                  <span style={{ width: "28px", height: "28px", borderRadius: "6px", background: "#FEF3C7", color: "#D97706", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: "0.85rem" }}>
+                    {cs.step}
+                  </span>
+                  <h4 style={{ fontSize: "1rem", fontWeight: 800, color: "#0F172A", margin: 0 }}>
+                    {cs.title}
+                  </h4>
+                </div>
+                <p style={{ fontSize: "0.82rem", color: "#475569", lineHeight: 1.5, margin: 0 }}>
+                  {cs.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── 5. CARRIER OUTBOUND CUTOFF BOARD ── */}
+      <section style={{ padding: "5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
+        <div style={{ maxWidth: "1150px", margin: "0 auto", padding: "0 1.5rem" }}>
+          
+          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+            <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#2563EB", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
+              CARRIER CUTOFF SLA DISPATCH BOARD
+            </span>
+            <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.5rem)", fontWeight: 800, color: "#0F172A", margin: "0 0 0.75rem", letterSpacing: "-0.02em" }}>
+              Automated Carrier Sync &amp; Dispatch Cadence
+            </h2>
+            <p style={{ fontSize: "0.98rem", color: "#64748B", lineHeight: 1.6, margin: 0 }}>
+              Fixed carrier pickup windows guaranteeing zero late-dispatch rate (LDR) strikes on your seller portal scorecards.
+            </p>
+          </div>
+
+          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+            <div style={{ background: "#FFFFFF", borderRadius: "20px", border: "1px solid #E2E8F0", overflow: "hidden", minWidth: "620px", boxShadow: "0 4px 20px rgba(15, 23, 42, 0.03)" }}>
+              <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
+                <thead>
+                  <tr style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0", fontSize: "0.82rem", fontWeight: 800, letterSpacing: "0.04em", textTransform: "uppercase" }}>
+                    <th style={{ padding: "1.1rem 1.5rem", width: "30%", color: "#0F172A" }}>Carrier Network</th>
+                    <th style={{ padding: "1.1rem 1.5rem", width: "25%", color: "#D97706" }}>Daily Manifest Cutoff</th>
+                    <th style={{ padding: "1.1rem 1.5rem", width: "25%", color: "#16A34A" }}>Guaranteed Processing SLA</th>
+                    <th style={{ padding: "1.1rem 1.5rem", width: "20%", color: "#2563EB" }}>Staging Zone</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {carrierCutoffs.map((cc, idx) => (
+                    <tr key={idx} style={{ borderBottom: "1px solid #E2E8F0", background: idx % 2 === 0 ? "#FFFFFF" : "#FFFBEB" }}>
+                      <td style={{ padding: "1.1rem 1.5rem", fontWeight: 700, color: "#0F172A", fontSize: "0.88rem" }}>
+                        {cc.carrier}
+                      </td>
+                      <td style={{ padding: "1.1rem 1.5rem", color: "#D97706", fontSize: "0.85rem", fontWeight: 700 }}>
+                        {cc.cutoff}
+                      </td>
+                      <td style={{ padding: "1.1rem 1.5rem", color: "#16A34A", fontSize: "0.85rem", fontWeight: 700 }}>
+                        ✓ {cc.sla}
+                      </td>
+                      <td style={{ padding: "1.1rem 1.5rem", color: "#475569", fontSize: "0.82rem", fontWeight: 600 }}>
+                        {cc.badge}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── 6. LIGHT ENTERPRISE EXECUTIVE CTA BANNER ── */}
+      <section style={{ padding: "5rem 0", background: "#F8FAFC" }}>
+        <div style={{ maxWidth: "1150px", margin: "0 auto", padding: "0 1.5rem" }}>
+          
+          <div
+            className="cta-inner-box"
+            style={{
+              background: "linear-gradient(135deg, #FFFBEB 0%, #FFFFFF 100%)",
+              border: "1.5px solid #FDE68A",
+              borderRadius: "24px",
+              padding: "3.5rem 3rem",
+              boxShadow: "0 10px 30px rgba(217, 119, 6, 0.06)"
+            }}
+          >
+            <div style={{ maxWidth: "720px" }}>
+              <span style={{ display: "inline-block", fontSize: "0.78rem", fontWeight: 800, letterSpacing: "0.08em", color: "#D97706", textTransform: "uppercase", marginBottom: "0.75rem" }}>
+                COMPLIMENTARY WAREHOUSING DIAGNOSTIC
+              </span>
+              <h2 style={{ fontSize: "clamp(1.9rem, 3.2vw, 2.7rem)", fontWeight: 800, color: "#0F172A", margin: "0 0 1rem", letterSpacing: "-0.02em", lineHeight: 1.2 }}>
+                Upgrade Your Marketplace Dispatch SLAs to Prime Standard
+              </h2>
+              <p style={{ fontSize: "1.05rem", color: "#475569", lineHeight: 1.65, margin: "0 0 2rem" }}>
+                Let our logistics leadership evaluate your dispatch latency, transit breakage rates, and regional hub coverage. We deliver a custom multi-node warehousing blueprint within 48 hours under NDA.
+              </p>
+
               <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
                 <Link
                   href="/book-meeting"
                   style={{
-                    height: "52px",
+                    height: "50px",
                     padding: "0 1.8rem",
-                    borderRadius: "999px",
-                    background: "linear-gradient(135deg, #D97706 0%, #B45309 100%)",
+                    borderRadius: "12px",
+                    background: "#2563EB",
                     color: "#FFFFFF",
+                    fontWeight: 700,
                     fontSize: "0.95rem",
-                    fontWeight: 800,
                     textDecoration: "none",
                     display: "inline-flex",
                     alignItems: "center",
-                    justifyContent: "center",
-                    gap: "0.5rem",
-                    boxShadow: "0 8px 24px rgba(217, 119, 6, 0.28)",
+                    boxShadow: "0 4px 14px rgba(37, 99, 235, 0.25)",
                     transition: "all 0.2s ease"
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "#1D4ED8")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "#2563EB")}
                 >
-                  <span>SCHEDULE WAREHOUSE TOUR →</span>
+                  SCHEDULE 30-MIN STRATEGY SESSION →
                 </Link>
 
                 <button
                   onClick={() => setDiagOpen(true)}
                   style={{
-                    height: "52px",
+                    height: "50px",
                     padding: "0 1.6rem",
-                    borderRadius: "999px",
+                    borderRadius: "12px",
                     background: "#FFFFFF",
-                    border: "1.5px solid #CBD5E1",
-                    color: "#0F172A",
-                    fontSize: "0.95rem",
+                    border: "1px solid #BFDBFE",
+                    color: "#2563EB",
                     fontWeight: 700,
+                    fontSize: "0.95rem",
                     cursor: "pointer",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                    boxShadow: "0 4px 14px rgba(0,0,0,0.04)",
                     transition: "all 0.2s ease"
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "#EFF6FF")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "#FFFFFF")}
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D97706" strokeWidth="2.5">
-                    <circle cx="12" cy="12" r="10" />
-                    <polygon points="10 8 16 12 10 16 10 8" />
-                  </svg>
-                  <span>Calculate Fulfilment SLA</span>
+                  Request Diagnostic
                 </button>
               </div>
-
-            </div>
-
-            {/* Right: Live Warehouse Terminal Console (Floating Glass Card) */}
-            <div>
-              <div className="amber-glass-card" style={{
-                padding: "2rem",
-                background: "rgba(255, 255, 255, 0.9)",
-                border: "1.5px solid rgba(255, 255, 255, 0.95)",
-                boxShadow: "0 20px 50px rgba(217, 119, 6, 0.08), 0 2px 6px rgba(0,0,0,0.02)",
-                position: "relative",
-                animation: "floatSlow 8s ease-in-out infinite"
-              }}>
-                {/* Console Header */}
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #E2E8F0", paddingBottom: "1rem", marginBottom: "1.25rem" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-                    <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#D97706", boxShadow: "0 0 8px #D97706" }} />
-                    <span style={{ fontSize: "0.82rem", fontWeight: 800, letterSpacing: "0.5px", textTransform: "uppercase", color: "#78350F" }}>
-                      Dock Execution Console
-                    </span>
-                  </div>
-                  <span style={{ fontSize: "0.72rem", color: "#D97706", background: "#FEF3C7", padding: "3px 8px", borderRadius: "6px", fontWeight: 700 }}>
-                    ACTIVE SHIFT
-                  </span>
-                </div>
-
-                {/* 4 Health Telemetry Tiles */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.85rem", marginBottom: "1.25rem" }}>
-                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", padding: "0.9rem", borderRadius: "14px" }}>
-                    <div style={{ fontSize: "0.7rem", color: "#64748B", textTransform: "uppercase", fontWeight: 700 }}>Scanning Accuracy</div>
-                    <div style={{ fontSize: "1.35rem", fontWeight: 900, color: "#D97706", marginTop: "2px" }}>99.8%</div>
-                    <div style={{ fontSize: "0.68rem", color: "#16A34A", marginTop: "2px", fontWeight: 700 }}>Handheld Barcode WMS</div>
-                  </div>
-
-                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", padding: "0.9rem", borderRadius: "14px" }}>
-                    <div style={{ fontSize: "0.7rem", color: "#64748B", textTransform: "uppercase", fontWeight: 700 }}>Dock Dispatch Time</div>
-                    <div style={{ fontSize: "1.35rem", fontWeight: 900, color: "#1D4ED8", marginTop: "2px" }}>3.4 Hours</div>
-                    <div style={{ fontSize: "0.68rem", color: "#1D4ED8", marginTop: "2px", fontWeight: 700 }}>SLA Guarantee: &lt;4.0 hrs</div>
-                  </div>
-
-                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", padding: "0.9rem", borderRadius: "14px" }}>
-                    <div style={{ fontSize: "0.7rem", color: "#64748B", textTransform: "uppercase", fontWeight: 700 }}>Bulky Transit Damage</div>
-                    <div style={{ fontSize: "1.35rem", fontWeight: 900, color: "#059669", marginTop: "2px" }}>0.18%</div>
-                    <div style={{ fontSize: "0.68rem", color: "#64748B", marginTop: "2px", fontWeight: 600 }}>Industry: 4.5% - 8.0%</div>
-                  </div>
-
-                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", padding: "0.9rem", borderRadius: "14px" }}>
-                    <div style={{ fontSize: "0.7rem", color: "#64748B", textTransform: "uppercase", fontWeight: 700 }}>Daily Throughput</div>
-                    <div style={{ fontSize: "1.35rem", fontWeight: 900, color: "#2563EB", marginTop: "2px" }}>1,420 / hr</div>
-                    <div style={{ fontSize: "0.68rem", color: "#16A34A", marginTop: "2px", fontWeight: 700 }}>100% On-time handover</div>
-                  </div>
-                </div>
-
-                {/* Live Micro Status */}
-                <div style={{ background: "#F1F5F9", padding: "0.85rem 1rem", borderRadius: "12px", fontSize: "0.75rem", color: "#475569", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <span style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-                    <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#D97706" }} />
-                    Bhiwandi Dock #4 cleared; 1,840 Flipkart Smart parcels manifested
-                  </span>
-                  <span style={{ fontWeight: 700, color: "#D97706" }}>Live</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          {/* ── 4 FLOATING GLASS STATS CARDS (Matching Screenshot 2 Aesthetic) ── */}
-          <div className="wh-stats-grid" style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "1.25rem",
-            marginTop: "3.5rem"
-          }}>
-            {[
-              {
-                value: "12 Hubs",
-                label: "Regional Super-Nodes",
-                description: "Grade-A warehousing in Bhiwandi, NCR, Bangalore, Kolkata, Hyderabad",
-                tag: "National Grid",
-                tagColor: "#D97706",
-                tagBg: "#FFFBEB",
-                borderColor: "rgba(217, 119, 6, 0.2)",
-                subText: "100% CCTV & Temperature Monitored"
-              },
-              {
-                value: "99.4%",
-                label: "Same-Day Dispatch SLA",
-                description: "Orders placed by 12 PM manifested and handed to couriers same day",
-                tag: "Speed Guarantee",
-                tagColor: "#1D4ED8",
-                tagBg: "#EFF6FF",
-                borderColor: "rgba(29, 78, 216, 0.2)",
-                subText: "Zero Late-Shipment Strikes"
-              },
-              {
-                value: "< 4hr",
-                label: "Dock-to-Carrier Cycle",
-                description: "From digital order ingestion to signed carrier manifest handover",
-                tag: "Fast Turnaround",
-                tagColor: "#0284C7",
-                tagBg: "#F0F9FF",
-                borderColor: "rgba(2, 132, 199, 0.2)",
-                subText: "3 Daily Scheduled Cutoffs"
-              },
-              {
-                value: "0.18%",
-                label: "Transit Damage Rate",
-                description: "ISTA-1A drop-tested multi-ply packaging for bulky & fragile SKUs",
-                tag: "Zero Breakage",
-                tagColor: "#059669",
-                tagBg: "#F0FDF4",
-                borderColor: "rgba(5, 150, 105, 0.2)",
-                subText: "Guaranteed Safe Transit",
-                showBar: true
-              }
-            ].map((st, idx) => (
-              <div key={idx} className="amber-glass-card" style={{ padding: "1.75rem 1.5rem", borderColor: st.borderColor }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.85rem" }}>
-                  <span style={{ fontSize: "0.72rem", fontWeight: 800, color: st.tagColor, background: st.tagBg, padding: "3px 8px", borderRadius: "6px", textTransform: "uppercase" }}>
-                    {st.tag}
-                  </span>
-                </div>
-                <div style={{ fontSize: "2.2rem", fontWeight: 900, color: "#0B1736", letterSpacing: "-0.8px", lineHeight: 1 }}>
-                  {st.value}
-                </div>
-                <div style={{ fontSize: "0.92rem", fontWeight: 800, color: "#1E293B", marginTop: "0.4rem", marginBottom: "0.3rem" }}>
-                  {st.label}
-                </div>
-                <div style={{ fontSize: "0.8rem", color: "#64748B", lineHeight: 1.45, marginBottom: "1rem" }}>
-                  {st.description}
-                </div>
-                {st.showBar && (
-                  <div style={{ width: "100%", height: "4px", background: "#E2E8F0", borderRadius: "99px", overflow: "hidden", marginBottom: "0.75rem" }}>
-                    <div style={{ width: "98%", height: "100%", background: "#059669" }} />
-                  </div>
-                )}
-                <div style={{ fontSize: "0.75rem", color: st.tagColor, fontWeight: 700 }}>
-                  ✓ {st.subText}
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── 2. PAN-INDIA SUPER-HUB FACILITY DIRECTORY (GRID ARCHITECTURE) ── */}
-      <section style={{ padding: "5.5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
-        <div className="container" style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
-          
-          <div style={{ textAlign: "center", maxWidth: "760px", margin: "0 auto 3.5rem" }}>
-            <span style={{ display: "inline-block", fontSize: "0.75rem", fontWeight: 800, letterSpacing: "2px", color: "#D97706", textTransform: "uppercase", marginBottom: "0.75rem" }}>
-              Physical Network Infrastructure
-            </span>
-            <h2 style={{ fontSize: "clamp(1.9rem, 3.2vw, 2.6rem)", fontWeight: 900, color: "#0B1736", margin: "0 0 1rem", letterSpacing: "-0.8px" }}>
-              Regional Fulfillment Super-Hub Network
-            </h2>
-            <p style={{ fontSize: "1rem", color: "#64748B", lineHeight: 1.6 }}>
-              Strategic Grade-A fulfillment hubs located along India's major industrial transport corridors, equipped for automated barcode picking and same-day carrier handoffs.
-            </p>
-          </div>
-
-          {/* High-Tech Facility Card Grid */}
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "1.75rem"
-          }}>
-            {regionalHubs.map((hub, idx) => (
-              <div
-                key={hub.id}
-                className="amber-glass-card"
-                style={{
-                  padding: "2rem",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  background: "#FFFFFF",
-                  border: "1.5px solid #E2E8F0"
-                }}
-              >
-                <div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
-                    <span style={{ fontSize: "0.72rem", fontWeight: 800, color: "#D97706", background: "#FFFBEB", padding: "3px 10px", borderRadius: "999px", textTransform: "uppercase" }}>
-                      {hub.badge}
-                    </span>
-                    <span style={{ fontSize: "0.78rem", fontWeight: 800, color: "#1D4ED8" }}>
-                      {hub.docks}
-                    </span>
-                  </div>
-
-                  <h3 style={{ fontSize: "1.2rem", fontWeight: 900, color: "#0F172A", margin: "0 0 0.5rem", lineHeight: 1.3 }}>
-                    {hub.name}
-                  </h3>
-
-                  <p style={{ fontSize: "0.82rem", color: "#64748B", lineHeight: 1.55, marginBottom: "1.25rem" }}>
-                    {hub.highlight}
-                  </p>
-
-                  <div style={{ background: "#F8FAFC", borderRadius: "12px", padding: "0.85rem", border: "1px solid #E2E8F0", marginBottom: "1rem", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.5rem" }}>
-                    <div>
-                      <div style={{ fontSize: "0.68rem", color: "#64748B" }}>AREA</div>
-                      <div style={{ fontSize: "0.88rem", fontWeight: 800, color: "#0F172A" }}>{hub.sqft}</div>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: "0.68rem", color: "#64748B" }}>THROUGHPUT</div>
-                      <div style={{ fontSize: "0.88rem", fontWeight: 800, color: "#D97706" }}>{hub.throughput.split(" ")[0]} / day</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div style={{ paddingTop: "0.85rem", borderTop: "1px solid #F1F5F9", fontSize: "0.75rem", color: "#1E293B", fontWeight: 600 }}>
-                  <span style={{ color: "#64748B", display: "block", marginBottom: "2px" }}>Carrier Links:</span>
-                  {hub.carriers}
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── 3. 5-LAYER DROP-TEST PACKAGING (VERTICAL ARCHITECTURAL STACK) ── */}
-      <section style={{ padding: "5.5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
-        <div className="container" style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
-          
-          <div style={{ textAlign: "center", maxWidth: "750px", margin: "0 auto 3.5rem" }}>
-            <span style={{ display: "inline-block", fontSize: "0.75rem", fontWeight: 800, letterSpacing: "2px", color: "#D97706", textTransform: "uppercase", marginBottom: "0.75rem" }}>
-              Damage Mitigation Engineering
-            </span>
-            <h2 style={{ fontSize: "clamp(1.9rem, 3.2vw, 2.6rem)", fontWeight: 900, color: "#0B1736", margin: "0 0 1rem", letterSpacing: "-0.8px" }}>
-              5-Layer Bulky &amp; Fragile Drop-Tested Packaging Architecture
-            </h2>
-            <p style={{ fontSize: "1rem", color: "#64748B", lineHeight: 1.6 }}>
-              Transit returns due to cracked screens, scratched paint, or dented boxes destroy e-commerce margins. Inspect our 5 physical packaging layers engineered for ISTA-1A drop protection.
-            </p>
-          </div>
-
-          {/* Vertical Architectural Exploded Stack */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1rem", maxWidth: "1000px", margin: "0 auto" }}>
-            {packagingLayers.map((layer, idx) => (
-              <div
-                key={layer.layer}
-                className="amber-glass-card"
-                style={{
-                  padding: "1.75rem 2rem",
-                  display: "grid",
-                  gridTemplateColumns: "90px 1.5fr 1fr",
-                  gap: "1.75rem",
-                  alignItems: "center",
-                  background: "#FFFFFF",
-                  border: "1.5px solid #E2E8F0"
-                }}
-              >
-                <div style={{ textAlign: "center", background: "#FFFBEB", border: "1px solid #FDE68A", padding: "0.8rem 0.5rem", borderRadius: "14px" }}>
-                  <div style={{ fontSize: "0.7rem", fontWeight: 800, color: "#D97706" }}>LAYER</div>
-                  <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "#D97706", lineHeight: 1 }}>{layer.layer}</div>
-                </div>
-
-                <div>
-                  <div style={{ fontSize: "0.72rem", fontWeight: 800, color: "#D97706", textTransform: "uppercase", marginBottom: "0.2rem" }}>
-                    {layer.tag}
-                  </div>
-                  <h4 style={{ fontSize: "1.15rem", fontWeight: 900, color: "#0F172A", margin: "0 0 0.4rem" }}>
-                    {layer.name}
-                  </h4>
-                  <p style={{ fontSize: "0.85rem", color: "#475569", lineHeight: 1.5, margin: 0 }}>
-                    {layer.desc}
-                  </p>
-                </div>
-
-                <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", padding: "1rem 1.25rem", borderRadius: "14px", textAlign: "right" }}>
-                  <div style={{ fontSize: "1.6rem", fontWeight: 900, color: "#D97706" }}>{layer.metric}</div>
-                  <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#1E293B" }}>{layer.metricLabel}</div>
-                  <div style={{ fontSize: "0.7rem", color: "#16A34A", marginTop: "2px", fontWeight: 600 }}>✓ Verified SLA</div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── 4. THE 5-STAGE WAREHOUSE CONVEYOR WORKFLOW ── */}
-      <section style={{ padding: "5.5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
-        <div className="container" style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
-          
-          <div style={{ textAlign: "center", maxWidth: "750px", margin: "0 auto 3.5rem" }}>
-            <span style={{ display: "inline-block", fontSize: "0.75rem", fontWeight: 800, letterSpacing: "2px", color: "#D97706", textTransform: "uppercase", marginBottom: "0.75rem" }}>
-              High-Velocity Fulfillment Pipeline
-            </span>
-            <h2 style={{ fontSize: "clamp(1.9rem, 3.2vw, 2.6rem)", fontWeight: 900, color: "#0B1736", margin: "0 0 1rem", letterSpacing: "-0.8px" }}>
-              From Order Notification to Signed Carrier Manifest
-            </h2>
-            <p style={{ fontSize: "1rem", color: "#64748B", lineHeight: 1.6 }}>
-              How Good Life processes high-volume marketplace orders with flawless accuracy and zero carrier pickup delays.
-            </p>
-          </div>
-
-          <div className="wh-stages-grid" style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(5, 1fr)",
-            gap: "1.25rem"
-          }}>
-            {warehouseStages.map((stage, sIdx) => (
-              <div key={sIdx} className="amber-glass-card" style={{ padding: "2rem 1.4rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-                <div>
-                  <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "#D97706", marginBottom: "0.8rem", lineHeight: 1 }}>
-                    {stage.step}
-                  </div>
-                  <h4 style={{ fontSize: "1.05rem", fontWeight: 800, color: "#0F172A", margin: "0 0 0.8rem", lineHeight: 1.35 }}>
-                    {stage.title}
-                  </h4>
-                  <p style={{ fontSize: "0.82rem", color: "#64748B", lineHeight: 1.55, margin: 0 }}>
-                    {stage.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── 5. HEAD-TO-HEAD COMPARISON TABLE ── */}
-      <section style={{ padding: "5.5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
-        <div className="container" style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
-          
-          <div style={{ textAlign: "center", maxWidth: "720px", margin: "0 auto 3.5rem" }}>
-            <span style={{ display: "inline-block", fontSize: "0.75rem", fontWeight: 800, letterSpacing: "2px", color: "#D97706", textTransform: "uppercase", marginBottom: "0.75rem" }}>
-              Service Level Comparison
-            </span>
-            <h2 style={{ fontSize: "clamp(1.9rem, 3.2vw, 2.6rem)", fontWeight: 900, color: "#0B1736", margin: "0 0 1rem", letterSpacing: "-0.8px" }}>
-              Conventional 3PL Provider vs. Good Life Infrastructure
-            </h2>
-            <p style={{ fontSize: "1rem", color: "#64748B", lineHeight: 1.6 }}>
-              Why typical warehouse providers fail marketplace SLAs while Good Life secures Prime badging and protects product margins.
-            </p>
-          </div>
-
-          <div className="amber-glass-card" style={{ padding: "1.5rem", overflowX: "auto" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", minWidth: "680px" }}>
-              <thead>
-                <tr style={{ borderBottom: "2px solid #E2E8F0" }}>
-                  <th style={{ padding: "1.2rem 1rem", fontSize: "0.85rem", fontWeight: 800, color: "#64748B", width: "26%" }}>FULFILMENT BENCHMARK</th>
-                  <th style={{ padding: "1.2rem 1rem", fontSize: "0.85rem", fontWeight: 800, color: "#EF4444", width: "37%" }}>GENERIC 3PL PROVIDER</th>
-                  <th style={{ padding: "1.2rem 1rem", fontSize: "0.85rem", fontWeight: 900, color: "#D97706", width: "37%" }}>GOOD LIFE FULFILMENT HUB</th>
-                </tr>
-              </thead>
-              <tbody>
-                {comparisonData.map((row, rIdx) => (
-                  <tr key={rIdx} style={{ borderBottom: rIdx === comparisonData.length - 1 ? "none" : "1px solid #F1F5F9" }}>
-                    <td style={{ padding: "1.2rem 1rem", fontSize: "0.9rem", fontWeight: 800, color: "#0F172A" }}>
-                      {row.factor}
-                    </td>
-                    <td style={{ padding: "1.2rem 1rem", fontSize: "0.85rem", color: "#64748B", lineHeight: 1.5 }}>
-                      <span style={{ color: "#EF4444", fontWeight: 700, marginRight: "0.4rem" }}>✕</span>
-                      {row.traditional}
-                    </td>
-                    <td style={{ padding: "1.2rem 1rem", fontSize: "0.85rem", color: "#1E293B", fontWeight: 600, lineHeight: 1.5, background: "rgba(217, 119, 6, 0.02)" }}>
-                      <span style={{ color: "#D97706", fontWeight: 900, marginRight: "0.4rem" }}>✓</span>
-                      {row.goodlife}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── 6. EXECUTIVE AUDIT BANNER & NEXT STEPS ── */}
-      <section style={{ padding: "5rem 0", background: "#0B1736" }}>
-        <div className="container" style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
-          <div className="wh-banner-box" style={{
-            background: "linear-gradient(135deg, rgba(217, 119, 6, 0.25) 0%, rgba(29, 78, 216, 0.15) 100%)",
-            border: "1.5px solid rgba(217, 119, 6, 0.4)",
-            borderRadius: "26px",
-            padding: "3.5rem 3rem",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: "2.5rem"
-          }}>
-            <div style={{ maxWidth: "700px" }}>
-              <span style={{ fontSize: "0.75rem", fontWeight: 800, color: "#FDE68A", letterSpacing: "1.5px", textTransform: "uppercase" }}>
-                REGIONAL WAREHOUSING TOUR
-              </span>
-              <h3 style={{ fontSize: "clamp(2rem, 3.5vw, 2.8rem)", fontWeight: 900, color: "#FFFFFF", margin: "0.8rem 0 1rem", letterSpacing: "-1px" }}>
-                Request a Physical Facility Inspection &amp; SLA Review
-              </h3>
-              <p style={{ fontSize: "1.05rem", color: "#CBD5E1", lineHeight: 1.7, margin: 0 }}>
-                Tour our Bhiwandi, Sonipat, or Bangalore super-hubs. Review our barcode binning stations, packaging drop-test benches, and dedicated carrier handoff bays.
-              </p>
-            </div>
-
-            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-              <Link
-                href="/book-meeting"
-                style={{
-                  height: "54px",
-                  padding: "0 2.2rem",
-                  borderRadius: "999px",
-                  background: "linear-gradient(135deg, #D97706 0%, #B45309 100%)",
-                  color: "#FFFFFF",
-                  fontSize: "1rem",
-                  fontWeight: 800,
-                  textDecoration: "none",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "0.5rem",
-                  boxShadow: "0 8px 24px rgba(217, 119, 6, 0.4)",
-                  transition: "all 0.2s ease"
-                }}
-              >
-                <span>BOOK FACILITY WALKTHROUGH →</span>
-              </Link>
-
-              <button
-                onClick={() => setDiagOpen(true)}
-                style={{
-                  height: "50px",
-                  padding: "0 1.8rem",
-                  borderRadius: "999px",
-                  background: "transparent",
-                  border: "1.5px solid rgba(255, 255, 255, 0.3)",
-                  color: "#FFFFFF",
-                  fontSize: "0.95rem",
-                  fontWeight: 700,
-                  cursor: "pointer",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "0.5rem",
-                  transition: "all 0.2s ease"
-                }}
-              >
-                <span>Run Fulfillment Audit</span>
-              </button>
             </div>
           </div>
+
         </div>
       </section>
 
-      {/* Diagnostic Modal */}
-      {diagOpen && <CommerceDiagnosticModal onClose={() => setDiagOpen(false)} />}
+      <Footer hideTopBanner={true} />
 
-      <Footer />
+      <CommerceDiagnosticModal
+        isOpen={diagOpen}
+        onClose={() => setDiagOpen(false)}
+      />
     </div>
   );
 }

@@ -149,14 +149,23 @@ html {
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    SCROLL REVEAL SYSTEM
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.scroll-blur-reveal,
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s var(--ease-spring), transform 0.7s var(--ease-spring);
+  filter: blur(4px);
+  transform: translateY(18px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, filter, transform;
 }
 
+.scroll-blur-reveal.revealed,
+.scroll-blur-reveal.visible,
+.reveal.revealed,
 .reveal.visible {
   opacity: 1;
+  filter: blur(0px);
   transform: translateY(0);
 }
 
@@ -5484,3 +5493,555 @@ html {
     transform: translate(-60%, -40%) scale(1);
   }
 }
+
+/* ═══════════════════════════════════════════════
+   ENHANCED HOMEPAGE REDESIGN (REF: SWCYBERNETICS FLOW + GOODLIFE BRAND)
+   ═══════════════════════════════════════════════ */
+
+/* ── Hero Quick Audit Lead Card ── */
+.hero-audit-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 2.2rem auto 2.5rem;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid rgba(191, 219, 254, 0.85);
+  border-radius: 20px;
+  padding: 1.6rem 2rem;
+  box-shadow: 0 16px 45px rgba(37, 99, 235, 0.12), 0 2px 8px rgba(15, 23, 42, 0.04);
+  text-align: left;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-audit-container:hover {
+  border-color: #60A5FA;
+  box-shadow: 0 22px 55px rgba(37, 99, 235, 0.16);
+}
+
+.hero-audit-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.hero-audit-form {
+  display: grid;
+  grid-template-columns: 1.4fr 1.1fr auto;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+@media (max-width: 860px) {
+  .hero-audit-form {
+    grid-template-columns: 1fr;
+  }
+  .hero-audit-container {
+    padding: 1.3rem 1.2rem;
+  }
+}
+
+.hero-audit-input {
+  height: 50px;
+  border-radius: 12px;
+  border: 1.5px solid #CBD5E1;
+  padding: 0 1.1rem;
+  font-size: 0.92rem;
+  color: #0F172A;
+  background: #FFFFFF;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: inherit;
+  width: 100%;
+}
+
+.hero-audit-input:focus {
+  border-color: #2563EB;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.hero-audit-select {
+  height: 50px;
+  border-radius: 12px;
+  border: 1.5px solid #CBD5E1;
+  padding: 0 1rem;
+  font-size: 0.9rem;
+  color: #1E293B;
+  background: #FFFFFF;
+  outline: none;
+  font-family: inherit;
+  cursor: pointer;
+  width: 100%;
+}
+
+.hero-audit-select:focus {
+  border-color: #2563EB;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.hero-audit-btn {
+  height: 50px;
+  padding: 0 1.8rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.hero-audit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.45);
+}
+
+/* ── Channel Growth Solutions Matrix (Pillars) ── */
+.channel-matrix-section {
+  padding: 5rem 1rem 5.5rem;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 50%, #FFFFFF 100%);
+  position: relative;
+  border-top: 1px solid #E2E8F0;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.channel-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.35rem;
+}
+
+@media (max-width: 1100px) {
+  .channel-matrix-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .channel-matrix-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.channel-pillar-card {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.channel-pillar-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 40px rgba(37, 99, 235, 0.10);
+  border-color: #93C5FD;
+}
+
+/* ── Comparison Table / Grid (Operating Partner vs Agency vs In-House) ── */
+.compare-matrix-section {
+  padding: 5.5rem 1rem;
+  background: #FFFFFF;
+  position: relative;
+}
+
+.compare-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+@media (max-width: 960px) {
+  .compare-card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── FAQ Section ── */
+.faq-home-section {
+  padding: 5rem 1rem 5.5rem;
+  background: linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%);
+  border-top: 1px solid #E2E8F0;
+}
+
+.faq-accordion-item {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 16px;
+  margin-bottom: 0.9rem;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+.faq-accordion-item.open {
+  border-color: #93C5FD;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.07);
+}
+
+.faq-header-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.6rem;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0F172A;
+  font-family: inherit;
+  gap: 1rem;
+}
+
+.faq-body-content {
+  padding: 0 1.6rem 1.35rem;
+  font-size: 0.95rem;
+  color: #475569;
+  line-height: 1.7;
+}
+
+/* ── Final High-Conversion Strategy Call Banner ── */
+.final-consult-section {
+  padding: 5rem 1rem;
+  background: linear-gradient(135deg, #0B1736 0%, #0F234E 50%, #172554 100%);
+  color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Smooth Floating Ambient Light Blue Aurora Orbs & Liquid Glass for Hero ── */
+@keyframes floatAuroraOrb1 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(50px, 35px) scale(1.1);
+  }
+  66% {
+    transform: translate(-30px, 45px) scale(0.96);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes floatAuroraOrb2 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(-45px, -30px) scale(1.12);
+  }
+  66% {
+    transform: translate(30px, -40px) scale(0.94);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes floatAuroraOrb3 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(35px, -20px) scale(1.08);
+  }
+  66% {
+    transform: translate(-40px, 25px) scale(0.98);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+.hero-aurora-orb-1 {
+  position: absolute;
+  top: -12%;
+  left: 8%;
+  width: 650px;
+  height: 650px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(147, 197, 253, 0.45) 0%, rgba(59, 130, 246, 0.18) 45%, transparent 70%);
+  filter: blur(75px);
+  pointer-events: none;
+  animation: floatAuroraOrb1 20s ease-in-out infinite;
+  will-change: transform;
+}
+
+.hero-aurora-orb-2 {
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(125, 211, 252, 0.38) 0%, rgba(37, 99, 235, 0.15) 50%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  animation: floatAuroraOrb2 24s ease-in-out infinite;
+  will-change: transform;
+}
+
+.hero-aurora-orb-3 {
+  position: absolute;
+  bottom: 0%;
+  left: 35%;
+  width: 550px;
+  height: 550px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(199, 210, 254, 0.35) 0%, rgba(56, 189, 248, 0.14) 50%, transparent 70%);
+  filter: blur(85px);
+  pointer-events: none;
+  animation: floatAuroraOrb3 22s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PREMIUM SMOOTH SCROLL BLUR REVEAL ANIMATION (Smooth Sundor Blur Appearing)
+   ══════════════════════════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px) scale(0.98);
+  filter: blur(8px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.85s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: opacity, transform, filter;
+}
+
+.reveal.visible {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+  filter: blur(0px) !important;
+}
+
+.reveal-delay-1 { transition-delay: 0.1s !important; }
+.reveal-delay-2 { transition-delay: 0.2s !important; }
+.reveal-delay-3 { transition-delay: 0.3s !important; }
+.reveal-delay-4 { transition-delay: 0.4s !important; }
+
+/* ══════════════════════════════════════════════════════════════
+   WHOLE-PAGE LUXURY BLUE GLASSMORPHISM & AMBIENT AURORA BACKDROPS
+   ══════════════════════════════════════════════════════════════ */
+.luxury-blue-glass {
+  background: rgba(255, 255, 255, 0.84) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 16px 40px rgba(37, 99, 235, 0.07), 0 2px 8px rgba(15, 23, 42, 0.03), inset 0 1px 1px rgba(255, 255, 255, 0.95) !important;
+  border-radius: 22px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.luxury-blue-glass:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 24px 50px rgba(37, 99, 235, 0.13), 0 4px 14px rgba(15, 23, 42, 0.04) !important;
+  border-color: #93C5FD !important;
+}
+
+.ambient-aurora-glow-section {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(120% 90% at 50% 0%, #E0F2FE 0%, #EFF6FF 30%, #F8FAFC 70%, #FFFFFF 100%);
+}
+
+.ambient-glow-orb-left {
+  position: absolute;
+  top: -100px;
+  left: -80px;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, rgba(37, 99, 235, 0.08) 50%, transparent 70%);
+  filter: blur(90px);
+  pointer-events: none;
+  animation: floatAmbientOrb1 20s ease-in-out infinite alternate;
+}
+
+.ambient-glow-orb-right {
+  position: absolute;
+  bottom: -80px;
+  right: -60px;
+  width: 550px;
+  height: 550px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(96, 165, 250, 0.28) 0%, rgba(14, 165, 233, 0.08) 50%, transparent 70%);
+  filter: blur(95px);
+  pointer-events: none;
+  animation: floatAmbientOrb2 24s ease-in-out infinite alternate;
+}
+
+@keyframes floatAmbientOrb1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(60px, 40px) scale(1.1); }
+  100% { transform: translate(-30px, 60px) scale(0.95); }
+}
+
+@keyframes floatAmbientOrb2 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-50px, -40px) scale(1.12); }
+  100% { transform: translate(40px, -50px) scale(0.94); }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MOBILE, TABLET & DESKTOP RESPONSIVE REFINEMENTS (All 9 Sections)
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .hero-home {
+    padding: 42px 1.5rem 36px !important;
+  }
+  .paths-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+  #leakage-calculator > div > div:nth-child(2),
+  #proof-case-studies > div > div:nth-child(3) {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+    padding: 1.8rem 1.4rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Section Spacing */
+  .hero-home {
+    padding: 32px 1rem 28px !important;
+  }
+  .paths-section,
+  #leakage-calculator,
+  #service-matrix,
+  #proof-case-studies,
+  #operation-showcase,
+  #third-party-validation,
+  #commercial-models,
+  #custom-solutions {
+    padding: 3.2rem 1rem 3.5rem !important;
+  }
+
+  /* Section 1 Hero */
+  #hero-home > div > div:first-child {
+    grid-template-columns: 1fr !important;
+    gap: 2.2rem !important;
+  }
+  #hero-home h1 {
+    font-size: 2.2rem !important;
+    line-height: 1.2 !important;
+  }
+  #hero-home .hero-cta-group {
+    flex-direction: column !important;
+  }
+  #hero-home .hero-cta-group button,
+  #hero-home .hero-cta-group a {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* Section 2 Paths */
+  .paths-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .path-card {
+    padding: 1.4rem !important;
+  }
+
+  /* Section 3 Calculator */
+  #leakage-calculator > div > div:nth-child(2) {
+    grid-template-columns: 1fr !important;
+    padding: 1.5rem 1.2rem !important;
+    gap: 1.8rem !important;
+  }
+
+  /* Section 4 Service Matrix */
+  .service-matrix-categories {
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    padding-bottom: 0.6rem !important;
+    -webkit-overflow-scrolling: touch !important;
+    justify-content: flex-start !important;
+  }
+  .service-matrix-categories button {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Section 5 Proof Case Studies */
+  .case-studies-tabs {
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    padding-bottom: 0.5rem !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .case-studies-tabs button {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+  #proof-case-studies .metrics-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.8rem !important;
+  }
+
+  /* Section 6 Operations & Warehousing */
+  #operation-showcase .sla-grid {
+    grid-template-columns: 1fr !important;
+  }
+  #operation-showcase .hubs-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Section 7 Third-Party Validation */
+  #third-party-validation .cert-badges-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  /* Section 8 Commercial Models */
+  #commercial-models .models-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.2rem !important;
+  }
+  #commercial-models .non-negotiables-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Section 9 Custom Solution Form */
+  #custom-solutions .form-box {
+    padding: 1.6rem 1.2rem !important;
+  }
+  #custom-solutions .form-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #hero-home h1 {
+    font-size: 1.95rem !important;
+  }
+  .luxury-blue-glass {
+    padding: 1.15rem !important;
+    border-radius: 16px !important;
+  }
+  #proof-case-studies .metrics-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

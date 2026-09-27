@@ -7,7 +7,14 @@ import Footer from "./components/Footer";
 import CommerceDiagnosticModal from "./components/CommerceDiagnosticModal";
 import CommerceNetwork from "./components/CommerceNetwork";
 import { IndiaGeoMapBackground } from "./components/IndiaGeoMapSVG";
+import ServiceMatrix from "./components/ServiceMatrix";
+import CommercialModels from "./components/CommercialModels";
+import CustomSolutionForm from "./components/CustomSolutionForm";
+import ProofCaseStudies from "./components/ProofCaseStudies";
+import MarketplaceLeakageCalculator from "./components/MarketplaceLeakageCalculator";
+import ThirdPartyValidation from "./components/ThirdPartyValidation";
 import "./home.css";
+import "./homepage.css";
 
 // ═══════════════════════════════════════════════
 // ANIMATED COUNTER
@@ -99,14 +106,14 @@ const SavingsCalculator: React.FC<{ onOpenDiag: () => void }> = ({ onOpenDiag })
               <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.4rem" }}>
                 <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#10B981", boxShadow: "0 0 0 3px rgba(16,185,129,0.2)" }} />
                 <span style={{ fontSize: "0.78rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1px", color: "#38BDF8" }}>
-                  Complimentary Free Audit
+                  Confidential Operating Audit
                 </span>
               </div>
               <h4 style={{ fontSize: "1.05rem", fontWeight: 800, color: "#FFFFFF", marginBottom: "0.3rem", lineHeight: 1.35 }}>
                 Ready to find your fee leaks?
               </h4>
               <p style={{ fontSize: "0.85rem", color: "#94A3B8", marginBottom: "1.2rem", lineHeight: 1.5 }}>
-                Get a complimentary Free Audit — no obligation.
+                Get an expert diagnostic audit — zero obligation.
               </p>
               <button
                 onClick={onOpenDiag}
@@ -538,86 +545,9 @@ const WarehouseHubs: React.FC = () => {
 
 
 
-// ═══════════════════════════════════════════════
-// STICKY BAR
-// ═══════════════════════════════════════════════
-const StickyBar: React.FC<{ onOpenDiag: () => void }> = ({ onOpenDiag }) => {
-  const [visible, setVisible] = useState(false);
-  const [dismissed, setDismissed] = useState(false);
-  useEffect(() => {
-    const handleScroll = () => { if (!dismissed) setVisible(window.scrollY > 600); };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [dismissed]);
-  return (
-    <div className={`sticky-bar ${visible && !dismissed ? "sticky-bar-visible" : ""}`}>
-      <div className="sticky-bar-inner">
-        <style>{`
-          .sticky-bar-desktop-content { display: flex; align-items: center; gap: 1rem; flex: 1; }
-          .sticky-bar-mobile-content { display: none; }
-          @media (max-width: 768px) {
-            .sticky-bar-desktop-content { display: none !important; }
-            .sticky-bar-close { display: none !important; }
-            .sticky-bar-inner {
-              background: transparent !important;
-              backdrop-filter: none !important;
-              -webkit-backdrop-filter: none !important;
-              border: none !important;
-              box-shadow: none !important;
-              padding: 0 !important;
-              justify-content: flex-end !important;
-              width: 100%;
-            }
-            .sticky-bar-mobile-content {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              width: 56px;
-              height: 56px;
-              background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-              color: #FFFFFF;
-              border-radius: 50%;
-              text-decoration: none;
-              box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
-              margin-right: 0.5rem;
-              margin-bottom: 0.5rem;
-              transition: transform 0.2s ease;
-            }
-            .sticky-bar-mobile-content:active {
-              transform: scale(0.95);
-            }
-            .sticky-bar-mobile-content svg {
-              margin: 0 !important;
-              width: 30px;
-              height: 30px;
-            }
-          }
-        `}</style>
+// STICKY BAR REMOVED
+const StickyBar: React.FC<{ onOpenDiag: () => void }> = () => null;
 
-        {/* DESKTOP CONTENT */}
-        <div className="sticky-bar-desktop-content">
-          <div className="sticky-bar-dot" />
-          <p className="sticky-bar-text"><strong>Ready to find your fee leaks?</strong> Get a complimentary Free Audit — no obligation.</p>
-          <button onClick={onOpenDiag} className="sticky-bar-btn">UNLOCK YOUR GROWTH →</button>
-        </div>
-
-        {/* MOBILE CONTENT (WhatsApp) */}
-        <a href="https://wa.me/9102212345678" target="_blank" rel="noopener noreferrer" className="sticky-bar-mobile-content" aria-label="Chat on WhatsApp">
-          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.888-.788-1.489-1.761-1.663-2.06-.173-.299-.018-.461.13-.611.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-          </svg>
-        </a>
-
-        <button onClick={() => { setDismissed(true); setVisible(false); }} className="sticky-bar-close" aria-label="Close Announcement Bar">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
-      </div>
-    </div>
-  );
-};
 
 // ═══════════════════════════════════════════════
 // 3D ARCHITECTURAL HERO SCENE (AICM DESIGN STYLE)
@@ -776,20 +706,25 @@ export default function HomePage() {
   const [diagOpen, setDiagOpen] = useState(false);
   const [videoOpen, setVideoOpen] = useState(false);
   const [storeInputValue, setStoreInputValue] = useState("");
+  const [auditName, setAuditName] = useState("");
+  const [auditPhone, setAuditPhone] = useState("");
+  const [auditEmail, setAuditEmail] = useState("");
+  const [toastDismissed, setToastDismissed] = useState(false);
 
-  // Universal Scroll Reveal Observer
+  // Universal Scroll Blur Reveal Observer (Smooth Apple-style Appearing)
   useEffect(() => {
-    const reveals = document.querySelectorAll('.reveal');
+    const reveals = document.querySelectorAll('.reveal, .scroll-blur-reveal');
     if (!reveals.length) return;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
+            entry.target.classList.add('revealed');
           }
         });
       },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.04, rootMargin: '0px 0px 30px 0px' }
     );
     reveals.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
@@ -1359,1232 +1294,373 @@ export default function HomePage() {
   ];
 
   return (
-    <div style={{ background: "#FFFFFF", color: "#0F172A", minHeight: "100vh" }}>
+    <div style={{
+      background: "radial-gradient(130% 90% at 50% 0%, #E0F2FE 0%, #F0F7FF 25%, #F8FAFC 55%, #EDF5FF 80%, #E2F1FE 100%)",
+      color: "#0F172A",
+      minHeight: "100vh",
+      position: "relative",
+      overflowX: "hidden"
+    }}>
 
       {/* ── SECTION 1: HEADER (Sticky navigation + CTA always visible) ── */}
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
-      {/* ── SECTION 2: HERO (CLEAN CORPORATE PROFESSIONAL) ── */}
-      <section className="hero-real-section" id="hero-home">
+      {/* ── SECTION 2: LUXURY WHITE & LIGHT GLASS HERO (CUSTOM OPERATING PARTNER UI/UX) ── */}
+      <section style={{
+        position: "relative",
+        background: "radial-gradient(120% 85% at 50% -10%, #E0F2FE 0%, #EFF6FF 35%, #F8FAFC 70%, #FFFFFF 100%)",
+        padding: "48px 1.5rem 40px",
+        overflow: "hidden",
+        color: "#0F172A",
+        borderBottom: "1px solid #E2E8F0"
+      }} id="hero-home">
 
-        {/* Animated Aurora Background */}
-        <div className="hero-bottom-glow"></div>
+        {/* Smooth Floating Light Blue Aurora Glow Orbs */}
+        <div className="hero-aurora-orb-1" />
+        <div className="hero-aurora-orb-2" />
+        <div className="hero-aurora-orb-3" />
 
-        {/* Hero Main Content */}
-        <div className="hero-real-body" style={{ zIndex: 2, position: 'relative' }}>
-          <div className="container" style={{ width: "100%", padding: "0 1rem" }}>
-            <div className="hero-left-content" style={{ maxWidth: "1000px", margin: "0 auto", textAlign: "center", alignItems: "center" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", position: "relative", zIndex: 2 }}>
+          <div className="hero-main-grid">
 
-              {/* Professional Clean Trust Eyebrow (No bulky fita/ribbon border) */}
-              <div className="reveal" style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "8px",
-                marginBottom: "2rem",
-                color: "#2563EB",
-                fontSize: "0.86rem",
-                fontWeight: 700,
-                letterSpacing: "1.4px",
-                textTransform: "uppercase",
-                background: "transparent",
-                border: "none",
-                boxShadow: "none",
-                padding: 0
-              }}>
-                <span style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: "18px",
-                  height: "18px",
-                  borderRadius: "50%",
-                  background: "rgba(37, 99, 235, 0.10)",
-                  color: "#2563EB",
-                  flexShrink: 0
-                }}>
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="20 6 9 17 4 12" />
+            {/* ── LEFT COLUMN ── */}
+            <div>
+              {/* Bold High-Impact Headline */}
+              <h1 className="hero-headline">
+                Scale Your Brand Across <br />
+                <span style={{ position: "relative", display: "inline-block" }}>
+                  <span style={{
+                    background: "linear-gradient(135deg, #1E40AF 0%, #2563EB 50%, #0284C7 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent"
+                  }}>
+                    Marketplaces &amp; Quick Commerce
+                  </span>
+                  <svg style={{ position: "absolute", bottom: "-6px", left: 0, width: "100%", height: "10px" }} viewBox="0 0 300 12" fill="none">
+                    <path d="M2 8 C80 2, 220 2, 298 8" stroke="#38BDF8" strokeWidth="3.5" strokeLinecap="round" />
                   </svg>
-                </span>
-                <span>India&apos;s Trusted Ecommerce Operations Partner</span>
-              </div>
-
-              <h1 className="hero-headline-etail reveal" style={{ fontSize: "clamp(2.8rem, 5.8vw, 4.8rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-2px", color: "#0B1736", margin: "0 auto 2.2rem", maxWidth: "1050px" }}>
-                Scale Ecommerce. <br />
-                <span style={{ background: "linear-gradient(90deg, #4F46E5 0%, #2563EB 50%, #0284C7 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", display: "inline-block" }}>
-                  Not Complexity.
                 </span>
               </h1>
 
-              <p className="hero-subtitle-etail reveal" style={{ fontSize: "clamp(1.12rem, 1.9vw, 1.3rem)", color: "#475569", lineHeight: 1.75, marginBottom: "2.2rem", maxWidth: "880px", fontWeight: 500 }}>
-                Good Life brings marketplace growth, D2C, pan-India fulfilment, demand planning, performance marketing, returns and revenue assurance together under one accountable operating model.
-              </p>
-
-              <div className="hero-cta-wrapper reveal" style={{ display: "flex", alignItems: "center", gap: "1.4rem", flexWrap: "wrap", justifyContent: "center", width: "100%", marginBottom: "1.75rem" }}>
+              {/* Two Direct Hero Actions: Book Diagnostic or Run Calculator */}
+              <div className="hero-cta-btns">
                 <button
-                  className="btn-primary-hero"
                   onClick={() => setDiagOpen(true)}
-                  style={{
-                    height: "58px",
-                    padding: "0 2.5rem",
-                    borderRadius: "16px",
-                    background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
-                    color: "#FFFFFF",
-                    fontSize: "1.05rem",
-                    fontWeight: 700,
-                    border: "none",
-                    cursor: "pointer",
-                    boxShadow: "0 10px 28px rgba(37, 99, 235, 0.35)",
-                    transition: "all 0.25s ease",
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 14px 34px rgba(37, 99, 235, 0.45)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 10px 28px rgba(37, 99, 235, 0.35)"; }}
+                  className="hero-btn-primary"
                 >
-                  UNLOCK YOUR GROWTH →
+                  <span>Request Diagnostic →</span>
                 </button>
-                <button
-                  className="btn-ghost-hero"
-                  onClick={() => setVideoOpen(true)}
-                  style={{
-                    background: "#FFFFFF",
-                    border: "1.5px solid rgba(15,23,42,0.16)",
-                    color: "#0B1736",
-                    height: "58px",
-                    borderRadius: "16px",
-                    padding: "0 2.3rem",
-                    fontSize: "1.05rem",
-                    fontWeight: 700,
-                    cursor: "pointer",
-                    transition: "all 0.25s ease"
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 10px 24px rgba(15,23,42,0.09)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
+                <a
+                  href="#leakage-calculator"
+                  className="hero-btn-secondary"
                 >
-                  ▷ Watch Our Story
-                </button>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <polyline points="19 12 12 19 5 12" />
+                  </svg>
+                  <span>Calculate Fee Leakage ↓</span>
+                </a>
               </div>
 
-              {/* ── BRAND MARQUEE (Trusted Channels - Centered Perfectly in Lower Hero Space) ── */}
-              <div className="brands-marquee-section reveal" style={{ position: "relative", zIndex: 3, marginTop: "1.4rem", padding: "0.4rem 0 1.2rem", background: "transparent", border: "none", boxShadow: "none" }}>
-                <p className="brands-marquee-label" style={{ textAlign: "center", marginBottom: "1.75rem", fontSize: "0.76rem", fontWeight: 700, letterSpacing: "2.5px", color: "#64748B", textTransform: "uppercase" }}>
-                  Operating across India&apos;s leading platforms
-                </p>
-                <div className="channel-strip" style={{ margin: 0, padding: 0 }}>
-                  <div className="channel-marquee-container" style={{ margin: 0, padding: "0.5rem 0", maskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)", WebkitMaskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)" }}>
-                    <div className="channel-marquee-track" style={{ alignItems: "center" }}>
-                      {[...channelSVGs, ...channelSVGs].map((ch, idx) => (
-                        <div
-                          key={idx}
-                          title={ch.name}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            padding: "0 2.4rem",
-                            cursor: "default",
-                            transition: "all 0.25s ease",
-                            opacity: 0.95,
-                            height: "58px"
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = "scale(1.08)";
-                            e.currentTarget.style.opacity = "1";
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = "scale(1)";
-                            e.currentTarget.style.opacity = "0.95";
-                          }}
-                        >
-                          {ch.svg}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+              {/* Bottom 3 Large Stats Row */}
+              <div className="hero-stats-grid">
+                <div className="hero-stat-card">
+                  <div className="hero-stat-num">500+</div>
+                  <div className="hero-stat-lbl">BRANDS MANAGED</div>
+                </div>
+                <div className="hero-stat-card">
+                  <div className="hero-stat-num">₹850Cr+</div>
+                  <div className="hero-stat-lbl">GMV DELIVERED</div>
+                </div>
+                <div className="hero-stat-card">
+                  <div className="hero-stat-num hero-stat-text">Verified Partner</div>
+                  <div className="hero-stat-lbl">SPN STATUS</div>
                 </div>
               </div>
 
+              {/* Explore Links Strip */}
+              <div className="hero-explore-strip">
+                <span className="hero-explore-title">EXPLORE:</span>
+                <div className="hero-explore-pills">
+                  {["Marketplace Operations", "E-commerce Enabler", "12-State Warehousing", "Quick Commerce", "Revenue Audit"].map((item, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setDiagOpen(true)}
+                      className="hero-explore-pill"
+                    >
+                      {item}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* ── SECTION 2.5: METRICS & PROVEN IMPACT (Interactive Glass Cards + Smooth Sky Blue Aurora Animation) ── */}
-      <section className="metrics-interactive-section">
-        {/* Animated Sky Blue Aurora Background Glows */}
-        <div className="metrics-glow-1"></div>
-        <div className="metrics-glow-2"></div>
-
-        <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", position: "relative", zIndex: 2 }}>
-
-          {/* Section Header */}
-          <div style={{ textAlign: "center", marginBottom: "2.8rem" }}>
-            <h2 style={{ fontSize: "clamp(1.75rem, 3vw, 2.4rem)", fontWeight: 800, color: "#0B1736", margin: "0 0 0.6rem", letterSpacing: "-0.6px" }}>
-              What Our Operating Scale Represents
-            </h2>
-            <p style={{ fontSize: "1.02rem", color: "#64748B", maxWidth: "700px", margin: "0 auto", lineHeight: 1.6, fontWeight: 500 }}>
-              Measurable infrastructure, revenue throughput, and performance reliability delivered daily for partner brands across India.
-            </p>
-          </div>
-
-          {/* Interactive 4-Tile Grid with Visual Icons and Micro-Details */}
-          <div className="reveal" style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-            gap: "1.25rem",
-            width: "100%"
-          }}>
-            {[
-              {
-                value: "₹850 Cr+",
-                label: "GMV Managed & Scaled",
-                description: "Cumulative annual commerce volume across brand partners",
-                tag: "Revenue Scaled",
-                tagColor: "#2563EB",
-                tagBg: "rgba(37, 99, 235, 0.08)",
-                borderColor: "rgba(37, 99, 235, 0.18)",
-                iconBg: "linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%)",
-                iconColor: "#2563EB",
-                icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
-                    <polyline points="17 6 23 6 23 12" />
-                  </svg>
-                ),
-                subIcon: (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
-                    <polyline points="17 6 23 6 23 12" />
-                  </svg>
-                ),
-                subText: "2.8x Average Client Growth"
-              },
-              {
-                value: "35+",
-                label: "Platform Channels",
-                description: "Marketplaces, Quick-Commerce apps & D2C storefronts",
-                tag: "Multi-Platform",
-                tagColor: "#0D9488",
-                tagBg: "rgba(13, 148, 136, 0.08)",
-                borderColor: "rgba(13, 148, 136, 0.18)",
-                iconBg: "linear-gradient(135deg, #CCFBF1 0%, #99F6E4 100%)",
-                iconColor: "#0D9488",
-                icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="10" />
-                    <line x1="2" y1="12" x2="22" y2="12" />
-                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                  </svg>
-                ),
-                subIcon: (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0D9488" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="10" />
-                    <line x1="2" y1="12" x2="22" y2="12" />
-                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                  </svg>
-                ),
-                subText: "Amazon, Flipkart & Quick Comm"
-              },
-              {
-                value: "12",
-                label: "State Regional Hubs",
-                description: "Pan-India multi-state inventory replication nodes",
-                tag: "Pan-India Network",
-                tagColor: "#7C3AED",
-                tagBg: "rgba(124, 58, 237, 0.08)",
-                borderColor: "rgba(124, 58, 237, 0.18)",
-                iconBg: "linear-gradient(135deg, #F3E8FF 0%, #E9D5FF 100%)",
-                iconColor: "#7C3AED",
-                icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
-                ),
-                subIcon: (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
-                ),
-                subText: "12 State Fulfilment Centers"
-              },
-              {
-                value: "98.2%",
-                label: "Dispatch & Fill Rate SLA",
-                description: "Same-day execution & defect-free dispatch accuracy",
-                tag: "Execution SLA",
-                tagColor: "#059669",
-                tagBg: "rgba(5, 150, 105, 0.08)",
-                borderColor: "rgba(5, 150, 105, 0.18)",
-                iconBg: "linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%)",
-                iconColor: "#059669",
-                icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                    <polyline points="9 12 11 14 15 10" />
-                  </svg>
-                ),
-                subIcon: (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                  </svg>
-                ),
-                subText: "Under 4-Hour SLA Turnaround",
-                showSlaBar: true
-              },
-            ].map((metric, idx) => (
+            {/* ── RIGHT COLUMN: FROSTED LIQUID GLASS AUDIT CARD ── */}
+            <div style={{ position: "relative" }}>
+              {/* Crisp Frosted Liquid Glass Audit Card */}
               <div
-                key={idx}
+                className="hero-audit-card"
                 style={{
-                  background: "rgba(255, 255, 255, 0.84)",
-                  backdropFilter: "blur(16px)",
-                  WebkitBackdropFilter: "blur(16px)",
-                  border: `1px solid ${metric.borderColor}`,
-                  borderRadius: "20px",
-                  padding: "1.75rem 1.5rem",
-                  boxShadow: "0 12px 32px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02)",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
-                  position: "relative",
-                  overflow: "hidden"
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-5px)";
-                  e.currentTarget.style.boxShadow = "0 20px 45px rgba(37, 99, 235, 0.12), 0 2px 6px rgba(15, 23, 42, 0.04)";
-                  e.currentTarget.style.borderColor = metric.tagColor;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "0 12px 32px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02)";
-                  e.currentTarget.style.borderColor = metric.borderColor;
+                  background: "rgba(255, 255, 255, 0.78)",
+                  backdropFilter: "blur(24px) saturate(180%)",
+                  WebkitBackdropFilter: "blur(24px) saturate(180%)",
+                  border: "1.5px solid rgba(255, 255, 255, 0.95)",
+                  borderRadius: "24px",
+                  padding: "2.3rem 2.1rem",
+                  boxShadow: "0 20px 50px rgba(37, 99, 235, 0.08), 0 2px 8px rgba(15, 23, 42, 0.03), inset 0 1px 1px rgba(255, 255, 255, 0.95)",
+                  position: "relative"
                 }}
               >
-                {/* Top Row: Icon + Category Badge */}
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.2rem" }}>
-                  <div style={{
-                    width: "44px",
-                    height: "44px",
-                    borderRadius: "12px",
-                    background: metric.iconBg,
-                    color: metric.iconColor,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.04)"
-                  }}>
-                    {metric.icon}
-                  </div>
-                  <span style={{
-                    fontSize: "0.72rem",
-                    fontWeight: 800,
-                    color: metric.tagColor,
-                    background: metric.tagBg,
-                    padding: "0.25rem 0.65rem",
-                    borderRadius: "99px",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.5px"
-                  }}>
-                    {metric.tag}
+                <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "0.4rem" }}>
+                  <span style={{ color: "#F97316", fontSize: "0.95rem" }}>✦</span>
+                  <span style={{ fontSize: "0.76rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1.2px", color: "#EA580C" }}>
+                    COMPLIMENTARY COMMERCE DIAGNOSTIC
                   </span>
                 </div>
 
-                {/* Big Counter Value */}
-                <div>
-                  <div style={{ fontSize: "clamp(2.1rem, 2.8vw, 2.7rem)", fontWeight: 900, color: "#0B1736", letterSpacing: "-1px", lineHeight: 1 }}>
-                    <Counter target={metric.value} />
-                  </div>
-                  <div style={{ fontSize: "1rem", color: "#0F172A", fontWeight: 800, marginTop: "0.5rem", lineHeight: 1.3 }}>
-                    {metric.label}
-                  </div>
-                  <div style={{ fontSize: "0.84rem", color: "#64748B", marginTop: "0.35rem", lineHeight: 1.5, fontWeight: 500 }}>
-                    {metric.description}
-                  </div>
-                </div>
+                <h3 style={{ fontSize: "1.65rem", fontWeight: 900, color: "#0B1736", margin: "0 0 0.35rem", letterSpacing: "-0.5px" }}>
+                  Get Your Growth Diagnostic
+                </h3>
+                <p style={{ fontSize: "0.88rem", color: "#64748B", margin: "0 0 1.6rem", fontWeight: 500 }}>
+                  Confidential multi-channel diagnostic delivered within 24 hours.
+                </p>
 
-                {/* Bottom Micro-Badge or SLA progress with pure SVG Icons */}
-                <div style={{ marginTop: "1.25rem", paddingTop: "0.9rem", borderTop: "1px solid rgba(226, 232, 240, 0.7)" }}>
-                  {metric.showSlaBar ? (
-                    <div>
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "0.75rem", fontWeight: 700, color: "#059669", marginBottom: "0.4rem" }}>
-                        <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
-                          {metric.subIcon} Target: 98%
-                        </span>
-                        <span>Achieved: 98.2%</span>
-                      </div>
-                      <div style={{ width: "100%", height: "6px", background: "#E2E8F0", borderRadius: "99px", overflow: "hidden" }}>
-                        <div style={{ width: "98.2%", height: "100%", background: "linear-gradient(90deg, #10B981 0%, #059669 100%)", borderRadius: "99px" }}></div>
-                      </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "1.1rem" }}>
+                  <div>
+                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#1E293B", marginBottom: "0.4rem" }}>
+                      Full name
+                    </label>
+                    <div style={{ position: "relative" }}>
+                      <span style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", color: "#94A3B8" }}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
+                      </span>
+                      <input
+                        type="text"
+                        value={auditName}
+                        onChange={(e) => setAuditName(e.target.value)}
+                        placeholder="Enter your full name"
+                        style={{
+                          width: "100%",
+                          height: "48px",
+                          borderRadius: "12px",
+                          border: "1.5px solid #E2E8F0",
+                          background: "#F8FAFC",
+                          padding: "0 1rem 0 2.6rem",
+                          color: "#0F172A",
+                          fontSize: "0.92rem",
+                          fontWeight: 500,
+                          outline: "none",
+                          transition: "all 0.2s ease"
+                        }}
+                        onFocus={(e) => { e.currentTarget.style.borderColor = "#2563EB"; e.currentTarget.style.background = "#FFFFFF"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(37, 99, 235, 0.12)"; }}
+                        onBlur={(e) => { e.currentTarget.style.borderColor = "#E2E8F0"; e.currentTarget.style.background = "#F8FAFC"; e.currentTarget.style.boxShadow = "none"; }}
+                      />
                     </div>
-                  ) : (
-                    <span style={{ fontSize: "0.76rem", fontWeight: 700, color: "#475569", display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                      {metric.subIcon}
-                      <span>{metric.subText}</span>
+                  </div>
+
+                  <div>
+                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#1E293B", marginBottom: "0.4rem" }}>
+                      Phone / WhatsApp number
+                    </label>
+                    <div style={{ position: "relative" }}>
+                      <span style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", color: "#94A3B8" }}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
+                      </span>
+                      <input
+                        type="text"
+                        value={auditPhone}
+                        onChange={(e) => setAuditPhone(e.target.value)}
+                        placeholder="Enter your phone / WhatsApp number"
+                        style={{
+                          width: "100%",
+                          height: "48px",
+                          borderRadius: "12px",
+                          border: "1.5px solid #E2E8F0",
+                          background: "#F8FAFC",
+                          padding: "0 1rem 0 2.6rem",
+                          color: "#0F172A",
+                          fontSize: "0.92rem",
+                          fontWeight: 500,
+                          outline: "none",
+                          transition: "all 0.2s ease"
+                        }}
+                        onFocus={(e) => { e.currentTarget.style.borderColor = "#2563EB"; e.currentTarget.style.background = "#FFFFFF"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(37, 99, 235, 0.12)"; }}
+                        onBlur={(e) => { e.currentTarget.style.borderColor = "#E2E8F0"; e.currentTarget.style.background = "#F8FAFC"; e.currentTarget.style.boxShadow = "none"; }}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#1E293B", marginBottom: "0.4rem" }}>
+                      Work email
+                    </label>
+                    <div style={{ position: "relative" }}>
+                      <span style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", color: "#94A3B8" }}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
+                      </span>
+                      <input
+                        type="email"
+                        value={auditEmail}
+                        onChange={(e) => setAuditEmail(e.target.value)}
+                        placeholder="Enter your work email address"
+                        style={{
+                          width: "100%",
+                          height: "48px",
+                          borderRadius: "12px",
+                          border: "1.5px solid #E2E8F0",
+                          background: "#F8FAFC",
+                          padding: "0 1rem 0 2.6rem",
+                          color: "#0F172A",
+                          fontSize: "0.92rem",
+                          fontWeight: 500,
+                          outline: "none",
+                          transition: "all 0.2s ease"
+                        }}
+                        onFocus={(e) => { e.currentTarget.style.borderColor = "#2563EB"; e.currentTarget.style.background = "#FFFFFF"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(37, 99, 235, 0.12)"; }}
+                        onBlur={(e) => { e.currentTarget.style.borderColor = "#E2E8F0"; e.currentTarget.style.background = "#F8FAFC"; e.currentTarget.style.boxShadow = "none"; }}
+                      />
+                    </div>
+                  </div>
+
+
+                  <button
+                    onClick={() => setDiagOpen(true)}
+                    style={{
+                      width: "100%",
+                      height: "52px",
+                      borderRadius: "12px",
+                      background: "linear-gradient(135deg, #FF6B00 0%, #EA580C 100%)",
+                      color: "#FFFFFF",
+                      fontWeight: 800,
+                      fontSize: "1.05rem",
+                      border: "none",
+                      cursor: "pointer",
+                      marginTop: "0.5rem",
+                      boxShadow: "0 10px 25px rgba(234, 88, 12, 0.35)",
+                      transition: "all 0.25s ease",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "8px"
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 14px 30px rgba(234, 88, 12, 0.45)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 10px 25px rgba(234, 88, 12, 0.35)"; }}
+                  >
+                    Request Diagnostic →
+                  </button>
+
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "0.5rem", fontSize: "0.75rem", color: "#64748B", fontWeight: 650 }}>
+                    <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2.8"><polyline points="20 6 9 17 4 12" /></svg>
+                      Audit report
                     </span>
-                  )}
+                    <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2.8"><polyline points="20 6 9 17 4 12" /></svg>
+                      No commitment
+                    </span>
+                    <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2.8"><polyline points="20 6 9 17 4 12" /></svg>
+                      2hr response
+                    </span>
+                  </div>
                 </div>
               </div>
-            ))}
+            </div>
+
           </div>
         </div>
-      </section>
 
-      {/* ── CORE PHILOSOPHY / OPERATING MODEL MANIFESTO ── */}
-      <section style={{ padding: "0 1.5rem 1rem", position: "relative", zIndex: 2 }}>
-        <div className="container" style={{ maxWidth: "1200px", margin: "0 auto" }}>
-          <div className="reveal" style={{
-            background: "linear-gradient(135deg, #0B1736 0%, #172554 50%, #1E293B 100%)",
-            borderRadius: "24px",
-            padding: "3rem 2.5rem",
-            color: "#FFFFFF",
+        {/* ── OPERATING ACROSS LEADING PLATFORMS (HERO MARQUEE TICKER) ── */}
+        <div style={{ position: "relative", zIndex: 3, marginTop: "3.2rem", paddingTop: "1.4rem", borderTop: "1px solid #E2E8F0" }}>
+          <p style={{
             textAlign: "center",
-            border: "1px solid rgba(255, 255, 255, 0.12)",
-            boxShadow: "0 24px 60px rgba(11, 23, 54, 0.16)",
-            position: "relative",
-            overflow: "hidden"
+            marginBottom: "1rem",
+            fontSize: "0.76rem",
+            fontWeight: 800,
+            letterSpacing: "2.5px",
+            color: "#64748B",
+            textTransform: "uppercase"
           }}>
-            {/* Subtle glow background */}
-            <div style={{
-              position: "absolute",
-              top: "-50%",
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: "600px",
-              height: "300px",
-              background: "radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, transparent 70%)",
-              filter: "blur(60px)",
-              pointerEvents: "none"
-            }} />
-
-            <div style={{ position: "relative", zIndex: 2 }}>
-              <div style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                padding: "0.35rem 1rem",
-                borderRadius: "99px",
-                background: "rgba(56, 189, 248, 0.12)",
-                border: "1px solid rgba(56, 189, 248, 0.3)",
-                color: "#38BDF8",
-                fontSize: "0.78rem",
-                fontWeight: 800,
-                textTransform: "uppercase",
-                letterSpacing: "1.2px",
-                marginBottom: "1.2rem"
-              }}>
-                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#38BDF8", boxShadow: "0 0 0 3px rgba(56, 189, 248, 0.25)" }} />
-                The Good Life Operating Principle
-              </div>
-
-              <h3 style={{
-                fontSize: "clamp(1.2rem, 2.4vw, 1.7rem)",
-                fontWeight: 700,
-                lineHeight: 1.55,
-                color: "#F8FAFC",
-                maxWidth: "960px",
-                margin: "0 auto 1rem",
-                letterSpacing: "-0.3px"
-              }}>
-                &ldquo;Established brands achieve profitable pan-India ecommerce growth when channels, marketing, inventory, fulfilment and revenue control operate as one integrated system—with one accountable operating partner.&rdquo;
-              </h3>
-
-              <p style={{ color: "#94A3B8", fontSize: "0.95rem", maxWidth: "780px", margin: "0 auto", lineHeight: 1.6 }}>
-                Eliminating operational fragmentation across listings, ads, multi-state warehouses, and finance reconciliation.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 6: WHY GOOD LIFE (Operator Credibility - Rich Sky Blue Aurora & Frosted Glass) ── */}
-      <section className="unlock-section unlock-section-rich-glow" id="why-good-life">
-        {/* Rich Sky Blue Animated Floating Aurora Orbs */}
-        <div className="unlock-glow-orb-1"></div>
-        <div className="unlock-glow-orb-2"></div>
-        <div className="unlock-glow-orb-3"></div>
-
-        <div className="container" style={{ maxWidth: "1140px", margin: "0 auto", padding: "0 1rem", position: "relative", zIndex: 2 }}>
-          <div className="unlock-card" style={{
-            background: "rgba(255, 255, 255, 0.88)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            borderRadius: "22px",
-            border: "1.5px solid rgba(255, 255, 255, 0.95)",
-            padding: "2.2rem 2.5rem",
-            boxShadow: "0 16px 40px rgba(37, 99, 235, 0.07), 0 1px 3px rgba(15, 23, 42, 0.04)",
-            display: "grid",
-            gridTemplateColumns: "1fr 1.25fr",
-            gap: "2.4rem",
-            alignItems: "start"
-          }}>
-            {/* Left Column: Heading & CTA */}
-            <div>
-              <span style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "6px",
-                padding: "0.22rem 0.75rem",
-                borderRadius: "99px",
-                background: "#EFF6FF",
-                border: "1px solid #BFDBFE",
-                color: "#2563EB",
-                fontSize: "0.72rem",
-                fontWeight: 800,
-                letterSpacing: "1px",
-                textTransform: "uppercase",
-                marginBottom: "0.65rem"
-              }}>
-                <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#2563EB", boxShadow: "0 0 0 2.5px rgba(37, 99, 235, 0.2)" }}></span>
-                Operator Credibility
-              </span>
-              <h2 style={{
-                fontSize: "clamp(1.65rem, 2.3vw, 2.05rem)",
-                fontWeight: 800,
-                color: "#0B1736",
-                letterSpacing: "-0.6px",
-                lineHeight: 1.2,
-                marginTop: "0.2rem",
-                marginBottom: "0.75rem"
-              }}>
-                Why Leading Brands Choose Good Life
-              </h2>
-              <p style={{ color: "#475569", fontSize: "0.9rem", lineHeight: 1.6, marginBottom: "1.5rem" }}>
-                Not just another marketing agency. Good Life takes accountability for your complete ecommerce operation—from multi-state warehousing to daily reconciliation.
-              </p>
-              <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-                <button
-                  onClick={() => setDiagOpen(true)}
-                  style={{
-                    height: "42px",
-                    padding: "0 1.4rem",
-                    borderRadius: "10px",
-                    background: "#2563EB",
-                    color: "#FFFFFF",
-                    fontSize: "0.88rem",
-                    fontWeight: 700,
-                    border: "none",
-                    cursor: "pointer",
-                    boxShadow: "0 6px 16px rgba(37, 99, 235, 0.25)",
-                    transition: "all 0.2s ease"
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-2px)"}
-                  onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}
-                >
-                  Schedule a Demo →
-                </button>
-                <button
-                  onClick={() => setVideoOpen(true)}
-                  style={{
-                    height: "42px",
-                    padding: "0 1.2rem",
-                    borderRadius: "10px",
-                    background: "#FFFFFF",
-                    border: "1px solid #CBD5E1",
-                    color: "#0B1736",
-                    fontSize: "0.88rem",
-                    fontWeight: 700,
-                    cursor: "pointer",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    transition: "all 0.2s ease"
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "#F8FAFC";
-                    e.currentTarget.style.borderColor = "#94A3B8";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "#FFFFFF";
-                    e.currentTarget.style.borderColor = "#CBD5E1";
-                  }}
-                >
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="#2563EB">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                  Watch Demo
-                </button>
-              </div>
-            </div>
-
-            {/* Right Column: Explored Points (Detailed Deliverables & Accreditations) */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.65rem" }}>
-              {[
-                {
-                  num: "01",
-                  icon: (
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                      <path d="M9 12l2 2 4-4" />
-                    </svg>
-                  ),
-                  title: "Merchant & Distribution Partnership",
-                  summary: "We purchase stock outright, manage multi-platform cataloguing, and take inventory holding risk completely off your balance sheet.",
-                  bullets: [
-                    "Direct Purchase Orders (PO) for predictable cash-flow",
-                    "Channel MAP price parity & brand registry governance",
-                    "Automated daily payment settlement audit & deduction recovery"
-                  ],
-                  highlight: "Instant balance sheet relief with guaranteed commercial execution."
-                },
-                {
-                  num: "02",
-                  icon: (
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
-                      <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
-                      <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
-                      <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
-                    </svg>
-                  ),
-                  title: "OEM Brand Launch & Incubation",
-                  summary: "Turnkey incubation engine transforming legacy contract manufacturers and OEM factories into high-growth consumer digital brands.",
-                  bullets: [
-                    "Fast-track onboarding on Amazon Brand Registry, Flipkart Mall & Myntra",
-                    "Complete packaging audit, A+ catalogue visual design & storefront setup",
-                    "5 brand-new labels launched with ₹45 Cr+ combined first-year GMV"
-                  ],
-                  highlight: "Full turnkey product-market fit and commercial launch in 45 days."
-                },
-                {
-                  num: "03",
-                  icon: (
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect width="6" height="6" x="15" y="3" rx="1.5" />
-                      <rect width="6" height="6" x="3" y="15" rx="1.5" />
-                      <path d="M6 15V7a2 2 0 0 1 2-2h7" />
-                      <path d="M18 9v8a2 2 0 0 1-2 2H9" />
-                    </svg>
-                  ),
-                  title: "Unified Multi-Channel Execution",
-                  summary: "Synchronize inventory across 12 state regional warehouse hubs to satisfy Amazon Prime, Flipkart Plus, Myntra, Quick-Commerce, B2B, and D2C simultaneously.",
-                  bullets: [
-                    "Same-day dispatch SLA & 98.2% defect-free order fill rate",
-                    "Algorithmic multi-state stock replication & automated return QC",
-                    "Single unified dashboard for consolidated cross-platform analytics"
-                  ],
-                  highlight: "Under 4-hour order turnaround across India's tier-1 and tier-2 markets."
-                },
-              ].map((item, idx) => {
-                const isActive = activeAccStep === idx;
-                return (
+            Operating Across India&apos;s Leading Marketplaces &amp; Quick Commerce Platforms
+          </p>
+          <div className="channel-strip" style={{ margin: 0, padding: 0 }}>
+            <div className="channel-marquee-container" style={{ margin: 0, padding: "0.3rem 0", maskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)", WebkitMaskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)" }}>
+              <div className="channel-marquee-track" style={{ alignItems: "center" }}>
+                {[...channelSVGs, ...channelSVGs].map((ch, idx) => (
                   <div
                     key={idx}
-                    onClick={() => setActiveAccStep(idx)}
+                    title={ch.name}
                     style={{
-                      padding: "0.95rem 1.25rem",
-                      borderRadius: "14px",
-                      background: isActive ? "#FFFFFF" : "rgba(255, 255, 255, 0.65)",
-                      border: isActive ? "1.5px solid #2563EB" : "1px solid #E2E8F0",
-                      cursor: "pointer",
-                      transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
-                      boxShadow: isActive ? "0 8px 20px rgba(37, 99, 235, 0.08), 0 1px 4px rgba(15, 23, 42, 0.03)" : "none"
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: "0 2.2rem",
+                      cursor: "default",
+                      transition: "all 0.25s ease",
+                      opacity: 0.92,
+                      minHeight: "48px"
                     }}
-                    onMouseEnter={(e) => {
-                      if (!isActive) {
-                        e.currentTarget.style.borderColor = "#93C5FD";
-                        e.currentTarget.style.background = "#FFFFFF";
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isActive) {
-                        e.currentTarget.style.borderColor = "#E2E8F0";
-                        e.currentTarget.style.background = "rgba(255, 255, 255, 0.65)";
-                      }
-                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.transform = "scale(1.08)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.opacity = "0.92"; e.currentTarget.style.transform = "scale(1)"; }}
                   >
-                    {/* Step Head */}
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer" }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                        <span style={{
-                          fontFamily: "monospace",
-                          fontWeight: 900,
-                          fontSize: "0.82rem",
-                          color: isActive ? "#FFFFFF" : "#64748B",
-                          background: isActive ? "#2563EB" : "#F1F5F9",
-                          padding: "0.2rem 0.5rem",
-                          borderRadius: "7px",
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "5px",
-                          transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
-                        }}>
-                          {item.icon}
-                          {item.num}
-                        </span>
-                        <h4 style={{
-                          fontSize: "0.98rem",
-                          fontWeight: 800,
-                          color: isActive ? "#0B1736" : "#1E293B",
-                          margin: 0,
-                          letterSpacing: "-0.2px",
-                          transition: "color 0.2s ease"
-                        }}>
-                          {item.title}
-                        </h4>
-                      </div>
-                      <div>
-                        {/* Animated Chevron Indicator */}
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke={isActive ? "#2563EB" : "#94A3B8"}
-                          strokeWidth="2.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          style={{
-                            transform: isActive ? "rotate(180deg)" : "rotate(0deg)",
-                            transition: "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.2s ease",
-                            flexShrink: 0
-                          }}
-                        >
-                          <polyline points="6 9 12 15 18 9" />
-                        </svg>
-                      </div>
-                    </div>
-
-                    {/* Smooth Slow Animated Expand Body */}
-                    <div style={{
-                      display: "grid",
-                      gridTemplateRows: isActive ? "1fr" : "0fr",
-                      transition: "grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease"
-                    }}>
-                      <div style={{
-                        overflow: "hidden",
-                        minHeight: 0,
-                        opacity: isActive ? 1 : 0,
-                        transform: isActive ? "translateY(0)" : "translateY(-6px)",
-                        transition: "opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)"
-                      }}>
-                        <div style={{ marginTop: "0.7rem", paddingTop: "0.7rem", borderTop: "1px solid #F1F5F9" }}>
-                          <p style={{ color: "#475569", fontSize: "0.86rem", lineHeight: 1.55, margin: "0 0 0.75rem", fontWeight: 500 }}>
-                            {item.summary}
-                          </p>
-
-                          {/* Key Deliverables Bullet Points */}
-                          <div style={{ display: "flex", flexDirection: "column", gap: "0.42rem", marginBottom: "0.8rem" }}>
-                            {item.bullets.map((bullet, bIdx) => (
-                              <div key={bIdx} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.8rem", color: "#1E293B", fontWeight: 600 }}>
-                                <svg width="14" height="14" viewBox="0 0 20 20" fill="none" style={{ flexShrink: 0 }}>
-                                  <circle cx="10" cy="10" r="9" fill="#EFF6FF" stroke="#BFDBFE" strokeWidth="1.2" />
-                                  <path d="M6 10.2l2.6 2.6L14.2 7" stroke="#2563EB" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                                <span>{bullet}</span>
-                              </div>
-                            ))}
-                          </div>
-
-                          {/* Highlight Badge */}
-                          <div style={{
-                            background: "#EFF6FF",
-                            borderLeft: "3px solid #2563EB",
-                            padding: "0.45rem 0.75rem",
-                            borderRadius: "6px",
-                            fontSize: "0.76rem",
-                            color: "#1D4ED8",
-                            fontWeight: 700,
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "7px"
-                          }}>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                              <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
-                              <path d="M9 18h6" />
-                              <path d="M10 22h4" />
-                            </svg>
-                            <span>{item.highlight}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    {ch.svg}
                   </div>
-                );
-              })}
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── SECTION 5.5: BRANDS WE SERVE (Sleek Horizontal Marquee Strip - Item 7) ── */}
-      <div className="brands-marquee-section" style={{
-        padding: "2.4rem 0 2.2rem",
-        background: "#FFFFFF",
-        borderTop: "1px solid #E2E8F0",
-        borderBottom: "1px solid #E2E8F0",
+      {/* ── SECTION 2: WHERE IS YOUR BUSINESS TODAY? (Three Operating Paths Moved Up) ── */}
+      <section className="paths-section scroll-blur-reveal" id="where-is-your-business" style={{
+        padding: "5rem 1.5rem 5.5rem",
+        background: "rgba(255, 255, 255, 0.65)",
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+        borderBottom: "1.5px solid rgba(191, 219, 254, 0.45)",
         position: "relative",
         overflow: "hidden"
       }}>
-        <p className="brands-marquee-label" style={{
-          textAlign: "center",
-          marginBottom: "1.2rem",
-          fontSize: "0.78rem",
-          fontWeight: 800,
-          letterSpacing: "2.5px",
-          color: "#475569",
-          textTransform: "uppercase"
-        }}>
-          Brands We Operate &amp; Scale Across Marketplaces &amp; D2C
-        </p>
-        <div className="channel-strip" style={{ margin: 0 }}>
-          <div className="channel-marquee-container" style={{
-            margin: 0,
-            padding: 0,
-            maskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)"
-          }}>
-            <div className="channel-marquee-track">
-              {[...portfolioLogos, ...portfolioLogos].map((brand, idx) => (
-                <div
-                  key={idx}
-                  title={brand.name}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "0 2.2rem",
-                    cursor: "default",
-                    transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
-                    opacity: 0.92,
-                    minHeight: "52px"
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.opacity = "1";
-                    e.currentTarget.style.transform = "scale(1.12) translateY(-2px)";
-                    e.currentTarget.style.filter = "drop-shadow(0 6px 16px rgba(0, 0, 0, 0.08))";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.opacity = "0.92";
-                    e.currentTarget.style.transform = "scale(1) translateY(0)";
-                    e.currentTarget.style.filter = "none";
-                  }}
-                >
-                  {brand.svg}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+        {/* Soft Ambient Aurora Orb */}
+        <div className="ambient-glow-orb-left" style={{ opacity: 0.6 }} />
+        <div className="ambient-glow-orb-right" style={{ opacity: 0.5 }} />
 
-      {/* ── SECTION 6.5: INDUSTRY CATEGORIES (Item 9 - Compact & Sleek) ── */}
-      <section className="industry-categories-section" style={{
-        background: "linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 50%, #FFFFFF 100%)",
-        padding: "3.2rem 0 3.8rem",
-        borderTop: "1px solid #E2E8F0",
-        borderBottom: "1px solid #E2E8F0",
-        position: "relative"
-      }}>
-        <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1rem" }}>
-
-          {/* Section Header */}
-          <div style={{ textAlign: "center", marginBottom: "1.8rem" }}>
+        <div className="container" style={{ maxWidth: "1240px", margin: "0 auto", position: "relative", zIndex: 2 }}>
+          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
             <span style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: "5px",
-              padding: "0.18rem 0.7rem",
+              gap: "7px",
+              padding: "0.26rem 0.95rem",
               borderRadius: "99px",
-              background: "#F5F3FF",
-              border: "1px solid #DDD6FE",
-              color: "#7C3AED",
-              fontSize: "0.7rem",
+              background: "rgba(239, 246, 255, 0.9)",
+              border: "1px solid rgba(191, 219, 254, 0.8)",
+              color: "#2563EB",
+              fontSize: "0.76rem",
               fontWeight: 800,
-              letterSpacing: "1px",
+              letterSpacing: "1.2px",
               textTransform: "uppercase",
-              marginBottom: "0.45rem"
+              marginBottom: "0.75rem",
+              boxShadow: "0 2px 10px rgba(37, 99, 235, 0.08)"
             }}>
-              <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7C3AED", boxShadow: "0 0 0 2px rgba(124, 58, 237, 0.2)" }}></span>
-              Specialised Vertical Operations
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#2563EB" }} />
+              Section 2 • Tailored Operating Paths
             </span>
-            <h2 className="ptn-section-title" style={{ fontSize: "clamp(1.55rem, 2.3vw, 1.95rem)", fontWeight: 800, color: "#0B1736", margin: "0 0 0.35rem", letterSpacing: "-0.5px" }}>
-              Category-Specific Fulfilment &amp; Growth
+            <h2 style={{ fontSize: "clamp(1.95rem, 3vw, 2.6rem)", fontWeight: 800, color: "#0B1736", letterSpacing: "-0.6px", lineHeight: 1.2, margin: "0 0 0.7rem" }}>
+              Where Is Your Business Today?
             </h2>
-            <p className="ptn-section-subtitle" style={{ fontSize: "0.88rem", color: "#64748B", margin: "0 auto 1.3rem", maxWidth: "640px", lineHeight: 1.55 }}>
-              Customised operating workflows tailored for high-growth product categories, alongside rapidly expanding new commerce verticals.
+            <p style={{ fontSize: "0.98rem", color: "#475569", maxWidth: "680px", margin: "0 auto", lineHeight: 1.65 }}>
+              Choose Launch Online, Fix &amp; Grow, or Scale Pan-India as your primary operating entry route. Each has a dedicated execution mandate.
             </p>
-
-            {/* Filter Pills */}
-            <div style={{ display: "inline-flex", background: "#F1F5F9", padding: "3px", borderRadius: "10px", gap: "3px", border: "1px solid #E2E8F0" }}>
-              {[
-                { key: "all", label: "All Verticals (10)" },
-                { key: "active", label: "Active Operations (7)" },
-                { key: "upcoming", label: "Upcoming Verticals (3)" }
-              ].map((tab) => {
-                const isSelected = catFilter === tab.key;
-                return (
-                  <button
-                    key={tab.key}
-                    onClick={() => setCatFilter(tab.key as "all" | "active" | "upcoming")}
-                    style={{
-                      padding: "0.32rem 0.85rem",
-                      borderRadius: "7px",
-                      fontSize: "0.76rem",
-                      fontWeight: 700,
-                      border: "none",
-                      cursor: "pointer",
-                      background: isSelected ? "#FFFFFF" : "transparent",
-                      color: isSelected ? "#0F172A" : "#64748B",
-                      boxShadow: isSelected ? "0 2px 6px rgba(15, 23, 42, 0.08)" : "none",
-                      transition: "all 0.2s ease"
-                    }}
-                  >
-                    {tab.label}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Categories Grid */}
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-            gap: "1rem"
-          }}>
-            {[
-              {
-                id: "cat-1",
-                type: "active",
-                title: "Home & Kitchen Appliances",
-                badge: "Active",
-                badgeBg: "#ECFDF5",
-                badgeColor: "#059669",
-                badgeDot: "#10B981",
-                icon: (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                    <polyline points="9 22 9 12 15 12 15 22" />
-                  </svg>
-                ),
-                iconBg: "#EEF2FF",
-                iconBorder: "#C7D2FE",
-                desc: "Mixer grinders, induction cooktops, blenders, kettles, and smart kitchen small domestic appliances (SDA).",
-                highlight: "Mixer Grinders, Kettles & Cooktops",
-                channels: ["Amazon", "Flipkart", "JioMart", "Blinkit"]
-              },
-              {
-                id: "cat-2",
-                type: "active",
-                title: "TV & Smart Displays",
-                badge: "Active",
-                badgeBg: "#ECFDF5",
-                badgeColor: "#059669",
-                badgeDot: "#10B981",
-                icon: (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284C7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect width="18" height="12" x="3" y="4" rx="2" />
-                    <line x1="2" x2="22" y1="20" y2="20" />
-                  </svg>
-                ),
-                iconBg: "#F0F9FF",
-                iconBorder: "#BAE6FD",
-                desc: "Smart LED, QLED, OLED 4K displays and sound systems with serial scan tracking and transit safe packaging.",
-                highlight: "IMEI / Serial Scan & Safe Pack",
-                channels: ["Amazon", "Flipkart", "VW Stores", "Croma"]
-              },
-              {
-                id: "cat-3",
-                type: "active",
-                title: "Washing Machine",
-                badge: "Active",
-                badgeBg: "#ECFDF5",
-                badgeColor: "#059669",
-                badgeDot: "#10B981",
-                icon: (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="4" y="2" width="16" height="20" rx="2" />
-                    <circle cx="12" cy="13" r="5" />
-                    <path d="M12 8v.01" />
-                  </svg>
-                ),
-                iconBg: "#EFF6FF",
-                iconBorder: "#BFDBFE",
-                desc: "Front load, top load automatic and semi-automatic washing machines with heavy-bulky scheduled dock appointments.",
-                highlight: "Heavy Bulky Staging & Liftgate Dispatch",
-                channels: ["Amazon", "Flipkart", "Brand Stores"]
-              },
-              {
-                id: "cat-4",
-                type: "active",
-                title: "Seasonal Category",
-                badge: "Active • Peak SLA",
-                badgeBg: "#FEF3C7",
-                badgeColor: "#D97706",
-                badgeDot: "#F59E0B",
-                icon: (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EA580C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="4" />
-                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-                  </svg>
-                ),
-                iconBg: "#FFF7ED",
-                iconBorder: "#FED7AA",
-                desc: "Summer & winter climate operations covering Fans, Air Coolers, Water Heaters, and Room Heaters with 12-state buffer placement.",
-                highlight: "Fans, Air Coolers, Water & Room Heaters",
-                channels: ["Amazon", "Flipkart", "IndiaMART", "TradeIndia"]
-              },
-              {
-                id: "cat-5",
-                type: "active",
-                title: "Sewing Machine",
-                badge: "Active",
-                badgeBg: "#ECFDF5",
-                badgeColor: "#059669",
-                badgeDot: "#10B981",
-                icon: (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M4 19h16M4 15h16M7 15V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v3" />
-                  </svg>
-                ),
-                iconBg: "#FEF2F2",
-                iconBorder: "#FECACA",
-                desc: "Domestic stitching, industrial heavy-duty, and computerized automatic embroidery machines with cast-iron safe handling.",
-                highlight: "Domestic, Industrial & Embroidery",
-                channels: ["Amazon", "Flipkart", "USHA Network"]
-              },
-              {
-                id: "cat-6",
-                type: "active",
-                title: "Kitchen Chimney & Hobs",
-                badge: "Active",
-                badgeBg: "#ECFDF5",
-                badgeColor: "#059669",
-                badgeDot: "#10B981",
-                icon: (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0D9488" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M4 4h16v4L16 12v8H8v-8L4 8V4z" />
-                  </svg>
-                ),
-                iconBg: "#F0FDFA",
-                iconBorder: "#99F6E4",
-                desc: "Auto-clean filterless kitchen chimneys, gas hobs, and island exhaust hoods with glass-reinforced packaging.",
-                highlight: "Auto-Clean, Filterless & Island Hoods",
-                channels: ["Amazon", "Flipkart", "Dealer Network"]
-              },
-              {
-                id: "cat-7",
-                type: "active",
-                title: "Invertors & Battery",
-                badge: "Active",
-                badgeBg: "#ECFDF5",
-                badgeColor: "#059669",
-                badgeDot: "#10B981",
-                icon: (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="2" y="7" width="16" height="12" rx="2" />
-                    <line x1="22" x2="22" y1="11" y2="15" />
-                  </svg>
-                ),
-                iconBg: "#F0FDF4",
-                iconBorder: "#BBF7D0",
-                desc: "Pure sine wave home inverters, heavy tubular solar batteries, and voltage stabilizers with hazardous spill compliance.",
-                highlight: "Pure Sine Wave & Tubular Solar Batteries",
-                channels: ["Amazon", "Industrybuying", "Moglix", "B2B"]
-              },
-              {
-                id: "cat-8",
-                type: "upcoming",
-                title: "Quick-Commerce Dark Stores",
-                badge: "Upcoming • Pilot Live",
-                badgeBg: "#F5F3FF",
-                badgeColor: "#7C3AED",
-                badgeDot: "#8B5CF6",
-                icon: (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9333EA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                  </svg>
-                ),
-                iconBg: "#FAF5FF",
-                iconBorder: "#E9D5FF",
-                desc: "10-minute micro-node inventory staging, real-time dark store replenishment feeds, and automated zero-stockout triggers.",
-                highlight: "10-Min Micro Staging & Dark Store Feed",
-                channels: ["Blinkit", "Zepto", "Swiggy Instamart", "BB Now"]
-              },
-              {
-                id: "cat-9",
-                type: "upcoming",
-                title: "Industrial & B2B Spares",
-                badge: "Upcoming • In Pipeline",
-                badgeBg: "#EFF6FF",
-                badgeColor: "#2563EB",
-                badgeDot: "#3B82F6",
-                icon: (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
-                  </svg>
-                ),
-                iconBg: "#F0F7FF",
-                iconBorder: "#BFDBFE",
-                desc: "OEM part number cataloguing, corrosion-resistant storage, and regional dealer quotation B2B fulfilment.",
-                highlight: "OEM Part Indexing & Dealer Institutional",
-                channels: ["Moglix", "IndustryBuying", "Amazon Business"]
-              },
-              {
-                id: "cat-10",
-                type: "upcoming",
-                title: "Luxury Goods & Fine Jewelry",
-                badge: "Upcoming • Q4 2026",
-                badgeBg: "#FFFBEB",
-                badgeColor: "#B45309",
-                badgeDot: "#F59E0B",
-                icon: (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B45309" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M6 3h12l4 6-10 13L2 9Z" />
-                    <path d="M11 3 8 9l4 13 4-13-3-6" />
-                    <path d="M2 9h20" />
-                  </svg>
-                ),
-                iconBg: "#FEFCE8",
-                iconBorder: "#FEF08A",
-                desc: "Armored vault storage, tamper-evident security packaging, OTP-validated dispatch, and custom white-glove unboxing.",
-                highlight: "Vault Storage & OTP-Verified Courier",
-                channels: ["Tata CLiQ Luxury", "Exclusive D2C", "Invite-Only"]
-              }
-            ]
-              .filter((item) => catFilter === "all" || item.type === catFilter)
-              .map((cat) => (
-                <div
-                  key={cat.id}
-                  style={{
-                    background: "#FFFFFF",
-                    border: "1.5px solid #E2E8F0",
-                    borderRadius: "15px",
-                    padding: "1.15rem 1.15rem",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                    boxShadow: "0 3px 12px rgba(15, 23, 42, 0.03)",
-                    transition: "all 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
-                    position: "relative",
-                    overflow: "hidden"
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-3px)";
-                    e.currentTarget.style.boxShadow = "0 10px 24px rgba(37, 99, 235, 0.08)";
-                    e.currentTarget.style.borderColor = "#93C5FD";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = "0 3px 12px rgba(15, 23, 42, 0.03)";
-                    e.currentTarget.style.borderColor = "#E2E8F0";
-                  }}
-                >
-                  {/* Top Row: Icon & Status Badge */}
-                  <div>
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.75rem" }}>
-                      <div style={{
-                        width: "36px",
-                        height: "36px",
-                        borderRadius: "10px",
-                        background: cat.iconBg,
-                        border: `1px solid ${cat.iconBorder}`,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center"
-                      }}>
-                        {cat.icon}
-                      </div>
-
-                      <span style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "4px",
-                        padding: "0.16rem 0.5rem",
-                        borderRadius: "99px",
-                        background: cat.badgeBg,
-                        color: cat.badgeColor,
-                        fontSize: "0.62rem",
-                        fontWeight: 800,
-                        letterSpacing: "0.3px",
-                        textTransform: "uppercase"
-                      }}>
-                        <span style={{ width: 4.5, height: 4.5, borderRadius: "50%", background: cat.badgeDot }}></span>
-                        {cat.badge}
-                      </span>
-                    </div>
-
-                    {/* Title */}
-                    <h3 style={{ fontSize: "0.96rem", fontWeight: 800, color: "#0B1736", margin: "0 0 0.35rem", letterSpacing: "-0.2px", lineHeight: 1.25 }}>
-                      {cat.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p style={{ fontSize: "0.8rem", color: "#475569", lineHeight: 1.45, margin: "0 0 0.75rem", fontWeight: 500 }}>
-                      {cat.desc}
-                    </p>
-                  </div>
-
-                  {/* Bottom: Highlight Feature & Channels */}
-                  <div>
-                    {/* Highlight Box */}
-                    <div style={{
-                      background: "#F8FAFC",
-                      border: "1px solid #E2E8F0",
-                      borderRadius: "7px",
-                      padding: "0.35rem 0.55rem",
-                      fontSize: "0.72rem",
-                      color: "#1E293B",
-                      fontWeight: 700,
-                      marginBottom: "0.65rem",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "5px"
-                    }}>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                        <path d="m9 12 2 2 4-4" />
-                      </svg>
-                      <span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{cat.highlight}</span>
-                    </div>
-
-                    {/* Supported Channels Tags */}
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: "3px" }}>
-                      {cat.channels.map((ch, chIdx) => (
-                        <span key={chIdx} style={{
-                          fontSize: "0.64rem",
-                          fontWeight: 600,
-                          color: "#64748B",
-                          background: "#F1F5F9",
-                          padding: "0.12rem 0.4rem",
-                          borderRadius: "4px"
-                        }}>
-                          {ch}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 7: INTERACTIVE COMMERCE NETWORK ECOSYSTEM ── */}
-      <CommerceNetwork />
-
-
-
-      {/* ── SECTION 9: FULFILMENT NETWORK (Pan-India Interactive Map) ── */}
-      <WarehouseHubs />
-
-      {/* ── SECTION 5: THREE BUYER SITUATIONS (Routes to Launch / Fix & Grow / Scale page) ── */}
-      <section className="paths-section" id="three-situations">
-        <div className="container">
-          <div style={{ textAlign: "center" }}>
-            <span className="ptn-section-eyebrow">Tailored Operating Paths</span>
-            <h2 className="ptn-section-title" style={{ marginTop: "0.4rem" }}>Where Is Your Business Today?</h2>
-            <p className="ptn-section-subtitle" style={{ marginTop: "0.4rem" }}>Choose Launch Online, Fix &amp; Grow, or Scale Pan-India as your primary entry route.</p>
           </div>
           <div className="paths-grid">
             {[
-              { tag: "01. Launch Online", tagColor: "#2563EB", title: "Offline Brand / Manufacturer", desc: "Entering ecommerce for the first time across Amazon, Flipkart, Myntra, Moglix, JioMart, Snapmint, Bajaj and other approved platforms, plus D2C.", cta: "Explore Launch Mandate →", href: "/solutions/launch-online" },
+              { tag: "01. Launch Online", tagColor: "#2563EB", title: "Offline Brand / Manufacturer", desc: "Entering ecommerce for the first time across Amazon, Flipkart, Myntra, Moglix, JioMart, Snapmint, Blinkit and other approved platforms, plus D2C.", cta: "Explore Launch Mandate →", href: "/solutions/launch-online" },
               { tag: "02. Fix & Grow", tagColor: "#0D9488", title: "Active Marketplace Brand", desc: "Stuck with stagnant GMV, rising ACOS, un-audited settlement losses, or high customer returns. We audit, fix, and grow.", cta: "Explore Fix & Grow Audit →", href: "/solutions/fix-and-grow" },
               { tag: "03. Scale Pan-India", tagColor: "#7C3AED", title: "Established Enterprise Brand", desc: "Scaling 12-state warehouse inventory, regional dealer fulfilment, B2B/institutional channels, and multi-platform D2C sync.", cta: "Explore Pan-India Scale →", href: "/solutions/scale-pan-india" },
             ].map((card, idx) => (
-              <div key={idx} className="path-card reveal" style={{ transitionDelay: `${idx * 0.1}s` }}>
+              <div key={idx} className="path-card luxury-blue-glass scroll-blur-reveal" style={{ transitionDelay: `${idx * 0.12}s`, borderRadius: "20px" }}>
                 <div className="path-card-tag" style={{ color: card.tagColor }}>{card.tag}</div>
                 <h3 className="path-card-title">{card.title}</h3>
                 <p className="path-card-desc">{card.desc}</p>
@@ -2595,219 +1671,134 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── SECTION 10: VERIFIED TESTIMONIALS & PARTNER REVIEWS (Item 10 - After India Map) ── */}
-      <section className="testimonials-section" style={{
-        background: "linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 50%, #F1F5F9 100%)",
-        padding: "4rem 0 4.5rem",
-        borderTop: "1px solid #E2E8F0",
+      {/* ── SECTION 3: MARKETPLACE LEAKAGE CALCULATOR (Self-Serve Revenue Assurance) ── */}
+      <MarketplaceLeakageCalculator onOpenDiag={() => setDiagOpen(true)} />
+
+      {/* ── SECTION 4: EVERYTHING WE DO (Visual Service Matrix) ── */}
+      <ServiceMatrix onOpenDiag={() => setDiagOpen(true)} />
+
+      {/* ── SECTION 5: PROOF — NAMED CLIENT CASE STUDIES ── */}
+      <ProofCaseStudies onOpenDiag={() => setDiagOpen(true)} />
+
+      {/* ── SECTION 5.5: BRANDS WE OPERATE & SCALE ACROSS MARKETPLACES & D2C ── */}
+      <section className="scroll-blur-reveal" id="brands-we-operate" style={{
+        padding: "4.5rem 1.5rem 4.5rem",
+        background: "linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 50%, #FFFFFF 100%)",
+        borderTop: "1.5px solid rgba(226, 232, 240, 0.85)",
+        borderBottom: "1.5px solid rgba(226, 232, 240, 0.85)",
         position: "relative",
         overflow: "hidden"
       }}>
-        <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1rem" }}>
-          
-          {/* Header */}
+        {/* Soft Ambient Aurora Orb */}
+        <div className="ambient-glow-orb-left" style={{ opacity: 0.35 }} />
+        <div className="ambient-glow-orb-right" style={{ opacity: 0.35 }} />
+
+        <div style={{ maxWidth: "1280px", margin: "0 auto", position: "relative", zIndex: 2 }}>
           <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
             <span style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: "6px",
-              padding: "0.2rem 0.8rem",
+              gap: "7px",
+              padding: "0.26rem 0.95rem",
               borderRadius: "99px",
-              background: "#EFF6FF",
-              border: "1px solid #BFDBFE",
+              background: "rgba(239, 246, 255, 0.9)",
+              border: "1px solid rgba(191, 219, 254, 0.8)",
               color: "#2563EB",
-              fontSize: "0.72rem",
+              fontSize: "0.76rem",
               fontWeight: 800,
               letterSpacing: "1.2px",
               textTransform: "uppercase",
-              marginBottom: "0.5rem"
+              marginBottom: "0.85rem",
+              boxShadow: "0 2px 10px rgba(37, 99, 235, 0.08)"
             }}>
-              <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#2563EB", boxShadow: "0 0 0 2.5px rgba(37, 99, 235, 0.2)" }}></span>
-              Client Testimonials &amp; Case Studies
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#2563EB" }} />
+              Section 5.5 • Verified Client Footprint
             </span>
-            <h2 className="ptn-section-title" style={{ fontSize: "clamp(1.65rem, 2.4vw, 2.1rem)", fontWeight: 800, color: "#0B1736", margin: "0 0 0.4rem", letterSpacing: "-0.5px" }}>
-              What Brand Founders &amp; Operators Say
+            <h2 style={{
+              fontSize: "clamp(1.95rem, 3vw, 2.6rem)",
+              fontWeight: 800,
+              color: "#0B1736",
+              letterSpacing: "-0.6px",
+              lineHeight: 1.2,
+              margin: "0 0 0.7rem"
+            }}>
+              Brands We Operate &amp; Scale Across Marketplaces &amp; D2C
             </h2>
-            <p className="ptn-section-subtitle" style={{ fontSize: "0.92rem", color: "#64748B", margin: "0 auto", maxWidth: "620px", lineHeight: 1.55 }}>
-              Real operating impact and commerce scale delivered for India&apos;s leading consumer brands across marketplaces &amp; D2C.
+            <p style={{
+              fontSize: "0.98rem",
+              color: "#475569",
+              maxWidth: "740px",
+              margin: "0 auto",
+              lineHeight: 1.65
+            }}>
+              Direct operational management across Amazon, Flipkart, Blinkit, Zepto, and Quick Commerce for India&apos;s leading consumer enterprises and high-growth challenger brands.
             </p>
           </div>
 
-          {/* 3-Column Testimonial Cards Grid */}
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-            gap: "1.35rem"
-          }}>
-            {[
-              {
-                quote: "Good Life transitioned our entire marketplace model from passive selling to proactive growth. Their daily automated finance reconciliation caught fee leaks we didn't know existed, and our sales grew 2.8x in under 9 months.",
-                author: "Rohan Mehta",
-                role: "Founder & Managing Director",
-                company: "National Home Appliances Brand",
-                channels: "Amazon Prime • Flipkart Plus • JioMart",
-                metric: "+180% YoY Commerce Growth",
-                metricColor: "#1D4ED8",
-                metricBg: "#EFF6FF",
-                initial: "R",
-                avatarBg: "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
-                badgeBorder: "#BFDBFE"
-              },
-              {
-                quote: "Scaling to 12 state hubs seemed impossible until Good Life took over our supply chain. Our dispatch SLA turnaround is consistently sub-4 hours with zero stockout penalties across Myntra, Ajio and Amazon.",
-                author: "Pooja Sharma",
-                role: "VP of Supply Chain & Operations",
-                company: "Leading Consumer Lifestyle Label",
-                channels: "Myntra • Ajio • Amazon Fashion • Nykaa",
-                metric: "98.6% Order Fill Rate SLA",
-                metricColor: "#047857",
-                metricBg: "#ECFDF5",
-                initial: "P",
-                avatarBg: "linear-gradient(135deg, #10B981 0%, #047857 100%)",
-                badgeBorder: "#A7F3D0"
-              },
-              {
-                quote: "As an OEM manufacturer, launching direct to consumer was completely new territory. Good Life handled our catalogue, Brand Registry, climate warehousing, and ads—taking us to ₹45 Cr+ GMV in year one.",
-                author: "Vikramaditya Sengupta",
-                role: "Co-Founder & Head of Digital Commerce",
-                company: "Premier Nutraceuticals & Wellness Enterprise",
-                channels: "Tata 1mg • Amazon • Flipkart • D2C",
-                metric: "₹45 Cr+ First-Year GMV Scaled",
-                metricColor: "#B45309",
-                metricBg: "#FFFBEB",
-                initial: "V",
-                avatarBg: "linear-gradient(135deg, #F59E0B 0%, #B45309 100%)",
-                badgeBorder: "#FDE68A"
-              }
-            ].map((item, idx) => (
-              <div
-                key={idx}
-                style={{
-                  background: "#FFFFFF",
-                  border: "1.5px solid #E2E8F0",
-                  borderRadius: "20px",
-                  padding: "1.6rem 1.6rem 1.4rem",
-                  boxShadow: "0 4px 16px rgba(15, 23, 42, 0.04)",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
-                  position: "relative"
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-4px)";
-                  e.currentTarget.style.boxShadow = "0 14px 30px rgba(37, 99, 235, 0.09)";
-                  e.currentTarget.style.borderColor = "#93C5FD";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "0 4px 16px rgba(15, 23, 42, 0.04)";
-                  e.currentTarget.style.borderColor = "#E2E8F0";
-                }}
-              >
-                <div>
-                  {/* Top: 5 Stars Rating & Metric Pill */}
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem" }}>
-                    <div style={{ display: "flex", gap: "3px" }}>
-                      {[...Array(5)].map((_, sIdx) => (
-                        <svg key={sIdx} width="15" height="15" viewBox="0 0 24 24" fill="#F59E0B">
-                          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                        </svg>
-                      ))}
-                    </div>
-
-                    <span style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "4px",
-                      padding: "0.2rem 0.6rem",
-                      borderRadius: "99px",
-                      background: item.metricBg,
-                      border: `1px solid ${item.badgeBorder}`,
-                      color: item.metricColor,
-                      fontSize: "0.68rem",
-                      fontWeight: 800,
-                      letterSpacing: "0.3px"
-                    }}>
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
-                        <polyline points="17 6 23 6 23 12" />
-                      </svg>
-                      {item.metric}
-                    </span>
-                  </div>
-
-                  {/* Quote Text */}
-                  <p style={{
-                    fontSize: "0.92rem",
-                    color: "#1E293B",
-                    lineHeight: 1.6,
-                    fontWeight: 500,
-                    margin: "0 0 1.2rem",
-                    fontStyle: "normal"
-                  }}>
-                    &ldquo;{item.quote}&rdquo;
-                  </p>
-                </div>
-
-                {/* Author Info & Verified Badge */}
-                <div style={{ borderTop: "1px solid #F1F5F9", paddingTop: "1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                    <div style={{
-                      width: "40px",
-                      height: "40px",
-                      borderRadius: "50%",
-                      background: item.avatarBg,
-                      color: "#FFFFFF",
+          {/* Marquee Strip Container */}
+          <div className="channel-strip" style={{ margin: 0, padding: 0 }}>
+            <div className="channel-marquee-container" style={{
+              margin: 0,
+              padding: "0.8rem 0",
+              maskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)"
+            }}>
+              <div className="channel-marquee-track" style={{ alignItems: "center", gap: "2rem" }}>
+                {[...portfolioLogos, ...portfolioLogos].map((brand, idx) => (
+                  <div
+                    key={idx}
+                    title={`${brand.name} • ${brand.category}`}
+                    style={{
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      fontWeight: 900,
-                      fontSize: "0.95rem",
-                      boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
+                      padding: "0.9rem 2.2rem",
+                      borderRadius: "16px",
+                      background: "rgba(255, 255, 255, 0.95)",
+                      border: "1.5px solid rgba(226, 232, 240, 0.9)",
+                      boxShadow: "0 2px 10px rgba(15, 23, 42, 0.04)",
+                      cursor: "default",
+                      transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+                      opacity: 0.95,
+                      minHeight: "58px",
                       flexShrink: 0
-                    }}>
-                      {item.initial}
-                    </div>
-                    <div>
-                      <div style={{ fontSize: "0.92rem", fontWeight: 800, color: "#0B1736", letterSpacing: "-0.2px", lineHeight: 1.2 }}>
-                        {item.author}
-                      </div>
-                      <div style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 600, marginTop: "2px" }}>
-                        {item.role} • <span style={{ color: "#334155" }}>{item.company}</span>
-                      </div>
-                    </div>
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.opacity = "1";
+                      e.currentTarget.style.transform = "translateY(-4px) scale(1.06)";
+                      e.currentTarget.style.boxShadow = "0 12px 30px rgba(37, 99, 235, 0.12)";
+                      e.currentTarget.style.borderColor = "#93C5FD";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.opacity = "0.95";
+                      e.currentTarget.style.transform = "translateY(0) scale(1)";
+                      e.currentTarget.style.boxShadow = "0 2px 10px rgba(15, 23, 42, 0.04)";
+                      e.currentTarget.style.borderColor = "rgba(226, 232, 240, 0.9)";
+                    }}
+                  >
+                    {brand.svg}
                   </div>
-
-                  {/* Verified Checkmark */}
-                  <div style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "4px",
-                    background: "#F0FDF4",
-                    border: "1px solid #BBF7D0",
-                    padding: "0.18rem 0.45rem",
-                    borderRadius: "6px",
-                    fontSize: "0.64rem",
-                    color: "#15803D",
-                    fontWeight: 700
-                  }}>
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#15803D" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    Verified
-                  </div>
-                </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
 
+      {/* ── SECTION 6: PHYSICAL 12-STATE INFRASTRUCTURE & HUB MAP ── */}
+      <WarehouseHubs />
+
+      {/* ── SECTION 7: THIRD-PARTY VALIDATION & GOVERNANCE ── */}
+      <ThirdPartyValidation onOpenDiag={() => setDiagOpen(true)} />
+
+      {/* ── SECTION 8: HOW WE WORK TOGETHER (Transparent Commercial Models) ── */}
+      <CommercialModels onOpenDiag={() => setDiagOpen(true)} />
+
+      {/* ── SECTION 9: NEXT STEPS & LOOKING FOR SOMETHING ELSE? ── */}
+      <CustomSolutionForm onOpenDiag={() => setDiagOpen(true)} />
+
       {/* ── FOOTER ── */}
       <Footer />
-
-      <StickyBar onOpenDiag={() => setDiagOpen(true)} />
 
       {diagOpen && <CommerceDiagnosticModal onClose={() => setDiagOpen(false)} />}
 

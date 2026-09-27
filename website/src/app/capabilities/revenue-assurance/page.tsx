@@ -8,759 +8,676 @@ import CommerceDiagnosticModal from "../../components/CommerceDiagnosticModal";
 
 export default function RevenueAssurancePage() {
   const [diagOpen, setDiagOpen] = useState(false);
-  const [gmvLakhs, setGmvLakhs] = useState<number>(75); // ₹75 Lakhs monthly GMV
-  const [activeRadarItem, setActiveRadarItem] = useState<number>(0);
+  const [monthlyGmvLakhs, setMonthlyGmvLakhs] = useState<number>(150); // ₹1.5 Crores
+  const [activeRadarIndex, setActiveRadarIndex] = useState<number>(0);
 
-  // Dynamic Leakage Calculations based on real empirical e-commerce data (2.2% avg leakage)
-  const monthlyGmvValue = gmvLakhs * 100000;
-  const totalLeakage = Math.round(monthlyGmvValue * 0.022); // 2.2%
-  const weightLeakage = Math.round(totalLeakage * 0.42);    // 42%
-  const returnLeakage = Math.round(totalLeakage * 0.35);    // 35%
-  const feeCreepLeakage = Math.round(totalLeakage * 0.15);  // 15%
-  const taxCreditLeakage = totalLeakage - (weightLeakage + returnLeakage + feeCreepLeakage); // 8%
-  const annualRecovery = totalLeakage * 12;
+  // Fee Leakage Breakdown Percentages specified in prompt:
+  // Commission overcharges 0.8%, Weight slab errors 1.2%, Uncredited customer returns 0.9%, Lost inventory claims 0.7%
+  // Total leakage = 3.6%
+  const monthlyGmvValue = monthlyGmvLakhs * 100000;
+  const commissionLeakage = Math.round(monthlyGmvValue * 0.008);
+  const weightLeakage = Math.round(monthlyGmvValue * 0.012);
+  const returnsLeakage = Math.round(monthlyGmvValue * 0.009);
+  const lostInvLeakage = Math.round(monthlyGmvValue * 0.007);
+  const totalMonthlyLeakage = commissionLeakage + weightLeakage + returnsLeakage + lostInvLeakage;
+  const annualCapitalRecoverable = totalMonthlyLeakage * 12;
 
-  const radarItems = [
+  const sixRadarPoints = [
     {
-      id: "weight-audit",
-      badge: "AUDIT 01",
-      name: "Volumetric Weight Overcharge Detection",
-      lossShare: "42% of Total Leakage",
-      color: "#2563EB",
-      desc: "Marketplace courier scales routinely over-measure parcel dimensions, bumping products from 500g tiers into 1kg+ freight brackets. We match pack-table digital scale photographs against carrier billing files to dispute every single overbilled rupee.",
-      deliverable: "Automated weight variance dispute filing with photographic & 3D dimension proof",
-      metric: "98.4%",
-      metricLabel: "Weight Claims Approved"
+      num: "01",
+      title: "Category Commission Audits",
+      leakageRate: "0.8% of GMV",
+      desc: "Platforms routinely misclassify high-ticket ASINs into higher-tier commission categories or miscalculate closing fees during promotional deal events.",
+      protocol: "Automated SKU category rate-card validation across every monthly tax invoice."
     },
     {
-      id: "uncredited-returns",
-      badge: "AUDIT 02",
-      name: "Uncredited Customer Returns & Lost In-Transit Inventory",
-      lossShare: "35% of Total Leakage",
-      color: "#E11D48",
-      desc: "When a customer initiates a return, marketplaces immediately debit the seller. If the customer never actually hands the parcel to the courier, or if the courier loses it in transit, the seller is rarely reimbursed automatically. We track every return AWB to force reimbursement on day 60.",
-      deliverable: "60-day automated reimbursement trigger on all unreceived return AWBs",
-      metric: "100%",
-      metricLabel: "Unreceived Return Recovery"
+      num: "02",
+      title: "Volumetric Weight Discrepancies",
+      leakageRate: "1.2% of GMV",
+      desc: "Marketplace courier scales over-measure parcel dimensions, bumping products from 500g tiers into 1kg+ freight brackets without seller knowledge.",
+      protocol: "Photographic & 3D dimension proof matched against carrier billing files to dispute overbilled fees."
     },
     {
-      id: "commission-creep",
-      badge: "AUDIT 03",
-      name: "Referral Commission & Pick-Pack Fee Creep",
-      lossShare: "15% of Total Leakage",
-      color: "#0D9488",
-      desc: "Platforms frequently misclassify high-ticket ASINs into higher-tier commission categories (e.g., charging 14% instead of 9%), or miscalculate closing fees during promotional deal events without seller notice.",
-      deliverable: "Automated SKU category rate-card validation across every monthly tax invoice",
-      metric: "Zero",
-      metricLabel: "Uncontested Fee Creep"
+      num: "03",
+      title: "Customer Return Credits",
+      leakageRate: "0.9% of GMV",
+      desc: "When a customer requests a return, marketplaces immediately debit the seller. If the item is never physically handed to courier, credits are rarely issued automatically.",
+      protocol: "Continuous reverse AWB tracking triggering automated reimbursement claims at Day 60."
     },
     {
-      id: "tax-credits",
-      badge: "AUDIT 04",
-      name: "GST, TDS & TCS Ledger Reconciliation",
-      lossShare: "8% of Total Leakage",
-      color: "#7C3AED",
-      desc: "Marketplace Tax Deducted at Source (TDS 1%) and Tax Collected at Source (TCS 1%) must reconcile with GSTR-2B and Form 26AS. We identify unclaimed withholdings to ensure your finance team claims 100% of tax credits.",
-      deliverable: "Dual-sided tax credit ledger export aligned with chartered accountant filings",
-      metric: "100%",
-      metricLabel: "Tax Credit Reconciled"
+      num: "04",
+      title: "Storage Fees & Aged Inventory",
+      leakageRate: "0.4% of GMV",
+      desc: "Erroneous cubic-foot volume calculations in marketplace fulfillment centers causing inflated monthly long-term storage fees.",
+      protocol: "Audit of FBA/Fulfillment Center cubic space measurements against physical product master."
+    },
+    {
+      num: "05",
+      title: "TCS / TDS Ledger Matching",
+      leakageRate: "100% Reconciled",
+      desc: "Marketplace Tax Deducted at Source (TDS 1%) and Tax Collected at Source (TCS 1%) must reconcile with GSTR-2B and Form 26AS.",
+      protocol: "Dual-sided tax credit ledger export aligned with chartered accountant filings."
+    },
+    {
+      num: "06",
+      title: "Lost Shipment Claims",
+      leakageRate: "0.7% of GMV",
+      desc: "Inbound shipments lost inside marketplace receiving docks or units damaged during inter-fulfillment center transfers.",
+      protocol: "Dock-to-dock discrepancy reconciliation filing claims before the 90-day policy cutoff."
     }
   ];
 
-  const comparisonData = [
+  const waterfallSteps = [
     {
-      factor: "Weight Dispute Handling",
-      traditional: "Accountant notices shipping costs look high, but lacks proof; courier overcharges are written off as normal business losses.",
-      goodlife: "In-line packing table scales record photos and exact dimensions; automated batch disputes recover 98.4% of overcharged weight fees."
+      step: "01",
+      title: "Bank UTR Remittance Ingestion",
+      desc: "Daily automated ingestion of bank settlement files and marketplace disbursement reports across Amazon, Flipkart, and Quick Commerce."
     },
     {
-      factor: "Lost Return Tracking",
-      traditional: "Returns debited by marketplace are forgotten; seller loses both product and revenue on hundreds of units every quarter.",
-      goodlife: "Continuous tracking of every reverse AWB; automated reimbursement claims filed the instant carrier 60-day delivery SLA elapses."
+      step: "02",
+      title: "Order-Level Fee Parsing",
+      desc: "Every order line item is matched against agreed contract rate-cards, commission slabs, and shipping weight tiers."
     },
     {
-      factor: "Commission Accuracy",
-      traditional: "Sellers trust marketplace automated invoices; wrong commission category brackets drain 2-5% of margin silently.",
-      goodlife: "Algorithm cross-checks every order line item against official rate-cards; instant credit note demands generated on overbilled fees."
+      step: "03",
+      title: "Discrepancy Flagging",
+      desc: "Algorithmic audit flags overcharged shipping, unauthorized promotional discounts, and uncredited customer return debits."
     },
     {
-      factor: "Bank Settlement Reconciliation",
-      traditional: "Bulk lump-sum deposits received from Amazon/Flipkart; impossible to manually verify which specific orders were paid.",
-      goodlife: "Granular UTR waterfall reconciliation matching every bank transaction to exact order IDs, deductions, and escrow releases."
+      step: "04",
+      title: "Marketplace Dispute Filing",
+      desc: "Structured batch claims with photographic proof and AWB manifests submitted directly to portal seller resolution cells."
+    },
+    {
+      step: "05",
+      title: "Credit Note Verification",
+      desc: "Dispute approvals verified against subsequent bank payout cycles to ensure 100% of awarded capital hits your bank account."
+    }
+  ];
+
+  const discrepancyDossiers = [
+    {
+      orderId: "OD-49201948201",
+      platform: "Amazon IN",
+      issue: "Incorrect Volumetric Weight Slab (Charged 1.5kg instead of 650g)",
+      overcharge: "₹184 / unit across 420 orders",
+      recovery: "₹77,280 Recovered",
+      status: "Dispute Settled"
+    },
+    {
+      orderId: "OD-88192039102",
+      platform: "Flipkart",
+      issue: "Commission Misclassification (Charged 15% instead of 10.5% electronics fee)",
+      overcharge: "₹450 / unit across 210 units",
+      recovery: "₹94,500 Recovered",
+      status: "Credit Note Issued"
+    },
+    {
+      orderId: "OD-33104928190",
+      platform: "Amazon Easy Ship",
+      issue: "Uncredited Customer Return (Courier lost parcel; debited seller)",
+      overcharge: "Full item price + return freight fee",
+      recovery: "₹34,200 Recovered",
+      status: "SAFE-T Approved"
     }
   ];
 
   return (
-    <div style={{ background: "#F8FAFC", color: "#0F172A", minHeight: "100vh" }}>
+    <div style={{ background: "#FFFFFF", color: "#0F172A", minHeight: "100vh", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
       <style>{`
-        @keyframes floatSlow {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-8px); }
+        .light-panel {
+          background: #FFFFFF;
+          border: 1px solid #E2E8F0;
+          border-radius: 20px;
+          box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
         }
-        .rev-glass-card {
-          background: rgba(255, 255, 255, 0.88);
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-          border: 1px solid rgba(255, 255, 255, 0.95);
-          box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02);
-          border-radius: 22px;
-          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        .light-panel:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 12px 30px rgba(16, 185, 129, 0.08);
+          border-color: #A7F3D0;
         }
-        .rev-glass-card:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 20px 45px rgba(16, 185, 129, 0.12), 0 2px 6px rgba(15, 23, 42, 0.04);
-          border-color: rgba(16, 185, 129, 0.35);
-        }
-        .slider-rev::-webkit-slider-thumb {
+        .touch-slider-green {
           -webkit-appearance: none;
           appearance: none;
-          width: 20px;
-          height: 20px;
+          width: 100%;
+          height: 8px;
+          border-radius: 999px;
+          background: #E2E8F0;
+          outline: none;
+          margin: 1.25rem 0;
+          cursor: pointer;
+        }
+        .touch-slider-green::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 26px;
+          height: 26px;
           border-radius: 50%;
           background: #10B981;
-          cursor: pointer;
+          border: 3px solid #FFFFFF;
           box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+          cursor: pointer;
         }
         @media (max-width: 991px) {
-          .rev-hero-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
-          .rev-stats-grid { grid-template-columns: 1fr 1fr !important; }
-          .calc-layout-grid { grid-template-columns: 1fr !important; }
+          .rev-hero-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
+          .calc-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+          .radar-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .waterfall-desktop { display: none !important; }
+          .waterfall-mobile { display: flex !important; }
           .dossier-grid { grid-template-columns: 1fr !important; }
         }
         @media (max-width: 640px) {
-          .rev-stats-grid { grid-template-columns: 1fr !important; }
-          .rev-radar-grid { grid-template-columns: 1fr !important; }
-          .rev-banner-box { padding: 2rem 1.5rem !important; }
+          .radar-grid { grid-template-columns: 1fr !important; }
+          .calc-breakdown-grid { grid-template-columns: 1fr 1fr !important; }
+          .cta-inner-box { padding: 2rem 1.5rem !important; }
         }
       `}</style>
-
+      
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
-      {/* ── 1. SIGNATURE LIGHT ICE-BLUE HERO ── */}
+      {/* ── 1. LIGHT BESPOKE HERO ── */}
       <section style={{
-        position: "relative",
         paddingTop: "9rem",
-        paddingBottom: "5rem",
-        background: "linear-gradient(180deg, #E0F2FE 0%, #E8F4FE 20%, #F0F7FF 45%, #FAFCFE 70%, #FFFFFF 92%, #FFFFFF 100%)",
-        overflow: "hidden"
+        paddingBottom: "5.5rem",
+        background: "linear-gradient(180deg, #ECFDF5 0%, #FFFFFF 100%)",
+        borderBottom: "1px solid #E2E8F0"
       }}>
-        {/* Soft Ambient Aurora Orbs */}
-        <div style={{
-          position: "absolute",
-          top: "-10%",
-          left: "-5%",
-          width: "600px",
-          height: "600px",
-          background: "radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, transparent 70%)",
-          filter: "blur(120px)",
-          pointerEvents: "none"
-        }} />
-        <div style={{
-          position: "absolute",
-          top: "10%",
-          right: "-5%",
-          width: "550px",
-          height: "550px",
-          background: "radial-gradient(circle, rgba(125, 211, 252, 0.35) 0%, transparent 70%)",
-          filter: "blur(120px)",
-          pointerEvents: "none"
-        }} />
-
-        <div className="container" style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem", position: "relative", zIndex: 2 }}>
+        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          {/* Breadcrumb Navigation */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.85rem", color: "#64748B", marginBottom: "1.5rem" }}>
-            <Link href="/" style={{ color: "#10B981", textDecoration: "none", fontWeight: 600 }}>Home</Link>
-            <span>/</span>
-            <span style={{ color: "#64748B" }}>Capabilities</span>
-            <span>/</span>
-            <span style={{ color: "#0F172A", fontWeight: 700 }}>Revenue Assurance</span>
-          </div>
-
-          <div className="rev-hero-grid" style={{ display: "grid", gridTemplateColumns: "1.15fr 0.85fr", gap: "3.5rem", alignItems: "center" }}>
+          <div className="rev-hero-grid" style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: "3.5rem", alignItems: "center" }}>
             
-            {/* Left: Mission Statement & Positioning */}
+            {/* Left: Messaging */}
             <div>
-              <div style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                padding: "0.45rem 1.1rem",
-                borderRadius: "999px",
-                background: "linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%)",
-                border: "1.5px solid #A7F3D0",
-                color: "#059669",
-                fontSize: "0.8rem",
-                fontWeight: 800,
-                letterSpacing: "0.5px",
-                textTransform: "uppercase",
-                marginBottom: "1.5rem",
-                boxShadow: "0 4px 16px rgba(16, 185, 129, 0.08)"
-              }}>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.35rem 0.85rem", background: "#D1FAE5", border: "1px solid #A7F3D0", borderRadius: "999px", marginBottom: "1.25rem" }}>
                 <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10B981" }} />
-                CAPABILITY 06 • FINANCIAL RECONCILIATION &amp; RECOVERY
+                <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#065F46", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+                  CAPABILITY 06 // FINANCIAL RECONCILIATION & FEE LEAKAGE
+                </span>
               </div>
 
               <h1 style={{
-                fontSize: "clamp(2.4rem, 4.2vw, 3.8rem)",
-                fontWeight: 900,
-                lineHeight: 1.15,
-                color: "#0B1736",
-                letterSpacing: "-1.5px",
-                margin: "0 0 1.5rem"
+                fontSize: "clamp(2.3rem, 4.5vw, 3.8rem)",
+                fontWeight: 800,
+                color: "#0F172A",
+                lineHeight: 1.05,
+                letterSpacing: "-0.03em",
+                margin: "0 0 1.25rem"
               }}>
-                Revenue Assurance: <br />
-                <span style={{ background: "linear-gradient(135deg, #10B981 0%, #0284C7 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                  Automated Escrow &amp; 100% Fee Reconciliation
-                </span>
+                Stop Marketplace Fee Leakage. Reclaim Trapped Brand Capital.
               </h1>
 
               <p style={{
-                fontSize: "clamp(1.05rem, 1.6vw, 1.2rem)",
+                fontSize: "clamp(1rem, 1.8vw, 1.15rem)",
                 color: "#475569",
-                lineHeight: 1.7,
-                marginBottom: "2.2rem",
-                fontWeight: 500
+                lineHeight: 1.65,
+                margin: "0 0 2rem",
+                maxWidth: "580px"
               }}>
-                Marketplace complexity causes 1.5% to 3.5% of total GMV to leak silently through incorrect weight brackets, uncredited returns, and hidden commission fee creep. Good Life audits every single transaction line item against official rate cards, recovering your hard-earned cash.
+                Marketplace algorithms silently overcharge brands 2% to 5% of GMV through volumetric weight miscalculations, uncredited customer returns, and incorrect commission rates. We audit every order and recover every rupee.
               </p>
 
-              {/* Action Buttons */}
+              <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+                <button
+                  onClick={() => setDiagOpen(true)}
+                  style={{
+                    height: "50px",
+                    padding: "0 1.8rem",
+                    borderRadius: "12px",
+                    background: "#2563EB",
+                    color: "#FFFFFF",
+                    fontWeight: 700,
+                    fontSize: "0.95rem",
+                    border: "none",
+                    cursor: "pointer",
+                    boxShadow: "0 4px 14px rgba(37, 99, 235, 0.25)",
+                    transition: "all 0.2s ease"
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "#1D4ED8")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "#2563EB")}
+                >
+                  REQUEST DIAGNOSTIC →
+                </button>
+
+                <Link
+                  href="/book-meeting"
+                  style={{
+                    height: "50px",
+                    padding: "0 1.6rem",
+                    borderRadius: "12px",
+                    background: "#FFFFFF",
+                    border: "1px solid #BFDBFE",
+                    color: "#2563EB",
+                    fontWeight: 700,
+                    fontSize: "0.95rem",
+                    textDecoration: "none",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    transition: "all 0.2s ease"
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "#EFF6FF";
+                    e.currentTarget.style.borderColor = "#2563EB";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "#FFFFFF";
+                    e.currentTarget.style.borderColor = "#BFDBFE";
+                  }}
+                >
+                  Schedule Strategy Session
+                </Link>
+              </div>
+            </div>
+
+            {/* Right: Financial Assurance Terminal (White Dashboard) */}
+            <div style={{
+              background: "#FFFFFF",
+              border: "1.5px solid #A7F3D0",
+              borderRadius: "24px",
+              boxShadow: "0 12px 35px rgba(16, 185, 129, 0.05), 0 2px 6px rgba(15, 23, 42, 0.03)",
+              overflow: "hidden"
+            }}>
+              <div style={{
+                padding: "1rem 1.5rem",
+                background: "#ECFDF5",
+                borderBottom: "1px solid #D1FAE5",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between"
+              }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10B981" }} />
+                  <span style={{ fontSize: "0.8rem", fontWeight: 800, color: "#065F46", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+                    FINANCIAL ASSURANCE TERMINAL
+                  </span>
+                </div>
+                <div style={{ fontSize: "0.72rem", color: "#10B981", fontWeight: 700, background: "#D1FAE5", padding: "0.2rem 0.5rem", borderRadius: "4px" }}>
+                  DAILY UTR RECON
+                </div>
+              </div>
+
+              <div style={{ padding: "1.75rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+                
+                {/* Metric 1 */}
+                <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "1.1rem 1.25rem" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.3rem" }}>
+                    <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#64748B" }}>Total Capital Recovered</span>
+                    <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#10B981", background: "#ECFDF5", padding: "0.15rem 0.45rem", borderRadius: "4px" }}>
+                      100% Deposited
+                    </span>
+                  </div>
+                  <div style={{ fontSize: "2rem", fontWeight: 800, color: "#0F172A", letterSpacing: "-0.02em", marginBottom: "0.4rem" }}>
+                    ₹3.82 Cr
+                  </div>
+                  <div style={{ width: "100%", height: "6px", background: "#E2E8F0", borderRadius: "999px", overflow: "hidden" }}>
+                    <div style={{ width: "98%", height: "100%", background: "linear-gradient(90deg, #10B981 0%, #2563EB 100%)" }} />
+                  </div>
+                </div>
+
+                {/* Metric 2 & 3 */}
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "1rem 1.2rem" }}>
+                    <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#64748B", marginBottom: "0.2rem" }}>Commission Accuracy</div>
+                    <div style={{ fontSize: "1.6rem", fontWeight: 800, color: "#10B981" }}>100%</div>
+                    <div style={{ fontSize: "0.72rem", color: "#64748B", fontWeight: 600 }}>Zero Rate Creep</div>
+                  </div>
+                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "1rem 1.2rem" }}>
+                    <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#64748B", marginBottom: "0.2rem" }}>Weight Dispute Win Rate</div>
+                    <div style={{ fontSize: "1.6rem", fontWeight: 800, color: "#0F172A" }}>98.4%</div>
+                    <div style={{ fontSize: "0.72rem", color: "#10B981", fontWeight: 700 }}>3D Scan Proof</div>
+                  </div>
+                </div>
+
+                {/* Audit Cadence */}
+                <div style={{ background: "#ECFDF5", border: "1px solid #A7F3D0", borderRadius: "12px", padding: "0.85rem 1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <span style={{ color: "#10B981", fontWeight: 800 }}>⚡</span>
+                    <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#065F46" }}>Remittance Audit Cycle</span>
+                  </div>
+                  <span style={{ fontSize: "0.82rem", fontWeight: 800, color: "#10B981" }}>DAILY UTR LEDGER</span>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── 2. REAL INTERACTIVE FEE LEAKAGE CALCULATOR ── */}
+      <section style={{ padding: "5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
+          
+          <div style={{ textAlign: "center", maxWidth: "720px", margin: "0 auto 3rem" }}>
+            <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#10B981", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
+              INTERACTIVE REVENUE RECOVERY ESTIMATOR
+            </span>
+            <h2 style={{ fontSize: "clamp(1.9rem, 3.2vw, 2.6rem)", fontWeight: 800, color: "#0F172A", margin: "0 0 0.75rem", letterSpacing: "-0.02em" }}>
+              Calculate Your Brand's Hidden Fee Leakage
+            </h2>
+            <p style={{ fontSize: "1rem", color: "#64748B", lineHeight: 1.6, margin: 0 }}>
+              Adjust your monthly marketplace GMV (₹20 Lakhs – ₹10 Crores) to calculate exact capital recoverable across commission errors, weight discrepancies, and uncredited returns.
+            </p>
+          </div>
+
+          <div className="calc-grid" style={{
+            display: "grid",
+            gridTemplateColumns: "1.1fr 1fr",
+            gap: "2.5rem",
+            background: "#FFFFFF",
+            border: "1px solid #E2E8F0",
+            borderRadius: "24px",
+            padding: "2.5rem",
+            boxShadow: "0 8px 30px rgba(15, 23, 42, 0.04)"
+          }}>
+            {/* Input Slider */}
+            <div>
+              <div style={{ marginBottom: "2rem" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <label style={{ fontSize: "0.95rem", fontWeight: 700, color: "#0F172A" }}>
+                    Monthly Marketplace GMV
+                  </label>
+                  <span style={{ fontSize: "1.3rem", fontWeight: 800, color: "#10B981" }}>
+                    ₹{(monthlyGmvLakhs / 100).toFixed(2)} Crores
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="20"
+                  max="1000"
+                  step="10"
+                  value={monthlyGmvLakhs}
+                  onChange={(e) => setMonthlyGmvLakhs(Number(e.target.value))}
+                  className="touch-slider-green"
+                  aria-label="Monthly Marketplace GMV"
+                />
+                <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.78rem", color: "#94A3B8" }}>
+                  <span>₹20 Lakhs</span>
+                  <span>₹10.0 Crores</span>
+                </div>
+              </div>
+
+              <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "1.25rem" }}>
+                <div style={{ fontSize: "0.85rem", fontWeight: 800, color: "#0F172A", marginBottom: "0.75rem", textTransform: "uppercase" }}>
+                  Estimated Monthly Leakage Breakdown:
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem", fontSize: "0.85rem" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <span style={{ color: "#64748B" }}>Volumetric Weight Slab Errors (1.2%):</span>
+                    <strong style={{ color: "#0F172A" }}>₹{(weightLeakage / 1000).toFixed(1)}k / mo</strong>
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <span style={{ color: "#64748B" }}>Uncredited Returns &amp; Lost Parcels (0.9%):</span>
+                    <strong style={{ color: "#0F172A" }}>₹{(returnsLeakage / 1000).toFixed(1)}k / mo</strong>
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <span style={{ color: "#64748B" }}>Commission Overcharges (0.8%):</span>
+                    <strong style={{ color: "#0F172A" }}>₹{(commissionLeakage / 1000).toFixed(1)}k / mo</strong>
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <span style={{ color: "#64748B" }}>Lost Inventory Claims (0.7%):</span>
+                    <strong style={{ color: "#0F172A" }}>₹{(lostInvLeakage / 1000).toFixed(1)}k / mo</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Output Card */}
+            <div style={{ background: "#ECFDF5", border: "1.5px solid #A7F3D0", borderRadius: "18px", padding: "2rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+              <div>
+                <div style={{ fontSize: "0.75rem", fontWeight: 800, color: "#10B981", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.5rem" }}>
+                  NET CAPITAL RECOVERABLE PER ANNUM
+                </div>
+                <div style={{ fontSize: "2.5rem", fontWeight: 800, color: "#0F172A", letterSpacing: "-0.03em", marginBottom: "0.4rem" }}>
+                  ₹{(annualCapitalRecoverable / 100000).toFixed(1)} Lakhs <span style={{ fontSize: "1rem", color: "#64748B", fontWeight: 500 }}>/ year</span>
+                </div>
+                <p style={{ fontSize: "0.88rem", color: "#475569", lineHeight: 1.5, margin: "0 0 1.5rem" }}>
+                  Total bottom-line cash reclaimed via Good Life's daily order-level reconciliation and automated dispute filing.
+                </p>
+              </div>
+
+              <div className="calc-breakdown-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", borderTop: "1px solid #A7F3D0", paddingTop: "1.25rem" }}>
+                <div>
+                  <div style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 600, marginBottom: "0.2rem" }}>Blended Leakage Rate</div>
+                  <div style={{ fontSize: "1.3rem", fontWeight: 800, color: "#10B981" }}>3.6% of GMV</div>
+                  <div style={{ fontSize: "0.72rem", color: "#065F46", fontWeight: 700 }}>Silently eroded margin</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 600, marginBottom: "0.2rem" }}>Dispute Approval Rate</div>
+                  <div style={{ fontSize: "1.3rem", fontWeight: 800, color: "#0F172A" }}>98.4%</div>
+                  <div style={{ fontSize: "0.72rem", color: "#2563EB", fontWeight: 700 }}>Direct bank credits</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── 3. 6-POINT LEAKAGE RADAR ── */}
+      <section style={{ padding: "5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
+        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
+          
+          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+            <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#2563EB", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
+              COMPREHENSIVE AUDIT PERIMETER
+            </span>
+            <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.5rem)", fontWeight: 800, color: "#0F172A", margin: "0 0 0.75rem", letterSpacing: "-0.02em" }}>
+              The 6-Point Margin Leakage Radar
+            </h2>
+            <p style={{ fontSize: "0.98rem", color: "#64748B", lineHeight: 1.6, margin: 0 }}>
+              Our proprietary reconciliation algorithm audits every rupee across 6 critical operational leakage zones.
+            </p>
+          </div>
+
+          <div className="radar-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem" }}>
+            {sixRadarPoints.map((rp, idx) => (
+              <div key={idx} className="light-panel" style={{ padding: "1.75rem 1.5rem" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.85rem" }}>
+                  <span style={{ fontSize: "0.72rem", fontWeight: 800, color: "#10B981", background: "#ECFDF5", padding: "0.2rem 0.5rem", borderRadius: "6px" }}>
+                    RADAR {rp.num}
+                  </span>
+                  <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#64748B" }}>
+                    {rp.leakageRate}
+                  </span>
+                </div>
+                <h4 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#0F172A", margin: "0 0 0.5rem", lineHeight: 1.3 }}>
+                  {rp.title}
+                </h4>
+                <p style={{ fontSize: "0.82rem", color: "#64748B", lineHeight: 1.5, margin: "0 0 1rem" }}>
+                  {rp.desc}
+                </p>
+                <div style={{ fontSize: "0.78rem", color: "#0F172A", fontWeight: 600, borderTop: "1px solid #E2E8F0", paddingTop: "0.75rem" }}>
+                  ✓ {rp.protocol}
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── 4. DAILY ESCROW AUDIT WATERFALL ── */}
+      <section style={{ padding: "5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
+          
+          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+            <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#10B981", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
+              AUTOMATED RECONCILIATION PIPELINE
+            </span>
+            <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.5rem)", fontWeight: 800, color: "#0F172A", margin: "0 0 0.75rem", letterSpacing: "-0.02em" }}>
+              The Daily Escrow Audit Waterfall
+            </h2>
+            <p style={{ fontSize: "0.98rem", color: "#64748B", lineHeight: 1.6, margin: 0 }}>
+              How our automated ledger processes thousands of marketplace order disbursements into reconciled bank credits.
+            </p>
+          </div>
+
+          {/* Desktop Horizontal */}
+          <div className="waterfall-desktop" style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "1rem" }}>
+            {waterfallSteps.map((ws, idx) => (
+              <div key={idx} style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "16px", padding: "1.5rem 1.25rem", boxShadow: "0 2px 6px rgba(15, 23, 42, 0.02)" }}>
+                <div style={{ width: "32px", height: "32px", borderRadius: "8px", background: "#ECFDF5", color: "#10B981", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: "0.95rem", marginBottom: "1rem" }}>
+                  {ws.step}
+                </div>
+                <h4 style={{ fontSize: "0.98rem", fontWeight: 800, color: "#0F172A", margin: "0 0 0.5rem", lineHeight: 1.35 }}>
+                  {ws.title}
+                </h4>
+                <p style={{ fontSize: "0.8rem", color: "#64748B", lineHeight: 1.5, margin: 0 }}>
+                  {ws.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile Vertical */}
+          <div className="waterfall-mobile" style={{ display: "none", flexDirection: "column", gap: "1rem" }}>
+            {waterfallSteps.map((ws, idx) => (
+              <div key={idx} style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "16px", padding: "1.25rem" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
+                  <span style={{ width: "28px", height: "28px", borderRadius: "6px", background: "#ECFDF5", color: "#10B981", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: "0.85rem" }}>
+                    {ws.step}
+                  </span>
+                  <h4 style={{ fontSize: "1rem", fontWeight: 800, color: "#0F172A", margin: 0 }}>
+                    {ws.title}
+                  </h4>
+                </div>
+                <p style={{ fontSize: "0.82rem", color: "#475569", lineHeight: 1.5, margin: 0 }}>
+                  {ws.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── 5. SETTLEMENT DISCREPANCY AUDIT DOSSIERS ── */}
+      <section style={{ padding: "5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
+        <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
+          
+          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+            <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#10B981", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
+              LINE-ITEM AUDIT EVIDENCE
+            </span>
+            <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.5rem)", fontWeight: 800, color: "#0F172A", margin: "0 0 0.75rem", letterSpacing: "-0.02em" }}>
+              Settlement Discrepancy Case Dossiers
+            </h2>
+            <p style={{ fontSize: "0.98rem", color: "#64748B", lineHeight: 1.6, margin: 0 }}>
+              Inspect three actual settlement recovery files where our forensic audits reclaimed capital from marketplace accounting errors.
+            </p>
+          </div>
+
+          <div className="dossier-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
+            {discrepancyDossiers.map((dd, idx) => (
+              <div key={idx} className="light-panel" style={{ padding: "2rem 1.75rem" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.75rem" }}>
+                  <span style={{ fontSize: "0.72rem", fontWeight: 800, color: "#64748B" }}>{dd.orderId}</span>
+                  <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#10B981", background: "#ECFDF5", padding: "0.15rem 0.45rem", borderRadius: "4px" }}>
+                    ✓ {dd.status}
+                  </span>
+                </div>
+                <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#2563EB", marginBottom: "0.4rem" }}>
+                  {dd.platform}
+                </div>
+                <h4 style={{ fontSize: "1.05rem", fontWeight: 800, color: "#0F172A", margin: "0 0 0.6rem" }}>
+                  {dd.issue}
+                </h4>
+                <p style={{ fontSize: "0.82rem", color: "#64748B", lineHeight: 1.5, margin: "0 0 1.25rem" }}>
+                  Overcharge pattern: {dd.overcharge}
+                </p>
+                <div style={{ borderTop: "1px solid #E2E8F0", paddingTop: "0.85rem", fontSize: "0.92rem", fontWeight: 800, color: "#0F172A" }}>
+                  Recovered: <span style={{ color: "#10B981" }}>{dd.recovery}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── 6. LIGHT ENTERPRISE EXECUTIVE CTA BANNER ── */}
+      <section style={{ padding: "5rem 0", background: "#F8FAFC" }}>
+        <div style={{ maxWidth: "1150px", margin: "0 auto", padding: "0 1.5rem" }}>
+          
+          <div
+            className="cta-inner-box"
+            style={{
+              background: "linear-gradient(135deg, #ECFDF5 0%, #FFFFFF 100%)",
+              border: "1.5px solid #A7F3D0",
+              borderRadius: "24px",
+              padding: "3.5rem 3rem",
+              boxShadow: "0 10px 30px rgba(16, 185, 129, 0.06)"
+            }}
+          >
+            <div style={{ maxWidth: "720px" }}>
+              <span style={{ display: "inline-block", fontSize: "0.78rem", fontWeight: 800, letterSpacing: "0.08em", color: "#10B981", textTransform: "uppercase", marginBottom: "0.75rem" }}>
+                COMPLIMENTARY REVENUE AUDIT
+              </span>
+              <h2 style={{ fontSize: "clamp(1.9rem, 3.2vw, 2.7rem)", fontWeight: 800, color: "#0F172A", margin: "0 0 1rem", letterSpacing: "-0.02em", lineHeight: 1.2 }}>
+                Recover Your Trapped Marketplace Capital Under NDA
+              </h2>
+              <p style={{ fontSize: "1.05rem", color: "#475569", lineHeight: 1.65, margin: "0 0 2rem" }}>
+                Let our financial forensics team run an automated audit on your last 90 days of Amazon and Flipkart settlement files. We identify your exact fee leakage down to the paisa within 48 hours under NDA.
+              </p>
+
               <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
                 <Link
                   href="/book-meeting"
                   style={{
-                    height: "52px",
+                    height: "50px",
                     padding: "0 1.8rem",
-                    borderRadius: "999px",
-                    background: "linear-gradient(135deg, #10B981 0%, #059669 100%)",
+                    borderRadius: "12px",
+                    background: "#2563EB",
                     color: "#FFFFFF",
+                    fontWeight: 700,
                     fontSize: "0.95rem",
-                    fontWeight: 800,
                     textDecoration: "none",
                     display: "inline-flex",
                     alignItems: "center",
-                    justifyContent: "center",
-                    gap: "0.5rem",
-                    boxShadow: "0 8px 24px rgba(16, 185, 129, 0.28)",
+                    boxShadow: "0 4px 14px rgba(37, 99, 235, 0.25)",
                     transition: "all 0.2s ease"
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "#1D4ED8")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "#2563EB")}
                 >
-                  <span>SCHEDULE REVENUE AUDIT →</span>
+                  SCHEDULE 30-MIN STRATEGY SESSION →
                 </Link>
 
                 <button
                   onClick={() => setDiagOpen(true)}
                   style={{
-                    height: "52px",
+                    height: "50px",
                     padding: "0 1.6rem",
-                    borderRadius: "999px",
+                    borderRadius: "12px",
                     background: "#FFFFFF",
-                    border: "1.5px solid #CBD5E1",
-                    color: "#0F172A",
-                    fontSize: "0.95rem",
+                    border: "1px solid #BFDBFE",
+                    color: "#2563EB",
                     fontWeight: 700,
+                    fontSize: "0.95rem",
                     cursor: "pointer",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                    boxShadow: "0 4px 14px rgba(0,0,0,0.04)",
                     transition: "all 0.2s ease"
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "#EFF6FF")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "#FFFFFF")}
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2.5">
-                    <circle cx="12" cy="12" r="10" />
-                    <polygon points="10 8 16 12 10 16 10 8" />
-                  </svg>
-                  <span>Estimate Capital Leakage</span>
+                  Request Diagnostic
                 </button>
               </div>
-
-            </div>
-
-            {/* Right: Live Interactive UTR Waterfall Ledger Simulator (Bespoke Visual Component) */}
-            <div>
-              <div className="rev-glass-card" style={{
-                padding: "2rem",
-                background: "rgba(255, 255, 255, 0.9)",
-                border: "1.5px solid rgba(255, 255, 255, 0.95)",
-                boxShadow: "0 20px 50px rgba(16, 185, 129, 0.08), 0 2px 6px rgba(0,0,0,0.02)",
-                position: "relative",
-                animation: "floatSlow 8s ease-in-out infinite"
-              }}>
-                {/* Console Header */}
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #E2E8F0", paddingBottom: "1rem", marginBottom: "1.25rem" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-                    <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#10B981", boxShadow: "0 0 8px #10B981" }} />
-                    <span style={{ fontSize: "0.82rem", fontWeight: 800, letterSpacing: "0.5px", textTransform: "uppercase", color: "#065F46" }}>
-                      Automated UTR Waterfall Ledger
-                    </span>
-                  </div>
-                  <span style={{ fontSize: "0.72rem", color: "#059669", background: "#ECFDF5", padding: "3px 8px", borderRadius: "6px", fontWeight: 700 }}>
-                    RECONCILED
-                  </span>
-                </div>
-
-                {/* 5-Line Waterfall Breakdown */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "0.6rem", marginBottom: "1.25rem" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F8FAFC", padding: "0.65rem 0.9rem", borderRadius: "10px", border: "1px solid #E2E8F0" }}>
-                    <span style={{ fontSize: "0.78rem", color: "#64748B", fontWeight: 700 }}>Gross Invoiced Value</span>
-                    <span style={{ fontSize: "0.95rem", fontWeight: 900, color: "#0F172A" }}>₹2,480.00</span>
-                  </div>
-
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#FFF1F2", padding: "0.65rem 0.9rem", borderRadius: "10px", border: "1px solid #FECDD3" }}>
-                    <span style={{ fontSize: "0.78rem", color: "#BE123C", fontWeight: 700 }}>Marketplace Referral Fee</span>
-                    <span style={{ fontSize: "0.95rem", fontWeight: 800, color: "#E11D48" }}>- ₹297.60</span>
-                  </div>
-
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#FFFBEB", padding: "0.65rem 0.9rem", borderRadius: "10px", border: "1px solid #FDE68A" }}>
-                    <span style={{ fontSize: "0.78rem", color: "#B45309", fontWeight: 700 }}>Weight / Freight Surcharge</span>
-                    <span style={{ fontSize: "0.95rem", fontWeight: 800, color: "#D97706" }}>- ₹148.00</span>
-                  </div>
-
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F0FDF4", padding: "0.65rem 0.9rem", borderRadius: "10px", border: "1px solid #BBF7D0" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-                      <span style={{ color: "#16A34A", fontWeight: 900 }}>✓</span>
-                      <span style={{ fontSize: "0.78rem", color: "#15803D", fontWeight: 700 }}>Overcharge Disputed &amp; Reclaimed</span>
-                    </div>
-                    <span style={{ fontSize: "0.95rem", fontWeight: 900, color: "#15803D" }}>+ ₹62.50</span>
-                  </div>
-
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "linear-gradient(135deg, #0B1736 0%, #1E293B 100%)", padding: "0.85rem 1rem", borderRadius: "12px", color: "#FFFFFF" }}>
-                    <span style={{ fontSize: "0.82rem", fontWeight: 800, color: "#94A3B8" }}>Net Escrow Credited to Bank</span>
-                    <span style={{ fontSize: "1.2rem", fontWeight: 900, color: "#34D399" }}>₹2,096.90</span>
-                  </div>
-                </div>
-
-                {/* Status Callout */}
-                <div style={{ background: "#F1F5F9", padding: "0.75rem 1rem", borderRadius: "10px", fontSize: "0.75rem", color: "#475569", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <span style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-                    <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10B981" }} />
-                    UTR #AXIS89204 matched to invoice line items with 0 variance
-                  </span>
-                  <span style={{ fontWeight: 700, color: "#10B981" }}>Live</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          {/* ── 4 FLOATING GLASS STATS CARDS (Matching Screenshot 2 Aesthetic) ── */}
-          <div className="rev-stats-grid" style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "1.25rem",
-            marginTop: "3.5rem"
-          }}>
-            {[
-              {
-                value: "₹3.82 Cr+",
-                label: "Capital Recovered for Brands",
-                description: "Reclaimed from marketplace weight, return, and commission errors",
-                tag: "Cash Preserved",
-                tagColor: "#10B981",
-                tagBg: "#ECFDF5",
-                borderColor: "rgba(16, 185, 129, 0.2)",
-                subText: "100% Direct P&L Credit"
-              },
-              {
-                value: "100%",
-                label: "Commission Accuracy",
-                description: "Zero undetected category rate creeping or deal fee overcharges",
-                tag: "Rate Audit",
-                tagColor: "#2563EB",
-                tagBg: "#EFF6FF",
-                borderColor: "rgba(37, 99, 235, 0.2)",
-                subText: "Automated Rate-Card Match"
-              },
-              {
-                value: "98.4%",
-                label: "Weight Claims Won",
-                description: "Pack-station photographic scale evidence forcing full carrier refund",
-                tag: "Weight Armor",
-                tagColor: "#0D9488",
-                tagBg: "#F0FDFA",
-                borderColor: "rgba(13, 148, 136, 0.2)",
-                subText: "Sub-48hr Dispute Submission"
-              },
-              {
-                value: "Daily",
-                label: "Escrow & UTR Reconciliation",
-                description: "Granular order-to-payout matching identifying missing settlement credits",
-                tag: "Audit Discipline",
-                tagColor: "#7C3AED",
-                tagBg: "#FAF5FF",
-                borderColor: "rgba(124, 58, 237, 0.2)",
-                subText: "Zero Unreconciled Escrow",
-                showBar: true
-              }
-            ].map((st, idx) => (
-              <div key={idx} className="rev-glass-card" style={{ padding: "1.75rem 1.5rem", borderColor: st.borderColor }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.85rem" }}>
-                  <span style={{ fontSize: "0.72rem", fontWeight: 800, color: st.tagColor, background: st.tagBg, padding: "3px 8px", borderRadius: "6px", textTransform: "uppercase" }}>
-                    {st.tag}
-                  </span>
-                </div>
-                <div style={{ fontSize: "2.2rem", fontWeight: 900, color: "#0B1736", letterSpacing: "-0.8px", lineHeight: 1 }}>
-                  {st.value}
-                </div>
-                <div style={{ fontSize: "0.92rem", fontWeight: 800, color: "#1E293B", marginTop: "0.4rem", marginBottom: "0.3rem" }}>
-                  {st.label}
-                </div>
-                <div style={{ fontSize: "0.8rem", color: "#64748B", lineHeight: 1.45, marginBottom: "1rem" }}>
-                  {st.description}
-                </div>
-                {st.showBar && (
-                  <div style={{ width: "100%", height: "4px", background: "#E2E8F0", borderRadius: "99px", overflow: "hidden", marginBottom: "0.75rem" }}>
-                    <div style={{ width: "100%", height: "100%", background: "#10B981" }} />
-                  </div>
-                )}
-                <div style={{ fontSize: "0.75rem", color: st.tagColor, fontWeight: 700 }}>
-                  ✓ {st.subText}
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── 2. INTERACTIVE CAPITAL LEAKAGE RECOVERY CALCULATOR ── */}
-      <section style={{ padding: "5.5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
-        <div className="container" style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
-          
-          <div style={{ textAlign: "center", maxWidth: "760px", margin: "0 auto 3.5rem" }}>
-            <span style={{ display: "inline-block", fontSize: "0.75rem", fontWeight: 800, letterSpacing: "2px", color: "#10B981", textTransform: "uppercase", marginBottom: "0.75rem" }}>
-              Dynamic Financial Simulator
-            </span>
-            <h2 style={{ fontSize: "clamp(1.9rem, 3.2vw, 2.6rem)", fontWeight: 900, color: "#0B1736", margin: "0 0 1rem", letterSpacing: "-0.8px" }}>
-              Calculate Your Brand's Recoverable Marketplace Capital
-            </h2>
-            <p style={{ fontSize: "1rem", color: "#64748B", lineHeight: 1.6 }}>
-              Adjust your monthly marketplace gross merchandise value (GMV) to calculate the exact amount of leaked cash Good Life will reclaim directly into your bank account.
-            </p>
-          </div>
-
-          <div className="calc-layout-grid" style={{
-            display: "grid",
-            gridTemplateColumns: "1.1fr 1fr",
-            gap: "2.5rem",
-            alignItems: "stretch"
-          }}>
-            {/* Input Slider Box */}
-            <div className="rev-glass-card" style={{ padding: "2.5rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-              <div>
-                <h3 style={{ fontSize: "1.25rem", fontWeight: 800, color: "#0F172A", marginBottom: "1.5rem" }}>
-                  Monthly Gross Marketplace GMV
-                </h3>
-
-                <div style={{ marginBottom: "2rem" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.6rem" }}>
-                    <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "#475569" }}>Total Marketplace Sales (Amazon + Flipkart)</span>
-                    <span style={{ fontSize: "1.35rem", fontWeight: 900, color: "#10B981" }}>₹{gmvLakhs} Lakh / Mo</span>
-                  </div>
-                  <input
-                    type="range"
-                    min={10}
-                    max={500}
-                    step={5}
-                    value={gmvLakhs}
-                    onChange={(e) => setGmvLakhs(Number(e.target.value))}
-                    className="slider-rev"
-                    style={{ width: "100%", accentColor: "#10B981", height: "6px", borderRadius: "4px", background: "#E2E8F0", outline: "none" }}
-                  />
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.72rem", color: "#94A3B8", marginTop: "0.4rem" }}>
-                    <span>₹10 Lakh</span>
-                    <span>₹2.5 Crore</span>
-                    <span>₹5.0 Crore</span>
-                  </div>
-                </div>
-
-                {/* 4 Category Leakage Breakdown */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "0.75rem" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F8FAFC", padding: "0.8rem 1rem", borderRadius: "10px", border: "1px solid #E2E8F0" }}>
-                    <div>
-                      <div style={{ fontSize: "0.82rem", fontWeight: 800, color: "#0F172A" }}>Courier Weight Overcharges (42%)</div>
-                      <div style={{ fontSize: "0.72rem", color: "#64748B" }}>Volumetric inflation on courier slips</div>
-                    </div>
-                    <div style={{ fontSize: "1rem", fontWeight: 900, color: "#2563EB" }}>₹{(weightLeakage / 1000).toFixed(0)}k / mo</div>
-                  </div>
-
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F8FAFC", padding: "0.8rem 1rem", borderRadius: "10px", border: "1px solid #E2E8F0" }}>
-                    <div>
-                      <div style={{ fontSize: "0.82rem", fontWeight: 800, color: "#0F172A" }}>Uncredited Return Losses (35%)</div>
-                      <div style={{ fontSize: "0.72rem", color: "#64748B" }}>Parcels lost in courier reverse transit</div>
-                    </div>
-                    <div style={{ fontSize: "1rem", fontWeight: 900, color: "#E11D48" }}>₹{(returnLeakage / 1000).toFixed(0)}k / mo</div>
-                  </div>
-
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F8FAFC", padding: "0.8rem 1rem", borderRadius: "10px", border: "1px solid #E2E8F0" }}>
-                    <div>
-                      <div style={{ fontSize: "0.82rem", fontWeight: 800, color: "#0F172A" }}>Commission &amp; Closing Fee Creep (15%)</div>
-                      <div style={{ fontSize: "0.72rem", color: "#64748B" }}>Erroneous category tier charges</div>
-                    </div>
-                    <div style={{ fontSize: "1rem", fontWeight: 900, color: "#0D9488" }}>₹{(feeCreepLeakage / 1000).toFixed(0)}k / mo</div>
-                  </div>
-
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F8FAFC", padding: "0.8rem 1rem", borderRadius: "10px", border: "1px solid #E2E8F0" }}>
-                    <div>
-                      <div style={{ fontSize: "0.82rem", fontWeight: 800, color: "#0F172A" }}>Unclaimed TDS &amp; TCS Credits (8%)</div>
-                      <div style={{ fontSize: "0.72rem", color: "#64748B" }}>Discrepancies in Form 26AS vs portal</div>
-                    </div>
-                    <div style={{ fontSize: "1rem", fontWeight: 900, color: "#7C3AED" }}>₹{(taxCreditLeakage / 1000).toFixed(0)}k / mo</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Results Console */}
-            <div className="rev-glass-card" style={{
-              padding: "2.5rem",
-              background: "linear-gradient(135deg, #064E3B 0%, #0F172A 100%)",
-              color: "#FFFFFF",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between"
-            }}>
-              <div>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
-                  <span style={{ fontSize: "0.75rem", fontWeight: 800, color: "#34D399", textTransform: "uppercase", letterSpacing: "1px" }}>
-                    Projected Capital Recovery
-                  </span>
-                  <span style={{ fontSize: "0.72rem", background: "rgba(52, 211, 153, 0.15)", color: "#34D399", padding: "3px 10px", borderRadius: "999px" }}>
-                    NET CASH RETURN
-                  </span>
-                </div>
-
-                <div style={{ marginBottom: "2rem" }}>
-                  <div style={{ fontSize: "0.85rem", color: "#94A3B8" }}>Monthly Recoverable Margin</div>
-                  <div style={{ fontSize: "clamp(2.5rem, 3.8vw, 3.4rem)", fontWeight: 900, color: "#34D399", letterSpacing: "-1px", marginTop: "0.2rem" }}>
-                    ₹{(totalLeakage / 100000).toFixed(2)} Lakh
-                  </div>
-                  <div style={{ fontSize: "0.85rem", color: "#E2E8F0", marginTop: "0.4rem", fontWeight: 500 }}>
-                    Direct bottom-line EBITDA addition credited back to your bank account.
-                  </div>
-                </div>
-
-                <div style={{ background: "rgba(255, 255, 255, 0.06)", border: "1px solid rgba(255, 255, 255, 0.12)", borderRadius: "14px", padding: "1.25rem", marginBottom: "1.5rem" }}>
-                  <div style={{ fontSize: "0.75rem", color: "#94A3B8", textTransform: "uppercase", fontWeight: 700, marginBottom: "0.4rem" }}>
-                    Annualized 12-Month Net Capital Reclaimed:
-                  </div>
-                  <div style={{ fontSize: "2rem", fontWeight: 900, color: "#FFFFFF" }}>
-                    ₹{(annualRecovery / 100000).toFixed(1)} Lakh / Year
-                  </div>
-                  <div style={{ fontSize: "0.75rem", color: "#34D399", marginTop: "0.3rem" }}>
-                    Equivalent to adding 2-3 full-time employees or 30% additional ad budget for zero extra cost.
-                  </div>
-                </div>
-              </div>
-
-              <div style={{ marginTop: "1.5rem", paddingTop: "1.25rem", borderTop: "1px solid rgba(255,255,255,0.15)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span style={{ fontSize: "0.8rem", color: "#94A3B8" }}>Want us to audit your last 90 days of settlement sheets?</span>
-                <Link href="/book-meeting" style={{ color: "#34D399", fontWeight: 800, fontSize: "0.85rem", textDecoration: "none" }}>
-                  Claim Free Audit →
-                </Link>
-              </div>
             </div>
           </div>
 
         </div>
       </section>
 
-      {/* ── 3. FOUR AUTOMATED RECONCILIATION RADARS (AUDIT BOARD GRID) ── */}
-      <section style={{ padding: "5.5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
-        <div className="container" style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
-          
-          <div style={{ textAlign: "center", maxWidth: "750px", margin: "0 auto 3.5rem" }}>
-            <span style={{ display: "inline-block", fontSize: "0.75rem", fontWeight: 800, letterSpacing: "2px", color: "#10B981", textTransform: "uppercase", marginBottom: "0.75rem" }}>
-              Algorithmic Inspection Core
-            </span>
-            <h2 style={{ fontSize: "clamp(1.9rem, 3.2vw, 2.6rem)", fontWeight: 900, color: "#0B1736", margin: "0 0 1rem", letterSpacing: "-0.8px" }}>
-              Four Automated Reconciliation Radars
-            </h2>
-            <p style={{ fontSize: "1rem", color: "#64748B", lineHeight: 1.6 }}>
-              Our proprietary reconciliation software scans every transaction line item on Amazon, Flipkart, and courier billing files to detect and reclaim leaked funds.
-            </p>
-          </div>
+      <Footer hideTopBanner={true} />
 
-          {/* 4 Dedicated Forensic Audit Panels */}
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap: "2rem"
-          }}>
-            {radarItems.map((item) => (
-              <div
-                key={item.id}
-                className="rev-glass-card"
-                style={{
-                  padding: "2.5rem",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  background: "#FFFFFF",
-                  border: `1.5px solid #E2E8F0`
-                }}
-              >
-                <div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.2rem" }}>
-                    <span style={{ fontSize: "0.75rem", fontWeight: 800, color: item.color, background: "#F1F5F9", padding: "4px 12px", borderRadius: "999px", textTransform: "uppercase" }}>
-                      {item.badge} • {item.lossShare}
-                    </span>
-                    <span style={{ fontSize: "1.35rem", fontWeight: 900, color: item.color }}>
-                      {item.metric}
-                    </span>
-                  </div>
-
-                  <h3 style={{ fontSize: "1.35rem", fontWeight: 900, color: "#0B1736", margin: "0 0 0.8rem", lineHeight: 1.3 }}>
-                    {item.name}
-                  </h3>
-
-                  <p style={{ fontSize: "0.92rem", color: "#475569", lineHeight: 1.6, marginBottom: "1.5rem" }}>
-                    {item.desc}
-                  </p>
-                </div>
-
-                <div style={{ background: "#F8FAFC", borderRadius: "14px", padding: "1.1rem", border: "1px solid #E2E8F0" }}>
-                  <div style={{ fontSize: "0.72rem", color: "#64748B", fontWeight: 700, textTransform: "uppercase" }}>SYSTEM DELIVERABLE:</div>
-                  <div style={{ fontSize: "0.85rem", color: "#0F172A", fontWeight: 700, marginTop: "3px" }}>
-                    {item.deliverable}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── 4. HEAD-TO-HEAD COMPARISON TABLE ── */}
-      <section style={{ padding: "5.5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
-        <div className="container" style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
-          
-          <div style={{ textAlign: "center", maxWidth: "720px", margin: "0 auto 3.5rem" }}>
-            <span style={{ display: "inline-block", fontSize: "0.75rem", fontWeight: 800, letterSpacing: "2px", color: "#10B981", textTransform: "uppercase", marginBottom: "0.75rem" }}>
-              Rigor Comparison
-            </span>
-            <h2 style={{ fontSize: "clamp(1.9rem, 3.2vw, 2.6rem)", fontWeight: 900, color: "#0B1736", margin: "0 0 1rem", letterSpacing: "-0.8px" }}>
-              Manual Accounting vs. Good Life Automated Reconciliation
-            </h2>
-            <p style={{ fontSize: "1rem", color: "#64748B", lineHeight: 1.6 }}>
-              Why traditional monthly spreadsheet bookkeeping misses 90% of marketplace leakage while Good Life reclaims your cash.
-            </p>
-          </div>
-
-          <div className="rev-glass-card" style={{ padding: "1.5rem", overflowX: "auto" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", minWidth: "680px" }}>
-              <thead>
-                <tr style={{ borderBottom: "2px solid #E2E8F0" }}>
-                  <th style={{ padding: "1.2rem 1rem", fontSize: "0.85rem", fontWeight: 800, color: "#64748B", width: "26%" }}>AUDIT CAPABILITY</th>
-                  <th style={{ padding: "1.2rem 1rem", fontSize: "0.85rem", fontWeight: 800, color: "#EF4444", width: "37%" }}>CONVENTIONAL ACCOUNTING</th>
-                  <th style={{ padding: "1.2rem 1rem", fontSize: "0.85rem", fontWeight: 900, color: "#10B981", width: "37%" }}>GOOD LIFE REVENUE ENGINE</th>
-                </tr>
-              </thead>
-              <tbody>
-                {comparisonData.map((row, rIdx) => (
-                  <tr key={rIdx} style={{ borderBottom: rIdx === comparisonData.length - 1 ? "none" : "1px solid #F1F5F9" }}>
-                    <td style={{ padding: "1.2rem 1rem", fontSize: "0.9rem", fontWeight: 800, color: "#0F172A" }}>
-                      {row.factor}
-                    </td>
-                    <td style={{ padding: "1.2rem 1rem", fontSize: "0.85rem", color: "#64748B", lineHeight: 1.5 }}>
-                      <span style={{ color: "#EF4444", fontWeight: 700, marginRight: "0.4rem" }}>✕</span>
-                      {row.traditional}
-                    </td>
-                    <td style={{ padding: "1.2rem 1rem", fontSize: "0.85rem", color: "#1E293B", fontWeight: 600, lineHeight: 1.5, background: "rgba(16, 185, 129, 0.02)" }}>
-                      <span style={{ color: "#10B981", fontWeight: 900, marginRight: "0.4rem" }}>✓</span>
-                      {row.goodlife}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── 5. EXECUTIVE AUDIT BANNER & NEXT STEPS ── */}
-      <section style={{ padding: "5rem 0", background: "#0B1736" }}>
-        <div className="container" style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
-          <div className="rev-banner-box" style={{
-            background: "linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(2, 132, 199, 0.15) 100%)",
-            border: "1.5px solid rgba(16, 185, 129, 0.4)",
-            borderRadius: "26px",
-            padding: "3.5rem 3rem",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: "2.5rem"
-          }}>
-            <div style={{ maxWidth: "700px" }}>
-              <span style={{ fontSize: "0.75rem", fontWeight: 800, color: "#6EE7B7", letterSpacing: "1.5px", textTransform: "uppercase" }}>
-                ZERO OUT-OF-POCKET RISK
-              </span>
-              <h3 style={{ fontSize: "clamp(2rem, 3.5vw, 2.8rem)", fontWeight: 900, color: "#FFFFFF", margin: "0.8rem 0 1rem", letterSpacing: "-1px" }}>
-                Request a Free 90-Day Fee &amp; Weight Discrepancy Audit
-              </h3>
-              <p style={{ fontSize: "1.05rem", color: "#CBD5E1", lineHeight: 1.7, margin: 0 }}>
-                Upload your Amazon Seller Central MTR and Flipkart settlement files. We will run our automated forensic discrepancy audit and show you the exact cash value waiting to be reclaimed.
-              </p>
-            </div>
-
-            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-              <Link
-                href="/book-meeting"
-                style={{
-                  height: "54px",
-                  padding: "0 2.2rem",
-                  borderRadius: "999px",
-                  background: "linear-gradient(135deg, #10B981 0%, #059669 100%)",
-                  color: "#FFFFFF",
-                  fontSize: "1rem",
-                  fontWeight: 800,
-                  textDecoration: "none",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "0.5rem",
-                  boxShadow: "0 8px 24px rgba(16, 185, 129, 0.4)",
-                  transition: "all 0.2s ease"
-                }}
-              >
-                <span>CLAIM COMPLIMENTARY REVENUE AUDIT →</span>
-              </Link>
-
-              <button
-                onClick={() => setDiagOpen(true)}
-                style={{
-                  height: "50px",
-                  padding: "0 1.8rem",
-                  borderRadius: "999px",
-                  background: "transparent",
-                  border: "1.5px solid rgba(255, 255, 255, 0.3)",
-                  color: "#FFFFFF",
-                  fontSize: "0.95rem",
-                  fontWeight: 700,
-                  cursor: "pointer",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "0.5rem",
-                  transition: "all 0.2s ease"
-                }}
-              >
-                <span>Run Diagnostic Assessment</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Diagnostic Modal */}
-      {diagOpen && <CommerceDiagnosticModal onClose={() => setDiagOpen(false)} />}
-
-      <Footer />
+      <CommerceDiagnosticModal
+        isOpen={diagOpen}
+        onClose={() => setDiagOpen(false)}
+      />
     </div>
   );
 }

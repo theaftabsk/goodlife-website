@@ -137,58 +137,58 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
     setExpandedMobileCategory(expandedMobileCategory === cat ? null : cat);
   };
 
-  // Mobile: full-width fixed bar at top. Desktop: floating pill.
+  // Clean, Full-Width Sticky Top Header (No overlapping pills)
   const mobileHeaderStyle: React.CSSProperties = {
-    position: "fixed",
+    position: "sticky",
     top: 0,
     left: 0,
     right: 0,
     width: "100%",
     maxWidth: "100%",
     transform: "none",
-    height: "60px",
-    background: "rgba(255, 255, 255, 0.97)",
-    backdropFilter: "blur(20px) saturate(180%)",
-    WebkitBackdropFilter: "blur(20px) saturate(180%)",
+    height: "64px",
+    background: "rgba(255, 255, 255, 0.98)",
+    backdropFilter: "blur(20px)",
+    WebkitBackdropFilter: "blur(20px)",
     borderRadius: 0,
     border: "none",
     borderBottom: "1px solid #E2E8F0",
-    boxShadow: "0 2px 10px rgba(11, 23, 54, 0.06)",
-    zIndex: 99999,
+    boxShadow: "0 2px 10px rgba(11, 23, 54, 0.05)",
+    zIndex: 9999,
     transition: "none"
   };
 
   const desktopHeaderStyle: React.CSSProperties = {
-    position: "fixed",
-    top: scrolled ? "10px" : (settings.announcementEnabled ? "48px" : "14px"),
-    left: "50%",
-    transform: "translateX(-50%)",
-    width: "calc(100% - 2rem)",
-    maxWidth: scrolled ? "1160px" : "1240px",
-    height: scrolled ? "64px" : "70px",
-    background: "rgba(255, 255, 255, 0.94)",
-    backdropFilter: "blur(24px) saturate(190%)",
-    WebkitBackdropFilter: "blur(24px) saturate(190%)",
-    borderRadius: "999px",
-    border: "1.5px solid rgba(226, 232, 240, 0.95)",
+    position: "sticky",
+    top: 0,
+    left: 0,
+    right: 0,
+    width: "100%",
+    maxWidth: "100%",
+    transform: "none",
+    height: scrolled ? "66px" : "72px",
+    background: scrolled ? "rgba(255, 255, 255, 0.98)" : "#FFFFFF",
+    backdropFilter: "blur(20px)",
+    WebkitBackdropFilter: "blur(20px)",
+    borderRadius: 0,
+    border: "none",
+    borderBottom: "1px solid #E2E8F0",
     boxShadow: scrolled
-      ? "0 18px 45px rgba(15, 23, 42, 0.10), 0 4px 16px rgba(37, 99, 235, 0.08)"
-      : "0 10px 30px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03)",
+      ? "0 4px 20px rgba(15, 23, 42, 0.08)"
+      : "0 1px 3px rgba(15, 23, 42, 0.04)",
     zIndex: 9999,
-    transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)"
+    transition: "height 0.25s ease, box-shadow 0.25s ease, background 0.25s ease"
   };
 
   return (
     <>
-      {/* Dynamic Top Announcement Bar from PostgreSQL */}
-      {settings.announcementEnabled && !scrolled && (
+      {/* Top Announcement Bar (Static at top so it scrolls naturally) */}
+      {settings.announcementEnabled && (
         <div style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
+          position: "relative",
+          width: "100%",
           height: "36px",
-          background: settings.announcementTheme === "navy" ? "#1E3A8A" : settings.announcementTheme === "sky" ? "#0284C7" : settings.announcementTheme === "gradient" ? "linear-gradient(90deg, #1E3A8A 0%, #0284C7 100%)" : "#0F172A",
+          background: settings.announcementTheme === "navy" ? "#0F172A" : settings.announcementTheme === "sky" ? "#0284C7" : settings.announcementTheme === "gradient" ? "linear-gradient(90deg, #0F172A 0%, #1E3A8A 50%, #0284C7 100%)" : "#0B1736",
           color: "#FFFFFF",
           fontSize: "0.78rem",
           fontWeight: 600,
@@ -197,10 +197,10 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
           justifyContent: "center",
           zIndex: 10000,
           padding: "0 1rem",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.12)"
+          borderBottom: "1px solid rgba(255, 255, 255, 0.1)"
         }}>
           <Link href={settings.announcementLink || "/case-studies"} style={{ color: "#FFFFFF", textDecoration: "none", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <span style={{ padding: "0.1rem 0.4rem", borderRadius: "4px", background: "rgba(56, 189, 248, 0.2)", color: "#38BDF8", fontSize: "0.68rem", fontWeight: 800 }}>NOTICE</span>
+            <span style={{ padding: "0.15rem 0.5rem", borderRadius: "99px", background: "rgba(56, 189, 248, 0.25)", color: "#38BDF8", fontSize: "0.68rem", fontWeight: 800, letterSpacing: "0.5px" }}>UPDATE</span>
             <span>{settings.announcementText}</span>
             <span style={{ color: "#38BDF8", fontWeight: 700 }}>Explore →</span>
           </Link>
@@ -210,14 +210,14 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
       <header ref={headerRef} className={`header-bar ${scrolled ? "scrolled" : ""}`} style={isMobile ? mobileHeaderStyle : desktopHeaderStyle}>
       <div style={{
         width: "100%",
-        maxWidth: isMobile ? "100%" : (scrolled ? "1140px" : "1220px"),
+        maxWidth: "1280px",
         margin: "0 auto",
         height: "100%",
-        padding: isMobile ? "0 1rem" : "0 1.6rem",
+        padding: isMobile ? "0 1rem" : "0 1.5rem",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        transition: isMobile ? "none" : "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+        transition: "none"
       }}>
         
         {/* Brand Logo (Left) — smooth liquid scale */}
