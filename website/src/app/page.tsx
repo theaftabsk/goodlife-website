@@ -11,7 +11,7 @@ import ServiceMatrix from "./components/ServiceMatrix";
 import CommercialModels from "./components/CommercialModels";
 import CustomSolutionForm from "./components/CustomSolutionForm";
 import ProofCaseStudies from "./components/ProofCaseStudies";
-import MarketplaceLeakageCalculator from "./components/MarketplaceLeakageCalculator";
+// import MarketplaceLeakageCalculator from "./components/MarketplaceLeakageCalculator";
 import ThirdPartyValidation from "./components/ThirdPartyValidation";
 import "./home.css";
 import "./homepage.css";
@@ -1351,14 +1351,14 @@ export default function HomePage() {
                   <span>Request Diagnostic →</span>
                 </button>
                 <a
-                  href="#leakage-calculator"
+                  href="#where-is-your-business"
                   className="hero-btn-secondary"
                 >
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="12" y1="5" x2="12" y2="19" />
                     <polyline points="19 12 12 19 5 12" />
                   </svg>
-                  <span>Calculate Fee Leakage ↓</span>
+                  <span>Explore Solutions ↓</span>
                 </a>
               </div>
 
@@ -1671,8 +1671,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── SECTION 3: MARKETPLACE LEAKAGE CALCULATOR (Self-Serve Revenue Assurance) ── */}
-      <MarketplaceLeakageCalculator onOpenDiag={() => setDiagOpen(true)} />
+      {/* ── SECTION 3: MARKETPLACE LEAKAGE CALCULATOR (Self-Serve Revenue Assurance) [HIDDEN] ── */}
+      {/* <MarketplaceLeakageCalculator onOpenDiag={() => setDiagOpen(true)} /> */}
 
       {/* ── SECTION 4: EVERYTHING WE DO (Visual Service Matrix) ── */}
       <ServiceMatrix onOpenDiag={() => setDiagOpen(true)} />
