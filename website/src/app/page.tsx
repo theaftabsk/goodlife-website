@@ -344,25 +344,30 @@ const WarehouseHubs: React.FC = () => {
           .wh-dashboard-container {
             display: flex;
             flex-direction: column;
+            border-radius: 18px !important;
           }
           .wh-map-viewport {
-            height: 450px;
-            padding-top: 3.5rem;
+            height: 300px !important;
+            padding-top: 0.5rem !important;
+          }
+          .wh-map-viewport svg {
+            padding: 0.5rem !important;
           }
           .wh-floating-card {
             position: relative;
             bottom: auto; left: auto;
-            width: 100%;
-            border-radius: 24px 24px 0 0;
-            border: none;
-            border-top: 1px solid #DBEAFE;
-            box-shadow: 0 -10px 30px rgba(37, 99, 235, 0.08);
+            width: 100% !important;
+            border-radius: 16px 16px 0 0 !important;
+            border: none !important;
+            border-top: 1px solid #DBEAFE !important;
+            padding: 1rem 0.85rem !important;
+            box-shadow: 0 -6px 20px rgba(37, 99, 235, 0.06);
             animation: none;
           }
         }
       `}</style>
 
-      <div style={{ maxWidth: "1340px", margin: "0 auto", padding: "0 1.5rem", position: "relative", zIndex: 2 }}>
+      <div className="container" style={{ maxWidth: "1340px", margin: "0 auto", position: "relative", zIndex: 2 }}>
 
         {/* ── HEADER ── */}
         <div style={{ textAlign: "center", marginBottom: "3rem" }}>
@@ -1693,7 +1698,7 @@ export default function HomePage() {
         <div className="ambient-glow-orb-left" style={{ opacity: 0.35 }} />
         <div className="ambient-glow-orb-right" style={{ opacity: 0.35 }} />
 
-        <div style={{ maxWidth: "1280px", margin: "0 auto", position: "relative", zIndex: 2 }}>
+        <div className="container" style={{ maxWidth: "1280px", margin: "0 auto", position: "relative", zIndex: 2 }}>
           <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
             <span style={{
               display: "inline-flex",

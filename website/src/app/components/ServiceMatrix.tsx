@@ -235,7 +235,7 @@ export default function ServiceMatrix({ onOpenDiag }: { onOpenDiag: () => void }
       <div className="ambient-glow-orb-left" style={{ opacity: 0.5 }} />
       <div className="ambient-glow-orb-right" style={{ opacity: 0.55 }} />
 
-      <div style={{ maxWidth: "1280px", margin: "0 auto", position: "relative", zIndex: 2 }}>
+      <div className="container" style={{ maxWidth: "1280px", margin: "0 auto", position: "relative", zIndex: 2 }}>
         
         {/* Section Header */}
         <div style={{ textAlign: "center", marginBottom: "2.8rem" }}>
@@ -279,7 +279,7 @@ export default function ServiceMatrix({ onOpenDiag }: { onOpenDiag: () => void }
           </p>
 
           {/* Filter Pills */}
-          <div style={{
+          <div className="service-matrix-categories" style={{
             display: "inline-flex",
             background: "#F1F5F9",
             padding: "4px",

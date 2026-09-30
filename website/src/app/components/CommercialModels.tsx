@@ -116,7 +116,7 @@ export default function CommercialModels({ onOpenDiag }: { onOpenDiag: () => voi
         }}
       />
 
-      <div style={{ maxWidth: "1280px", margin: "0 auto", position: "relative", zIndex: 2 }}>
+      <div className="container" style={{ maxWidth: "1280px", margin: "0 auto", position: "relative", zIndex: 2 }}>
         
         {/* Section Header */}
         <div style={{ textAlign: "center", marginBottom: "2.2rem" }}>

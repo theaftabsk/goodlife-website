@@ -1,7 +1,15 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Open_Sans } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: "#FFFFFF",
+};
 
 const openSans = Open_Sans({
   subsets: ["latin"],

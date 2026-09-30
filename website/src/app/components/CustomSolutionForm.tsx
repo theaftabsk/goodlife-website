@@ -40,7 +40,7 @@ export default function CustomSolutionForm({ onOpenDiag }: { onOpenDiag: () => v
       <div className="ambient-glow-orb-left" style={{ opacity: 0.5 }} />
       <div className="ambient-glow-orb-right" style={{ opacity: 0.55 }} />
 
-      <div style={{ maxWidth: "1280px", margin: "0 auto", position: "relative", zIndex: 2 }}>
+      <div className="container" style={{ maxWidth: "1280px", margin: "0 auto", position: "relative", zIndex: 2 }}>
         
         <div className="custom-solutions-grid">
           {/* Left Column: What Happens in Your Diagnostic */}

@@ -354,26 +354,39 @@ html, body {
 
 /* ═══════════════════════════════════════════════════════════════════════
    RESPONSIVE MOBILE ENGINE (TABLETS & PHONES)
+   Apple & Vercel-Grade Luxury Precision Mobile Proportions
    ═══════════════════════════════════════════════════════════════════════ */
 
 /* Tablet Breakpoint (<= 1024px) */
 @media (max-width: 1024px) {
   .hero-main-grid {
     grid-template-columns: 1fr !important;
-    gap: 2.5rem !important;
+    gap: 2.2rem !important;
   }
   .paths-grid {
     grid-template-columns: 1fr !important;
-    gap: 1.3rem !important;
+    gap: 1.2rem !important;
   }
   .custom-solutions-grid {
     grid-template-columns: 1fr !important;
-    gap: 2.5rem !important;
+    gap: 2.2rem !important;
   }
 }
 
-/* Mobile Breakpoint (<= 768px) */
+/* Mobile Breakpoint (<= 768px) — PROPORTIONAL ZOOM-OUT & TOTAL RESPONSIVENESS */
 @media (max-width: 768px) {
+  /* 0. Proportional Scaling (Zoom-Out Effect for Compact Luxury Feel) */
+  html {
+    font-size: 14.5px !important;
+    overflow-x: hidden !important;
+  }
+
+  body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+
   /* Global Mobile Container & Spacing */
   .container {
     padding-left: 1rem !important;
@@ -383,13 +396,13 @@ html, body {
     box-sizing: border-box !important;
   }
 
-  /* Section Spacing */
+  /* Section Spacing — Sleek Compact Vertical Rhythm */
   #hero-home {
-    padding: 26px 1rem 22px !important;
+    padding: 24px 1rem 20px !important;
   }
+
   .paths-section,
   #where-is-your-business,
-  #leakage-calculator,
   #service-matrix,
   #proof-case-studies,
   #brands-we-operate,
@@ -397,20 +410,19 @@ html, body {
   #third-party-validation,
   #commercial-models,
   #custom-solutions {
-    padding: 2.8rem 1rem 3.2rem !important;
+    padding: 2.4rem 1rem 2.8rem !important;
   }
 
-  /* Responsive Section Headings */
+  /* Responsive Section Headings — Balanced Proportion */
   h1.hero-headline,
   #hero-home h1 {
-    font-size: clamp(1.85rem, 6.2vw, 2.35rem) !important;
-    line-height: 1.2 !important;
-    letter-spacing: -0.6px !important;
-    margin-bottom: 1.2rem !important;
+    font-size: clamp(1.45rem, 5.2vw, 1.88rem) !important;
+    line-height: 1.22 !important;
+    letter-spacing: -0.5px !important;
+    margin-bottom: 0.9rem !important;
   }
 
   #where-is-your-business h2,
-  #leakage-calculator h2,
   #service-matrix h2,
   #proof-case-studies h2,
   #brands-we-operate h2,
@@ -418,24 +430,49 @@ html, body {
   #third-party-validation h2,
   #commercial-models h2,
   #custom-solutions h2 {
-    font-size: clamp(1.65rem, 5.2vw, 2.15rem) !important;
-    line-height: 1.22 !important;
-    letter-spacing: -0.5px !important;
-    margin-bottom: 0.6rem !important;
+    font-size: clamp(1.35rem, 4.6vw, 1.68rem) !important;
+    line-height: 1.24 !important;
+    letter-spacing: -0.4px !important;
+    margin-bottom: 0.5rem !important;
   }
 
-  /* 1. Hero Mobile Stacking & CTA */
+  /* Section Eyebrow Pills */
+  #where-is-your-business span,
+  #service-matrix span,
+  #proof-case-studies span,
+  #brands-we-operate span,
+  #third-party-validation span {
+    font-size: 0.7rem !important;
+    padding: 0.2rem 0.75rem !important;
+    letter-spacing: 0.8px !important;
+  }
+
+  /* Section Subtitles */
+  #hero-home p,
+  #where-is-your-business p,
+  #service-matrix p,
+  #proof-case-studies p,
+  #brands-we-operate p,
+  #fulfilment-network p,
+  #third-party-validation p,
+  #commercial-models p,
+  #custom-solutions p {
+    font-size: 0.85rem !important;
+    line-height: 1.55 !important;
+  }
+
+  /* ── 1. HERO SECTION ── */
   .hero-main-grid {
     grid-template-columns: 1fr !important;
-    gap: 2rem !important;
+    gap: 1.6rem !important;
   }
 
   .hero-cta-btns {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
-    gap: 0.75rem !important;
-    margin-bottom: 1.35rem !important;
+    gap: 0.55rem !important;
+    margin-bottom: 1.1rem !important;
   }
 
   .hero-btn-primary,
@@ -444,49 +481,64 @@ html, body {
   .hero-cta-btns a {
     width: 100% !important;
     justify-content: center !important;
-    height: 48px !important;
-    font-size: 0.95rem !important;
+    height: 44px !important;
+    font-size: 0.88rem !important;
+    border-radius: 12px !important;
   }
 
-  /* Hero Stats Grid (Clean 3-Columns on Mobile) */
+  /* Hero Stats Grid (Compact 3-Column Touch Grid) */
   .hero-stats-grid {
     grid-template-columns: repeat(3, 1fr) !important;
-    gap: 0.45rem !important;
-    padding-top: 1rem !important;
-    margin-bottom: 1.2rem !important;
+    gap: 0.35rem !important;
+    padding-top: 0.8rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .hero-stat-card {
+    padding: 0.65rem 0.35rem !important;
+    border-radius: 12px !important;
+    text-align: center !important;
   }
 
   .hero-stat-num,
   .hero-stats-grid > div > div:first-child {
-    font-size: clamp(1.2rem, 3.8vw, 1.55rem) !important;
+    font-size: clamp(1rem, 3.4vw, 1.3rem) !important;
+    margin-bottom: 2px !important;
   }
 
   .hero-stat-text {
-    font-size: clamp(0.88rem, 3vw, 1.1rem) !important;
+    font-size: clamp(0.78rem, 2.6vw, 0.95rem) !important;
     line-height: 1.2 !important;
   }
 
   .hero-stat-lbl,
   .hero-stats-grid > div > div:last-child {
-    font-size: 0.6rem !important;
-    letter-spacing: 0.3px !important;
+    font-size: 0.55rem !important;
+    letter-spacing: 0.2px !important;
   }
 
-  /* Hero Explore Strip (Horizontal Touch Scroll) */
+  /* Hero Explore Strip (Smooth Horizontal Touch Carousel) */
   .hero-explore-strip {
     flex-direction: column !important;
     align-items: flex-start !important;
-    gap: 0.4rem !important;
+    gap: 0.35rem !important;
     width: 100% !important;
+    margin-top: 0.5rem !important;
+  }
+
+  .hero-explore-title {
+    font-size: 0.68rem !important;
   }
 
   .hero-explore-pills {
     width: 100% !important;
     overflow-x: auto !important;
     flex-wrap: nowrap !important;
-    padding-bottom: 6px !important;
+    padding-bottom: 4px !important;
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
+    display: flex !important;
+    gap: 0.35rem !important;
   }
   .hero-explore-pills::-webkit-scrollbar {
     display: none !important;
@@ -495,18 +547,39 @@ html, body {
   .hero-explore-pill {
     white-space: nowrap !important;
     flex-shrink: 0 !important;
-    font-size: 0.76rem !important;
+    font-size: 0.72rem !important;
     padding: 0.22rem 0.6rem !important;
+    border-radius: 8px !important;
   }
 
-  /* Hero Audit Card */
+  /* Hero Audit Card (Scaled Down, Compact Liquid Glass) */
   .hero-audit-card {
-    padding: 1.4rem 1.1rem !important;
-    border-radius: 20px !important;
+    padding: 1.25rem 1rem !important;
+    border-radius: 18px !important;
     box-shadow: 0 10px 30px rgba(37, 99, 235, 0.06) !important;
   }
   .hero-audit-card h3 {
-    font-size: 1.3rem !important;
+    font-size: 1.22rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+  .hero-audit-card p {
+    font-size: 0.78rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .hero-audit-card label {
+    font-size: 0.75rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+  .hero-audit-card input {
+    height: 42px !important;
+    font-size: 0.86rem !important;
+    border-radius: 10px !important;
+  }
+  .hero-audit-card button {
+    height: 44px !important;
+    font-size: 0.9rem !important;
+    border-radius: 10px !important;
+    margin-top: 0.35rem !important;
   }
 
   /* Channel Marquee & Ticker Strips */
@@ -520,156 +593,273 @@ html, body {
     max-width: 100% !important;
     overflow: hidden !important;
   }
+  .channel-marquee-track {
+    gap: 1.2rem !important;
+  }
+  .channel-marquee-track > div {
+    padding: 0 1.2rem !important;
+    min-height: 40px !important;
+  }
+  .channel-marquee-track svg {
+    max-height: 34px !important;
+    width: auto !important;
+    max-width: 120px !important;
+  }
 
-  /* 2. Section 2 Operating Paths */
+  /* ── 2. SECTION 2: OPERATING PATHS ── */
   .paths-grid {
     grid-template-columns: 1fr !important;
-    gap: 1.1rem !important;
-    margin-top: 1.8rem !important;
+    gap: 0.9rem !important;
+    margin-top: 1.3rem !important;
   }
   .path-card {
-    padding: 1.5rem 1.25rem !important;
-    border-radius: 18px !important;
+    padding: 1.2rem 1rem !important;
+    border-radius: 16px !important;
+  }
+  .path-card-tag {
+    font-size: 0.7rem !important;
+    margin-bottom: 0.3rem !important;
+  }
+  .path-card-title {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.35rem !important;
+  }
+  .path-card-desc {
+    font-size: 0.8rem !important;
+    line-height: 1.48 !important;
+    margin-bottom: 0.75rem !important;
+  }
+  .path-card-cta {
+    font-size: 0.82rem !important;
   }
 
-  /* 3. Leakage Calculator */
-  #leakage-calculator .luxury-blue-glass,
-  .leakage-calculator-grid {
-    grid-template-columns: 1fr !important;
-    padding: 1.4rem 1.1rem !important;
-    gap: 1.8rem !important;
-    border-radius: 20px !important;
-  }
-  .leakage-result-card {
-    padding: 1.4rem 1.1rem !important;
-    border-radius: 18px !important;
-  }
-
-  /* 4. Service Matrix horizontal touch tabs */
+  /* ── 4. SERVICE MATRIX ── */
   .service-matrix-categories {
+    display: flex !important;
     overflow-x: auto !important;
     flex-wrap: nowrap !important;
-    padding-bottom: 0.6rem !important;
+    padding: 3px !important;
+    gap: 4px !important;
+    width: 100% !important;
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
     justify-content: flex-start !important;
+    margin-bottom: 1.5rem !important;
   }
   .service-matrix-categories::-webkit-scrollbar {
     display: none !important;
   }
+  .service-matrix-categories button {
+    padding: 0.38rem 0.75rem !important;
+    font-size: 0.74rem !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    border-radius: 8px !important;
+  }
   .service-matrix-grid {
     grid-template-columns: 1fr !important;
-    gap: 1.1rem !important;
+    gap: 0.9rem !important;
+  }
+  .service-matrix-grid > div {
+    padding: 1.15rem 0.95rem !important;
+    border-radius: 16px !important;
   }
 
-  /* 5. Proof Case Studies Liquid Glass */
+  /* ── 5. PROOF CASE STUDIES ── */
   .case-studies-tabs {
+    display: inline-flex !important;
     overflow-x: auto !important;
     flex-wrap: nowrap !important;
     justify-content: flex-start !important;
-    padding: 6px 10px !important;
+    padding: 4px 6px !important;
+    max-width: 100% !important;
+    width: auto !important;
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
+    gap: 0.35rem !important;
+    margin-bottom: 1.5rem !important;
   }
   .case-studies-tabs::-webkit-scrollbar {
     display: none !important;
   }
+  .case-studies-tabs button {
+    padding: 0.4rem 0.85rem !important;
+    font-size: 0.74rem !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
   .case-study-liquid-card,
   #proof-case-studies .luxury-blue-glass {
     grid-template-columns: 1fr !important;
-    padding: 1.4rem 1.1rem !important;
-    gap: 1.8rem !important;
-    border-radius: 20px !important;
+    padding: 1.15rem 0.95rem !important;
+    gap: 1.2rem !important;
+    border-radius: 18px !important;
   }
   .case-study-metrics-capsule {
-    padding: 1.3rem 1rem !important;
-    border-radius: 16px !important;
+    padding: 0.95rem 0.8rem !important;
+    border-radius: 14px !important;
+  }
+  .case-study-metrics-capsule > div:first-of-type {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.65rem !important;
+  }
+  .case-study-metric-val {
+    font-size: 1.35rem !important;
+  }
+  .case-study-metric-lbl {
+    font-size: 0.68rem !important;
+  }
+  .case-study-metric-sub {
+    font-size: 0.62rem !important;
   }
 
-  /* 6. Section 6 Warehouse Hubs Network Map */
+  /* ── 5.5 BRANDS WE OPERATE ── */
+  #brands-we-operate .channel-marquee-track {
+    gap: 1.2rem !important;
+  }
+  #brands-we-operate .channel-marquee-track > div {
+    padding: 0.5rem 1.1rem !important;
+    min-height: 44px !important;
+    border-radius: 12px !important;
+  }
+  #brands-we-operate .channel-marquee-track svg {
+    max-height: 28px !important;
+    width: auto !important;
+    max-width: 100px !important;
+  }
+
+  /* ── 6. WAREHOUSE HUBS NETWORK MAP ── */
   .wh-metric-grid {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.75rem !important;
-    margin-bottom: 1.5rem !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1.2rem !important;
   }
   .wh-metric-card {
-    padding: 0.85rem 0.6rem !important;
-    border-radius: 14px !important;
+    padding: 0.7rem 0.5rem !important;
+    border-radius: 12px !important;
+  }
+  .wh-metric-card > div:first-child {
+    font-size: 1.35rem !important;
+  }
+  .wh-metric-card > div:last-child {
+    font-size: 0.65rem !important;
   }
   .wh-dashboard-container {
     display: flex !important;
     flex-direction: column !important;
-    border-radius: 20px !important;
+    border-radius: 18px !important;
   }
   .wh-map-viewport {
-    height: 380px !important;
-    padding-top: 1.5rem !important;
+    height: 300px !important;
+    padding-top: 0.5rem !important;
+  }
+  .wh-map-viewport svg {
+    padding: 0.5rem !important;
   }
   .wh-floating-card {
     position: relative !important;
     bottom: auto !important;
     left: auto !important;
     width: 100% !important;
-    border-radius: 20px 20px 0 0 !important;
+    border-radius: 16px 16px 0 0 !important;
     border: none !important;
     border-top: 1px solid #DBEAFE !important;
-    padding: 1.25rem 1rem !important;
-    box-shadow: 0 -8px 24px rgba(37, 99, 235, 0.08) !important;
+    padding: 1rem 0.85rem !important;
+    box-shadow: 0 -6px 20px rgba(37, 99, 235, 0.06) !important;
     animation: none !important;
   }
 
-  /* 7. Operator Leadership & Third-Party Certs */
+  /* ── 7. THIRD-PARTY VALIDATION & GOVERNANCE ── */
   .cert-badges-grid {
     grid-template-columns: 1fr !important;
-    gap: 0.85rem !important;
-    margin-bottom: 2.2rem !important;
+    gap: 0.75rem !important;
+    margin-bottom: 1.8rem !important;
+  }
+  .cert-badges-grid > div {
+    padding: 1.1rem 0.95rem !important;
+    border-radius: 16px !important;
   }
   .operator-leadership-card {
     grid-template-columns: 1fr !important;
-    padding: 1.5rem 1.15rem !important;
-    gap: 1.8rem !important;
-    border-radius: 20px !important;
+    padding: 1.2rem 0.95rem !important;
+    gap: 1.2rem !important;
+    border-radius: 18px !important;
   }
   .operator-stats-grid {
-    grid-template-columns: 1fr !important;
-    gap: 0.75rem !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.5rem !important;
   }
 
-  /* 8. Commercial Models */
+  /* ── 8. COMMERCIAL MODELS ── */
   .models-mobile-nav {
     display: flex !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    padding-bottom: 4px !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    gap: 0.4rem !important;
+    margin-bottom: 1.2rem !important;
+  }
+  .models-mobile-nav button {
+    padding: 0.42rem 0.8rem !important;
+    font-size: 0.74rem !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    border-radius: 8px !important;
   }
   .models-grid {
     grid-template-columns: 1fr !important;
-    gap: 1.25rem !important;
-    margin-bottom: 1.8rem !important;
+    gap: 0.9rem !important;
+    margin-bottom: 1.4rem !important;
   }
   .commercial-card {
-    padding: 1.35rem 1.15rem !important;
-    border-radius: 18px !important;
+    padding: 1.15rem 0.95rem !important;
+    border-radius: 16px !important;
   }
   .commercial-non-negotiables {
-    padding: 1.35rem 1.1rem !important;
-    border-radius: 18px !important;
+    padding: 1.15rem 0.95rem !important;
+    border-radius: 16px !important;
   }
   .non-negotiables-grid {
     grid-template-columns: 1fr !important;
-    gap: 0.85rem !important;
+    gap: 0.65rem !important;
   }
 
-  /* 9. Custom Solutions */
+  /* ── 9. CUSTOM SOLUTIONS ── */
   .custom-solutions-grid,
   #custom-solutions > div > div:first-child {
     grid-template-columns: 1fr !important;
-    gap: 1.8rem !important;
+    gap: 1.5rem !important;
   }
   .form-two-col {
     grid-template-columns: 1fr !important;
-    gap: 0.85rem !important;
+    gap: 0.75rem !important;
   }
   #custom-solutions .form-box {
-    padding: 1.5rem 1.15rem !important;
-    border-radius: 20px !important;
+    padding: 1.25rem 0.95rem !important;
+    border-radius: 18px !important;
+  }
+
+  /* ── 10. FOOTER ── */
+  footer .footer-top-banner {
+    padding: 2.6rem 1rem !important;
+    text-align: center !important;
+  }
+  footer .footer-heading {
+    font-size: 1.55rem !important;
+    line-height: 1.22 !important;
+    margin-bottom: 0.75rem !important;
+  }
+  footer .footer-subtext {
+    font-size: 0.82rem !important;
+    margin-bottom: 1.2rem !important;
+  }
+  footer .footer-bottom-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.8rem !important;
+    padding: 2.2rem 1rem 1.5rem !important;
   }
 
   /* Prevent iOS zoom on input fields */
@@ -678,31 +868,47 @@ html, body {
   }
 }
 
-/* Small Smartphone Breakpoint (<= 480px) */
+/* Small Smartphone Breakpoint (<= 480px) — DEEPER ZOOM-OUT & SLENDER PROPORTIONS */
 @media (max-width: 480px) {
+  html {
+    font-size: 13.8px !important;
+  }
+
   #hero-home {
-    padding: 20px 0.8rem 18px !important;
+    padding: 18px 0.75rem 16px !important;
   }
+
+  .paths-section,
+  #where-is-your-business,
+  #service-matrix,
+  #proof-case-studies,
+  #brands-we-operate,
+  #fulfilment-network,
+  #third-party-validation,
+  #commercial-models,
+  #custom-solutions {
+    padding: 2rem 0.75rem 2.2rem !important;
+  }
+
   #hero-home h1 {
-    font-size: 1.8rem !important;
-    line-height: 1.22 !important;
+    font-size: 1.48rem !important;
+    line-height: 1.2 !important;
   }
+
   .hero-stats-grid {
-    gap: 0.35rem !important;
+    gap: 0.25rem !important;
   }
   .hero-stats-grid > div > div:first-child {
-    font-size: 1.2rem !important;
+    font-size: 1.05rem !important;
   }
+
   .luxury-blue-glass {
-    padding: 1.15rem 0.95rem !important;
-    border-radius: 16px !important;
+    padding: 1rem 0.85rem !important;
+    border-radius: 14px !important;
   }
-  .leakage-result-card {
-    padding: 1.3rem 0.95rem !important;
-    border-radius: 16px !important;
-  }
+
   .wh-map-viewport {
-    height: 330px !important;
+    height: 280px !important;
   }
 }
 
@@ -717,7 +923,8 @@ html, body {
   }
   .ambient-glow-orb-left,
   .ambient-glow-orb-right,
-  .brands-track {
+  .brands-track,
+  .channel-marquee-track {
     animation: none !important;
   }
 }

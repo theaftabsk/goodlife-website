@@ -199,10 +199,10 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
           padding: "0 1rem",
           borderBottom: "1px solid rgba(255, 255, 255, 0.1)"
         }}>
-          <Link href={settings.announcementLink || "/case-studies"} style={{ color: "#FFFFFF", textDecoration: "none", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <span style={{ padding: "0.15rem 0.5rem", borderRadius: "99px", background: "rgba(56, 189, 248, 0.25)", color: "#38BDF8", fontSize: "0.68rem", fontWeight: 800, letterSpacing: "0.5px" }}>UPDATE</span>
-            <span>{settings.announcementText}</span>
-            <span style={{ color: "#38BDF8", fontWeight: 700 }}>Explore →</span>
+          <Link href={settings.announcementLink || "/case-studies"} style={{ color: "#FFFFFF", textDecoration: "none", display: "flex", alignItems: "center", gap: "0.5rem", maxWidth: "100%", overflow: "hidden" }}>
+            <span style={{ padding: "0.15rem 0.5rem", borderRadius: "99px", background: "rgba(56, 189, 248, 0.25)", color: "#38BDF8", fontSize: "0.68rem", fontWeight: 800, letterSpacing: "0.5px", flexShrink: 0 }}>UPDATE</span>
+            <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontSize: "clamp(0.68rem, 2.5vw, 0.78rem)" }}>{settings.announcementText}</span>
+            <span style={{ color: "#38BDF8", fontWeight: 700, flexShrink: 0, fontSize: "clamp(0.68rem, 2.5vw, 0.78rem)" }}>Explore →</span>
           </Link>
         </div>
       )}

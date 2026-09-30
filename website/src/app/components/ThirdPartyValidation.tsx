@@ -20,7 +20,7 @@ export default function ThirdPartyValidation({ onOpenDiag }: { onOpenDiag: () =>
       <div className="ambient-glow-orb-left" style={{ opacity: 0.5 }} />
       <div className="ambient-glow-orb-right" style={{ opacity: 0.55 }} />
 
-      <div style={{ maxWidth: "1280px", margin: "0 auto", position: "relative", zIndex: 2 }}>
+      <div className="container" style={{ maxWidth: "1280px", margin: "0 auto", position: "relative", zIndex: 2 }}>
         
         {/* Section Header */}
         <div style={{ textAlign: "center", marginBottom: "3rem" }}>

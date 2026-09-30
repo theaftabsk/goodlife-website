@@ -68,24 +68,25 @@ export default function Footer({ hideTopBanner = false }: { hideTopBanner?: bool
         }
         @media (max-width: 768px) {
           .footer-top-banner {
-            padding: 4rem 6%;
+            padding: 2.6rem 1rem !important;
             text-align: center;
           }
           .footer-heading {
-            font-size: 2rem !important;
-            margin-bottom: 1rem !important;
+            font-size: 1.55rem !important;
+            line-height: 1.22 !important;
+            margin-bottom: 0.75rem !important;
           }
           .footer-subtext {
-            font-size: 0.95rem !important;
-            margin-bottom: 1.5rem !important;
+            font-size: 0.82rem !important;
+            margin-bottom: 1.2rem !important;
           }
           .footer-bottom-grid {
             grid-template-columns: 1fr;
-            gap: 2.5rem;
-            padding: 3rem 6% 2rem 6%;
+            gap: 1.8rem;
+            padding: 2.2rem 1rem 1.5rem 1rem !important;
           }
           .footer-col-title {
-            margin-bottom: 1rem !important;
+            margin-bottom: 0.6rem !important;
           }
         }
       `}</style>
