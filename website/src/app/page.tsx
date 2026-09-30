@@ -793,489 +793,35 @@ export default function HomePage() {
   const channelCount = useCountUp(35, 1800, statsVisible);
   const warehouseCount = useCountUp(12, 1500, statsVisible);
   const fillRateCount = useCountUp(98.2, 2200, statsVisible, 1);
-  const words = ["Marketplaces", "D2C Stores", "B2B Channels", "Institutional Orders", "Multi-Platform Growth"];
-  const [wordIdx, setWordIdx] = useState(0);
-  const [transitionClass, setTransitionClass] = useState("");
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTransitionClass("exit");
-      setTimeout(() => {
-        setWordIdx((prev) => (prev + 1) % words.length);
-        setTransitionClass("enter");
-        setTimeout(() => setTransitionClass(""), 50);
-      }, 380);
-    }, 3200);
-    return () => clearInterval(interval);
-  }, [words.length]);
+  // Dynamic Brands & Platforms from Live Backend API (Postgres via g.zyvocrm.in)
+  const [dynamicBrands, setDynamicBrands] = useState<any[]>([]);
+  const [dynamicPlatforms, setDynamicPlatforms] = useState<any[]>([]);
 
-  // Timeline observer
-  const [isTimelineLit, setIsTimelineLit] = useState(false);
-  const timelineRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const el = timelineRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { setIsTimelineLit(true); observer.disconnect(); } }); },
-      { threshold: 0.3 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://g.zyvocrm.in";
+    
+    // Fetch Brands
+    fetch(`${apiUrl}/api/v1/brands`)
+      .then((res) => (res.ok ? res.json() : []))
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          const activeList = data.filter((b: any) => b.active !== false && b.isActive !== false);
+          if (activeList.length > 0) setDynamicBrands(activeList);
+        }
+      })
+      .catch(() => {});
+
+    // Fetch Platforms
+    fetch(`${apiUrl}/api/v1/platforms`)
+      .then((res) => (res.ok ? res.json() : []))
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          const activeList = data.filter((p: any) => p.active !== false && p.isActive !== false);
+          if (activeList.length > 0) setDynamicPlatforms(activeList);
+        }
+      })
+      .catch(() => {});
   }, []);
-
-  // Section 12: Case Studies / Testimonials (3 approved stories)
-  const testimonials = [
-    { quote: "Good Life transitioned our entire marketplace model. Their finance reconciliation caught fee leaks we didn't know existed, and our sales grew 2.5x in under a year.", author: "Founder & CEO", role: "National Kitchen Appliance Brand", initial: "N", color: "#2563EB" },
-    { quote: "We scaled from 1 to 12 states overnight. Good Life WMS is rock solid — our dispatch SLA turnaround is consistently under 4 hours.", author: "Operations Director", role: "Leading Consumer Goods Brand", initial: "C", color: "#7C3AED" },
-    { quote: "Daily payment disputes were eating up our margins. Good Life automated audits resolved 98% of return variances instantly.", author: "Head of Ecommerce", role: "Premier Wellness Partner", initial: "W", color: "#059669" },
-  ];
-  const [activeSlide, setActiveSlide] = useState(0);
-  useEffect(() => {
-    const timer = setInterval(() => setActiveSlide((prev) => (prev + 1) % testimonials.length), 6000);
-    return () => clearInterval(timer);
-  }, [testimonials.length]);
-
-  const [activeAccStep, setActiveAccStep] = useState(0);
-  const [catFilter, setCatFilter] = useState<"all" | "active" | "upcoming">("all");
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const toggleFaq = (idx: number) => setOpenFaq(openFaq === idx ? null : idx);
-
-  // Section 15: Schema-Enabled FAQ Data
-  const homeFaqs = [
-    { q: "What makes Good Life different from a traditional ecommerce agency?", a: "Good Life is an integrated Ecommerce Operating Partner, not an agency. We take full accountability for catalogue listings, inventory planning, multi-state warehousing, performance ads, settlement reconciliation, D2C operations, B2B/institutional execution and multi-channel order dispatch—under one operating model." },
-    { q: "Does Good Life support multi-platform marketplace launch?", a: "Yes. Good Life helps brands evaluate, onboard and operate across multiple leading and relevant platforms—including Amazon, Flipkart, Myntra, Moglix, JioMart, Snapmint, Bajaj and other approved channels." },
-    { q: "Can Good Life help an OEM manufacturer launch a consumer brand?", a: "Yes. Good Life has supported the ecommerce launch of new brands created by companies that previously operated primarily as OEMs. Our Brand Incubation mandate covers opportunity assessment, catalogue, marketplace setup, inventory, fulfilment and performance marketing." },
-    { q: "Can Good Life manage D2C and marketplace operations together?", a: "Yes. Good Life can manage the operational layer for both marketplace and D2C channels together — including catalogue, order flow, inventory synchronisation, fulfilment, returns and performance reporting — providing a unified view across channels." },
-    { q: "How does your finance reconciliation service work?", a: "We perform daily automated reconciliation audits on commissions, shipping charges, COD payments, returns, and payment gateways across marketplace and D2C channels. We identify listing fee leaks and disputable platform returns, recovering money that typically goes unnoticed." },
-    { q: "Can Good Life fulfil bulk and institutional orders?", a: "Good Life can support brands in fulfilling bulk and institutional orders through its regional warehouse network. This includes B2B platform enquiries (IndiaMART, TradeIndia, Moglix, JioMart B2B), quotation coordination, dispatch and reconciliation." },
-    { q: "Where are your warehouses located?", a: "We operate 12 warehousing locations across Gurgaon, Patna, Mumbai, Ahmedabad, Hyderabad, Guwahati, Bengaluru, Lucknow, Chennai, Indore, Kolkata, and Ludhiana, with FBA/FA hubs in select cities." },
-  ];
-
-  const portfolioLogos = [
-    {
-      name: "Crompton",
-      category: "Seasonal Category",
-      svg: (
-        <svg viewBox="0 0 165 42" width="165" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="24" letterSpacing="0.5px" fill="#004B87">Crompton</text>
-        </svg>
-      )
-    },
-    {
-      name: "USHA",
-      category: "Sewing Machine",
-      svg: (
-        <svg viewBox="0 0 130 42" width="130" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="4" y="30" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="28" letterSpacing="2px" fill="#ED1C24">USHA</text>
-        </svg>
-      )
-    },
-    {
-      name: "Havells",
-      category: "Home & Kitchen Appliances",
-      svg: (
-        <svg viewBox="0 0 155 42" width="155" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <circle cx="15" cy="21" r="10" fill="#E31E24" />
-          <path d="M12 18 L18 24 M18 18 L12 24" stroke="#FFF" strokeWidth="2.5" />
-          <text x="32" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="23" fill="#E31E24" letterSpacing="0.5px">HAVELLS</text>
-        </svg>
-      )
-    },
-    {
-      name: "Hindware",
-      category: "Chimney",
-      svg: (
-        <svg viewBox="0 0 165 42" width="165" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="4" y="29" fontFamily="Georgia, serif" fontWeight="900" fontSize="24" letterSpacing="1px" fill="#D32F2F">hindware</text>
-        </svg>
-      )
-    },
-    {
-      name: "Kenstar",
-      category: "Seasonal Category",
-      svg: (
-        <svg viewBox="0 0 150 42" width="150" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="24" letterSpacing="1.2px" fill="#0072CE">KENSTAR</text>
-        </svg>
-      )
-    },
-    {
-      name: "Bajaj",
-      category: "Home & Kitchen Appliances",
-      svg: (
-        <svg viewBox="0 0 140 42" width="140" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <polygon points="12,10 24,21 12,32 6,26 14,21 6,16" fill="#004A97" />
-          <text x="30" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="24" fill="#004A97" letterSpacing="1px">BAJAJ</text>
-        </svg>
-      )
-    },
-    {
-      name: "Livpure",
-      category: "Home & Kitchen Appliances",
-      svg: (
-        <svg viewBox="0 0 150 42" width="150" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" fontSize="25" fill="#00A3E0">Livpure</text>
-          <circle cx="106" cy="14" r="3" fill="#84BD00" />
-        </svg>
-      )
-    },
-    {
-      name: "Luminus",
-      category: "Invertors & Battery",
-      svg: (
-        <svg viewBox="0 0 155 42" width="155" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="24" letterSpacing="1.5px" fill="#002D72">LUMINOUS</text>
-        </svg>
-      )
-    },
-    {
-      name: "Exide",
-      category: "Invertors & Battery",
-      svg: (
-        <svg viewBox="0 0 140 42" width="140" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="26" letterSpacing="1.5px" fill="#E4002B">EXIDE</text>
-        </svg>
-      )
-    },
-    {
-      name: "Bhaburly",
-      category: "Home & Kitchen Appliances",
-      svg: (
-        <svg viewBox="0 0 155 42" width="155" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" fontSize="22" letterSpacing="1px" fill="#1E293B">BHABURLY</text>
-        </svg>
-      )
-    },
-    {
-      name: "Amplesta",
-      category: "Home & Kitchen Appliances",
-      svg: (
-        <svg viewBox="0 0 160 42" width="160" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="23" letterSpacing="1.5px" fill="#2563EB">AMPLESTA</text>
-        </svg>
-      )
-    },
-    {
-      name: "CG",
-      category: "Seasonal Category",
-      svg: (
-        <svg viewBox="0 0 120 42" width="120" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <rect x="4" y="7" width="30" height="28" rx="5" fill="#00529B" />
-          <text x="11" y="28" fontFamily="system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#FFF">CG</text>
-          <text x="40" y="29" fontFamily="system-ui, sans-serif" fontWeight="900" fontSize="22" fill="#00529B">Power</text>
-        </svg>
-      )
-    },
-    {
-      name: "VW",
-      category: "TV",
-      svg: (
-        <svg viewBox="0 0 130 42" width="130" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <rect x="4" y="6" width="32" height="30" rx="4" fill="#0F172A" />
-          <text x="8" y="28" fontFamily="system-ui, sans-serif" fontWeight="900" fontSize="18" fill="#38BDF8">VW</text>
-          <text x="42" y="28" fontFamily="system-ui, sans-serif" fontWeight="800" fontSize="20" fill="#0F172A">Vision</text>
-        </svg>
-      )
-    },
-    {
-      name: "IVAS",
-      category: "Home & Kitchen Appliances",
-      svg: (
-        <svg viewBox="0 0 130 42" width="130" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="26" letterSpacing="2px" fill="#E65100">IVAS</text>
-        </svg>
-      )
-    },
-    {
-      name: "Faber",
-      category: "Chimney",
-      svg: (
-        <svg viewBox="0 0 140 42" width="140" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="26" fontStyle="italic" fill="#E10A17" letterSpacing="1px">FABER</text>
-        </svg>
-      )
-    },
-    {
-      name: "IKEA",
-      category: "Home & Kitchen Appliances",
-      svg: (
-        <svg viewBox="0 0 135 42" width="135" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <rect x="2" y="7" width="80" height="28" rx="4" fill="#0058A3" />
-          <ellipse cx="42" cy="21" rx="38" ry="13" fill="#FFDA1A" />
-          <text x="14" y="29" fontFamily="system-ui, sans-serif" fontWeight="900" fontSize="22" fill="#0058A3" letterSpacing="2px">IKEA</text>
-        </svg>
-      )
-    },
-    {
-      name: "Reo",
-      category: "Home & Kitchen Appliances",
-      svg: (
-        <svg viewBox="0 0 130 42" width="130" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="26" fill="#0284C7" letterSpacing="2px">REO</text>
-          <text x="68" y="29" fontFamily="system-ui, sans-serif" fontSize="11" fill="#64748B" fontWeight="700">by Havells</text>
-        </svg>
-      )
-    },
-    {
-      name: "Activa",
-      category: "Seasonal Category",
-      svg: (
-        <svg viewBox="0 0 145 42" width="145" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="24" fontStyle="italic" fill="#DC2626" letterSpacing="1px">ACTIVA</text>
-        </svg>
-      )
-    },
-    {
-      name: "Summercool",
-      category: "Seasonal Category",
-      svg: (
-        <svg viewBox="0 0 175 42" width="175" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <circle cx="16" cy="21" r="10" fill="#0284C7" />
-          <text x="32" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="21" fill="#0369A1" letterSpacing="0.5px">SUMMERCOOL</text>
-        </svg>
-      )
-    },
-    {
-      name: "Thermocool",
-      category: "Seasonal Category",
-      svg: (
-        <svg viewBox="0 0 175 42" width="175" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="4" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="21" fill="#EA580C" letterSpacing="0.5px">THERMOCOOL</text>
-        </svg>
-      )
-    },
-    {
-      name: "Power Guard",
-      category: "Invertors & Battery",
-      svg: (
-        <svg viewBox="0 0 185 42" width="185" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <path d="M12 9 L24 21 L12 33 Z" fill="#16A34A" />
-          <text x="30" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="20" fill="#15803D" letterSpacing="0.5px">POWER GUARD</text>
-        </svg>
-      )
-    },
-    {
-      name: "Sujata",
-      category: "Home & Kitchen Appliances",
-      svg: (
-        <svg viewBox="0 0 140 42" width="140" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <text x="4" y="29" fontFamily="Georgia, serif" fontWeight="900" fontSize="25" fill="#B91C1C" letterSpacing="1px">SUJATA</text>
-        </svg>
-      )
-    },
-    {
-      name: "Orient",
-      category: "Seasonal Category",
-      svg: (
-        <svg viewBox="0 0 145 42" width="145" height="42" fill="none" style={{ display: "inline-block", verticalAlign: "middle" }}>
-          <circle cx="14" cy="21" r="10" fill="#E11D48" />
-          <text x="30" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="24" fill="#1E293B" letterSpacing="1px">orient</text>
-        </svg>
-      )
-    }
-  ];
-
-  // Approved Platform Vector SVGs (Authentic Official Brand Logos, Grand 52px Scale, Perfectly Middle-Aligned)
-  const channelSVGs: { name: string; svg: React.ReactNode }[] = [
-    {
-      name: "Amazon",
-      svg: (
-        <svg viewBox="0 0 155 44" width="183" height="52" style={{ height: "52px", width: "auto" }} fill="none">
-          <text x="2" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" fontSize="30" fill="#131921" letterSpacing="-0.8px">
-            amazon
-          </text>
-          <path
-            d="M 6 35 C 40 48, 80 47, 108 35"
-            stroke="#FF9900"
-            strokeWidth="3.8"
-            strokeLinecap="round"
-            fill="none"
-          />
-          <polygon points="103,29 114,35 105,42 107,35" fill="#FF9900" />
-        </svg>
-      ),
-    },
-    {
-      name: "Flipkart",
-      svg: (
-        <img
-          src="/flipkart_official.svg"
-          alt="Flipkart"
-          style={{ height: "60px", width: "auto", display: "block", objectFit: "contain" }}
-        />
-      ),
-    },
-    {
-      name: "IndiaMART",
-      svg: (
-        <svg viewBox="0 0 170 44" width="200" height="52" style={{ height: "52px", width: "auto" }} fill="none">
-          <rect x="2" y="6" width="32" height="32" rx="6" fill="#0A5EB0" />
-          <path d="M8 26 L14 14 L20 22 L26 14 L26 26" stroke="#FFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          <text x="40" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="24" fill="#0A5EB0" letterSpacing="-0.3px">
-            indiamart
-          </text>
-        </svg>
-      ),
-    },
-    {
-      name: "Tradeindia",
-      svg: (
-        <svg viewBox="0 0 170 44" width="200" height="52" style={{ height: "52px", width: "auto" }} fill="none">
-          <circle cx="18" cy="22" r="15" fill="#E62E2D" />
-          <text x="12" y="27" fontFamily="system-ui, sans-serif" fontWeight="900" fontSize="16" fill="#FFF">ti</text>
-          <text x="40" y="30" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" fontSize="25" fill="#1E293B" letterSpacing="-0.2px">
-            tradeindia
-          </text>
-        </svg>
-      ),
-    },
-    {
-      name: "Industrybuying",
-      svg: (
-        <svg viewBox="0 0 195 44" width="230" height="52" style={{ height: "52px", width: "auto" }} fill="none">
-          <rect x="2" y="6" width="32" height="32" rx="7" fill="#F36F21" />
-          <text x="8" y="29" fontFamily="system-ui, sans-serif" fontWeight="900" fontSize="20" fill="#FFF">IB</text>
-          <text x="42" y="28" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="20" fill="#231F20" letterSpacing="-0.2px">
-            industrybuying
-          </text>
-        </svg>
-      ),
-    },
-    {
-      name: "Meesho",
-      svg: (
-        <svg viewBox="0 0 145 44" width="171" height="52" style={{ height: "52px", width: "auto" }} fill="none">
-          <text x="2" y="31" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="31" fill="#F43397" letterSpacing="-0.6px">
-            meesho
-          </text>
-        </svg>
-      ),
-    },
-    {
-      name: "Myntra",
-      svg: (
-        <svg viewBox="0 0 170 44" width="201" height="52" style={{ height: "52px", width: "auto" }} fill="none">
-          <defs>
-            <linearGradient id="myntraG1Real" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#FF905A" />
-              <stop offset="100%" stopColor="#FF3F6C" />
-            </linearGradient>
-            <linearGradient id="myntraG2Real" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#FF3F6C" />
-              <stop offset="100%" stopColor="#D81B60" />
-            </linearGradient>
-          </defs>
-          <path d="M 3 33 L 13 10 L 21 25 L 30 10 L 40 33" stroke="url(#myntraG1Real)" strokeWidth="5.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          <path d="M 13 10 L 21 25 L 30 10" stroke="url(#myntraG2Real)" strokeWidth="5.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          <text x="50" y="30" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" fontSize="28" fill="#282C3F" letterSpacing="0.2px">
-            myntra
-          </text>
-        </svg>
-      ),
-    },
-    {
-      name: "Blinkit",
-      svg: (
-        <svg viewBox="0 0 165 44" width="195" height="52" style={{ height: "52px", width: "auto" }} fill="none">
-          <rect x="2" y="6" width="32" height="32" rx="9" fill="#F8CB46" />
-          <text x="10" y="30" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="26" fill="#0C831F">
-            b
-          </text>
-          <circle cx="23.5" cy="15.5" r="2.8" fill="#0C831F" />
-          <text x="44" y="30" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="28" fill="#0C831F" letterSpacing="-0.4px">
-            blinkit
-          </text>
-        </svg>
-      ),
-    },
-    {
-      name: "Nykaa",
-      svg: (
-        <svg viewBox="0 0 140 44" width="165" height="52" style={{ height: "52px", width: "auto" }} fill="none">
-          <text x="2" y="31" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontStyle="italic" fontSize="31" fill="#FC2779" letterSpacing="1px">
-            NYKAA
-          </text>
-        </svg>
-      ),
-    },
-    {
-      name: "JioMart",
-      svg: (
-        <svg viewBox="0 0 175 44" width="207" height="52" style={{ height: "52px", width: "auto" }} fill="none">
-          <circle cx="18" cy="22" r="16" fill="#E11900" />
-          <text x="8" y="28" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="16" fill="#FFFFFF" letterSpacing="-0.2px">
-            Jio
-          </text>
-          <text x="44" y="30" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="29" fill="#008ECC" letterSpacing="-0.3px">
-            Mart
-          </text>
-          <path d="M 45 36 C 68 33, 89 37, 112 35" stroke="#008ECC" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-        </svg>
-      ),
-    },
-    {
-      name: "Zepto",
-      svg: (
-        <svg viewBox="0 0 130 44" width="154" height="52" style={{ height: "52px", width: "auto" }} fill="none">
-          <text x="2" y="31" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="31" letterSpacing="-0.5px">
-            <tspan fill="#3E0067">z</tspan>
-            <tspan fill="#FF3269">epto</tspan>
-          </text>
-        </svg>
-      ),
-    },
-    {
-      name: "Moglix",
-      svg: (
-        <svg viewBox="0 0 165 44" width="195" height="52" style={{ height: "52px", width: "auto" }} fill="none">
-          <rect x="2" y="6" width="32" height="32" rx="7" fill="#E02A26" />
-          <path d="M 8 28 V 13 L 18 22 L 28 13 V 28" stroke="#FFFFFF" strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          <text x="44" y="30" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" fontSize="27" fill="#1E293B" letterSpacing="-0.3px">
-            moglix
-          </text>
-        </svg>
-      ),
-    },
-    {
-      name: "Shopify",
-      svg: (
-        <svg viewBox="0 0 170 44" width="201" height="52" style={{ height: "52px", width: "auto" }} fill="none">
-          <path d="M 17 6 L 5 15 L 11 38 L 33 38 L 39 15 Z" fill="#95BF47" />
-          <path d="M 17 6 C 17 6, 21 2.5, 24.5 3.5 C 29 5.5, 28 10, 28 10" stroke="#5E8E3E" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-          <text x="12" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="20" fill="#FFFFFF">
-            S
-          </text>
-          <text x="46" y="30" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" fontSize="27" fill="#212326" letterSpacing="-0.4px">
-            shopify
-          </text>
-        </svg>
-      ),
-    },
-    {
-      name: "AJIO",
-      svg: (
-        <svg viewBox="0 0 135 44" width="160" height="52" style={{ height: "52px", width: "auto" }} fill="none">
-          <text x="2" y="31" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="30" fill="#1E293B" letterSpacing="2.2px">
-            AJIO
-          </text>
-          <circle cx="74" cy="11" r="3.6" fill="#00A8B5" />
-        </svg>
-      ),
-    },
-    {
-      name: "Snapmint",
-      svg: (
-        <svg viewBox="0 0 175 44" width="207" height="52" style={{ height: "52px", width: "auto" }} fill="none">
-          <circle cx="17" cy="22" r="16" fill="#00C29F" />
-          <text x="10" y="29" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="20" fill="#FFFFFF">
-            S
-          </text>
-          <text x="42" y="30" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" fontSize="26" fill="#00C29F" letterSpacing="-0.2px">
-            snapmint
-          </text>
-        </svg>
-      ),
-    },
-  ];
 
   // Section 7: Capability & Promise Mapping (Everything Commerce. One Partner.)
   const capabilityPromises = [
@@ -1516,7 +1062,7 @@ export default function HomePage() {
           <div className="channel-strip" style={{ margin: 0, padding: 0 }}>
             <div className="channel-marquee-container" style={{ margin: 0, padding: "0.3rem 0", maskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)", WebkitMaskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)" }}>
               <div className="channel-marquee-track" style={{ alignItems: "center" }}>
-                {[...channelSVGs, ...channelSVGs].map((ch, idx) => (
+                {(dynamicPlatforms.length > 0 ? [...dynamicPlatforms, ...dynamicPlatforms] : []).map((ch: any, idx: number) => (
                   <div
                     key={idx}
                     title={ch.name}
@@ -1533,7 +1079,22 @@ export default function HomePage() {
                     onMouseEnter={(e) => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.transform = "scale(1.08)"; }}
                     onMouseLeave={(e) => { e.currentTarget.style.opacity = "0.92"; e.currentTarget.style.transform = "scale(1)"; }}
                   >
-                    {ch.svg}
+                    {ch.svgCode ? (
+                      <div
+                        dangerouslySetInnerHTML={{ __html: ch.svgCode }}
+                        style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+                      />
+                    ) : ch.logoUrl ? (
+                      <img
+                        src={ch.logoUrl}
+                        alt={ch.name}
+                        style={{ maxHeight: "48px", width: "auto", objectFit: "contain" }}
+                      />
+                    ) : (
+                      <span style={{ fontWeight: 800, fontSize: "1.2rem", color: "#1E293B" }}>
+                        {ch.name}
+                      </span>
+                    )}
                   </div>
                 ))}
               </div>
@@ -1674,10 +1235,10 @@ export default function HomePage() {
               WebkitMaskImage: "linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%)"
             }}>
               <div className="channel-marquee-track" style={{ alignItems: "center", gap: "2rem" }}>
-                {[...portfolioLogos, ...portfolioLogos].map((brand, idx) => (
+                {(dynamicBrands.length > 0 ? [...dynamicBrands, ...dynamicBrands] : []).map((brand: any, idx: number) => (
                   <div
                     key={idx}
-                    title={`${brand.name} • ${brand.category}`}
+                    title={`${brand.name} • ${brand.category || ""}`}
                     style={{
                       display: "flex",
                       alignItems: "center",
@@ -1706,7 +1267,24 @@ export default function HomePage() {
                       e.currentTarget.style.borderColor = "rgba(226, 232, 240, 0.9)";
                     }}
                   >
-                    {brand.svg}
+                    {brand.svgCode ? (
+                      <div
+                        dangerouslySetInnerHTML={{ __html: brand.svgCode }}
+                        style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+                      />
+                    ) : brand.svg ? (
+                      brand.svg
+                    ) : brand.logoUrl ? (
+                      <img
+                        src={brand.logoUrl}
+                        alt={brand.name}
+                        style={{ maxHeight: "38px", width: "auto", objectFit: "contain" }}
+                      />
+                    ) : (
+                      <span style={{ fontWeight: 800, fontSize: "1.1rem", color: "#0B1736", letterSpacing: "0.5px" }}>
+                        {brand.name}
+                      </span>
+                    )}
                   </div>
                 ))}
               </div>

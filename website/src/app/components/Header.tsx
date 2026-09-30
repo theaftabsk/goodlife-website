@@ -28,7 +28,7 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
   });
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/v1/settings")
+    fetch("https://g.zyvocrm.in/api/v1/settings")
       .then((res) => {
         if (res.ok) return res.json();
         throw new Error();

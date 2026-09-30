@@ -33,7 +33,7 @@ export default function InsightsPage() {
   useEffect(() => {
     async function loadArticles() {
       try {
-        const res = await fetch("http://localhost:5000/api/v1/articles");
+        const res = await fetch("https://g.zyvocrm.in/api/v1/articles");
         if (res.ok) {
           const data = await res.json();
           if (Array.isArray(data) && data.length > 0) {

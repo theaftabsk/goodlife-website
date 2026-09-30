@@ -616,6 +616,76 @@ async function main() {
       isPublished: true,
       orderIndex: 10,
       isFeatured: true
+    },
+    {
+      id: "faq-hp-1",
+      question: "What makes Good Life different from a traditional ecommerce agency?",
+      answer: "Good Life is an integrated Ecommerce Operating Partner, not an agency. We take full accountability for catalogue listings, inventory planning, multi-state warehousing, performance ads, settlement reconciliation, D2C operations, B2B/institutional execution and multi-channel order dispatch—under one operating model.",
+      category: "Homepage",
+      status: "Published",
+      isPublished: true,
+      orderIndex: 11,
+      isFeatured: true
+    },
+    {
+      id: "faq-hp-2",
+      question: "Does Good Life support multi-platform marketplace launch?",
+      answer: "Yes. Good Life helps brands evaluate, onboard and operate across multiple leading and relevant platforms—including Amazon, Flipkart, Myntra, Moglix, JioMart, Snapmint, Bajaj and other approved channels.",
+      category: "Homepage",
+      status: "Published",
+      isPublished: true,
+      orderIndex: 12,
+      isFeatured: true
+    },
+    {
+      id: "faq-hp-3",
+      question: "Can Good Life help an OEM manufacturer launch a consumer brand?",
+      answer: "Yes. Good Life has supported the ecommerce launch of new brands created by companies that previously operated primarily as OEMs. Our Brand Incubation mandate covers opportunity assessment, catalogue, marketplace setup, inventory, fulfilment and performance marketing.",
+      category: "Homepage",
+      status: "Published",
+      isPublished: true,
+      orderIndex: 13,
+      isFeatured: true
+    },
+    {
+      id: "faq-hp-4",
+      question: "Can Good Life manage D2C and marketplace operations together?",
+      answer: "Yes. Good Life can manage the operational layer for both marketplace and D2C channels together — including catalogue, order flow, inventory synchronisation, fulfilment, returns and performance reporting — providing a unified view across channels.",
+      category: "Homepage",
+      status: "Published",
+      isPublished: true,
+      orderIndex: 14,
+      isFeatured: true
+    },
+    {
+      id: "faq-hp-5",
+      question: "How does your finance reconciliation service work?",
+      answer: "We perform daily automated reconciliation audits on commissions, shipping charges, COD payments, returns, and payment gateways across marketplace and D2C channels. We identify listing fee leaks and disputable platform returns, recovering money that typically goes unnoticed.",
+      category: "Homepage",
+      status: "Published",
+      isPublished: true,
+      orderIndex: 15,
+      isFeatured: true
+    },
+    {
+      id: "faq-hp-6",
+      question: "Can Good Life fulfil bulk and institutional orders?",
+      answer: "Good Life can support brands in fulfilling bulk and institutional orders through its regional warehouse network. This includes B2B platform enquiries (IndiaMART, TradeIndia, Moglix, JioMart B2B), quotation coordination, dispatch and reconciliation.",
+      category: "Homepage",
+      status: "Published",
+      isPublished: true,
+      orderIndex: 16,
+      isFeatured: true
+    },
+    {
+      id: "faq-hp-7",
+      question: "Where are your warehouses located?",
+      answer: "We operate 12 warehousing locations across Gurgaon, Patna, Mumbai, Ahmedabad, Hyderabad, Guwahati, Bengaluru, Lucknow, Chennai, Indore, Kolkata, and Ludhiana, with FBA/FA hubs in select cities.",
+      category: "Homepage",
+      status: "Published",
+      isPublished: true,
+      orderIndex: 17,
+      isFeatured: true
     }
   ];
 

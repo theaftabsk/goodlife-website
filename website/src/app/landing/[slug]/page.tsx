@@ -349,7 +349,7 @@ export default function DynamicLandingPage({
     } catch (_) {}
 
     // Synchronize with NestJS PostgreSQL backend
-    fetch("http://localhost:5000/api/v1/landing-pages")
+    fetch("https://g.zyvocrm.in/api/v1/landing-pages")
       .then((res) => {
         if (res.ok) return res.json();
         return null;
@@ -369,7 +369,7 @@ export default function DynamicLandingPage({
     e.preventDefault();
     setFormSubmitted(true);
     try {
-      await fetch("http://localhost:5000/api/v1/leads", {
+      await fetch("https://g.zyvocrm.in/api/v1/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

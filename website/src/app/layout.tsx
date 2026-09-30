@@ -26,7 +26,7 @@ interface SiteSettings {
 
 async function getSiteSettings(): Promise<SiteSettings | null> {
   try {
-    const res = await fetch("http://localhost:5000/api/v1/settings", {
+    const res = await fetch("https://g.zyvocrm.in/api/v1/settings", {
       next: { revalidate: 30 },
       signal: AbortSignal.timeout(3000),
     });

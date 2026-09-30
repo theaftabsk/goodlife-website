@@ -30,7 +30,7 @@ export default function ContactPage() {
     setFormSubmitted(true);
 
     try {
-      await fetch("http://localhost:5000/api/v1/leads", {
+      await fetch("https://g.zyvocrm.in/api/v1/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

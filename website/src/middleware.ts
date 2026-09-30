@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
 
   try {
     const res = await fetch(
-      `http://localhost:5000/api/v1/redirects/resolve?path=${encodeURIComponent(pathname)}`,
+      `https://g.zyvocrm.in/api/v1/redirects/resolve?path=${encodeURIComponent(pathname)}`,
       { next: { revalidate: 10 } }
     );
 

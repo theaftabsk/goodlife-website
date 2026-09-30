@@ -32,7 +32,7 @@ export default function CalendarBookingWidget({ prefillEmail, prefillName, prefi
   useEffect(() => {
     async function loadConfig() {
       try {
-        const res = await fetch("http://localhost:5000/api/v1/meetings/config");
+        const res = await fetch("https://g.zyvocrm.in/api/v1/meetings/config");
         if (res.ok) {
           const data = await res.json();
           if (data && data.bookingUrl) {
@@ -66,7 +66,7 @@ export default function CalendarBookingWidget({ prefillEmail, prefillName, prefi
     setIsSubmitting(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/v1/meetings", {
+      const res = await fetch("https://g.zyvocrm.in/api/v1/meetings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

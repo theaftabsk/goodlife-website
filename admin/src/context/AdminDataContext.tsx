@@ -646,56 +646,56 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
     // Fallback sync with NestJS / Express backend if running
     async function syncBackend() {
       try {
-        const leadsRes = await fetch("http://localhost:5000/api/v1/leads");
+        const leadsRes = await fetch("https://g.zyvocrm.in/api/v1/leads");
         if (leadsRes.ok) {
           const data = await leadsRes.json();
           if (Array.isArray(data)) setLeads(data);
         }
       } catch (_) {}
       try {
-        const pRes = await fetch("http://localhost:5000/api/v1/platforms");
+        const pRes = await fetch("https://g.zyvocrm.in/api/v1/platforms");
         if (pRes.ok) {
           const data = await pRes.json();
           if (Array.isArray(data) && data.length > 0) setPlatforms(data);
         }
       } catch (_) {}
       try {
-        const bRes = await fetch("http://localhost:5000/api/v1/brands");
+        const bRes = await fetch("https://g.zyvocrm.in/api/v1/brands");
         if (bRes.ok) {
           const data = await bRes.json();
           if (Array.isArray(data) && data.length > 0) setBrands(data);
         }
       } catch (_) {}
       try {
-        const cRes = await fetch("http://localhost:5000/api/v1/categories");
+        const cRes = await fetch("https://g.zyvocrm.in/api/v1/categories");
         if (cRes.ok) {
           const data = await cRes.json();
           if (Array.isArray(data) && data.length > 0) setCategories(data);
         }
       } catch (_) {}
       try {
-        const crmRes = await fetch("http://localhost:5000/api/v1/crm");
+        const crmRes = await fetch("https://g.zyvocrm.in/api/v1/crm");
         if (crmRes.ok) {
           const data = await crmRes.json();
           if (data && typeof data === "object") setCrmConfig(data);
         }
       } catch (_) {}
       try {
-        const rRes = await fetch("http://localhost:5000/api/v1/redirects");
+        const rRes = await fetch("https://g.zyvocrm.in/api/v1/redirects");
         if (rRes.ok) {
           const data = await rRes.json();
           if (Array.isArray(data) && data.length > 0) setRedirects(data);
         }
       } catch (_) {}
       try {
-        const sRes = await fetch("http://localhost:5000/api/v1/settings");
+        const sRes = await fetch("https://g.zyvocrm.in/api/v1/settings");
         if (sRes.ok) {
           const data = await sRes.json();
           if (data && typeof data === "object") setSiteSettings(data);
         }
       } catch (_) {}
       try {
-        const artRes = await fetch("http://localhost:5000/api/v1/articles");
+        const artRes = await fetch("https://g.zyvocrm.in/api/v1/articles");
         if (artRes.ok) {
           const data = await artRes.json();
           if (Array.isArray(data)) {
@@ -705,7 +705,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
         }
       } catch (_) {}
       try {
-        const faqRes = await fetch("http://localhost:5000/api/v1/faqs");
+        const faqRes = await fetch("https://g.zyvocrm.in/api/v1/faqs");
         if (faqRes.ok) {
           const data = await faqRes.json();
           if (Array.isArray(data)) {
@@ -715,7 +715,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
         }
       } catch (_) {}
       try {
-        const authRes = await fetch("http://localhost:5000/api/v1/authors");
+        const authRes = await fetch("https://g.zyvocrm.in/api/v1/authors");
         if (authRes.ok) {
           const data = await authRes.json();
           if (Array.isArray(data) && data.length > 0) {
@@ -726,7 +726,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
         }
       } catch (_) {}
       try {
-        const mRes = await fetch("http://localhost:5000/api/v1/meetings");
+        const mRes = await fetch("https://g.zyvocrm.in/api/v1/meetings");
         if (mRes.ok) {
           const data = await mRes.json();
           if (Array.isArray(data)) {
@@ -736,7 +736,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
         }
       } catch (_) {}
       try {
-        const mcRes = await fetch("http://localhost:5000/api/v1/meetings/config");
+        const mcRes = await fetch("https://g.zyvocrm.in/api/v1/meetings/config");
         if (mcRes.ok) {
           const data = await mcRes.json();
           if (data && typeof data === "object") setCalendarConfig(data);
@@ -868,7 +868,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
         return updated;
       });
       // Sync to backend API
-      fetch(`http://localhost:5000/api/v1/brands/${id}`, {
+      fetch(`https://g.zyvocrm.in/api/v1/brands/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...item, slug, svgCode })
@@ -891,7 +891,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
         return updated;
       });
       // Sync to backend API
-      fetch("http://localhost:5000/api/v1/brands", {
+      fetch("https://g.zyvocrm.in/api/v1/brands", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newB)
@@ -907,7 +907,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
       return updated;
     });
     // Sync to backend API
-    fetch(`http://localhost:5000/api/v1/brands/${id}`, {
+    fetch(`https://g.zyvocrm.in/api/v1/brands/${id}`, {
       method: "DELETE"
     }).catch(() => {});
     showToast("Brand removed");
@@ -918,7 +918,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
       const updated = prev.map(b => {
         if (b.id === id) {
           const newStatus = !b.isActive;
-          fetch(`http://localhost:5000/api/v1/brands/${id}`, {
+          fetch(`https://g.zyvocrm.in/api/v1/brands/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ isActive: newStatus })
@@ -1070,7 +1070,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
       setTimeout(async () => {
         try {
-          await fetch(`http://localhost:5000/api/v1/articles/${id}`, {
+          await fetch(`https://g.zyvocrm.in/api/v1/articles/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ ...item, slug: item.slug || slug }),
@@ -1110,7 +1110,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
       setTimeout(async () => {
         try {
-          const res = await fetch("http://localhost:5000/api/v1/articles", {
+          const res = await fetch("https://g.zyvocrm.in/api/v1/articles", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newA),
@@ -1136,7 +1136,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
     setTimeout(async () => {
       try {
-        await fetch(`http://localhost:5000/api/v1/articles/${id}`, { method: "DELETE" });
+        await fetch(`https://g.zyvocrm.in/api/v1/articles/${id}`, { method: "DELETE" });
       } catch (_) {}
     }, 50);
   };
@@ -1159,7 +1159,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
     setTimeout(async () => {
       try {
-        await fetch(`http://localhost:5000/api/v1/articles/${id}/toggle`, { method: "PATCH" });
+        await fetch(`https://g.zyvocrm.in/api/v1/articles/${id}/toggle`, { method: "PATCH" });
       } catch (_) {}
     }, 50);
   };
@@ -1185,7 +1185,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
     setTimeout(async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/v1/articles/${id}/duplicate`, { method: "POST" });
+        const res = await fetch(`https://g.zyvocrm.in/api/v1/articles/${id}/duplicate`, { method: "POST" });
         if (res.ok) {
           const dup = await res.json();
           if (dup && dup.id) {
@@ -1204,7 +1204,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
       return updated;
     });
     try {
-      await fetch("http://localhost:5000/api/v1/settings", {
+      await fetch("https://g.zyvocrm.in/api/v1/settings", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(settings),
@@ -1236,7 +1236,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
       setTimeout(async () => {
         try {
-          await fetch(`http://localhost:5000/api/v1/authors/${id}`, {
+          await fetch(`https://g.zyvocrm.in/api/v1/authors/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(item),
@@ -1269,7 +1269,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
       setTimeout(async () => {
         try {
-          const res = await fetch("http://localhost:5000/api/v1/authors", {
+          const res = await fetch("https://g.zyvocrm.in/api/v1/authors", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newAuth),
@@ -1299,7 +1299,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
     setTimeout(async () => {
       try {
-        await fetch(`http://localhost:5000/api/v1/authors/${id}`, { method: "DELETE" });
+        await fetch(`https://g.zyvocrm.in/api/v1/authors/${id}`, { method: "DELETE" });
       } catch (_) {}
     }, 50);
   };
@@ -1317,7 +1317,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
     setTimeout(async () => {
       try {
-        await fetch(`http://localhost:5000/api/v1/authors/${id}/toggle`, { method: "PATCH" });
+        await fetch(`https://g.zyvocrm.in/api/v1/authors/${id}/toggle`, { method: "PATCH" });
       } catch (_) {}
     }, 50);
   };
@@ -1417,7 +1417,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
       setTimeout(async () => {
         try {
-          await fetch(`http://localhost:5000/api/v1/faqs/${id}`, {
+          await fetch(`https://g.zyvocrm.in/api/v1/faqs/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(item),
@@ -1444,7 +1444,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
       setTimeout(async () => {
         try {
-          const res = await fetch("http://localhost:5000/api/v1/faqs", {
+          const res = await fetch("https://g.zyvocrm.in/api/v1/faqs", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newF),
@@ -1474,7 +1474,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
     setTimeout(async () => {
       try {
-        await fetch(`http://localhost:5000/api/v1/faqs/${id}`, { method: "DELETE" });
+        await fetch(`https://g.zyvocrm.in/api/v1/faqs/${id}`, { method: "DELETE" });
       } catch (_) {}
     }, 50);
   };
@@ -1499,7 +1499,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
     setTimeout(async () => {
       try {
-        await fetch(`http://localhost:5000/api/v1/faqs/${id}/toggle`, { method: "PATCH" });
+        await fetch(`https://g.zyvocrm.in/api/v1/faqs/${id}/toggle`, { method: "PATCH" });
       } catch (_) {}
     }, 50);
   };
@@ -1524,7 +1524,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
     setTimeout(async () => {
       try {
-        await fetch(`http://localhost:5000/api/v1/faqs/${id}/featured`, { method: "PATCH" });
+        await fetch(`https://g.zyvocrm.in/api/v1/faqs/${id}/featured`, { method: "PATCH" });
       } catch (_) {}
     }, 50);
   };
@@ -1549,7 +1549,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
     setTimeout(async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/v1/faqs/${id}/duplicate`, { method: "POST" });
+        const res = await fetch(`https://g.zyvocrm.in/api/v1/faqs/${id}/duplicate`, { method: "POST" });
         if (res.ok) {
           const dup = await res.json();
           if (dup && dup.id) {
@@ -1688,7 +1688,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
     } catch (_) {}
 
     try {
-      const res = await fetch("http://localhost:5000/api/v1/crm", {
+      const res = await fetch("https://g.zyvocrm.in/api/v1/crm", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(config),
@@ -1705,7 +1705,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
   const testCrmWebhook = async (dto?: { provider?: string; webhookUrl?: string; apiKey?: string }) => {
     try {
-      const res = await fetch("http://localhost:5000/api/v1/crm/test", {
+      const res = await fetch("https://g.zyvocrm.in/api/v1/crm/test", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(dto || {}),
@@ -1713,7 +1713,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
       const data = await res.json();
       if (data.success) {
         showToast(data.message || "Webhook verified successfully!");
-        const refreshed = await fetch("http://localhost:5000/api/v1/crm").then(r => r.json()).catch(() => null);
+        const refreshed = await fetch("https://g.zyvocrm.in/api/v1/crm").then(r => r.json()).catch(() => null);
         if (refreshed) setCrmConfig(refreshed);
       } else {
         showToast(data.message || "Webhook test failed.");
@@ -1728,7 +1728,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
   const disconnectCrm = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/v1/crm/disconnect", { method: "POST" });
+      const res = await fetch("https://g.zyvocrm.in/api/v1/crm/disconnect", { method: "POST" });
       if (res.ok) {
         const saved = await res.json();
         setCrmConfig(saved);
@@ -1744,13 +1744,13 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
   const syncPendingLeadsToCrm = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/v1/crm/sync-now", { method: "POST" });
+      const res = await fetch("https://g.zyvocrm.in/api/v1/crm/sync-now", { method: "POST" });
       const data = await res.json();
       if (res.ok) {
         showToast(data.message || "Leads pushed to CRM successfully!");
         const [refreshedLeads, refreshedCrm] = await Promise.all([
-          fetch("http://localhost:5000/api/v1/leads").then(r => r.json()).catch(() => null),
-          fetch("http://localhost:5000/api/v1/crm").then(r => r.json()).catch(() => null),
+          fetch("https://g.zyvocrm.in/api/v1/leads").then(r => r.json()).catch(() => null),
+          fetch("https://g.zyvocrm.in/api/v1/crm").then(r => r.json()).catch(() => null),
         ]);
         if (Array.isArray(refreshedLeads)) setLeads(refreshedLeads);
         if (refreshedCrm) setCrmConfig(refreshedCrm);
@@ -1776,7 +1776,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
     try {
       if (id) {
-        const res = await fetch(`http://localhost:5000/api/v1/redirects/${id}`, {
+        const res = await fetch(`https://g.zyvocrm.in/api/v1/redirects/${id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ from: fromUrl, to: toUrl, code }),
@@ -1789,7 +1789,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
           showToast("Failed to update redirect rule in database.");
         }
       } else {
-        const res = await fetch("http://localhost:5000/api/v1/redirects", {
+        const res = await fetch("https://g.zyvocrm.in/api/v1/redirects", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ from: fromUrl, to: toUrl, code }),
@@ -1823,7 +1823,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
   const deleteRedirect = async (id: string) => {
     try {
-      await fetch(`http://localhost:5000/api/v1/redirects/${id}`, { method: "DELETE" });
+      await fetch(`https://g.zyvocrm.in/api/v1/redirects/${id}`, { method: "DELETE" });
     } catch (_) {}
     setRedirects(prev => prev.filter(r => r.id !== id));
     showToast("Redirect rule deleted from database.");
@@ -1832,7 +1832,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
   const saveMeeting = async (item: Partial<MeetingItem>, id?: string) => {
     try {
       if (id) {
-        const res = await fetch(`http://localhost:5000/api/v1/meetings/${id}`, {
+        const res = await fetch(`https://g.zyvocrm.in/api/v1/meetings/${id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(item),
@@ -1847,7 +1847,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
           showToast(`Meeting with ${updated.clientName} updated`);
         }
       } else {
-        const res = await fetch("http://localhost:5000/api/v1/meetings", {
+        const res = await fetch("https://g.zyvocrm.in/api/v1/meetings", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(item),
@@ -1869,7 +1869,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
   const updateMeetingStatus = async (id: string, status: "CONFIRMED" | "CANCELLED" | "COMPLETED") => {
     try {
-      const res = await fetch(`http://localhost:5000/api/v1/meetings/${id}`, {
+      const res = await fetch(`https://g.zyvocrm.in/api/v1/meetings/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status }),
@@ -1889,7 +1889,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
   const deleteMeeting = async (id: string) => {
     try {
-      await fetch(`http://localhost:5000/api/v1/meetings/${id}`, { method: "DELETE" });
+      await fetch(`https://g.zyvocrm.in/api/v1/meetings/${id}`, { method: "DELETE" });
       setMeetings(prev => prev.filter(m => m.id !== id));
       try {
         const list = JSON.parse(localStorage.getItem("gl_admin_meetings") || "[]");
@@ -1903,7 +1903,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
   const sendMeetingReminder = async (id: string, type: "24h" | "1h" | "manual" = "manual"): Promise<boolean> => {
     try {
-      const res = await fetch(`http://localhost:5000/api/v1/meetings/${id}/remind`, {
+      const res = await fetch(`https://g.zyvocrm.in/api/v1/meetings/${id}/remind`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ type }),
@@ -1927,7 +1927,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
   const updateCalendarConfig = async (config: Partial<CalendarConfigItem>) => {
     try {
-      const res = await fetch("http://localhost:5000/api/v1/meetings/config", {
+      const res = await fetch("https://g.zyvocrm.in/api/v1/meetings/config", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(config),
