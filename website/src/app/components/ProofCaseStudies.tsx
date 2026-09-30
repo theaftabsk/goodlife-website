@@ -154,73 +154,17 @@ export default function ProofCaseStudies({ onOpenDiag }: { onOpenDiag: () => voi
         </div>
 
         {/* Clean Floating Liquid Glass Tab Switcher Dock */}
-        <div style={{
-          display: "flex",
-          justifyContent: "center",
-          marginBottom: "2.2rem"
-        }}>
-          <div
-            className="case-studies-tabs"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              padding: "6px 8px",
-              borderRadius: "99px",
-              background: "rgba(255, 255, 255, 0.8)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              border: "1.5px solid rgba(191, 219, 254, 0.85)",
-              boxShadow: "0 8px 24px rgba(37, 99, 235, 0.08), inset 0 1px 2px #FFFFFF",
-              maxWidth: "100%",
-              overflowX: "auto"
-            }}
-          >
+        <div className="case-studies-tabs-container">
+          <div className="case-studies-tabs">
             {cases.map((c, idx) => {
               const isActive = activeCase === idx;
               return (
                 <button
                   key={c.id}
                   onClick={() => setActiveCase(idx)}
-                  style={{
-                    border: isActive ? "1px solid #2563EB" : "1px solid transparent",
-                    background: isActive
-                      ? "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)"
-                      : "transparent",
-                    color: isActive ? "#FFFFFF" : "#475569",
-                    fontWeight: isActive ? 800 : 600,
-                    fontSize: "0.86rem",
-                    padding: "0.55rem 1.2rem",
-                    borderRadius: "99px",
-                    cursor: "pointer",
-                    transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "8px",
-                    whiteSpace: "nowrap",
-                    boxShadow: isActive
-                      ? "0 4px 16px rgba(37, 99, 235, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.4)"
-                      : "none"
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.background = "rgba(239, 246, 255, 0.75)";
-                      e.currentTarget.style.color = "#1D4ED8";
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.background = "transparent";
-                      e.currentTarget.style.color = "#475569";
-                    }
-                  }}
+                  className={`case-study-tab-btn ${isActive ? "active" : ""}`}
                 >
-                  <span style={{
-                    width: 6,
-                    height: 6,
-                    borderRadius: "50%",
-                    background: isActive ? "#67E8F9" : "#94A3B8"
-                  }} />
+                  <span className="case-study-tab-dot" />
                   <span>{c.brandName}</span>
                 </button>
               );
@@ -229,46 +173,15 @@ export default function ProofCaseStudies({ onOpenDiag }: { onOpenDiag: () => voi
         </div>
 
         {/* Clean Liquid Glass Case Study Card */}
-        <div
-          className="luxury-blue-glass case-study-liquid-card"
-          style={{
-            background: "linear-gradient(145deg, rgba(255, 255, 255, 0.92) 0%, rgba(245, 250, 255, 0.8) 50%, rgba(255, 255, 255, 0.9) 100%)",
-            backdropFilter: "blur(28px)",
-            WebkitBackdropFilter: "blur(28px)",
-            border: "1.5px solid rgba(191, 219, 254, 0.8)",
-            boxShadow: "0 20px 50px -10px rgba(37, 99, 235, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.95)",
-            borderRadius: "24px",
-            padding: "2.4rem 2.2rem",
-            display: "grid",
-            alignItems: "center"
-          }}
-        >
+        <div className="luxury-blue-glass case-study-liquid-card">
           {/* Left Column: Clean Narrative */}
-          <div>
+          <div className="case-study-narrative">
             {/* Meta Tags */}
-            <div style={{ display: "flex", alignItems: "center", gap: "0.55rem", marginBottom: "0.75rem", flexWrap: "wrap" }}>
-              <span style={{
-                background: "#0F172A",
-                color: "#FFFFFF",
-                fontSize: "0.72rem",
-                fontWeight: 750,
-                padding: "0.22rem 0.65rem",
-                borderRadius: "6px"
-              }}>
+            <div className="case-study-meta-row">
+              <span className="case-study-tag-category">
                 {current.category}
               </span>
-              <span style={{
-                background: "rgba(239, 246, 255, 0.9)",
-                border: "1px solid rgba(191, 219, 254, 0.8)",
-                color: "#1D4ED8",
-                fontSize: "0.72rem",
-                fontWeight: 700,
-                padding: "0.22rem 0.65rem",
-                borderRadius: "6px",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "5px"
-              }}>
+              <span className="case-study-tag-timeline">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2.5">
                   <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
                 </svg>
@@ -277,168 +190,66 @@ export default function ProofCaseStudies({ onOpenDiag }: { onOpenDiag: () => voi
             </div>
 
             {/* Headline */}
-            <h3 style={{
-              fontSize: "clamp(1.35rem, 2vw, 1.7rem)",
-              fontWeight: 800,
-              color: "#0B1736",
-              margin: "0 0 1.2rem",
-              lineHeight: 1.3,
-              letterSpacing: "-0.4px"
-            }}>
+            <h3 className="case-study-headline">
               {current.headline}
             </h3>
 
             {/* Clean Challenge & Solution Pills */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginBottom: "1.3rem" }}>
-              
+            <div className="case-study-narrative-pills">
               {/* Challenge */}
-              <div style={{
-                background: "rgba(254, 242, 242, 0.75)",
-                border: "1px solid rgba(254, 205, 211, 0.8)",
-                borderLeft: "3.5px solid #EF4444",
-                padding: "0.75rem 1rem",
-                borderRadius: "10px"
-              }}>
-                <div style={{
-                  fontSize: "0.7rem",
-                  fontWeight: 800,
-                  color: "#991B1B",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.8px",
-                  marginBottom: "2px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "5px"
-                }}>
-                  <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#EF4444" }} />
+              <div className="case-study-challenge">
+                <div className="case-study-challenge-badge">
+                  <span className="case-study-badge-dot red" />
                   Challenge
                 </div>
-                <div style={{ fontSize: "0.85rem", color: "#7F1D1D", lineHeight: 1.45, fontWeight: 550 }}>
+                <div className="case-study-challenge-text">
                   {current.challenge}
                 </div>
               </div>
 
               {/* Solution */}
-              <div style={{
-                background: "rgba(240, 253, 244, 0.75)",
-                border: "1px solid rgba(167, 243, 208, 0.8)",
-                borderLeft: "3.5px solid #10B981",
-                padding: "0.75rem 1rem",
-                borderRadius: "10px"
-              }}>
-                <div style={{
-                  fontSize: "0.7rem",
-                  fontWeight: 800,
-                  color: "#166534",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.8px",
-                  marginBottom: "2px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "5px"
-                }}>
-                  <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#10B981" }} />
+              <div className="case-study-solution">
+                <div className="case-study-solution-badge">
+                  <span className="case-study-badge-dot green" />
                   GoodLife Solution
                 </div>
-                <div style={{ fontSize: "0.85rem", color: "#14532D", lineHeight: 1.45, fontWeight: 550 }}>
+                <div className="case-study-solution-text">
                   {current.solution}
                 </div>
               </div>
             </div>
 
             {/* Clean Quote */}
-            <div style={{
-              borderTop: "1px solid rgba(226, 232, 240, 0.8)",
-              paddingTop: "0.85rem",
-              fontSize: "0.84rem",
-              color: "#334155",
-              fontStyle: "italic",
-              lineHeight: 1.45
-            }}>
+            <div className="case-study-quote-box">
               &ldquo;{current.quote}&rdquo;
-              <span style={{ fontStyle: "normal", fontWeight: 750, color: "#0F172A", marginLeft: "8px", whiteSpace: "nowrap" }}>
+              <span className="case-study-quote-author">
                 — {current.spokesperson}
               </span>
             </div>
           </div>
 
           {/* Right Column: Clean Liquid Glass Metric Outcomes */}
-          <div
-            className="case-study-metrics-capsule"
-            style={{
-              background: "linear-gradient(155deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 248, 255, 0.88) 100%)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              border: "1.5px solid rgba(191, 219, 254, 0.85)",
-              borderRadius: "20px",
-              padding: "1.8rem 1.6rem",
-              boxShadow: "0 14px 35px -8px rgba(37, 99, 235, 0.1), inset 0 1px 2px #FFFFFF"
-            }}
-          >
-            <div style={{ textAlign: "center", marginBottom: "1.25rem" }}>
-              <span style={{
-                fontSize: "0.7rem",
-                fontWeight: 800,
-                textTransform: "uppercase",
-                letterSpacing: "1px",
-                color: "#2563EB",
-                background: "rgba(239, 246, 255, 0.9)",
-                padding: "0.2rem 0.65rem",
-                borderRadius: "99px",
-                border: "1px solid rgba(191, 219, 254, 0.8)",
-                display: "inline-block",
-                marginBottom: "0.3rem"
-              }}>
+          <div className="case-study-metrics-capsule">
+            <div className="case-study-metrics-header">
+              <span className="case-study-metrics-tag">
                 Key Operating Outcomes
               </span>
-              <h4 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#0B1736", margin: 0 }}>
+              <h4 className="case-study-metrics-title">
                 Audited Performance
               </h4>
             </div>
 
             {/* 4 Metric Tiles */}
-            <div style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "0.85rem",
-              marginBottom: "1.2rem"
-            }}>
+            <div className="case-study-metrics-grid">
               {current.metrics.map((m, mIdx) => (
-                <div
-                  key={mIdx}
-                  style={{
-                    background: "#FFFFFF",
-                    border: "1.5px solid rgba(219, 234, 254, 0.9)",
-                    borderRadius: "14px",
-                    padding: "1rem 0.8rem",
-                    textAlign: "center",
-                    boxShadow: "0 2px 8px rgba(37, 99, 235, 0.04)",
-                    transition: "all 0.2s ease"
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-2px)";
-                    e.currentTarget.style.borderColor = "#93C5FD";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.borderColor = "rgba(219, 234, 254, 0.9)";
-                  }}
-                >
-                  <div style={{
-                    fontSize: "clamp(1.65rem, 2.2vw, 2.05rem)",
-                    fontWeight: 900,
-                    background: "linear-gradient(135deg, #1D4ED8 0%, #2563EB 60%, #0284C7 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    lineHeight: 1,
-                    letterSpacing: "-0.5px"
-                  }}>
+                <div key={mIdx} className="case-study-metric-card">
+                  <div className="case-study-metric-val">
                     {m.value}
                   </div>
-                  <div style={{ fontSize: "0.8rem", fontWeight: 800, color: "#0B1736", marginTop: "0.4rem" }}>
+                  <div className="case-study-metric-lbl">
                     {m.label}
                   </div>
-                  <div style={{ fontSize: "0.7rem", color: "#64748B", marginTop: "2px" }}>
+                  <div className="case-study-metric-sub">
                     {m.sub}
                   </div>
                 </div>
@@ -446,44 +257,14 @@ export default function ProofCaseStudies({ onOpenDiag }: { onOpenDiag: () => voi
             </div>
 
             {/* Clean 1-Line Outcome Pill */}
-            <div style={{
-              background: "linear-gradient(135deg, rgba(239, 246, 255, 0.95) 0%, rgba(224, 242, 254, 0.7) 100%)",
-              border: "1px solid rgba(191, 219, 254, 0.8)",
-              borderRadius: "10px",
-              padding: "0.7rem 0.9rem",
-              fontSize: "0.77rem",
-              color: "#1E40AF",
-              lineHeight: 1.4,
-              fontWeight: 550,
-              marginBottom: "1.1rem"
-            }}>
+            <div className="case-study-impact-pill">
               <strong>Key Impact:</strong> {current.outcome}
             </div>
 
             {/* Clean Action Button */}
             <button
               onClick={onOpenDiag}
-              style={{
-                width: "100%",
-                height: "44px",
-                borderRadius: "11px",
-                background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
-                color: "#FFFFFF",
-                fontWeight: 750,
-                fontSize: "0.88rem",
-                border: "none",
-                cursor: "pointer",
-                boxShadow: "0 6px 18px rgba(37, 99, 235, 0.28)",
-                transition: "all 0.2s ease"
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-2px)";
-                e.currentTarget.style.boxShadow = "0 10px 24px rgba(37, 99, 235, 0.38)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "0 6px 18px rgba(37, 99, 235, 0.28)";
-              }}
+              className="case-study-cta-btn"
             >
               Get Category Diagnostic →
             </button>

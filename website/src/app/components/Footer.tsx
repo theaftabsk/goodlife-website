@@ -41,6 +41,20 @@ export default function Footer({ hideTopBanner = false }: { hideTopBanner?: bool
       <style>{`
         .footer-top-banner {
           padding: 7rem 6%;
+          position: relative;
+          background-color: #0F172A;
+          color: #FFFFFF;
+          display: flex;
+          align-items: center;
+          overflow: hidden;
+          width: 100%;
+          box-sizing: border-box;
+        }
+        .footer-top-content {
+          position: relative;
+          z-index: 2;
+          max-width: 620px;
+          width: 100%;
         }
         .footer-heading {
           font-size: clamp(2.5rem, 4vw, 3.5rem);
@@ -52,41 +66,93 @@ export default function Footer({ hideTopBanner = false }: { hideTopBanner?: bool
         }
         .footer-bottom-grid {
           padding: 6rem 6% 3rem 6%;
-          grid-template-columns: 1fr 1fr 1fr 1.2fr;
-          gap: 4rem;
+          grid-template-columns: 1.25fr 1fr 1fr 1fr 1.25fr;
+          gap: 3rem;
+          width: 100%;
+          box-sizing: border-box;
         }
         .footer-links-col {
           display: flex;
           flex-direction: column;
         }
-        @media (max-width: 992px) {
+        @media (max-width: 1024px) {
           .footer-bottom-grid {
             grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            padding: 4rem 6% 2rem 6%;
+            gap: 2.4rem;
+            padding: 4rem 5% 2rem 5%;
+          }
+          .footer-col-contact,
+          .footer-col-newsletter {
+            grid-column: span 2;
           }
         }
         @media (max-width: 768px) {
           .footer-top-banner {
-            padding: 2.6rem 1rem !important;
-            text-align: center;
+            padding: 2.8rem 1.25rem !important;
+            text-align: left !important;
           }
           .footer-heading {
-            font-size: 1.55rem !important;
+            font-size: clamp(1.48rem, 5.5vw, 1.85rem) !important;
             line-height: 1.22 !important;
             margin-bottom: 0.75rem !important;
           }
           .footer-subtext {
-            font-size: 0.82rem !important;
-            margin-bottom: 1.2rem !important;
+            font-size: 0.88rem !important;
+            line-height: 1.55 !important;
+            margin-bottom: 1.4rem !important;
+          }
+          .footer-cta-btn {
+            width: 100% !important;
+            max-width: 340px !important;
+            height: 48px !important;
+            justify-content: center !important;
           }
           .footer-bottom-grid {
-            grid-template-columns: 1fr;
-            gap: 1.8rem;
-            padding: 2.2rem 1rem 1.5rem 1rem !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 2rem 1.2rem !important;
+            padding: 2.5rem 1.25rem 1.5rem !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+          }
+          .footer-col-contact {
+            grid-column: span 2 !important;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          }
+          .footer-col-newsletter {
+            grid-column: span 2 !important;
+            padding-top: 0.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
           }
           .footer-col-title {
-            margin-bottom: 0.6rem !important;
+            margin-bottom: 0.75rem !important;
+          }
+          .footer-bottom-bar {
+            grid-column: span 2 !important;
+            flex-direction: column !important;
+            gap: 1rem !important;
+            text-align: center !important;
+            align-items: center !important;
+            padding-top: 1.5rem !important;
+          }
+        }
+        @media (max-width: 520px) {
+          .footer-top-banner {
+            padding: 2.2rem 1rem !important;
+          }
+          .footer-top-banner button {
+            max-width: 100% !important;
+          }
+          .footer-bottom-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1.8rem !important;
+            padding: 2rem 1rem 1.5rem !important;
+          }
+          .footer-col-contact,
+          .footer-nav-col,
+          .footer-col-newsletter,
+          .footer-bottom-bar {
+            grid-column: span 1 !important;
           }
         }
       `}</style>
@@ -122,21 +188,21 @@ export default function Footer({ hideTopBanner = false }: { hideTopBanner?: bool
           zIndex: 1 
         }} />
         
-        <div style={{ position: "relative", zIndex: 2, maxWidth: "600px" }}>
+        <div className="footer-top-content" style={{ position: "relative", zIndex: 2, maxWidth: "620px" }}>
           <h4 style={{ 
             fontSize: "0.75rem", 
             fontWeight: 700, 
             letterSpacing: "2.5px", 
             textTransform: "uppercase", 
             marginBottom: "1.2rem",
-            color: "#E2E8F0"
+            color: "#60A5FA"
           }}>
             {settings.preFooterTag || "Ready to Scale?"}
           </h4>
           <h2 className="footer-heading" style={{ 
             fontWeight: 400, 
             fontFamily: "var(--font-display, serif)",
-            lineHeight: 1.1,
+            lineHeight: 1.15,
             color: "#FFFFFF"
           }}>
             {settings.preFooterHeading || "Grow your ecommerce business with us"}
@@ -150,6 +216,7 @@ export default function Footer({ hideTopBanner = false }: { hideTopBanner?: bool
           </p>
           <button 
             type="button"
+            className="footer-cta-btn"
             onClick={() => {
               if (typeof window !== "undefined") {
                 const btn = document.querySelector(".nav-diagnostic-btn") as HTMLButtonElement | null;
@@ -198,25 +265,25 @@ export default function Footer({ hideTopBanner = false }: { hideTopBanner?: bool
         display: "grid"
       }}>
         
-        <div style={{ 
-          display: "contents"
-        }}>
-          
-          {/* Column 1: Contact Info */}
-          <div>
-            <h4 className="footer-col-title" style={{ color: "#FFFFFF", fontSize: "0.95rem", fontWeight: 600, marginBottom: "1.8rem", letterSpacing: "0.5px" }}>
-              Registered Office
-            </h4>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.8rem", fontSize: "0.85rem", lineHeight: 1.6 }}>
-              <p style={{ margin: 0, color: "#94A3B8" }}>Direct Line: <strong style={{ color: "#F1F5F9" }}>{settings.phone}</strong></p>
-              <p style={{ margin: 0, color: "#94A3B8" }}>Inquiry: <strong style={{ color: "#F1F5F9" }}>{settings.email}</strong></p>
-              <p style={{ margin: 0, marginTop: "0.5rem", color: "#94A3B8" }}>
-                {settings.companyName}<br/>
-                CIN: {settings.cinNumber}<br/>
-                {settings.address}
-              </p>
-            </div>
+        {/* Column 1: Contact Info */}
+        <div className="footer-col-contact">
+          <h4 className="footer-col-title" style={{ color: "#FFFFFF", fontSize: "0.95rem", fontWeight: 600, marginBottom: "1.5rem", letterSpacing: "0.5px" }}>
+            Registered Office
+          </h4>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", fontSize: "0.85rem", lineHeight: 1.6 }}>
+            <p style={{ margin: 0, color: "#94A3B8" }}>
+              Direct Line: <a href={`tel:${settings.phone.replace(/\s+/g, '')}`} style={{ color: "#F1F5F9", textDecoration: "none", fontWeight: 600 }}>{settings.phone}</a>
+            </p>
+            <p style={{ margin: 0, color: "#94A3B8" }}>
+              Inquiry: <a href={`mailto:${settings.email}`} style={{ color: "#38BDF8", textDecoration: "none", fontWeight: 600 }}>{settings.email}</a>
+            </p>
+            <p style={{ margin: 0, marginTop: "0.4rem", color: "#94A3B8", lineHeight: 1.55 }}>
+              <span style={{ color: "#CBD5E1", fontWeight: 600 }}>{settings.companyName}</span><br/>
+              <span style={{ fontSize: "0.75rem", color: "#64748B" }}>CIN: {settings.cinNumber}</span><br/>
+              {settings.address}
+            </p>
           </div>
+        </div>
 
           {/* Column 2: Solutions & Specialised */}
           <div className="footer-nav-col">
@@ -263,8 +330,8 @@ export default function Footer({ hideTopBanner = false }: { hideTopBanner?: bool
             </ul>
           </div>
 
-          {/* Column 4: Newsletter */}
-          <div>
+          {/* Column 5: Newsletter */}
+          <div className="footer-col-newsletter">
             <h4 style={{ color: "#FFFFFF", fontSize: "0.95rem", fontWeight: 500, marginBottom: "1.8rem" }}>
               Newsletter
             </h4>
@@ -280,7 +347,7 @@ export default function Footer({ hideTopBanner = false }: { hideTopBanner?: bool
                   border: "none", 
                   color: "#FFFFFF", 
                   fontSize: "0.75rem", 
-                  letterSpacing: "1px",
+                  letterSpacing: "1px", 
                   flex: 1, 
                   outline: "none" 
                 }} 
@@ -304,17 +371,18 @@ export default function Footer({ hideTopBanner = false }: { hideTopBanner?: bool
             </form>
           </div>
 
-        </div>
-
         {/* ── COPYRIGHT & SOCIALS ── */}
-        <div style={{ 
+        <div className="footer-bottom-bar" style={{ 
           display: "flex", 
           justifyContent: "space-between", 
           alignItems: "center",
           flexWrap: "wrap",
           gap: "1rem",
           borderTop: "1px solid #1E293B",
-          paddingTop: "2rem"
+          paddingTop: "2rem",
+          gridColumn: "1 / -1",
+          width: "100%",
+          boxSizing: "border-box"
         }}>
           <div style={{ fontSize: "0.8rem", color: "#94A3B8", fontWeight: 500 }}>
             {settings.copyrightText || "Copyright © 2026 Goodlife Sutra Pvt Ltd. All rights reserved."}
@@ -342,11 +410,6 @@ export default function Footer({ hideTopBanner = false }: { hideTopBanner?: bool
         }
         .footer-nav-col a:hover {
           color: #FFFFFF;
-        }
-        @media (max-width: 768px) {
-          .footer-nav-col {
-            grid-column: span 2;
-          }
         }
       `}</style>
     </footer>

@@ -1311,43 +1311,49 @@ export default function HomePage() {
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* ── SECTION 2: LUXURY WHITE & LIGHT GLASS HERO (CUSTOM OPERATING PARTNER UI/UX) ── */}
-      <section style={{
-        position: "relative",
-        background: "radial-gradient(120% 85% at 50% -10%, #E0F2FE 0%, #EFF6FF 35%, #F8FAFC 70%, #FFFFFF 100%)",
-        padding: "48px 1.5rem 40px",
-        overflow: "hidden",
-        color: "#0F172A",
-        borderBottom: "1px solid #E2E8F0"
-      }} id="hero-home">
+      <section id="hero-home" className="hero-section">
 
         {/* Smooth Floating Light Blue Aurora Glow Orbs */}
         <div className="hero-aurora-orb-1" />
         <div className="hero-aurora-orb-2" />
         <div className="hero-aurora-orb-3" />
 
-        <div style={{ maxWidth: "1280px", margin: "0 auto", position: "relative", zIndex: 2 }}>
+        <div className="hero-container">
           <div className="hero-main-grid">
 
             {/* ── LEFT COLUMN ── */}
-            <div>
+            <div className="hero-left-col">
+              {/* Luminous Trust Eyebrow */}
+              <div className="hero-eyebrow-pill">
+                <span className="hero-eyebrow-dot" />
+                <span className="hero-eyebrow-text">India&apos;s Leading Ecommerce Operating Partner</span>
+                <span className="hero-eyebrow-badge">SPN Verified</span>
+              </div>
+
               {/* Bold High-Impact Headline */}
               <h1 className="hero-headline">
-                Scale Your Brand Across <br />
-                <span style={{ position: "relative", display: "inline-block" }}>
-                  <span style={{
-                    background: "linear-gradient(135deg, #1E40AF 0%, #2563EB 50%, #0284C7 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent"
-                  }}>
-                    Marketplaces &amp; Quick Commerce
-                  </span>
-                  <svg style={{ position: "absolute", bottom: "-6px", left: 0, width: "100%", height: "10px" }} viewBox="0 0 300 12" fill="none">
-                    <path d="M2 8 C80 2, 220 2, 298 8" stroke="#38BDF8" strokeWidth="3.5" strokeLinecap="round" />
+                Scale Your Brand Across <br className="hero-desktop-br" />
+                <span className="hero-headline-highlight">
+                  <span className="hero-grad-text">Marketplaces &amp; Quick Commerce</span>
+                  <svg className="hero-headline-underline" viewBox="0 0 300 12" fill="none" preserveAspectRatio="none">
+                    <path d="M2 8 C80 2, 220 2, 298 8" stroke="url(#hero-blue-grad)" strokeWidth="3.5" strokeLinecap="round" />
+                    <defs>
+                      <linearGradient id="hero-blue-grad" x1="0" y1="0" x2="300" y2="0" gradientUnits="userSpaceOnUse">
+                        <stop stopColor="#38BDF8" />
+                        <stop offset="0.5" stopColor="#2563EB" />
+                        <stop offset="1" stopColor="#60A5FA" />
+                      </linearGradient>
+                    </defs>
                   </svg>
                 </span>
               </h1>
 
-              {/* Two Direct Hero Actions: Book Diagnostic or Run Calculator */}
+              {/* Subheadline Value Proposition */}
+              <p className="hero-subheadline">
+                End-to-end execution across Amazon, Flipkart, Blinkit, Zepto, and D2C — powered by 12-state warehousing, ad growth, and automated revenue recovery.
+              </p>
+
+              {/* Two Direct Hero Actions: Book Diagnostic or Explore Solutions */}
               <div className="hero-cta-btns">
                 <button
                   onClick={() => setDiagOpen(true)}
@@ -1367,18 +1373,20 @@ export default function HomePage() {
                 </a>
               </div>
 
-              {/* Bottom 3 Large Stats Row */}
-              <div className="hero-stats-grid">
+              {/* High-Impact 3-Stats Glass Dock */}
+              <div className="hero-stats-dock">
                 <div className="hero-stat-card">
                   <div className="hero-stat-num">500+</div>
                   <div className="hero-stat-lbl">BRANDS MANAGED</div>
                 </div>
+                <div className="hero-stat-divider" />
                 <div className="hero-stat-card">
                   <div className="hero-stat-num">₹850Cr+</div>
                   <div className="hero-stat-lbl">GMV DELIVERED</div>
                 </div>
+                <div className="hero-stat-divider" />
                 <div className="hero-stat-card">
-                  <div className="hero-stat-num hero-stat-text">Verified Partner</div>
+                  <div className="hero-stat-num hero-stat-text">Verified</div>
                   <div className="hero-stat-lbl">SPN STATUS</div>
                 </div>
               </div>
@@ -1401,42 +1409,29 @@ export default function HomePage() {
             </div>
 
             {/* ── RIGHT COLUMN: FROSTED LIQUID GLASS AUDIT CARD ── */}
-            <div style={{ position: "relative" }}>
-              {/* Crisp Frosted Liquid Glass Audit Card */}
-              <div
-                className="hero-audit-card"
-                style={{
-                  background: "rgba(255, 255, 255, 0.78)",
-                  backdropFilter: "blur(24px) saturate(180%)",
-                  WebkitBackdropFilter: "blur(24px) saturate(180%)",
-                  border: "1.5px solid rgba(255, 255, 255, 0.95)",
-                  borderRadius: "24px",
-                  padding: "2.3rem 2.1rem",
-                  boxShadow: "0 20px 50px rgba(37, 99, 235, 0.08), 0 2px 8px rgba(15, 23, 42, 0.03), inset 0 1px 1px rgba(255, 255, 255, 0.95)",
-                  position: "relative"
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "0.4rem" }}>
-                  <span style={{ color: "#F97316", fontSize: "0.95rem" }}>✦</span>
-                  <span style={{ fontSize: "0.76rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1.2px", color: "#EA580C" }}>
+            <div className="hero-right-col">
+              <div className="hero-audit-card">
+                <div className="hero-audit-eyebrow">
+                  <span className="hero-audit-eyebrow-star">✦</span>
+                  <span className="hero-audit-eyebrow-text">
                     COMPLIMENTARY COMMERCE DIAGNOSTIC
                   </span>
                 </div>
 
-                <h3 style={{ fontSize: "1.65rem", fontWeight: 900, color: "#0B1736", margin: "0 0 0.35rem", letterSpacing: "-0.5px" }}>
+                <h3 className="hero-audit-title">
                   Get Your Growth Diagnostic
                 </h3>
-                <p style={{ fontSize: "0.88rem", color: "#64748B", margin: "0 0 1.6rem", fontWeight: 500 }}>
+                <p className="hero-audit-subtitle">
                   Confidential multi-channel diagnostic delivered within 24 hours.
                 </p>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: "1.1rem" }}>
-                  <div>
-                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#1E293B", marginBottom: "0.4rem" }}>
+                <div className="hero-audit-fields">
+                  <div className="hero-audit-group">
+                    <label className="hero-audit-label">
                       Full name
                     </label>
-                    <div style={{ position: "relative" }}>
-                      <span style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", color: "#94A3B8" }}>
+                    <div className="hero-audit-input-wrap">
+                      <span className="hero-audit-icon">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
                       </span>
                       <input
@@ -1444,31 +1439,17 @@ export default function HomePage() {
                         value={auditName}
                         onChange={(e) => setAuditName(e.target.value)}
                         placeholder="Enter your full name"
-                        style={{
-                          width: "100%",
-                          height: "48px",
-                          borderRadius: "12px",
-                          border: "1.5px solid #E2E8F0",
-                          background: "#F8FAFC",
-                          padding: "0 1rem 0 2.6rem",
-                          color: "#0F172A",
-                          fontSize: "0.92rem",
-                          fontWeight: 500,
-                          outline: "none",
-                          transition: "all 0.2s ease"
-                        }}
-                        onFocus={(e) => { e.currentTarget.style.borderColor = "#2563EB"; e.currentTarget.style.background = "#FFFFFF"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(37, 99, 235, 0.12)"; }}
-                        onBlur={(e) => { e.currentTarget.style.borderColor = "#E2E8F0"; e.currentTarget.style.background = "#F8FAFC"; e.currentTarget.style.boxShadow = "none"; }}
+                        className="hero-audit-input"
                       />
                     </div>
                   </div>
 
-                  <div>
-                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#1E293B", marginBottom: "0.4rem" }}>
+                  <div className="hero-audit-group">
+                    <label className="hero-audit-label">
                       Phone / WhatsApp number
                     </label>
-                    <div style={{ position: "relative" }}>
-                      <span style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", color: "#94A3B8" }}>
+                    <div className="hero-audit-input-wrap">
+                      <span className="hero-audit-icon">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
                       </span>
                       <input
@@ -1476,31 +1457,17 @@ export default function HomePage() {
                         value={auditPhone}
                         onChange={(e) => setAuditPhone(e.target.value)}
                         placeholder="Enter your phone / WhatsApp number"
-                        style={{
-                          width: "100%",
-                          height: "48px",
-                          borderRadius: "12px",
-                          border: "1.5px solid #E2E8F0",
-                          background: "#F8FAFC",
-                          padding: "0 1rem 0 2.6rem",
-                          color: "#0F172A",
-                          fontSize: "0.92rem",
-                          fontWeight: 500,
-                          outline: "none",
-                          transition: "all 0.2s ease"
-                        }}
-                        onFocus={(e) => { e.currentTarget.style.borderColor = "#2563EB"; e.currentTarget.style.background = "#FFFFFF"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(37, 99, 235, 0.12)"; }}
-                        onBlur={(e) => { e.currentTarget.style.borderColor = "#E2E8F0"; e.currentTarget.style.background = "#F8FAFC"; e.currentTarget.style.boxShadow = "none"; }}
+                        className="hero-audit-input"
                       />
                     </div>
                   </div>
 
-                  <div>
-                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#1E293B", marginBottom: "0.4rem" }}>
+                  <div className="hero-audit-group">
+                    <label className="hero-audit-label">
                       Work email
                     </label>
-                    <div style={{ position: "relative" }}>
-                      <span style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", color: "#94A3B8" }}>
+                    <div className="hero-audit-input-wrap">
+                      <span className="hero-audit-icon">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
                       </span>
                       <input
@@ -1508,62 +1475,28 @@ export default function HomePage() {
                         value={auditEmail}
                         onChange={(e) => setAuditEmail(e.target.value)}
                         placeholder="Enter your work email address"
-                        style={{
-                          width: "100%",
-                          height: "48px",
-                          borderRadius: "12px",
-                          border: "1.5px solid #E2E8F0",
-                          background: "#F8FAFC",
-                          padding: "0 1rem 0 2.6rem",
-                          color: "#0F172A",
-                          fontSize: "0.92rem",
-                          fontWeight: 500,
-                          outline: "none",
-                          transition: "all 0.2s ease"
-                        }}
-                        onFocus={(e) => { e.currentTarget.style.borderColor = "#2563EB"; e.currentTarget.style.background = "#FFFFFF"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(37, 99, 235, 0.12)"; }}
-                        onBlur={(e) => { e.currentTarget.style.borderColor = "#E2E8F0"; e.currentTarget.style.background = "#F8FAFC"; e.currentTarget.style.boxShadow = "none"; }}
+                        className="hero-audit-input"
                       />
                     </div>
                   </div>
 
-
                   <button
                     onClick={() => setDiagOpen(true)}
-                    style={{
-                      width: "100%",
-                      height: "52px",
-                      borderRadius: "12px",
-                      background: "linear-gradient(135deg, #FF6B00 0%, #EA580C 100%)",
-                      color: "#FFFFFF",
-                      fontWeight: 800,
-                      fontSize: "1.05rem",
-                      border: "none",
-                      cursor: "pointer",
-                      marginTop: "0.5rem",
-                      boxShadow: "0 10px 25px rgba(234, 88, 12, 0.35)",
-                      transition: "all 0.25s ease",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      gap: "8px"
-                    }}
-                    onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 14px 30px rgba(234, 88, 12, 0.45)"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 10px 25px rgba(234, 88, 12, 0.35)"; }}
+                    className="hero-audit-submit"
                   >
                     Request Diagnostic →
                   </button>
 
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "0.5rem", fontSize: "0.75rem", color: "#64748B", fontWeight: 650 }}>
-                    <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                  <div className="hero-audit-trust">
+                    <span className="hero-audit-trust-item">
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2.8"><polyline points="20 6 9 17 4 12" /></svg>
                       Audit report
                     </span>
-                    <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                    <span className="hero-audit-trust-item">
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2.8"><polyline points="20 6 9 17 4 12" /></svg>
                       No commitment
                     </span>
-                    <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                    <span className="hero-audit-trust-item">
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2.8"><polyline points="20 6 9 17 4 12" /></svg>
                       2hr response
                     </span>
@@ -1576,16 +1509,8 @@ export default function HomePage() {
         </div>
 
         {/* ── OPERATING ACROSS LEADING PLATFORMS (HERO MARQUEE TICKER) ── */}
-        <div style={{ position: "relative", zIndex: 3, marginTop: "3.2rem", paddingTop: "1.4rem", borderTop: "1px solid #E2E8F0" }}>
-          <p style={{
-            textAlign: "center",
-            marginBottom: "1rem",
-            fontSize: "0.76rem",
-            fontWeight: 800,
-            letterSpacing: "2.5px",
-            color: "#64748B",
-            textTransform: "uppercase"
-          }}>
+        <div className="hero-ticker-wrap">
+          <p className="hero-ticker-title">
             Operating Across India&apos;s Leading Marketplaces &amp; Quick Commerce Platforms
           </p>
           <div className="channel-strip" style={{ margin: 0, padding: 0 }}>

@@ -244,6 +244,7 @@ export default function ThirdPartyValidation({ onOpenDiag }: { onOpenDiag: () =>
             padding: "2.8rem 2.8rem",
             color: "#0B1736",
             display: "grid",
+            gridTemplateColumns: "1.25fr 1fr",
             gap: "3rem",
             alignItems: "center",
             boxShadow: "0 20px 50px rgba(37, 99, 235, 0.08), 0 4px 16px rgba(15, 23, 42, 0.03)",
@@ -356,6 +357,7 @@ export default function ThirdPartyValidation({ onOpenDiag }: { onOpenDiag: () =>
               ].map((stat, sIdx) => (
                 <div
                   key={sIdx}
+                  className="operator-stat-pill"
                   style={{
                     background: "#FFFFFF",
                     border: "1.5px solid #DBEAFE",
@@ -403,6 +405,7 @@ export default function ThirdPartyValidation({ onOpenDiag }: { onOpenDiag: () =>
 
           {/* Right Column: Executive Operating Commitment Card */}
           <div
+            className="operator-commitment-card"
             style={{
               background: "#FFFFFF",
               border: "1.5px solid #BFDBFE",
@@ -464,6 +467,7 @@ export default function ThirdPartyValidation({ onOpenDiag }: { onOpenDiag: () =>
 
             <button
               onClick={onOpenDiag}
+              className="operator-team-btn"
               style={{
                 width: "100%",
                 height: "48px",
