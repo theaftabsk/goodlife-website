@@ -1102,23 +1102,23 @@ html, body {
     padding-top: 8px !important;
   }
 
+  /* On mobile, hide the static right column form — users tap the primary CTA button to open the instant diagnostic modal */
   .hero-right-col {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
+    display: none !important;
   }
 
   /* Eyebrow Pill on Mobile: Compact & Luminous */
   .hero-eyebrow-pill {
     display: inline-flex !important;
     align-items: center !important;
-    gap: 6px !important;
-    padding: 0.26rem 0.8rem !important;
+    gap: 7px !important;
+    padding: 0.28rem 0.85rem !important;
     border-radius: 99px !important;
     background: rgba(239, 246, 255, 0.95) !important;
     border: 1px solid rgba(191, 219, 254, 0.85) !important;
     margin-bottom: 0.65rem !important;
     box-shadow: 0 2px 10px rgba(37, 99, 235, 0.08) !important;
+    width: fit-content !important;
   }
 
   .hero-eyebrow-dot {
@@ -1134,16 +1134,6 @@ html, body {
     font-weight: 700 !important;
     color: #1E40AF !important;
     letter-spacing: 0.3px !important;
-  }
-
-  .hero-eyebrow-badge {
-    font-size: 0.62rem !important;
-    font-weight: 800 !important;
-    padding: 0.12rem 0.45rem !important;
-    border-radius: 99px !important;
-    background: #10B981 !important;
-    color: #FFFFFF !important;
-    letter-spacing: 0.5px !important;
   }
 
   /* Headline on Mobile — Zero Clipping, Natural Wrap */
@@ -1278,47 +1268,9 @@ html, body {
     line-height: 1.15 !important;
   }
 
-  /* Explore Strip on Mobile */
+  /* Explore Strip on Mobile - Hidden to keep Hero ultra-clean */
   .hero-explore-strip {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 0.35rem !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin-top: 0.4rem !important;
-    overflow: hidden !important;
-  }
-
-  .hero-explore-title {
-    font-size: 0.68rem !important;
-    font-weight: 800 !important;
-    color: #94A3B8 !important;
-    letter-spacing: 1px !important;
-  }
-
-  .hero-explore-pills {
-    display: flex !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    scrollbar-width: none !important;
-    gap: 0.4rem !important;
-    padding: 2px 0 6px !important;
-    flex-wrap: nowrap !important;
-  }
-
-  .hero-explore-pills::-webkit-scrollbar {
     display: none !important;
-  }
-
-  .hero-explore-pill {
-    white-space: nowrap !important;
-    flex-shrink: 0 !important;
-    font-size: 0.74rem !important;
-    padding: 0.28rem 0.65rem !important;
-    border-radius: 8px !important;
   }
 
   /* Diagnostic Card on Mobile — Proportional Form Flow */

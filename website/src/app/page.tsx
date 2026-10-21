@@ -925,12 +925,12 @@ export default function HomePage() {
               <div className="hero-eyebrow-pill">
                 <span className="hero-eyebrow-dot" />
                 <span className="hero-eyebrow-text">India&apos;s Leading Ecommerce Operating Partner</span>
-                <span className="hero-eyebrow-badge">SPN Verified</span>
               </div>
 
               {/* Bold High-Impact Headline */}
               <h1 className="hero-headline">
-                Scale Your Brand Across <br className="hero-desktop-br" />
+                Scale Your Brand Across{" "}
+                <br className="hero-desktop-br" />
                 <span className="hero-headline-highlight">
                   <span className="hero-grad-text">Marketplaces &amp; Quick Commerce</span>
                   <svg className="hero-headline-underline" viewBox="0 0 300 12" fill="none" preserveAspectRatio="none">
