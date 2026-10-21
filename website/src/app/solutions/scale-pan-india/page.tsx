@@ -219,7 +219,7 @@ export default function ScalePanIndiaPage() {
               </div>
 
               {/* Highlights Metric Strip */}
-              <div style={{
+              <div className="scale-metrics-strip" style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(3, 1fr)",
                 gap: "1rem",

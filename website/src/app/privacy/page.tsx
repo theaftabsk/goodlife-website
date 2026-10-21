@@ -49,7 +49,7 @@ export default function PrivacyPage() {
       {/* Policy Content */}
       <main style={{ padding: "4rem 0 6rem" }}>
         <div className="container" style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
-          <div style={{
+          <div className="privacy-card" style={{
             background: "#FFFFFF",
             borderRadius: "20px",
             padding: "3rem",

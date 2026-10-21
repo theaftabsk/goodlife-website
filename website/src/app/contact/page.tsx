@@ -136,7 +136,7 @@ export default function ContactPage() {
           <div style={{ display: "grid", gridTemplateColumns: "1.3fr 0.9fr", gap: "3.5rem", alignItems: "start" }} className="contact-grid-responsive">
             
             {/* Form Column */}
-            <div style={{
+            <div className="contact-form-card" style={{
               background: "#FFFFFF",
               borderRadius: "24px",
               padding: "2.8rem",
@@ -154,7 +154,7 @@ export default function ContactPage() {
                     </p>
                   </div>
 
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.2rem" }}>
+                  <div className="contact-form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.2rem" }}>
                     {/* 1. Comp Name */}
                     <div>
                       <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#1E293B", marginBottom: "0.4rem" }}>
@@ -186,7 +186,7 @@ export default function ContactPage() {
                     </div>
                   </div>
 
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.2rem" }}>
+                  <div className="contact-form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.2rem" }}>
                     {/* 3. WhatsApp No */}
                     <div>
                       <label style={{ display: "flex", alignItems: "center", gap: "0.4rem", fontSize: "0.82rem", fontWeight: 700, color: "#1E293B", marginBottom: "0.4rem" }}>

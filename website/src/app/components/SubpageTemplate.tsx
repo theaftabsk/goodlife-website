@@ -82,11 +82,31 @@ export default function SubpageTemplate({
             padding-top: 2rem !important;
             padding-bottom: 2.75rem !important;
           }
+          .stats-grid-responsive {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 1.5rem 1rem !important;
+          }
+          .overview-split-responsive {
+            grid-template-columns: 1fr !important;
+            gap: 2.5rem !important;
+          }
+          .workflow-grid-responsive {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 1.25rem !important;
+          }
         }
         @media (max-width: 640px) {
           .subpage-hero-section {
             padding-top: 1.5rem !important;
             padding-bottom: 2rem !important;
+          }
+          .stats-grid-responsive {
+            grid-template-columns: 1fr !important;
+            gap: 1.25rem !important;
+          }
+          .workflow-grid-responsive {
+            grid-template-columns: 1fr !important;
+            gap: 1rem !important;
           }
         }
       `}</style>
@@ -181,7 +201,7 @@ export default function SubpageTemplate({
             </p>
 
             {/* CTA Buttons Row */}
-            <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+            <div className="mobile-btn-stack" style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
               <button
                 onClick={() => setDiagOpen(true)}
                 style={{
@@ -467,7 +487,7 @@ export default function SubpageTemplate({
 
           <div style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))",
             gap: "1.75rem"
           }}>
             {pillars.map((pil, pIdx) => (

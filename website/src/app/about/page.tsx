@@ -86,7 +86,7 @@ export default function AboutPage() {
               Good Life is not a marketing agency, an outsourced call center, or a freight reseller. We are India&apos;s Commerce Operating Partner for brands—running physical warehousing, multi-platform catalogue control, stock planning, advertising, and revenue assurance under one single accountable standard.
             </p>
 
-            <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+            <div className="mobile-btn-stack" style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
               <button
                 onClick={() => setDiagOpen(true)}
                 style={{
@@ -324,7 +324,7 @@ export default function AboutPage() {
               <p style={{ fontSize: "1.05rem", color: "#475569", lineHeight: 1.65, margin: "0 auto 2rem auto", maxWidth: "640px" }}>
                 Request our interactive Commerce Diagnostic to assess your category maturity, revenue leakage, and warehouse readiness in under 3 minutes.
               </p>
-              <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="mobile-btn-stack" style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
                 <button
                   onClick={() => setDiagOpen(true)}
                   style={{
