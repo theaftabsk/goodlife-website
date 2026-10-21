@@ -418,7 +418,7 @@ export default function CommerceDiagnosticModal({ isOpen = true, onClose }: Comm
                   <span>Submitting Details...</span>
                 ) : (
                   <>
-                    <span>REQUEST CUSTOM 45-DAY LAUNCH PLAN →</span>
+                    <span>Submit</span>
                   </>
                 )}
               </button>
