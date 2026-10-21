@@ -170,6 +170,8 @@ export default function ProofCaseStudies({ onOpenDiag }: { onOpenDiag: () => voi
               );
             })}
           </div>
+        </div>
+
         {/* Mobile Pager Controls */}
         <div className="case-study-mobile-pager">
           <button
