@@ -373,7 +373,7 @@ const WarehouseHubs: React.FC = () => {
         <div style={{ textAlign: "center", marginBottom: "3rem" }}>
           <h2 style={{
             fontSize: "clamp(2rem, 3vw, 2.8rem)", fontWeight: 800, color: "#0F172A",
-            lineHeight: 1.15, margin: "0 0 1rem 0", fontFamily: "'Inter', sans-serif", letterSpacing: "-0.02em"
+            lineHeight: 1.15, margin: "0 0 1rem 0", fontFamily: "'Plus Jakarta Sans', sans-serif", letterSpacing: "-0.02em"
           }}>
             12-State Managed <span style={{ color: "#2563EB" }}>Warehouse Network</span>
           </h2>
@@ -408,6 +408,22 @@ const WarehouseHubs: React.FC = () => {
           onMouseEnter={() => setIsAutoPlay(false)}
           onMouseLeave={() => setIsAutoPlay(true)}
         >
+          {/* Mobile Interactive Hub Pill Strip */}
+          <div className="wh-mobile-hub-scroller">
+            {hubs.map((h, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => { setActiveHub(i); setIsAutoPlay(false); }}
+                className={`wh-mobile-hub-btn ${activeHub === i ? "active" : ""}`}
+                aria-label={`Select ${h.city} Hub`}
+              >
+                <span className="wh-hub-dot" />
+                <span>{h.city}</span>
+                <span className="wh-hub-region-tag">{h.region}</span>
+              </button>
+            ))}
+          </div>
           {/* SVG Map Background */}
           <div className="wh-map-viewport">
             {/* Subtle Grid Lines */}
@@ -497,7 +513,7 @@ const WarehouseHubs: React.FC = () => {
                       stroke="#F7F9FC"
                       strokeWidth="4"
                       paintOrder="stroke fill"
-                      fontFamily="'Inter', sans-serif"
+                      fontFamily="'Plus Jakarta Sans', sans-serif"
                       style={{ pointerEvents: "none", userSelect: "none", transition: "all 0.3s ease" }}
                     >
                       {h.city}
@@ -513,7 +529,7 @@ const WarehouseHubs: React.FC = () => {
             <div key={activeHub} className="wh-card-content">
               <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.3rem" }}>
                 <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#2563EB" }} />
-                <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 800, color: "#0F172A", fontFamily: "'Inter', sans-serif" }}>{hub.city}</h3>
+                <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 800, color: "#0F172A", fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{hub.city}</h3>
               </div>
               <div style={{ fontSize: "0.9rem", color: "#64748B", fontWeight: 500, marginBottom: "1.5rem" }}>
                 {hub.state}
@@ -550,8 +566,43 @@ const WarehouseHubs: React.FC = () => {
 
 
 
-// STICKY BAR REMOVED
-const StickyBar: React.FC<{ onOpenDiag: () => void }> = () => null;
+// ═══════════════════════════════════════════════
+// FLOATING MOBILE BOTTOM CONVERSION BAR
+// ═══════════════════════════════════════════════
+const StickyMobileBar: React.FC<{ onOpenDiag: () => void }> = ({ onOpenDiag }) => {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setVisible(window.scrollY > 340);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  if (!visible) return null;
+
+  return (
+    <aside className="mobile-floating-dock" aria-label="Quick Action">
+      <div className="mobile-floating-dock-card">
+        <div className="mobile-floating-dock-info">
+          <div className="mobile-floating-dock-badge">
+            <span className="mobile-floating-dock-dot" />
+            <span>24h Turnaround</span>
+          </div>
+          <div className="mobile-floating-dock-title">Complimentary Audit</div>
+        </div>
+        <button
+          onClick={onOpenDiag}
+          className="mobile-floating-dock-btn"
+          aria-label="Request diagnostic audit"
+        >
+          <span>Claim Audit →</span>
+        </button>
+      </div>
+    </aside>
+  );
+};
 
 
 // ═══════════════════════════════════════════════
@@ -695,7 +746,7 @@ const Etail3DHeroScene: React.FC = () => {
             {/* GoodLife Brand Tag on 3D Step Surface */}
             <g transform="translate(70, 60) rotate(-26)">
               <rect x="0" y="0" width="110" height="34" rx="10" fill="#0F172A" stroke="#FFFFFF" strokeWidth="2" />
-              <text x="55" y="22" textAnchor="middle" fontSize="13" fontWeight="900" fill="#FFFFFF" fontFamily="'Inter', sans-serif" letterSpacing="1">GOODLIFE</text>
+              <text x="55" y="22" textAnchor="middle" fontSize="13" fontWeight="900" fill="#FFFFFF" fontFamily="'Plus Jakarta Sans', sans-serif" letterSpacing="1">GOODLIFE</text>
             </g>
           </g>
         </svg>
@@ -710,6 +761,7 @@ const Etail3DHeroScene: React.FC = () => {
 export default function HomePage() {
   const [diagOpen, setDiagOpen] = useState(false);
   const [videoOpen, setVideoOpen] = useState(false);
+  const [activePathTab, setActivePathTab] = useState(0);
   const [storeInputValue, setStoreInputValue] = useState("");
   const [auditName, setAuditName] = useState("");
   const [auditPhone, setAuditPhone] = useState("");
@@ -798,7 +850,7 @@ export default function HomePage() {
   const [dynamicPlatforms, setDynamicPlatforms] = useState<any[]>([]);
 
   useEffect(() => {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://g.zyvocrm.in";
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.brandorbit.tech";
     
     // Fetch Brands
     fetch(`${apiUrl}/api/v1/brands`)
@@ -1145,13 +1197,35 @@ export default function HomePage() {
               Choose Launch Online, Fix &amp; Grow, or Scale Pan-India as your primary operating entry route. Each has a dedicated execution mandate.
             </p>
           </div>
+          {/* Mobile Interactive Segment Tabs */}
+          <div className="paths-mobile-tabs">
+            {[
+              { label: "01. Launch", color: "#2563EB", icon: "🚀" },
+              { label: "02. Fix & Grow", color: "#0D9488", icon: "📈" },
+              { label: "03. Scale", color: "#7C3AED", icon: "🌐" },
+            ].map((tab, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => setActivePathTab(idx)}
+                className={`paths-mobile-tab-btn ${activePathTab === idx ? "active" : ""}`}
+                style={{
+                  borderColor: activePathTab === idx ? tab.color : "rgba(226, 232, 240, 0.9)",
+                  color: activePathTab === idx ? tab.color : "#475569"
+                }}
+              >
+                <span>{tab.icon}</span>
+                <span>{tab.label}</span>
+              </button>
+            ))}
+          </div>
           <div className="paths-grid">
             {[
               { tag: "01. Launch Online", tagColor: "#2563EB", title: "Offline Brand / Manufacturer", desc: "Entering ecommerce for the first time across Amazon, Flipkart, Myntra, Moglix, JioMart, Snapmint, Blinkit and other approved platforms, plus D2C.", cta: "Explore Launch Mandate →", href: "/solutions/launch-online" },
               { tag: "02. Fix & Grow", tagColor: "#0D9488", title: "Active Marketplace Brand", desc: "Stuck with stagnant GMV, rising ACOS, un-audited settlement losses, or high customer returns. We audit, fix, and grow.", cta: "Explore Fix & Grow Audit →", href: "/solutions/fix-and-grow" },
               { tag: "03. Scale Pan-India", tagColor: "#7C3AED", title: "Established Enterprise Brand", desc: "Scaling 12-state warehouse inventory, regional dealer fulfilment, B2B/institutional channels, and multi-platform D2C sync.", cta: "Explore Pan-India Scale →", href: "/solutions/scale-pan-india" },
             ].map((card, idx) => (
-              <div key={idx} className="path-card luxury-blue-glass scroll-blur-reveal" style={{ transitionDelay: `${idx * 0.12}s`, borderRadius: "20px" }}>
+              <div key={idx} className={`path-card luxury-blue-glass scroll-blur-reveal path-card-item-${idx} ${activePathTab === idx ? "mobile-active" : ""}`} style={{ transitionDelay: `${idx * 0.12}s`, borderRadius: "20px" }}>
                 <div className="path-card-tag" style={{ color: card.tagColor }}>{card.tag}</div>
                 <h3 className="path-card-title">{card.title}</h3>
                 <p className="path-card-desc">{card.desc}</p>
@@ -1307,6 +1381,9 @@ export default function HomePage() {
 
       {/* ── FOOTER ── */}
       <Footer />
+
+      {/* ── FLOATING MOBILE BOTTOM CONVERSION BAR ── */}
+      <StickyMobileBar onOpenDiag={() => setDiagOpen(true)} />
 
       {diagOpen && <CommerceDiagnosticModal onClose={() => setDiagOpen(false)} />}
 

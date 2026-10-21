@@ -5,9 +5,9 @@ import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CommerceDiagnosticModal from "../../components/CommerceDiagnosticModal";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800", "900"] });
+const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
 interface WarehouseHub {
   id: string;
@@ -179,13 +179,13 @@ export default function FulfilmentNetworkPage() {
     : WAREHOUSE_HUBS.filter(h => h.zone === selectedZone);
 
   return (
-    <div className={`fulfilment-root ${inter.className}`} style={{ background: "#F8FAFC", color: "#0F172A", minHeight: "100vh" }}>
+    <div className={`fulfilment-root ${plusJakartaSans.className}`} style={{ background: "#F8FAFC", color: "#0F172A", minHeight: "100vh" }}>
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* Hero Section */}
       <section style={{
         position: "relative",
-        paddingTop: "9rem",
+        paddingTop: "3.5rem",
         paddingBottom: "4.5rem",
         background: "linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%)",
         borderBottom: "1px solid #E2E8F0",
@@ -563,60 +563,64 @@ export default function FulfilmentNetworkPage() {
       </section>
 
       {/* Conversion Banner */}
-      <section style={{ padding: "5rem 0 5.5rem", background: "#F8FAFC", borderTop: "1px solid #E2E8F0" }}>
+      <section style={{ padding: "4rem 0 4.5rem", background: "#FFFFFF", borderTop: "1px solid #E2E8F0" }}>
         <div className="container" style={{ maxWidth: "1140px", margin: "0 auto", padding: "0 1.5rem" }}>
           <div style={{
-            background: "linear-gradient(135deg, #0B1736 0%, #0F2557 100%)",
-            borderRadius: "28px",
-            padding: "3.5rem 3rem",
-            color: "#FFFFFF",
+            background: "linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 100%)",
+            border: "1.5px solid #BFDBFE",
+            borderRadius: "24px",
+            padding: "3.5rem 2.5rem",
             textAlign: "center",
             position: "relative",
             overflow: "hidden",
-            boxShadow: "0 24px 60px rgba(11, 23, 54, 0.25)"
+            boxShadow: "0 10px 30px rgba(37, 99, 235, 0.06)"
           }}>
-            <div style={{ position: "relative", zIndex: 2, maxWidth: "720px", margin: "0 auto" }}>
+            <div style={{ position: "relative", zIndex: 2, maxWidth: "700px", margin: "0 auto" }}>
               <div style={{
                 display: "inline-block",
-                padding: "0.35rem 1rem",
+                padding: "0.35rem 0.9rem",
                 borderRadius: "999px",
-                background: "rgba(255, 255, 255, 0.12)",
-                fontSize: "0.78rem",
+                background: "#DBEAFE",
+                border: "1px solid #BFDBFE",
+                fontSize: "0.75rem",
                 fontWeight: 800,
-                letterSpacing: "1.6px",
+                letterSpacing: "1.2px",
                 textTransform: "uppercase",
-                marginBottom: "1.2rem",
-                color: "#60A5FA"
+                marginBottom: "1rem",
+                color: "#1D4ED8"
               }}>
                 Regional Deployment
               </div>
-              <h2 style={{ fontSize: "clamp(2rem, 3.8vw, 3rem)", fontWeight: 900, lineHeight: 1.2, letterSpacing: "-1px", margin: "0 0 1rem" }}>
+              <h2 style={{ fontSize: "clamp(1.85rem, 3.4vw, 2.65rem)", fontWeight: 800, color: "#0F172A", lineHeight: 1.2, letterSpacing: "-0.025em", margin: "0 0 1rem" }}>
                 Ready to Deploy Stock Across 12 Key Indian Hubs?
               </h2>
-              <p style={{ fontSize: "1.05rem", color: "#94A3B8", lineHeight: 1.65, marginBottom: "2.2rem" }}>
+              <p style={{ fontSize: "1.05rem", color: "#475569", lineHeight: 1.65, margin: "0 auto 2rem auto", maxWidth: "620px" }}>
                 Run our Commerce Diagnostic to simulate your optimal regional inventory split and projected freight cost savings across all 12 warehouse nodes.
               </p>
               <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
                 <button
                   onClick={() => setDiagOpen(true)}
                   style={{
-                    height: "56px",
-                    padding: "0 2.4rem",
-                    borderRadius: "14px",
-                    background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
+                    height: "52px",
+                    padding: "0 2.2rem",
+                    borderRadius: "12px",
+                    background: "#2563EB",
                     color: "#FFFFFF",
-                    fontSize: "1rem",
+                    fontSize: "0.95rem",
                     fontWeight: 800,
                     border: "none",
                     cursor: "pointer",
-                    boxShadow: "0 8px 24px rgba(37, 99, 235, 0.4)",
+                    boxShadow: "0 4px 14px rgba(37, 99, 235, 0.3)",
                     display: "inline-flex",
                     alignItems: "center",
-                    gap: "0.5rem"
+                    gap: "0.5rem",
+                    transition: "all 0.2s ease"
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "#1D4ED8")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "#2563EB")}
                 >
                   <span>UNLOCK YOUR GROWTH</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12" />
                     <polyline points="12 5 19 12 12 19" />
                   </svg>
@@ -624,27 +628,37 @@ export default function FulfilmentNetworkPage() {
                 <Link
                   href="/contact"
                   style={{
-                    height: "56px",
-                    padding: "0 2rem",
-                    borderRadius: "14px",
-                    background: "rgba(255, 255, 255, 0.1)",
-                    border: "1.5px solid rgba(255, 255, 255, 0.25)",
-                    color: "#FFFFFF",
-                    fontSize: "0.96rem",
+                    height: "52px",
+                    padding: "0 1.8rem",
+                    borderRadius: "12px",
+                    background: "#FFFFFF",
+                    border: "1px solid #BFDBFE",
+                    color: "#2563EB",
+                    fontSize: "0.95rem",
                     fontWeight: 700,
                     textDecoration: "none",
                     display: "inline-flex",
                     alignItems: "center",
-                    justifyContent: "center"
+                    justifyContent: "center",
+                    boxShadow: "0 2px 6px rgba(15, 23, 42, 0.04)",
+                    transition: "all 0.2s ease"
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "#EFF6FF";
+                    e.currentTarget.style.borderColor = "#2563EB";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "#FFFFFF";
+                    e.currentTarget.style.borderColor = "#BFDBFE";
                   }}
                 >
-                  Contact Warehouse Operations
+                  Contact Leadership Team
                 </Link>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
       <Footer />
       {diagOpen && <CommerceDiagnosticModal onClose={() => setDiagOpen(false)} />}

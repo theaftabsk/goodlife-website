@@ -212,6 +212,7 @@ export const servicesData: ServiceMatrixItem[] = [
 export default function ServiceMatrix({ onOpenDiag }: { onOpenDiag: () => void }) {
   const [activeTab, setActiveTab] = useState<string>("all");
   const [selectedService, setSelectedService] = useState<ServiceMatrixItem | null>(servicesData[0]);
+  const [showAllMobile, setShowAllMobile] = useState<boolean>(false);
 
   const filtered = activeTab === "all"
     ? servicesData
@@ -319,7 +320,7 @@ export default function ServiceMatrix({ onOpenDiag }: { onOpenDiag: () => void }
 
         {/* 9-Grid Visual Service Matrix */}
         <div
-          className="service-matrix-grid"
+          className={`service-matrix-grid ${!showAllMobile && activeTab === "all" ? "matrix-collapsed" : ""}`}
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 320px), 1fr))",
@@ -455,6 +456,19 @@ export default function ServiceMatrix({ onOpenDiag }: { onOpenDiag: () => void }
             );
           })}
         </div>
+
+        {/* Mobile View All Divisions Toggle */}
+        {activeTab === "all" && (
+          <div className="service-matrix-mobile-expand-wrap">
+            <button
+              type="button"
+              onClick={() => setShowAllMobile(!showAllMobile)}
+              className="service-matrix-mobile-expand-btn"
+            >
+              <span>{showAllMobile ? "Show Less Divisions ↑" : "Explore All 9 Specialized Divisions ↓"}</span>
+            </button>
+          </div>
+        )}
 
       </div>
     </section>

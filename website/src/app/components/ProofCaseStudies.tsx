@@ -170,6 +170,35 @@ export default function ProofCaseStudies({ onOpenDiag }: { onOpenDiag: () => voi
               );
             })}
           </div>
+        {/* Mobile Pager Controls */}
+        <div className="case-study-mobile-pager">
+          <button
+            type="button"
+            onClick={() => setActiveCase((prev) => (prev > 0 ? prev - 1 : cases.length - 1))}
+            className="case-study-pager-btn"
+            aria-label="Previous story"
+          >
+            ← Prev
+          </button>
+          <div className="case-study-pager-dots">
+            {cases.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setActiveCase(i)}
+                className={`case-study-pager-dot ${activeCase === i ? "active" : ""}`}
+                aria-label={`Story ${i + 1}`}
+              />
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={() => setActiveCase((prev) => (prev < cases.length - 1 ? prev + 1 : 0))}
+            className="case-study-pager-btn"
+            aria-label="Next story"
+          >
+            Next →
+          </button>
         </div>
 
         {/* Clean Liquid Glass Case Study Card */}

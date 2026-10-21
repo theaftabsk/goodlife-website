@@ -6,9 +6,9 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CommerceDiagnosticModal from "../components/CommerceDiagnosticModal";
 import CalendarBookingWidget from "../components/CalendarBookingWidget";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800", "900"] });
+const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
 export default function ContactPage() {
   const [diagOpen, setDiagOpen] = useState(false);
@@ -30,7 +30,7 @@ export default function ContactPage() {
     setFormSubmitted(true);
 
     try {
-      await fetch("https://g.zyvocrm.in/api/v1/leads", {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://api.brandorbit.tech"}/api/v1/leads`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -54,13 +54,13 @@ export default function ContactPage() {
   };
 
   return (
-    <div className={`contact-root ${inter.className}`} style={{ background: "#F8FAFC", color: "#0F172A", minHeight: "100vh" }}>
+    <div className={`contact-root ${plusJakartaSans.className}`} style={{ background: "#F8FAFC", color: "#0F172A", minHeight: "100vh" }}>
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* Hero Section */}
       <section style={{
         position: "relative",
-        paddingTop: "9rem",
+        paddingTop: "3.5rem",
         paddingBottom: "4.5rem",
         background: "linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%)",
         borderBottom: "1px solid #E2E8F0",
@@ -321,19 +321,31 @@ export default function ContactPage() {
               
               {/* Commerce Diagnostic Quick Access Card */}
               <div style={{
-                background: "linear-gradient(135deg, #0B1736 0%, #0F2557 100%)",
+                background: "linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 100%)",
+                border: "1.5px solid #BFDBFE",
                 borderRadius: "22px",
                 padding: "2.2rem",
-                color: "#FFFFFF",
-                boxShadow: "0 14px 40px rgba(11, 23, 54, 0.2)"
+                boxShadow: "0 8px 24px rgba(37, 99, 235, 0.05)"
               }}>
-                <div style={{ fontSize: "0.76rem", fontWeight: 800, letterSpacing: "1.5px", color: "#60A5FA", textTransform: "uppercase", marginBottom: "0.75rem" }}>
+                <div style={{
+                  display: "inline-block",
+                  padding: "0.25rem 0.75rem",
+                  borderRadius: "999px",
+                  background: "#DBEAFE",
+                  border: "1px solid #BFDBFE",
+                  fontSize: "0.72rem",
+                  fontWeight: 800,
+                  letterSpacing: "1px",
+                  textTransform: "uppercase",
+                  marginBottom: "0.75rem",
+                  color: "#1D4ED8"
+                }}>
                   Self-Service Evaluation
                 </div>
-                <h3 style={{ fontSize: "1.35rem", fontWeight: 900, margin: "0 0 0.75rem", lineHeight: 1.3 }}>
+                <h3 style={{ fontSize: "1.35rem", fontWeight: 900, color: "#0F172A", margin: "0 0 0.75rem", lineHeight: 1.3 }}>
                   Prefer a Diagnostic Assessment First?
                 </h3>
-                <p style={{ fontSize: "0.92rem", color: "#94A3B8", lineHeight: 1.6, marginBottom: "1.6rem" }}>
+                <p style={{ fontSize: "0.92rem", color: "#475569", lineHeight: 1.6, marginBottom: "1.6rem" }}>
                   Run through our 10-step Commerce Diagnostic to calculate your channel readiness, warehouse gaps, and revenue leakage in under 3 minutes.
                 </p>
                 <button
@@ -351,8 +363,12 @@ export default function ContactPage() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    gap: "0.5rem"
+                    gap: "0.5rem",
+                    boxShadow: "0 4px 14px rgba(37, 99, 235, 0.25)",
+                    transition: "all 0.2s ease"
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "#1D4ED8")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "#2563EB")}
                 >
                   <span>UNLOCK YOUR GROWTH</span>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

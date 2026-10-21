@@ -7,9 +7,9 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CalendarBookingWidget from "../components/CalendarBookingWidget";
 import CommerceDiagnosticModal from "../components/CommerceDiagnosticModal";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800", "900"] });
+const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
 function BookingSection() {
   const searchParams = useSearchParams();
@@ -24,13 +24,13 @@ export default function BookMeetingPage() {
   const [diagOpen, setDiagOpen] = useState(false);
 
   return (
-    <div className={`book-meeting-root ${inter.className}`} style={{ background: "#F8FAFC", color: "#0F172A", minHeight: "100vh" }}>
+    <div className={`book-meeting-root ${plusJakartaSans.className}`} style={{ background: "#F8FAFC", color: "#0F172A", minHeight: "100vh" }}>
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* Hero Section */}
       <section style={{
         position: "relative",
-        paddingTop: "9rem",
+        paddingTop: "3.5rem",
         paddingBottom: "3.5rem",
         background: "linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%)",
         borderBottom: "1px solid #E2E8F0",
@@ -105,15 +105,24 @@ export default function BookMeetingPage() {
               marginBottom: "1rem"
             }}>
               <div style={{ background: "#FFFFFF", padding: "1rem 1.2rem", borderRadius: "12px", border: "1px solid #E2E8F0" }}>
-                <div style={{ color: "#2563EB", fontWeight: 800, fontSize: "0.92rem", marginBottom: "0.2rem" }}>✓ 30-Min High-Impact</div>
+                <div style={{ color: "#2563EB", fontWeight: 800, fontSize: "0.92rem", marginBottom: "0.2rem", display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                  30-Min High-Impact
+                </div>
                 <div style={{ color: "#64748B", fontSize: "0.84rem" }}>Direct operator discussion, zero sales fluff</div>
               </div>
               <div style={{ background: "#FFFFFF", padding: "1rem 1.2rem", borderRadius: "12px", border: "1px solid #E2E8F0" }}>
-                <div style={{ color: "#2563EB", fontWeight: 800, fontSize: "0.92rem", marginBottom: "0.2rem" }}>✓ Pan-India Logistics</div>
+                <div style={{ color: "#2563EB", fontWeight: 800, fontSize: "0.92rem", marginBottom: "0.2rem", display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                  Pan-India Logistics
+                </div>
                 <div style={{ color: "#64748B", fontSize: "0.84rem" }}>12-State warehouse network feasibility</div>
               </div>
               <div style={{ background: "#FFFFFF", padding: "1rem 1.2rem", borderRadius: "12px", border: "1px solid #E2E8F0" }}>
-                <div style={{ color: "#2563EB", fontWeight: 800, fontSize: "0.92rem", marginBottom: "0.2rem" }}>✓ NDA Guarantee</div>
+                <div style={{ color: "#2563EB", fontWeight: 800, fontSize: "0.92rem", marginBottom: "0.2rem", display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                  NDA Guarantee
+                </div>
                 <div style={{ color: "#64748B", fontSize: "0.84rem" }}>Confidential data protection agreement</div>
               </div>
             </div>

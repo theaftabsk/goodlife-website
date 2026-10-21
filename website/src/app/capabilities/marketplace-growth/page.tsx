@@ -231,26 +231,49 @@ export default function MarketplaceGrowthPage() {
           box-shadow: 0 2px 8px rgba(124, 58, 237, 0.4);
           cursor: pointer;
         }
+        .growth-hero-section {
+          padding-top: 3.5rem;
+          padding-bottom: 4rem;
+        }
+        .growth-section-block {
+          padding: 4.5rem 0;
+        }
+        .growth-section-header {
+          text-align: center;
+          max-width: 720px;
+          margin: 0 auto 2.75rem;
+        }
         @media (max-width: 991px) {
-          .growth-hero-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
+          .growth-hero-section {
+            padding-top: 2rem !important;
+            padding-bottom: 2.75rem !important;
+          }
+          .growth-hero-grid { grid-template-columns: 1fr !important; gap: 2.25rem !important; }
+          .growth-section-block { padding: 3rem 0 !important; }
+          .growth-section-header { margin-bottom: 1.85rem !important; }
           .sim-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
           .levers-grid { grid-template-columns: 1fr !important; }
           .timeline-desktop { display: none !important; }
           .timeline-mobile { display: flex !important; }
         }
         @media (max-width: 640px) {
+          .growth-hero-section {
+            padding-top: 1.5rem !important;
+            padding-bottom: 2rem !important;
+          }
+          .growth-hero-grid { gap: 1.5rem !important; }
+          .growth-section-block { padding: 2.25rem 0 !important; }
+          .growth-section-header { margin-bottom: 1.35rem !important; }
           .cat-selector { flex-wrap: wrap !important; }
           .calc-output-grid { grid-template-columns: 1fr !important; }
-          .cta-inner-box { padding: 2rem 1.5rem !important; }
+          .cta-inner-box { padding: 2rem 1.25rem !important; border-radius: 18px !important; }
         }
       `}</style>
       
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* ── 1. LIGHT BESPOKE HERO ── */}
-      <section style={{
-        paddingTop: "9rem",
-        paddingBottom: "5.5rem",
+      <section className="growth-hero-section" style={{
         background: "linear-gradient(180deg, #FAF5FF 0%, #FFFFFF 100%)",
         borderBottom: "1px solid #E2E8F0"
       }}>
@@ -402,7 +425,9 @@ export default function MarketplaceGrowthPage() {
                 {/* Live Buybox Pauser Status */}
                 <div style={{ background: "#EFF6FF", border: "1px solid #BFDBFE", borderRadius: "12px", padding: "0.85rem 1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                    <span style={{ color: "#2563EB", fontWeight: 800 }}>🛡️</span>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle" }}>
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
                     <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#1E40AF" }}>Buybox Ad-Pauser Daemon</span>
                   </div>
                   <span style={{ fontSize: "0.72rem", fontWeight: 800, color: "#16A34A" }}>100% PROTECTED</span>
@@ -598,7 +623,7 @@ export default function MarketplaceGrowthPage() {
                     <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                       {cur.deliverables.map((d, dIdx) => (
                         <div key={dIdx} style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem" }}>
-                          <span style={{ color: "#7C3AED", fontWeight: 800, fontSize: "0.95rem", marginTop: "1px" }}>✓</span>
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: "3px", flexShrink: 0 }}><polyline points="20 6 9 17 4 12" /></svg>
                           <span style={{ fontSize: "0.88rem", color: "#334155", lineHeight: 1.5, fontWeight: 500 }}>{d}</span>
                         </div>
                       ))}
@@ -696,7 +721,7 @@ export default function MarketplaceGrowthPage() {
               <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                 {festivePhases[activeFestiveDay].tasks.map((t, tIdx) => (
                   <div key={tIdx} style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem" }}>
-                    <span style={{ color: "#7C3AED", fontWeight: 800 }}>✓</span>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: "3px", flexShrink: 0 }}><polyline points="20 6 9 17 4 12" /></svg>
                     <span style={{ fontSize: "0.9rem", color: "#475569", lineHeight: 1.5 }}>{t}</span>
                   </div>
                 ))}
@@ -821,11 +846,11 @@ export default function MarketplaceGrowthPage() {
                         {cr.factor}
                       </td>
                       <td style={{ padding: "1.1rem 1.5rem", color: "#64748B", fontSize: "0.85rem", lineHeight: 1.5 }}>
-                        <span style={{ color: "#EF4444", fontWeight: 800, marginRight: "0.4rem" }}>✕</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", marginRight: "0.45rem" }}><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
                         {cr.traditional}
                       </td>
                       <td style={{ padding: "1.1rem 1.5rem", color: "#0F172A", fontSize: "0.85rem", lineHeight: 1.5, fontWeight: 600 }}>
-                        <span style={{ color: "#16A34A", fontWeight: 800, marginRight: "0.4rem" }}>✓</span>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", marginRight: "0.45rem" }}><polyline points="20 6 9 17 4 12" /></svg>
                         {cr.goodlife}
                       </td>
                     </tr>

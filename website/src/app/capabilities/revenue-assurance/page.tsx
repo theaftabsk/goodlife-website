@@ -159,8 +159,26 @@ export default function RevenueAssurancePage() {
           box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
           cursor: pointer;
         }
+        .rev-hero-section {
+          padding-top: 3.5rem;
+          padding-bottom: 4rem;
+        }
+        .rev-section-block {
+          padding: 4.5rem 0;
+        }
+        .rev-section-header {
+          text-align: center;
+          max-width: 720px;
+          margin: 0 auto 2.75rem;
+        }
         @media (max-width: 991px) {
-          .rev-hero-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
+          .rev-hero-section {
+            padding-top: 2rem !important;
+            padding-bottom: 2.75rem !important;
+          }
+          .rev-hero-grid { grid-template-columns: 1fr !important; gap: 2.25rem !important; }
+          .rev-section-block { padding: 3rem 0 !important; }
+          .rev-section-header { margin-bottom: 1.85rem !important; }
           .calc-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
           .radar-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .waterfall-desktop { display: none !important; }
@@ -168,18 +186,23 @@ export default function RevenueAssurancePage() {
           .dossier-grid { grid-template-columns: 1fr !important; }
         }
         @media (max-width: 640px) {
+          .rev-hero-section {
+            padding-top: 1.5rem !important;
+            padding-bottom: 2rem !important;
+          }
+          .rev-hero-grid { gap: 1.5rem !important; }
+          .rev-section-block { padding: 2.25rem 0 !important; }
+          .rev-section-header { margin-bottom: 1.35rem !important; }
           .radar-grid { grid-template-columns: 1fr !important; }
           .calc-breakdown-grid { grid-template-columns: 1fr 1fr !important; }
-          .cta-inner-box { padding: 2rem 1.5rem !important; }
+          .cta-inner-box { padding: 2rem 1.25rem !important; border-radius: 18px !important; }
         }
       `}</style>
       
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* ── 1. LIGHT BESPOKE HERO ── */}
-      <section style={{
-        paddingTop: "9rem",
-        paddingBottom: "5.5rem",
+      <section className="rev-hero-section" style={{
         background: "linear-gradient(180deg, #ECFDF5 0%, #FFFFFF 100%)",
         borderBottom: "1px solid #E2E8F0"
       }}>
@@ -331,7 +354,9 @@ export default function RevenueAssurancePage() {
                 {/* Audit Cadence */}
                 <div style={{ background: "#ECFDF5", border: "1px solid #A7F3D0", borderRadius: "12px", padding: "0.85rem 1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                    <span style={{ color: "#10B981", fontWeight: 800 }}>⚡</span>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="#10B981" style={{ display: "inline-block", verticalAlign: "middle" }}>
+                      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
                     <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#065F46" }}>Remittance Audit Cycle</span>
                   </div>
                   <span style={{ fontSize: "0.82rem", fontWeight: 800, color: "#10B981" }}>DAILY UTR LEDGER</span>
@@ -489,8 +514,9 @@ export default function RevenueAssurancePage() {
                 <p style={{ fontSize: "0.82rem", color: "#64748B", lineHeight: 1.5, margin: "0 0 1rem" }}>
                   {rp.desc}
                 </p>
-                <div style={{ fontSize: "0.78rem", color: "#0F172A", fontWeight: 600, borderTop: "1px solid #E2E8F0", paddingTop: "0.75rem" }}>
-                  ✓ {rp.protocol}
+                <div style={{ fontSize: "0.78rem", color: "#0F172A", fontWeight: 600, borderTop: "1px solid #E2E8F0", paddingTop: "0.75rem", display: "inline-flex", alignItems: "center", gap: "0.35rem" }}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                  <span>{rp.protocol}</span>
                 </div>
               </div>
             ))}
@@ -575,8 +601,9 @@ export default function RevenueAssurancePage() {
               <div key={idx} className="light-panel" style={{ padding: "2rem 1.75rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.75rem" }}>
                   <span style={{ fontSize: "0.72rem", fontWeight: 800, color: "#64748B" }}>{dd.orderId}</span>
-                  <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#10B981", background: "#ECFDF5", padding: "0.15rem 0.45rem", borderRadius: "4px" }}>
-                    ✓ {dd.status}
+                  <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#10B981", background: "#ECFDF5", padding: "0.15rem 0.45rem", borderRadius: "4px", display: "inline-flex", alignItems: "center", gap: "0.3rem" }}>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                    <span>{dd.status}</span>
                   </span>
                 </div>
                 <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#2563EB", marginBottom: "0.4rem" }}>

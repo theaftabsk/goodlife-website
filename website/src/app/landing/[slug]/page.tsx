@@ -349,7 +349,7 @@ export default function DynamicLandingPage({
     } catch (_) {}
 
     // Synchronize with NestJS PostgreSQL backend
-    fetch("https://g.zyvocrm.in/api/v1/landing-pages")
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://api.brandorbit.tech"}/api/v1/landing-pages`)
       .then((res) => {
         if (res.ok) return res.json();
         return null;
@@ -369,7 +369,7 @@ export default function DynamicLandingPage({
     e.preventDefault();
     setFormSubmitted(true);
     try {
-      await fetch("https://g.zyvocrm.in/api/v1/leads", {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://api.brandorbit.tech"}/api/v1/leads`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -2243,7 +2243,7 @@ export default function DynamicLandingPage({
   };
 
   return (
-    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "#FFFFFF", color: "#0F172A", fontFamily: "var(--font-inter, sans-serif)" }}>
+    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "#FFFFFF", color: "#0F172A", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
       {/* Global Navigation Header */}
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 

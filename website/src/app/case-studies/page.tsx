@@ -57,13 +57,13 @@ export default function CaseStudiesPage() {
   }, [caseStudiesList]);
 
   return (
-    <div style={{ background: "#F8FAFC", minHeight: "100vh", color: "#0F172A", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+    <div style={{ background: "#F8FAFC", minHeight: "100vh", color: "#0F172A", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
       <Header onOpenDiagnostic={() => setIsDiagnosticOpen(true)} />
 
       {/* Hero Section — Light, Crisp, High-Contrast & Beautiful */}
       <section style={{
         position: "relative",
-        paddingTop: "8.5rem",
+        paddingTop: "3.5rem",
         paddingBottom: "4.5rem",
         background: "linear-gradient(180deg, #FFFFFF 0%, #F0F7FF 45%, #F8FAFC 100%)",
         borderBottom: "1px solid #E2E8F0",
@@ -593,25 +593,37 @@ export default function CaseStudiesPage() {
         {/* Bottom Enterprise Diagnostic CTA Card */}
         <div style={{
           marginTop: "5rem",
-          background: "linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%)",
+          background: "linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 100%)",
+          border: "1.5px solid #BFDBFE",
           borderRadius: "20px",
           padding: "clamp(2rem, 4vw, 3.5rem)",
-          color: "#FFFFFF",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           flexWrap: "wrap",
           gap: "2rem",
-          boxShadow: "0 15px 35px -10px rgba(15, 23, 42, 0.35)"
+          boxShadow: "0 10px 30px rgba(37, 99, 235, 0.06)"
         }}>
           <div style={{ maxWidth: "650px" }}>
-            <div style={{ fontSize: "0.8rem", fontWeight: 800, color: "#60A5FA", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "0.4rem" }}>
+            <div style={{
+              display: "inline-block",
+              padding: "0.25rem 0.75rem",
+              borderRadius: "999px",
+              background: "#DBEAFE",
+              border: "1px solid #BFDBFE",
+              fontSize: "0.72rem",
+              fontWeight: 800,
+              textTransform: "uppercase",
+              letterSpacing: "1px",
+              color: "#1D4ED8",
+              marginBottom: "0.6rem"
+            }}>
               Enterprise Diagnostic
             </div>
-            <h3 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 900, color: "#FFFFFF", margin: "0 0 0.8rem", lineHeight: 1.25 }}>
+            <h3 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 900, color: "#0F172A", margin: "0 0 0.8rem", lineHeight: 1.25, letterSpacing: "-0.02em" }}>
               Ready to Replicate These Results for Your Brand?
             </h3>
-            <p style={{ fontSize: "0.95rem", color: "#CBD5E1", margin: 0, lineHeight: 1.6 }}>
+            <p style={{ fontSize: "0.95rem", color: "#475569", margin: 0, lineHeight: 1.6 }}>
               Run our 2-minute Commerce Readiness Diagnostic to benchmark your marketplace fulfillment, transit breakage risks, and commission leakage against tier-1 brand averages.
             </p>
           </div>
@@ -619,23 +631,26 @@ export default function CaseStudiesPage() {
           <button
             onClick={() => setIsDiagnosticOpen(true)}
             style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.6rem",
-              background: "#FFFFFF",
-              color: "#0F172A",
-              padding: "0.9rem 1.8rem",
-              borderRadius: "10px",
+              height: "48px",
+              padding: "0 1.8rem",
+              borderRadius: "12px",
+              background: "#2563EB",
+              color: "#FFFFFF",
               border: "none",
               fontWeight: 800,
               fontSize: "0.95rem",
               cursor: "pointer",
-              boxShadow: "0 4px 14px rgba(255,255,255,0.2)",
-              transition: "all 0.15s"
+              boxShadow: "0 4px 14px rgba(37, 99, 235, 0.25)",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              transition: "all 0.2s ease"
             }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "#1D4ED8")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "#2563EB")}
           >
-            Start Diagnostic Benchmark
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0F172A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <span>Start Diagnostic Benchmark</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <line x1="5" y1="12" x2="19" y2="12" />
               <polyline points="12 5 19 12 12 19" />
             </svg>

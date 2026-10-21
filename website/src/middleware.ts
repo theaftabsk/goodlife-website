@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
 
   try {
     const res = await fetch(
-      `https://g.zyvocrm.in/api/v1/redirects/resolve?path=${encodeURIComponent(pathname)}`,
+      `${process.env.NEXT_PUBLIC_API_URL || "https://api.brandorbit.tech"}/api/v1/redirects/resolve?path=${encodeURIComponent(pathname)}`,
       { next: { revalidate: 10 } }
     );
 

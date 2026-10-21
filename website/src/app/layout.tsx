@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Open_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
@@ -11,10 +11,10 @@ export const viewport: Viewport = {
   themeColor: "#FFFFFF",
 };
 
-const openSans = Open_Sans({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
-  variable: "--font-open-sans",
+  variable: "--font-plus-jakarta",
   display: "swap",
 });
 
@@ -26,7 +26,7 @@ interface SiteSettings {
 
 async function getSiteSettings(): Promise<SiteSettings | null> {
   try {
-    const res = await fetch("https://g.zyvocrm.in/api/v1/settings", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://api.brandorbit.tech"}/api/v1/settings`, {
       next: { revalidate: 30 },
       signal: AbortSignal.timeout(3000),
     });
@@ -144,7 +144,7 @@ export default async function RootLayout({
   const ga4Id = (settings?.ga4MeasurementId || process.env.NEXT_PUBLIC_GA4_ID || "").trim();
 
   return (
-    <html lang="en" className={openSans.variable}>
+    <html lang="en" className={`${plusJakartaSans.variable} ${plusJakartaSans.className}`}>
       <head>
         {/* JSON-LD Organization Schema */}
         <script
@@ -170,7 +170,7 @@ export default async function RootLayout({
           </>
         )}
       </head>
-      <body>
+      <body className={plusJakartaSans.className}>
         {/* GTM noscript fallback */}
         {gtmId && (
           <noscript>

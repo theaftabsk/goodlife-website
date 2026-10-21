@@ -6,9 +6,31 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CommerceDiagnosticModal from "../../components/CommerceDiagnosticModal";
 import { IndiaGeoMapBackground } from "../../components/IndiaGeoMapSVG";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
+import {
+  CheckCircle2,
+  ArrowRight,
+  ShieldCheck,
+  TrendingUp,
+  Truck,
+  Building2,
+  Boxes,
+  Award,
+  Zap,
+  Sparkles,
+  MapPin,
+  Clock,
+  Percent,
+  RotateCcw,
+  SlidersHorizontal,
+  ChevronRight,
+  Globe2
+} from "lucide-react";
 
-const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800", "900"] });
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"]
+});
 
 const mapHubs = [
   { city: "Gurgaon", state: "Haryana", area: "22,000 sq ft", sla: "Same Day", coverage: "Delhi NCR + North", region: "North", x: 244.79, y: 262.47 },
@@ -28,7 +50,7 @@ const mapHubs = [
 export default function ScalePanIndiaPage() {
   const [diagOpen, setDiagOpen] = useState(false);
   const [units, setUnits] = useState<number>(25000);
-  const [activeHub, setActiveHub] = useState<number>(1); // Mumbai by default (matching screenshot)
+  const [activeHub, setActiveHub] = useState<number>(1); // Mumbai by default
   const [isAutoPlay, setIsAutoPlay] = useState<boolean>(true);
 
   const activeHubData = mapHubs[activeHub];
@@ -51,6 +73,9 @@ export default function ScalePanIndiaPage() {
   // Freight savings calculation (₹48 avg saved per unit by shifting long-haul to zonal)
   const freightSavedLakhs = ((units * 48) / 100000).toFixed(1);
 
+  // Deterministic number formatting to avoid SSR / Client hydration mismatch
+  const fmtNumber = (n: number) => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
   const presets = [
     { label: "Tier-1 Scale", val: 5000 },
     { label: "National Category Leader", val: 25000 },
@@ -59,104 +84,109 @@ export default function ScalePanIndiaPage() {
   ];
 
   return (
-    <div className={`solution-scale-root ${inter.className}`} style={{ background: "#FFFFFF", color: "#0B1736", minHeight: "100vh", overflowX: "hidden", width: "100%" }}>
+    <div className={`solution-scale-root ${plusJakarta.className}`} style={{ background: "#F8FAFC", color: "#0B1736", minHeight: "100vh", overflowX: "hidden", width: "100%" }}>
       {/* 01. FIXED HEADER */}
-      <Header onOpenDiagnostic={() => setDiagOpen(true)} />
-
-      {/* 02. BREADCRUMB & 03. HERO SECTION */}
+      <Header onOpenDiagnostic={() => setDiagOpen(true)} />      {/* 02. HERO SECTION */}
       <section className="scale-hero-section" style={{
         position: "relative",
-        paddingTop: "8.5rem",
-        paddingBottom: "5.5rem",
+        paddingTop: "clamp(2rem, 3.5vw, 3.2rem)",
+        paddingBottom: "clamp(2.5rem, 4vw, 3.5rem)",
         background: "linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%)",
         borderBottom: "1px solid #E2E8F0",
         overflow: "hidden"
       }}>
-        <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem", position: "relative", zIndex: 1 }}>
-          
-          {/* Breadcrumb */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.88rem", color: "#64748B", marginBottom: "1.8rem", fontWeight: 500 }}>
-            <Link href="/" style={{ color: "#2563EB", textDecoration: "none", fontWeight: 600 }}>Home</Link>
-            <span>/</span>
-            <span style={{ color: "#64748B" }}>Scale Pan-India Solution</span>
-          </div>
+        {/* Ambient Top Glow */}
+        <div style={{
+          position: "absolute",
+          top: "-15%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "900px",
+          height: "450px",
+          background: "radial-gradient(ellipse 60% 40% at 50% 30%, rgba(37, 99, 235, 0.08), rgba(255, 255, 255, 0))",
+          pointerEvents: "none",
+          zIndex: 0
+        }} />
+
+        <div className="container" style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem", position: "relative", zIndex: 1 }}>
 
           <div className="hero-grid" style={{
             display: "grid",
-            gridTemplateColumns: "1.15fr 1.05fr",
-            gap: "3rem",
+            gridTemplateColumns: "1.12fr 1.08fr",
+            gap: "clamp(1.8rem, 3.5vw, 3rem)",
             alignItems: "center"
           }}>
             
-            {/* Left 55% Content */}
+            {/* Left Column Content */}
             <div>
               <div className="scale-eyebrow-pill" style={{
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "0.5rem",
+                gap: "0.55rem",
                 padding: "0.4rem 1.1rem",
                 borderRadius: "999px",
-                background: "#EFF6FF",
-                border: "1px solid #BFDBFE",
+                background: "rgba(37, 99, 235, 0.08)",
+                border: "1px solid rgba(37, 99, 235, 0.2)",
                 color: "#1D4ED8",
-                fontSize: "0.8rem",
+                fontSize: "0.78rem",
                 fontWeight: 800,
                 letterSpacing: "0.8px",
                 textTransform: "uppercase",
-                marginBottom: "1.4rem"
+                marginBottom: "1rem"
               }}>
-                <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#2563EB" }} />
-                SOLUTION 03 • NATIONAL FULFILMENT & SPEED DOMINANCE
+                <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#2563EB", boxShadow: "0 0 8px #2563EB" }} />
+                SOLUTION 03 &bull; NATIONAL FULFILMENT & SPEED DOMINANCE
               </div>
 
               <h1 className="scale-hero-title" style={{
-                fontSize: "clamp(2.3rem, 4vw, 3.6rem)",
+                fontSize: "clamp(2.1rem, 3.4vw, 3.1rem)",
                 fontWeight: 900,
-                lineHeight: 1.14,
+                lineHeight: "1.14",
                 color: "#0B1736",
                 letterSpacing: "-1.5px",
-                margin: "0 0 1.35rem"
+                margin: "0 0 0.85rem"
               }}>
                 Scale Pan-India: <br />
-                <span style={{ color: "#2563EB" }}>12 Regional Hubs.</span> <br />
+                <span style={{ background: "linear-gradient(135deg, #1D4ED8 0%, #2563EB 50%, #38BDF8 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                  12 Regional Hubs.
+                </span> <br />
                 Next-Day Delivery Across India.
               </h1>
 
-              <p style={{
-                fontSize: "clamp(1.05rem, 1.6vw, 1.16rem)",
+              <p className="scale-hero-desc" style={{
+                fontSize: "clamp(0.95rem, 1.25vw, 1.05rem)",
                 color: "#475569",
-                lineHeight: 1.75,
-                marginBottom: "2.4rem",
+                lineHeight: "1.6",
+                marginBottom: "1.35rem",
                 fontWeight: 500
               }}>
-                For scaling brands constrained by single-warehouse delivery bottlenecks. Good Life deploys, balances, and fulfills your inventory across 12 strategic regional facilities to unlock same-day & next-day badges nationwide.
+                For scaling brands constrained by single-warehouse delivery bottlenecks. GoodLife deploys, balances, and fulfills your inventory across 12 strategic regional facilities to unlock same-day & next-day badges nationwide.
               </p>
 
-              <div className="scale-hero-btn-row" style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="scale-hero-btn-row" style={{ display: "flex", alignItems: "center", gap: "0.85rem", flexWrap: "wrap" }}>
                 <button
                   onClick={() => setDiagOpen(true)}
                   style={{
-                    height: "52px",
-                    padding: "0 2rem",
+                    height: "48px",
+                    padding: "0 1.8rem",
                     borderRadius: "12px",
-                    background: "#2563EB",
+                    background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
                     color: "#FFFFFF",
-                    fontSize: "0.94rem",
+                    fontSize: "0.92rem",
                     fontWeight: 800,
                     border: "none",
                     cursor: "pointer",
-                    boxShadow: "0 4px 18px rgba(37, 99, 235, 0.28)",
+                    boxShadow: "0 4px 18px rgba(37, 99, 235, 0.35)",
                     display: "inline-flex",
                     alignItems: "center",
-                    gap: "0.5rem",
+                    gap: "0.55rem",
                     transition: "all 0.2s ease"
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-1px)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
                 >
                   <span>UNLOCK YOUR GROWTH</span>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                    <polyline points="12 5 19 12 12 19" />
-                  </svg>
+                  <ArrowRight size={16} />
                 </button>
 
                 <button
@@ -165,27 +195,54 @@ export default function ScalePanIndiaPage() {
                     if (el) el.scrollIntoView({ behavior: "smooth" });
                   }}
                   style={{
-                    height: "52px",
-                    padding: "0 1.8rem",
+                    height: "48px",
+                    padding: "0 1.6rem",
                     borderRadius: "12px",
                     background: "#FFFFFF",
                     border: "1.5px solid #CBD5E1",
                     color: "#0B1736",
-                    fontSize: "0.94rem",
+                    fontSize: "0.92rem",
                     fontWeight: 700,
                     cursor: "pointer",
                     display: "inline-flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    transition: "all 0.2s ease"
+                    transition: "all 0.2s ease",
+                    gap: "0.5rem"
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#94A3B8")}
+                  onMouseLeave={(e) => (e.currentTarget.style.borderColor = "#CBD5E1")}
                 >
-                  Simulate Network Rollout
+                  <SlidersHorizontal size={16} color="#64748B" />
+                  <span>Simulate Network Rollout</span>
                 </button>
+              </div>
+
+              {/* Highlights Metric Strip */}
+              <div style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(3, 1fr)",
+                gap: "1rem",
+                marginTop: "1.5rem",
+                paddingTop: "1.2rem",
+                borderTop: "1px solid #E2E8F0"
+              }}>
+                <div>
+                  <div style={{ fontSize: "1.35rem", fontWeight: 900, color: "#0B1736", letterSpacing: "-0.5px" }}>12 Hubs</div>
+                  <div style={{ fontSize: "0.76rem", color: "#64748B", fontWeight: 600 }}>Multi-Node Inventory</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: "1.35rem", fontWeight: 900, color: "#2563EB", letterSpacing: "-0.5px" }}>92%</div>
+                  <div style={{ fontSize: "0.76rem", color: "#64748B", fontWeight: 600 }}>Next-Day Prime Coverage</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: "1.35rem", fontWeight: 900, color: "#10B981", letterSpacing: "-0.5px" }}>-35%</div>
+                  <div style={{ fontSize: "0.76rem", color: "#64748B", fontWeight: 600 }}>COD RTO Reduction</div>
+                </div>
               </div>
             </div>
 
-            {/* Right 45% COMPACT INDIA MAP VISUAL (Pure & Clean Map) */}
+            {/* Right Interactive Visual (India Network Map) */}
             <div>
               <div
                 onMouseEnter={() => setIsAutoPlay(false)}
@@ -193,17 +250,59 @@ export default function ScalePanIndiaPage() {
                 style={{
                   background: "#FFFFFF",
                   borderRadius: "24px",
-                  padding: "0.85rem",
+                  padding: "0.95rem",
                   border: "1px solid #E2E8F0",
                   boxShadow: "0 14px 40px rgba(11, 23, 54, 0.06)",
                   position: "relative"
                 }}
               >
+                {/* Active Hub Status Bar */}
+                <div style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: "0.6rem 0.9rem",
+                  marginBottom: "0.6rem",
+                  background: "#F8FAFC",
+                  borderRadius: "14px",
+                  border: "1px solid #E2E8F0"
+                }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10B981", boxShadow: "0 0 8px #10B981" }} />
+                    <span style={{ fontSize: "0.82rem", fontWeight: 800, color: "#0B1736" }}>Active Hub: {activeHubData.city}</span>
+                    <span style={{ fontSize: "0.72rem", color: "#64748B", fontWeight: 600 }}>({activeHubData.state})</span>
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                    <span style={{
+                      fontSize: "0.72rem",
+                      fontWeight: 800,
+                      background: "#EFF6FF",
+                      color: "#1D4ED8",
+                      padding: "0.2rem 0.6rem",
+                      borderRadius: "6px",
+                      border: "1px solid #BFDBFE"
+                    }}>
+                      {activeHubData.sla} SLA
+                    </span>
+                    <span style={{
+                      fontSize: "0.72rem",
+                      fontWeight: 700,
+                      color: "#64748B",
+                      background: "#FFFFFF",
+                      padding: "0.2rem 0.5rem",
+                      borderRadius: "6px",
+                      border: "1px solid #E2E8F0"
+                    }}>
+                      {activeHubData.area}
+                    </span>
+                  </div>
+                </div>
+
                 {/* Map Viewport */}
                 <div style={{
                   position: "relative",
                   width: "100%",
-                  height: "clamp(340px, 36vw, 460px)",
+                  height: "clamp(300px, 30vw, 410px)",
                   background: "linear-gradient(180deg, #F0F7FF 0%, #E8F3FE 50%, #F8FAFC 100%)",
                   borderRadius: "18px",
                   overflow: "hidden"
@@ -306,7 +405,6 @@ export default function ScalePanIndiaPage() {
                             stroke="#FFFFFF"
                             strokeWidth="3.5"
                             paintOrder="stroke fill"
-                            fontFamily="'Inter', sans-serif"
                             style={{ pointerEvents: "none", userSelect: "none" }}
                           >
                             {h.city}
@@ -317,6 +415,9 @@ export default function ScalePanIndiaPage() {
                   </svg>
                 </div>
 
+                <div style={{ textAlign: "center", marginTop: "0.6rem", fontSize: "0.74rem", color: "#64748B", fontWeight: 600 }}>
+                  Click on any regional hub to test routing & transit lines
+                </div>
               </div>
             </div>
 
@@ -324,19 +425,30 @@ export default function ScalePanIndiaPage() {
         </div>
       </section>
 
-      {/* ── 04, 05 & 06: NATIONAL NETWORK SIMULATION (Interactive Volume Slider & Savings) ── */}
+      {/* ── 03. NATIONAL NETWORK SIMULATION (Interactive Volume Slider & Savings) ── */}
       <section id="network-simulator" style={{ padding: "5.5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
         <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem" }}>
           
           <div style={{ textAlign: "center", maxWidth: "820px", margin: "0 auto 3.4rem" }}>
-            <div style={{ fontSize: "0.78rem", fontWeight: 800, letterSpacing: "1.4px", color: "#2563EB", textTransform: "uppercase", marginBottom: "0.6rem" }}>
-              NATIONAL NETWORK SIMULATION
+            <div style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.45rem",
+              fontSize: "0.78rem",
+              fontWeight: 800,
+              letterSpacing: "1.4px",
+              color: "#2563EB",
+              textTransform: "uppercase",
+              marginBottom: "0.6rem"
+            }}>
+              <Globe2 size={15} />
+              <span>NATIONAL NETWORK SIMULATION</span>
             </div>
             <h2 style={{ fontSize: "clamp(2rem, 3.4vw, 2.75rem)", fontWeight: 900, color: "#0B1736", letterSpacing: "-1px", margin: "0 0 0.8rem" }}>
               Interactive 12-State Inventory Split & Savings Simulator
             </h2>
             <p style={{ fontSize: "1.08rem", color: "#53627A", lineHeight: 1.65, fontWeight: 500 }}>
-              Adjust your monthly dispatch volume to see how Good Life algorithmically partitions inventory across India to optimize Buybox conversion and freight margin:
+              Adjust your monthly dispatch volume to see how GoodLife algorithmically partitions inventory across India to optimize Buybox conversion and freight margin:
             </p>
           </div>
 
@@ -350,15 +462,15 @@ export default function ScalePanIndiaPage() {
             margin: "0 auto"
           }}>
             
-            {/* 04. VOLUME SELECTOR */}
+            {/* Volume Selector */}
             <div style={{ marginBottom: "2.8rem" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "1.2rem", flexWrap: "wrap", gap: "0.8rem" }}>
                 <div>
                   <div style={{ fontSize: "0.82rem", fontWeight: 800, color: "#64748B", textTransform: "uppercase", letterSpacing: "0.5px" }}>
                     Monthly Order Dispatch Volume
                   </div>
-                  <div style={{ fontSize: "clamp(1.8rem, 2.8vw, 2.4rem)", fontWeight: 900, color: "#0B1736", letterSpacing: "-0.8px" }}>
-                    {units.toLocaleString()} <span style={{ fontSize: "1.1rem", fontWeight: 700, color: "#2563EB" }}>Units / Mo</span>
+                  <div style={{ fontSize: "clamp(1.8rem, 2.8vw, 2.4rem)", fontWeight: 900, color: "#0B1736", letterSpacing: "-0.8px" }} suppressHydrationWarning>
+                    {fmtNumber(units)} <span style={{ fontSize: "1.1rem", fontWeight: 700, color: "#2563EB" }}>Units / Mo</span>
                   </div>
                 </div>
 
@@ -382,7 +494,7 @@ export default function ScalePanIndiaPage() {
                           transition: "all 0.18s ease"
                         }}
                       >
-                        <div>{p.val.toLocaleString()}</div>
+                        <div suppressHydrationWarning>{fmtNumber(p.val)}</div>
                         <div style={{ fontSize: "0.64rem", opacity: isActive ? 0.9 : 0.65 }}>{p.label}</div>
                       </button>
                     );
@@ -414,7 +526,7 @@ export default function ScalePanIndiaPage() {
               </div>
             </div>
 
-            {/* 05. REGIONAL ALLOCATION (4 Clean Zone Cards) */}
+            {/* Regional Allocation (4 Zone Cards) */}
             <div className="zone-cards-grid" style={{
               display: "grid",
               gridTemplateColumns: "repeat(4, 1fr)",
@@ -433,7 +545,7 @@ export default function ScalePanIndiaPage() {
                   zone: "North Hubs",
                   pct: "30%",
                   units: northUnits,
-                  cities: "Gurugram · Lucknow · Jaipur",
+                  cities: "Gurugram · Lucknow · Ludhiana",
                   color: "#1D4ED8"
                 },
                 {
@@ -448,7 +560,7 @@ export default function ScalePanIndiaPage() {
                   pct: "13%",
                   units: eastUnits,
                   cities: "Kolkata · Guwahati · Patna",
-                  color: "#16A34A"
+                  color: "#10B981"
                 }
               ].map((card, cIdx) => (
                 <div
@@ -471,8 +583,8 @@ export default function ScalePanIndiaPage() {
                       </span>
                     </div>
 
-                    <div style={{ fontSize: "1.65rem", fontWeight: 900, color: "#0B1736", margin: "0.2rem 0" }}>
-                      {card.units.toLocaleString()}
+                    <div style={{ fontSize: "1.65rem", fontWeight: 900, color: "#0B1736", margin: "0.2rem 0" }} suppressHydrationWarning>
+                      {fmtNumber(card.units)}
                     </div>
                     <div style={{ fontSize: "0.76rem", color: "#64748B", fontWeight: 600 }}>Allocated Stock</div>
 
@@ -489,7 +601,7 @@ export default function ScalePanIndiaPage() {
               ))}
             </div>
 
-            {/* 06. FREIGHT SAVINGS RESULT (Large Light-Blue Glass Result Card) */}
+            {/* Freight Savings Result Card */}
             <div className="freight-result-card" style={{
               background: "linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%)",
               borderRadius: "18px",
@@ -503,11 +615,22 @@ export default function ScalePanIndiaPage() {
               gap: "1.5rem"
             }}>
               <div>
-                <div style={{ fontSize: "0.76rem", fontWeight: 800, color: "#2563EB", textTransform: "uppercase", letterSpacing: "1px", marginBottom: "0.3rem" }}>
-                  Projected Monthly Freight Arbitrage
+                <div style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.4rem",
+                  fontSize: "0.76rem",
+                  fontWeight: 800,
+                  color: "#2563EB",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                  marginBottom: "0.3rem"
+                }}>
+                  <Sparkles size={14} />
+                  <span>Projected Monthly Freight Arbitrage</span>
                 </div>
                 <div style={{ fontSize: "clamp(1.8rem, 2.6vw, 2.3rem)", fontWeight: 900, color: "#0B1736", letterSpacing: "-0.6px" }}>
-                  ₹{freightSavedLakhs} Lakh <span style={{ fontSize: "1rem", color: "#16A34A", fontWeight: 800 }}>Saved / Month</span>
+                  ₹{freightSavedLakhs} Lakh <span style={{ fontSize: "1rem", color: "#10B981", fontWeight: 800 }}>Saved / Month</span>
                 </div>
                 <div style={{ fontSize: "0.88rem", color: "#64748B", fontWeight: 500, marginTop: "0.2rem" }}>
                   By shifting from long-haul national air/surface to localized regional fulfillment.
@@ -520,7 +643,7 @@ export default function ScalePanIndiaPage() {
                   height: "48px",
                   padding: "0 1.8rem",
                   borderRadius: "12px",
-                  background: "#2563EB",
+                  background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
                   color: "#FFFFFF",
                   fontSize: "0.9rem",
                   fontWeight: 800,
@@ -529,15 +652,15 @@ export default function ScalePanIndiaPage() {
                   boxShadow: "0 4px 14px rgba(37, 99, 235, 0.28)",
                   display: "inline-flex",
                   alignItems: "center",
-                  gap: "0.45rem",
+                  gap: "0.5rem",
                   whiteSpace: "nowrap",
                   transition: "all 0.2s ease"
                 }}
+                onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-1px)")}
+                onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
               >
                 <span>REQUEST NETWORK ALLOCATION</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="9 18 15 12 9 6" />
-                </svg>
+                <ArrowRight size={15} />
               </button>
             </div>
 
@@ -545,13 +668,24 @@ export default function ScalePanIndiaPage() {
         </div>
       </section>
 
-      {/* ── 07. WHY NEXT-DAY DELIVERY WINS THE BUYBOX (3 Large Clean Cards) ── */}
+      {/* ── 04. WHY NEXT-DAY DELIVERY WINS THE BUYBOX (3 Large Clean Cards) ── */}
       <section style={{ padding: "5.5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
         <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem" }}>
           
           <div style={{ textAlign: "center", maxWidth: "800px", margin: "0 auto 3.4rem" }}>
-            <div style={{ fontSize: "0.78rem", fontWeight: 800, letterSpacing: "1.4px", color: "#2563EB", textTransform: "uppercase", marginBottom: "0.6rem" }}>
-              SPEED DOMINANCE ECONOMICS
+            <div style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.45rem",
+              fontSize: "0.78rem",
+              fontWeight: 800,
+              letterSpacing: "1.4px",
+              color: "#2563EB",
+              textTransform: "uppercase",
+              marginBottom: "0.6rem"
+            }}>
+              <TrendingUp size={15} />
+              <span>SPEED DOMINANCE ECONOMICS</span>
             </div>
             <h2 style={{ fontSize: "clamp(2rem, 3.4vw, 2.75rem)", fontWeight: 900, color: "#0B1736", letterSpacing: "-1px", margin: "0 0 0.8rem" }}>
               Why Next-Day Delivery Wins The Buybox
@@ -572,68 +706,92 @@ export default function ScalePanIndiaPage() {
                 metric: "+42%",
                 metricSub: "Conversion Lift",
                 title: "Prime & Fast Delivery Badges",
-                desc: "Placing inventory in all 4 zones automatically earns your listings same-day and next-day badges across India's top 100 cities."
+                desc: "Placing inventory in all 4 zones automatically earns your listings same-day and next-day badges across India's top 100 cities.",
+                icon: Zap,
+                iconColor: "#2563EB",
+                iconBg: "#EFF6FF"
               },
               {
                 metric: "-35%",
                 metricSub: "COD RTO Rate",
                 title: "35% Lower Return to Origin",
-                desc: "Buyers who receive COD orders within 24 to 48 hours rarely cancel or refuse deliveries compared to 6-day long transit orders."
+                desc: "Buyers who receive COD orders within 24 to 48 hours rarely cancel or refuse deliveries compared to 6-day long transit orders.",
+                icon: RotateCcw,
+                iconColor: "#10B981",
+                iconBg: "#ECFDF5"
               },
               {
                 metric: "₹45–₹55",
                 metricSub: "Saved Per Unit",
                 title: "Zonal Shipping Cost Reduction",
-                desc: "Bypassing high national transit slab rates cuts your per-order logistics fee from ₹140+ down to ₹85–₹95."
+                desc: "Bypassing high national transit slab rates cuts your per-order logistics fee from ₹140+ down to ₹85–₹95.",
+                icon: TrendingUp,
+                iconColor: "#0284C7",
+                iconBg: "#F0F9FF"
               }
-            ].map((card, cIdx) => (
-              <div
-                key={cIdx}
-                className="buybox-card"
-                style={{
-                  background: "#FFFFFF",
-                  borderRadius: "20px",
-                  padding: "2.4rem 2rem",
-                  border: "1px solid #E2E8F0",
-                  boxShadow: "0 4px 16px rgba(0, 0, 0, 0.02)",
-                  transition: "all 0.22s ease",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between"
-                }}
-              >
-                <div>
-                  <div style={{
-                    fontSize: "clamp(2.4rem, 3.2vw, 3rem)",
-                    fontWeight: 900,
-                    color: "#2563EB",
-                    letterSpacing: "-1.2px",
-                    lineHeight: 1,
-                    marginBottom: "0.3rem"
-                  }}>
-                    {card.metric}
-                  </div>
-                  
-                  <div style={{ fontSize: "0.86rem", fontWeight: 800, color: "#64748B", textTransform: "uppercase", letterSpacing: "0.6px", marginBottom: "1.2rem" }}>
-                    {card.metricSub}
-                  </div>
+            ].map((card, cIdx) => {
+              const IconComp = card.icon;
+              return (
+                <div
+                  key={cIdx}
+                  className="buybox-card"
+                  style={{
+                    background: "#FFFFFF",
+                    borderRadius: "20px",
+                    padding: "2.4rem 2rem",
+                    border: "1px solid #E2E8F0",
+                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.02)",
+                    transition: "all 0.22s ease",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between"
+                  }}
+                >
+                  <div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1rem" }}>
+                      <div style={{
+                        fontSize: "clamp(2.4rem, 3.2vw, 3rem)",
+                        fontWeight: 900,
+                        color: "#0B1736",
+                        letterSpacing: "-1.2px",
+                        lineHeight: 1
+                      }}>
+                        {card.metric}
+                      </div>
+                      <div style={{
+                        width: "44px",
+                        height: "44px",
+                        borderRadius: "12px",
+                        background: card.iconBg,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center"
+                      }}>
+                        <IconComp size={22} color={card.iconColor} />
+                      </div>
+                    </div>
+                    
+                    <div style={{ fontSize: "0.86rem", fontWeight: 800, color: "#64748B", textTransform: "uppercase", letterSpacing: "0.6px", marginBottom: "1.2rem" }}>
+                      {card.metricSub}
+                    </div>
 
-                  <h3 style={{ fontSize: "1.28rem", fontWeight: 850, color: "#0B1736", margin: "0 0 0.75rem", letterSpacing: "-0.4px" }}>
-                    {card.title}
-                  </h3>
+                    <h3 style={{ fontSize: "1.28rem", fontWeight: 850, color: "#0B1736", margin: "0 0 0.75rem", letterSpacing: "-0.4px" }}>
+                      {card.title}
+                    </h3>
 
-                  <p style={{ fontSize: "0.94rem", color: "#53627A", lineHeight: 1.65, margin: 0, fontWeight: 500 }}>
-                    {card.desc}
-                  </p>
+                    <p style={{ fontSize: "0.94rem", color: "#53627A", lineHeight: 1.65, margin: 0, fontWeight: 500 }}>
+                      {card.desc}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
         </div>
       </section>
 
-      {/* ── 08. PAN-INDIA FULFILMENT CTA (White / Light-Blue Glass Card) ── */}
+      {/* ── 05. PAN-INDIA FULFILMENT CTA CARD ── */}
       <section style={{ padding: "5.5rem 0 6.5rem", background: "#F8FAFC" }}>
         <div className="container" style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 1.5rem" }}>
           
@@ -694,7 +852,7 @@ export default function ScalePanIndiaPage() {
                     height: "52px",
                     padding: "0 2.2rem",
                     borderRadius: "12px",
-                    background: "#2563EB",
+                    background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
                     color: "#FFFFFF",
                     fontSize: "0.96rem",
                     fontWeight: 800,
@@ -703,15 +861,14 @@ export default function ScalePanIndiaPage() {
                     boxShadow: "0 6px 20px rgba(37, 99, 235, 0.32)",
                     display: "inline-flex",
                     alignItems: "center",
-                    gap: "0.5rem",
+                    gap: "0.55rem",
                     transition: "all 0.2s ease"
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-1px)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
                 >
                   <span>UNLOCK YOUR GROWTH</span>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                    <polyline points="12 5 19 12 12 19" />
-                  </svg>
+                  <ArrowRight size={16} />
                 </button>
 
                 <Link
@@ -731,24 +888,33 @@ export default function ScalePanIndiaPage() {
                     justifyContent: "center",
                     transition: "all 0.2s ease"
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#94A3B8")}
+                  onMouseLeave={(e) => (e.currentTarget.style.borderColor = "#CBD5E1")}
                 >
                   Contact Supply Chain Director
                 </Link>
               </div>
 
+              {/* No emojis, only pure SVG Lucide icons */}
               <div className="scale-trust-points" style={{
                 display: "flex",
                 justifyContent: "center",
-                gap: "1.8rem",
+                gap: "2rem",
                 marginTop: "2.2rem",
-                fontSize: "0.82rem",
-                color: "#64748B",
+                fontSize: "0.85rem",
+                color: "#475569",
                 fontWeight: 600,
                 flexWrap: "wrap"
               }}>
-                <span>✓ Multi-State GST Compliance</span>
-                <span>✓ 12 Regional Facilities</span>
-                <span>✓ Sub-24h Delivery Across 19,000+ Pin Codes</span>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem" }}>
+                  <CheckCircle2 size={16} color="#10B981" /> Multi-State GST Compliance
+                </span>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem" }}>
+                  <CheckCircle2 size={16} color="#10B981" /> 12 Regional Facilities
+                </span>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem" }}>
+                  <CheckCircle2 size={16} color="#10B981" /> Sub-24h Delivery Across 19,000+ Pin Codes
+                </span>
               </div>
             </div>
           </div>
@@ -756,12 +922,12 @@ export default function ScalePanIndiaPage() {
         </div>
       </section>
 
-      {/* ── 09. EXISTING MASTER FOOTER ── */}
+      {/* ── 06. FOOTER ── */}
       <Footer hideTopBanner={true} />
 
       {diagOpen && <CommerceDiagnosticModal onClose={() => setDiagOpen(false)} />}
 
-      {/* ── RESPONSIVE & INTERACTIVE STYLES ── */}
+      {/* ── RESPONSIVE & ANIMATION STYLES ── */}
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -816,8 +982,8 @@ export default function ScalePanIndiaPage() {
 
         @media (max-width: 640px) {
           .scale-hero-section {
-            padding-top: 5rem !important;
-            padding-bottom: 3.5rem !important;
+            padding-top: 1.5rem !important;
+            padding-bottom: 2rem !important;
           }
           .scale-hero-section .container {
             padding-left: 1rem !important;
@@ -844,15 +1010,6 @@ export default function ScalePanIndiaPage() {
             font-size: 0.92rem !important;
             line-height: 1.6 !important;
             max-width: 100% !important;
-          }
-          .india-map-container {
-            width: 100% !important;
-            max-width: 100% !important;
-            overflow: hidden !important;
-          }
-          .india-map-container svg {
-            width: 100% !important;
-            height: auto !important;
           }
           .zone-cards-grid {
             grid-template-columns: 1fr !important;

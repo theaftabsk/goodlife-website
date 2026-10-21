@@ -983,6 +983,15 @@ html, body {
   }
 }
 
+/* Mobile-only components hidden on desktop */
+.paths-mobile-tabs,
+.wh-mobile-hub-scroller,
+.service-matrix-mobile-expand-wrap,
+.case-study-mobile-pager,
+.mobile-floating-dock {
+  display: none;
+}
+
 /* Mobile Breakpoint (<= 768px) — PROPORTIONAL ZOOM-OUT & TOTAL RESPONSIVENESS */
 @media (max-width: 768px) {
   /* 0. Proportional Scaling (Zoom-Out Effect for Compact Luxury Feel) */
@@ -1099,28 +1108,61 @@ html, body {
     box-sizing: border-box !important;
   }
 
-  /* Eyebrow Pill on Mobile: Hidden as requested by user */
+  /* Eyebrow Pill on Mobile: Compact & Luminous */
   .hero-eyebrow-pill {
-    display: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 0.26rem 0.8rem !important;
+    border-radius: 99px !important;
+    background: rgba(239, 246, 255, 0.95) !important;
+    border: 1px solid rgba(191, 219, 254, 0.85) !important;
+    margin-bottom: 0.65rem !important;
+    box-shadow: 0 2px 10px rgba(37, 99, 235, 0.08) !important;
   }
 
-  /* Headline on Mobile — Zero Clipping, Generous Space Beneath Header */
+  .hero-eyebrow-dot {
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 50% !important;
+    background: #2563EB !important;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25) !important;
+  }
+
+  .hero-eyebrow-text {
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+    color: #1E40AF !important;
+    letter-spacing: 0.3px !important;
+  }
+
+  .hero-eyebrow-badge {
+    font-size: 0.62rem !important;
+    font-weight: 800 !important;
+    padding: 0.12rem 0.45rem !important;
+    border-radius: 99px !important;
+    background: #10B981 !important;
+    color: #FFFFFF !important;
+    letter-spacing: 0.5px !important;
+  }
+
+  /* Headline on Mobile — Zero Clipping, Natural Wrap */
   h1.hero-headline,
   #hero-home h1,
   .hero-headline {
-    font-size: clamp(1.38rem, 5.2vw, 1.7rem) !important;
-    line-height: 1.34 !important;
-    letter-spacing: -0.4px !important;
-    margin: 0.45rem 0 0.85rem !important;
-    padding-top: 6px !important;
-    padding-bottom: 6px !important;
+    font-size: clamp(1.48rem, 5.8vw, 1.85rem) !important;
+    line-height: 1.28 !important;
+    letter-spacing: -0.45px !important;
+    margin: 0.35rem 0 0.75rem !important;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
     max-width: 100% !important;
     word-break: normal !important;
     overflow-wrap: break-word !important;
   }
 
   .hero-desktop-br {
-    display: block !important;
+    display: none !important;
   }
 
   .hero-headline-highlight {
@@ -1371,14 +1413,50 @@ html, body {
   }
 
   /* ── 2. SECTION 2: OPERATING PATHS ── */
+  .paths-mobile-tabs {
+    display: flex !important;
+    gap: 0.45rem !important;
+    justify-content: center !important;
+    margin-bottom: 1.1rem !important;
+    width: 100% !important;
+  }
+  .paths-mobile-tab-btn {
+    flex: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 5px !important;
+    padding: 0.5rem 0.35rem !important;
+    background: #FFFFFF !important;
+    border: 1.5px solid rgba(226, 232, 240, 0.9) !important;
+    border-radius: 12px !important;
+    font-size: 0.78rem !important;
+    font-weight: 750 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03) !important;
+  }
+  .paths-mobile-tab-btn.active {
+    background: rgba(239, 246, 255, 0.95) !important;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.12) !important;
+  }
   .paths-grid {
     grid-template-columns: 1fr !important;
     gap: 0.9rem !important;
-    margin-top: 1.3rem !important;
+    margin-top: 0.5rem !important;
   }
-  .path-card {
+  .paths-grid .path-card {
+    display: none !important;
     padding: 1.2rem 1rem !important;
     border-radius: 16px !important;
+  }
+  .paths-grid .path-card.mobile-active {
+    display: block !important;
+    animation: mobilePathFadeIn 0.25s ease-out forwards !important;
+  }
+  @keyframes mobilePathFadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
   }
   .path-card-tag {
     font-size: 0.7rem !important;
@@ -1408,7 +1486,7 @@ html, body {
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
     justify-content: flex-start !important;
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 1.2rem !important;
   }
   .service-matrix-categories::-webkit-scrollbar {
     display: none !important;
@@ -1424,9 +1502,36 @@ html, body {
     grid-template-columns: 1fr !important;
     gap: 0.9rem !important;
   }
+  .service-matrix-grid.matrix-collapsed > div:nth-child(n+4) {
+    display: none !important;
+  }
   .service-matrix-grid > div {
     padding: 1.15rem 0.95rem !important;
     border-radius: 16px !important;
+  }
+  .service-matrix-mobile-expand-wrap {
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 1.2rem !important;
+    width: 100% !important;
+  }
+  .service-matrix-mobile-expand-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    background: #FFFFFF !important;
+    border: 1.5px solid #BFDBFE !important;
+    color: #2563EB !important;
+    font-weight: 800 !important;
+    font-size: 0.84rem !important;
+    padding: 0.65rem 1.4rem !important;
+    border-radius: 12px !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.08) !important;
+    width: 100% !important;
+    max-width: 340px !important;
+    transition: all 0.2s ease !important;
   }
 
   /* ── 5. PROOF CASE STUDIES DEDICATED MOBILE ENGINE (< 768px) ── */
@@ -1576,6 +1681,46 @@ html, body {
     width: 100% !important;
   }
 
+  .case-study-mobile-pager {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin-bottom: 0.9rem !important;
+    padding: 0.4rem 0.2rem !important;
+    width: 100% !important;
+  }
+  .case-study-pager-btn {
+    background: #FFFFFF !important;
+    border: 1px solid #DBEAFE !important;
+    color: #2563EB !important;
+    font-size: 0.78rem !important;
+    font-weight: 750 !important;
+    padding: 0.38rem 0.85rem !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.06) !important;
+  }
+  .case-study-pager-dots {
+    display: flex !important;
+    gap: 6px !important;
+    align-items: center !important;
+  }
+  .case-study-pager-dot {
+    width: 8px !important;
+    height: 8px !important;
+    border-radius: 50% !important;
+    background: #CBD5E1 !important;
+    border: none !important;
+    padding: 0 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+  }
+  .case-study-pager-dot.active {
+    width: 22px !important;
+    border-radius: 99px !important;
+    background: #2563EB !important;
+  }
+
   /* ── 5.5 BRANDS WE OPERATE ── */
   #brands-we-operate .channel-marquee-track {
     gap: 1.2rem !important;
@@ -1592,6 +1737,58 @@ html, body {
   }
 
   /* ── 6. WAREHOUSE HUBS NETWORK MAP ── */
+  .wh-mobile-hub-scroller {
+    display: flex !important;
+    gap: 0.45rem !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    padding: 0.5rem 0.6rem 0.75rem !important;
+    background: #F8FAFC !important;
+    border-bottom: 1px solid #E2E8F0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .wh-mobile-hub-scroller::-webkit-scrollbar {
+    display: none !important;
+  }
+  .wh-mobile-hub-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    padding: 0.4rem 0.8rem !important;
+    border-radius: 99px !important;
+    font-size: 0.76rem !important;
+    font-weight: 750 !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    border: 1.5px solid #DBEAFE !important;
+    background: #FFFFFF !important;
+    color: #334155 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+  }
+  .wh-mobile-hub-btn.active {
+    background: #2563EB !important;
+    color: #FFFFFF !important;
+    border-color: #2563EB !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.28) !important;
+  }
+  .wh-mobile-hub-btn .wh-hub-dot {
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 50% !important;
+    background: #94A3B8 !important;
+  }
+  .wh-mobile-hub-btn.active .wh-hub-dot {
+    background: #FFFFFF !important;
+  }
+  .wh-mobile-hub-btn .wh-hub-region-tag {
+    font-size: 0.62rem !important;
+    opacity: 0.75 !important;
+    font-weight: 600 !important;
+  }
+
   .wh-metric-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 0.5rem !important;
@@ -1755,6 +1952,98 @@ html, body {
   /* Prevent iOS zoom on input fields */
   input, select, textarea {
     font-size: 16px !important;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     MOBILE FLOATING CONVERSION DOCK
+     ═══════════════════════════════════════════════════════════════════════ */
+  .mobile-floating-dock {
+    display: block !important;
+    position: fixed !important;
+    bottom: max(12px, env(safe-area-inset-bottom, 12px)) !important;
+    left: 12px !important;
+    right: 12px !important;
+    z-index: 9998 !important;
+    pointer-events: none !important;
+    animation: mobileDockSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+  }
+
+  @keyframes mobileDockSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .mobile-floating-dock-card {
+    pointer-events: auto !important;
+    background: rgba(15, 23, 42, 0.94) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    border-radius: 18px !important;
+    padding: 0.65rem 0.85rem 0.65rem 1rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    box-shadow: 0 16px 36px rgba(15, 23, 42, 0.32), 0 2px 8px rgba(37, 99, 235, 0.12) !important;
+  }
+
+  .mobile-floating-dock-info {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+  }
+
+  .mobile-floating-dock-badge {
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    font-size: 0.65rem !important;
+    font-weight: 800 !important;
+    color: #38BDF8 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px !important;
+  }
+
+  .mobile-floating-dock-dot {
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 50% !important;
+    background: #10B981 !important;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25) !important;
+  }
+
+  .mobile-floating-dock-title {
+    font-size: 0.88rem !important;
+    font-weight: 800 !important;
+    color: #FFFFFF !important;
+    letter-spacing: -0.2px !important;
+  }
+
+  .mobile-floating-dock-btn {
+    background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%) !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 0.55rem 1.1rem !important;
+    font-size: 0.86rem !important;
+    font-weight: 800 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.38) !important;
+    white-space: nowrap !important;
+    transition: transform 0.18s ease !important;
+  }
+
+  .mobile-floating-dock-btn:active {
+    transform: scale(0.96) !important;
   }
 }
 

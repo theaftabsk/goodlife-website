@@ -170,25 +170,48 @@ export default function InventoryPlanningPage() {
           box-shadow: 0 2px 8px rgba(13, 148, 136, 0.4);
           cursor: pointer;
         }
+        .inv-hero-section {
+          padding-top: 3.5rem;
+          padding-bottom: 4rem;
+        }
+        .inv-section-block {
+          padding: 4.5rem 0;
+        }
+        .inv-section-header {
+          text-align: center;
+          max-width: 720px;
+          margin: 0 auto 2.75rem;
+        }
         @media (max-width: 991px) {
-          .inv-hero-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
+          .inv-hero-section {
+            padding-top: 2rem !important;
+            padding-bottom: 2.75rem !important;
+          }
+          .inv-hero-grid { grid-template-columns: 1fr !important; gap: 2.25rem !important; }
+          .inv-section-block { padding: 3rem 0 !important; }
+          .inv-section-header { margin-bottom: 1.85rem !important; }
           .rop-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
           .hubs-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .velocity-grid { grid-template-columns: 1fr 1fr !important; }
         }
         @media (max-width: 640px) {
+          .inv-hero-section {
+            padding-top: 1.5rem !important;
+            padding-bottom: 2rem !important;
+          }
+          .inv-hero-grid { gap: 1.5rem !important; }
+          .inv-section-block { padding: 2.25rem 0 !important; }
+          .inv-section-header { margin-bottom: 1.35rem !important; }
           .hubs-grid { grid-template-columns: 1fr !important; }
           .velocity-grid { grid-template-columns: 1fr !important; }
-          .cta-inner-box { padding: 2rem 1.5rem !important; }
+          .cta-inner-box { padding: 2rem 1.25rem !important; border-radius: 18px !important; }
         }
       `}</style>
       
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* ── 1. LIGHT BESPOKE HERO ── */}
-      <section style={{
-        paddingTop: "9rem",
-        paddingBottom: "5.5rem",
+      <section className="inv-hero-section" style={{
         background: "linear-gradient(180deg, #F0FDFA 0%, #FFFFFF 100%)",
         borderBottom: "1px solid #E2E8F0"
       }}>
@@ -340,7 +363,11 @@ export default function InventoryPlanningPage() {
                 {/* Live Inwarding Sync */}
                 <div style={{ background: "#F0FDFA", border: "1px solid #99F6E4", borderRadius: "12px", padding: "0.85rem 1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                    <span style={{ color: "#0D9488", fontWeight: 800 }}>📦</span>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0D9488" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle" }}>
+                      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                      <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                      <line x1="12" y1="22.08" x2="12" y2="12" />
+                    </svg>
                     <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#115E59" }}>Multi-Node Inbound PO Sync</span>
                   </div>
                   <span style={{ fontSize: "0.72rem", fontWeight: 800, color: "#0D9488" }}>12 HUBS SYNCHRONIZED</span>
@@ -566,9 +593,15 @@ export default function InventoryPlanningPage() {
                     {h.states}
                   </p>
 
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", fontSize: "0.78rem", borderTop: "1px solid #E2E8F0", paddingTop: "0.85rem" }}>
-                    <div style={{ color: "#16A34A", fontWeight: 700 }}>✓ {h.coverage}</div>
-                    <div style={{ color: "#334155", fontWeight: 600 }}>📦 {h.palletCapacity}</div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.45rem", fontSize: "0.78rem", borderTop: "1px solid #E2E8F0", paddingTop: "0.85rem" }}>
+                    <div style={{ color: "#16A34A", fontWeight: 700, display: "inline-flex", alignItems: "center", gap: "0.35rem" }}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                      <span>{h.coverage}</span>
+                    </div>
+                    <div style={{ color: "#334155", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "0.35rem" }}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" /><polyline points="3.27 6.96 12 12.01 20.73 6.96" /></svg>
+                      <span>{h.palletCapacity}</span>
+                    </div>
                     <div style={{ color: "#64748B" }}>{h.status}</div>
                   </div>
                 </div>
@@ -653,11 +686,11 @@ export default function InventoryPlanningPage() {
                         {cr.factor}
                       </td>
                       <td style={{ padding: "1.1rem 1.5rem", color: "#64748B", fontSize: "0.85rem", lineHeight: 1.5 }}>
-                        <span style={{ color: "#EF4444", fontWeight: 800, marginRight: "0.4rem" }}>✕</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", marginRight: "0.45rem" }}><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
                         {cr.traditional}
                       </td>
                       <td style={{ padding: "1.1rem 1.5rem", color: "#0F172A", fontSize: "0.85rem", lineHeight: 1.5, fontWeight: 600 }}>
-                        <span style={{ color: "#0D9488", fontWeight: 800, marginRight: "0.4rem" }}>✓</span>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0D9488" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", marginRight: "0.45rem" }}><polyline points="20 6 9 17 4 12" /></svg>
                         {cr.goodlife}
                       </td>
                     </tr>

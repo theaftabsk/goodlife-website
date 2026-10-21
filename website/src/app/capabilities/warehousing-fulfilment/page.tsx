@@ -136,24 +136,47 @@ export default function WarehousingFulfilmentPage() {
           box-shadow: 0 12px 30px rgba(217, 119, 6, 0.08);
           border-color: #FDE68A;
         }
+        .wh-hero-section {
+          padding-top: 3.5rem;
+          padding-bottom: 4rem;
+        }
+        .wh-section-block {
+          padding: 4.5rem 0;
+        }
+        .wh-section-header {
+          text-align: center;
+          max-width: 720px;
+          margin: 0 auto 2.75rem;
+        }
         @media (max-width: 991px) {
-          .wh-hero-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
+          .wh-hero-section {
+            padding-top: 2rem !important;
+            padding-bottom: 2.75rem !important;
+          }
+          .wh-hero-grid { grid-template-columns: 1fr !important; gap: 2.25rem !important; }
+          .wh-section-block { padding: 3rem 0 !important; }
+          .wh-section-header { margin-bottom: 1.85rem !important; }
           .hubs-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .conveyor-desktop { display: none !important; }
           .conveyor-mobile { display: flex !important; }
         }
         @media (max-width: 640px) {
+          .wh-hero-section {
+            padding-top: 1.5rem !important;
+            padding-bottom: 2rem !important;
+          }
+          .wh-hero-grid { gap: 1.5rem !important; }
+          .wh-section-block { padding: 2.25rem 0 !important; }
+          .wh-section-header { margin-bottom: 1.35rem !important; }
           .hubs-grid { grid-template-columns: 1fr !important; }
-          .cta-inner-box { padding: 2rem 1.5rem !important; }
+          .cta-inner-box { padding: 2rem 1.25rem !important; border-radius: 18px !important; }
         }
       `}</style>
       
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* ── 1. LIGHT BESPOKE HERO ── */}
-      <section style={{
-        paddingTop: "9rem",
-        paddingBottom: "5.5rem",
+      <section className="wh-hero-section" style={{
         background: "linear-gradient(180deg, #FFFBEB 0%, #FFFFFF 100%)",
         borderBottom: "1px solid #E2E8F0"
       }}>
@@ -305,7 +328,9 @@ export default function WarehousingFulfilmentPage() {
                 {/* Inwarding Latency */}
                 <div style={{ background: "#FFFBEB", border: "1px solid #FDE68A", borderRadius: "12px", padding: "0.85rem 1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                    <span style={{ color: "#D97706", fontWeight: 800 }}>⚡</span>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="#D97706" style={{ display: "inline-block", verticalAlign: "middle" }}>
+                      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
                     <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#92400E" }}>Dock-to-Stock Latency</span>
                   </div>
                   <span style={{ fontSize: "0.82rem", fontWeight: 800, color: "#D97706" }}>&lt;4 HOURS</span>
@@ -439,8 +464,9 @@ export default function WarehousingFulfilmentPage() {
                 <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#D97706", marginBottom: "0.3rem" }}>
                   {pa.spec}
                 </div>
-                <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#16A34A", background: "#ECFDF3", padding: "0.2rem 0.5rem", borderRadius: "4px", display: "inline-block", marginBottom: "1rem" }}>
-                  ✓ {pa.tolerance}
+                <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#16A34A", background: "#ECFDF3", padding: "0.2rem 0.5rem", borderRadius: "4px", display: "inline-flex", alignItems: "center", gap: "0.3rem", marginBottom: "1rem" }}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                  <span>{pa.tolerance}</span>
                 </div>
                 <p style={{ fontSize: "0.85rem", color: "#64748B", lineHeight: 1.55, margin: 0 }}>
                   {pa.desc}
@@ -544,7 +570,10 @@ export default function WarehousingFulfilmentPage() {
                         {cc.cutoff}
                       </td>
                       <td style={{ padding: "1.1rem 1.5rem", color: "#16A34A", fontSize: "0.85rem", fontWeight: 700 }}>
-                        ✓ {cc.sla}
+                        <span style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem" }}>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                          <span>{cc.sla}</span>
+                        </span>
                       </td>
                       <td style={{ padding: "1.1rem 1.5rem", color: "#475569", fontSize: "0.82rem", fontWeight: 600 }}>
                         {cc.badge}

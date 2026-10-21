@@ -35,7 +35,7 @@ export default function CaseStudyDetailPage() {
 
   if (!study) {
     return (
-      <div style={{ background: "#F8FAFC", minHeight: "100vh", color: "#0F172A", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+      <div style={{ background: "#F8FAFC", minHeight: "100vh", color: "#0F172A", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
         <Header onOpenDiagnostic={() => setIsDiagnosticOpen(true)} />
         <div style={{ maxWidth: "800px", margin: "6rem auto", textAlign: "center", padding: "2rem" }}>
           <div style={{ width: 64, height: 64, borderRadius: "50%", background: "#EFF6FF", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.5rem" }}>
@@ -74,7 +74,7 @@ export default function CaseStudyDetailPage() {
   const relatedStudies = allStudies.filter((c) => c.slug !== study.slug).slice(0, 3);
 
   return (
-    <div style={{ background: "#F8FAFC", minHeight: "100vh", color: "#0F172A", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+    <div style={{ background: "#F8FAFC", minHeight: "100vh", color: "#0F172A", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
       <Header onOpenDiagnostic={() => setIsDiagnosticOpen(true)} />
 
       {/* Top Breadcrumb Bar */}
@@ -532,19 +532,31 @@ export default function CaseStudyDetailPage() {
 
             {/* Diagnostic Action Card */}
             <div style={{
-              background: "linear-gradient(135deg, #1E3A8A 0%, #0F172A 100%)",
-              borderRadius: "16px",
+              background: "linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 100%)",
+              border: "1.5px solid #BFDBFE",
+              borderRadius: "18px",
               padding: "1.8rem",
-              color: "#FFFFFF",
-              boxShadow: "0 10px 25px -5px rgba(30, 58, 138, 0.3)"
+              boxShadow: "0 8px 24px rgba(37, 99, 235, 0.05)"
             }}>
-              <div style={{ fontSize: "0.75rem", fontWeight: 800, color: "#60A5FA", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "0.4rem" }}>
+              <div style={{
+                display: "inline-block",
+                padding: "0.25rem 0.75rem",
+                borderRadius: "999px",
+                background: "#DBEAFE",
+                border: "1px solid #BFDBFE",
+                fontSize: "0.72rem",
+                fontWeight: 800,
+                color: "#1D4ED8",
+                textTransform: "uppercase",
+                letterSpacing: "0.5px",
+                marginBottom: "0.6rem"
+              }}>
                 Enterprise Diagnostic
               </div>
-              <h4 style={{ fontSize: "1.2rem", fontWeight: 800, margin: "0 0 0.6rem", lineHeight: 1.3 }}>
+              <h4 style={{ fontSize: "1.2rem", fontWeight: 800, color: "#0F172A", margin: "0 0 0.6rem", lineHeight: 1.3 }}>
                 Replicate These Results for Your Brand
               </h4>
-              <p style={{ fontSize: "0.85rem", color: "#CBD5E1", lineHeight: 1.5, margin: "0 0 1.2rem" }}>
+              <p style={{ fontSize: "0.85rem", color: "#475569", lineHeight: 1.55, margin: "0 0 1.2rem" }}>
                 Get an instant diagnostic report evaluating your marketplace fee leaks, fulfillment speed, and damage mitigation.
               </p>
 
@@ -552,23 +564,26 @@ export default function CaseStudyDetailPage() {
                 onClick={() => setIsDiagnosticOpen(true)}
                 style={{
                   width: "100%",
-                  padding: "0.75rem",
-                  borderRadius: "8px",
+                  height: "46px",
+                  borderRadius: "10px",
                   background: "#2563EB",
                   color: "#FFFFFF",
                   border: "none",
-                  fontWeight: 700,
+                  fontWeight: 800,
                   fontSize: "0.88rem",
                   cursor: "pointer",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  gap: "0.4rem",
-                  boxShadow: "0 4px 12px rgba(37,99,235,0.3)"
+                  gap: "0.45rem",
+                  boxShadow: "0 4px 14px rgba(37,99,235,0.25)",
+                  transition: "all 0.2s ease"
                 }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "#1D4ED8")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "#2563EB")}
               >
-                Run Diagnostic Assessment
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <span>Run Diagnostic Assessment</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12" />
                   <polyline points="12 5 19 12 12 19" />
                 </svg>

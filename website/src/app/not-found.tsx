@@ -5,15 +5,15 @@ import Link from "next/link";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import CommerceDiagnosticModal from "./components/CommerceDiagnosticModal";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800", "900"] });
+const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
 export default function NotFound() {
   const [diagOpen, setDiagOpen] = useState(false);
 
   return (
-    <div className={`not-found-root ${inter.className}`} style={{ background: "#F8FAFC", color: "#0F172A", minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+    <div className={`not-found-root ${plusJakartaSans.className}`} style={{ background: "#F8FAFC", color: "#0F172A", minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       <main style={{ padding: "180px 1.5rem 100px", textAlign: "center", flex: 1 }}>

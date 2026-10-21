@@ -168,26 +168,49 @@ export default function ReturnsOperationsPage() {
           box-shadow: 0 12px 30px rgba(225, 29, 72, 0.08);
           border-color: #FECDD3;
         }
+        .ret-hero-section {
+          padding-top: 3.5rem;
+          padding-bottom: 4rem;
+        }
+        .ret-section-block {
+          padding: 4.5rem 0;
+        }
+        .ret-section-header {
+          text-align: center;
+          max-width: 720px;
+          margin: 0 auto 2.75rem;
+        }
         @media (max-width: 991px) {
-          .ret-hero-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
+          .ret-hero-section {
+            padding-top: 2rem !important;
+            padding-bottom: 2.75rem !important;
+          }
+          .ret-hero-grid { grid-template-columns: 1fr !important; gap: 2.25rem !important; }
+          .ret-section-block { padding: 3rem 0 !important; }
+          .ret-section-header { margin-bottom: 1.85rem !important; }
           .grading-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .rto-pipeline-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .forensics-grid { grid-template-columns: 1fr !important; }
           .dossier-grid { grid-template-columns: 1fr !important; }
         }
         @media (max-width: 640px) {
+          .ret-hero-section {
+            padding-top: 1.5rem !important;
+            padding-bottom: 2rem !important;
+          }
+          .ret-hero-grid { gap: 1.5rem !important; }
+          .ret-section-block { padding: 2.25rem 0 !important; }
+          .ret-section-header { margin-bottom: 1.35rem !important; }
           .grading-grid { grid-template-columns: 1fr !important; }
           .rto-pipeline-grid { grid-template-columns: 1fr !important; }
-          .cta-inner-box { padding: 2rem 1.5rem !important; }
+          .cta-inner-box { padding: 2rem 1.25rem !important; border-radius: 18px !important; }
         }
       `}</style>
       
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* ── 1. LIGHT BESPOKE HERO ── */}
-      <section style={{
-        paddingTop: "9rem",
-        paddingBottom: "5.5rem",
+      <section className="ret-hero-section" style={{
         background: "linear-gradient(180deg, #FFF1F2 0%, #FFFFFF 100%)",
         borderBottom: "1px solid #E2E8F0"
       }}>
@@ -339,7 +362,9 @@ export default function ReturnsOperationsPage() {
                 {/* Restock Velocity */}
                 <div style={{ background: "#F0FDF4", border: "1px solid #BBF7D0", borderRadius: "12px", padding: "0.85rem 1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                    <span style={{ color: "#16A34A", fontWeight: 800 }}>⚡</span>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="#16A34A" style={{ display: "inline-block", verticalAlign: "middle" }}>
+                      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
                     <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#166534" }}>Grade A Re-Inward Rate</span>
                   </div>
                   <span style={{ fontSize: "0.82rem", fontWeight: 800, color: "#16A34A" }}>64% (24H RESTOCK)</span>
@@ -431,7 +456,7 @@ export default function ReturnsOperationsPage() {
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "0.75rem" }}>
                     {cur.steps.map((s, sIdx) => (
                       <div key={sIdx} style={{ display: "flex", alignItems: "flex-start", gap: "0.5rem" }}>
-                        <span style={{ color: cur.color, fontWeight: 800 }}>✓</span>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={cur.color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: "2px", flexShrink: 0 }}><polyline points="20 6 9 17 4 12" /></svg>
                         <span style={{ fontSize: "0.88rem", color: "#334155", fontWeight: 500 }}>{s}</span>
                       </div>
                     ))}
@@ -541,8 +566,9 @@ export default function ReturnsOperationsPage() {
               <div key={idx} className="light-panel" style={{ padding: "2rem 1.75rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.75rem" }}>
                   <span style={{ fontSize: "0.72rem", fontWeight: 800, color: "#64748B" }}>{cd.id}</span>
-                  <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#16A34A", background: "#ECFDF3", padding: "0.15rem 0.45rem", borderRadius: "4px" }}>
-                    ✓ {cd.status}
+                  <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#16A34A", background: "#ECFDF3", padding: "0.15rem 0.45rem", borderRadius: "4px", display: "inline-flex", alignItems: "center", gap: "0.3rem" }}>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                    <span>{cd.status}</span>
                   </span>
                 </div>
                 <h4 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#0F172A", margin: "0 0 0.6rem" }}>

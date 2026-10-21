@@ -5,10 +5,10 @@ import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CommerceDiagnosticModal from "../components/CommerceDiagnosticModal";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import { DEFAULT_INSIGHTS, InsightArticle } from "@/data/insightsData";
 
-const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800", "900"] });
+const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
 type Article = InsightArticle;
 
@@ -28,37 +28,45 @@ export default function InsightsPage() {
   const [selectedCat, setSelectedCat] = useState<string>("All");
   const [search, setSearch] = useState("");
   const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
 
   // Sync with PostgreSQL database / CMS backend API
   useEffect(() => {
     async function loadArticles() {
+      setLoading(true);
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.brandorbit.tech";
       try {
-        const res = await fetch("https://g.zyvocrm.in/api/v1/articles");
+        const res = await fetch(`${apiUrl}/api/v1/articles`);
         if (res.ok) {
           const data = await res.json();
-          if (Array.isArray(data) && data.length > 0) {
+          if (Array.isArray(data)) {
             const published = data.filter((a: any) => a.status === "Published");
             setArticles(published);
+            setLoading(false);
             return;
           }
         }
-      } catch (_) {}
+      } catch (err) {
+        console.error("Failed to fetch articles from database API:", err);
+      }
 
+      // Check localStorage for offline admin edits if any
       try {
         const saved = localStorage.getItem("gl_admin_articles");
         if (saved) {
           const parsed = JSON.parse(saved);
           if (Array.isArray(parsed) && parsed.length > 0) {
             const published = parsed.filter((a: any) => a.status === "Published");
-            if (published.length > 0) {
-              setArticles(published);
-              return;
-            }
+            setArticles(published);
+            setLoading(false);
+            return;
           }
         }
       } catch (_) {}
 
-      setArticles(DEFAULT_INSIGHTS.filter(a => a.status === "Published"));
+      // Strictly show database data (no hardcoded fallback)
+      setArticles([]);
+      setLoading(false);
     }
 
     loadArticles();
@@ -78,13 +86,13 @@ export default function InsightsPage() {
   const regularList = filteredArticles.length > 1 ? filteredArticles.slice(1) : filteredArticles;
 
   return (
-    <div className={`insights-root ${inter.className}`} style={{ background: "#F8FAFC", color: "#0F172A", minHeight: "100vh" }}>
+    <div className={`insights-root ${plusJakartaSans.className}`} style={{ background: "#F8FAFC", color: "#0F172A", minHeight: "100vh" }}>
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* Hero Section */}
       <section style={{
         position: "relative",
-        paddingTop: "9rem",
+        paddingTop: "3.5rem",
         paddingBottom: "4.5rem",
         background: "linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%)",
         borderBottom: "1px solid #E2E8F0",
@@ -383,54 +391,99 @@ export default function InsightsPage() {
       </section>
 
       {/* Complimentary Diagnostic CTA */}
-      <section style={{
-        background: "linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%)",
-        padding: "5rem 0",
-        color: "#FFFFFF",
-        textAlign: "center"
-      }}>
-        <div className="container" style={{ maxWidth: "800px", margin: "0 auto", padding: "0 1.5rem" }}>
-          <div style={{ fontSize: "0.82rem", fontWeight: 800, letterSpacing: "1.5px", color: "#38BDF8", textTransform: "uppercase", marginBottom: "1rem" }}>
-            Operating Intelligence
-          </div>
-          <h2 style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)", fontWeight: 900, marginBottom: "1rem", lineHeight: 1.2 }}>
-            Diagnose Your Channel Economics in Under 3 Minutes
-          </h2>
-          <p style={{ fontSize: "1.05rem", color: "#CBD5E1", lineHeight: 1.6, marginBottom: "2.5rem" }}>
-            Our proprietary Commerce Diagnostic benchmarks your inventory run-rates, platform deductions, and logistics SLAs against top-tier category leaders.
-          </p>
-          <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
-            <button
-              onClick={() => setDiagOpen(true)}
-              style={{
-                padding: "0.95rem 2rem",
-                borderRadius: "12px",
-                background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
-                color: "#FFFFFF",
+      <section style={{ padding: "4rem 0 4.5rem", background: "#FFFFFF", borderTop: "1px solid #E2E8F0" }}>
+        <div className="container" style={{ maxWidth: "1140px", margin: "0 auto", padding: "0 1.5rem" }}>
+          <div style={{
+            background: "linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 100%)",
+            border: "1.5px solid #BFDBFE",
+            borderRadius: "24px",
+            padding: "3.5rem 2.5rem",
+            textAlign: "center",
+            position: "relative",
+            overflow: "hidden",
+            boxShadow: "0 10px 30px rgba(37, 99, 235, 0.06)"
+          }}>
+            <div style={{ position: "relative", zIndex: 2, maxWidth: "700px", margin: "0 auto" }}>
+              <div style={{
+                display: "inline-block",
+                padding: "0.35rem 0.9rem",
+                borderRadius: "999px",
+                background: "#DBEAFE",
+                border: "1px solid #BFDBFE",
+                fontSize: "0.75rem",
                 fontWeight: 800,
-                fontSize: "0.95rem",
-                border: "none",
-                cursor: "pointer",
-                boxShadow: "0 4px 20px rgba(37,99,235,0.4)"
-              }}
-            >
-              UNLOCK YOUR GROWTH
-            </button>
-            <Link
-              href="/contact"
-              style={{
-                padding: "0.95rem 1.8rem",
-                borderRadius: "12px",
-                background: "rgba(255,255,255,0.1)",
-                color: "#FFFFFF",
-                fontWeight: 700,
-                fontSize: "0.95rem",
-                border: "1px solid rgba(255,255,255,0.25)",
-                textDecoration: "none"
-              }}
-            >
-              Speak With Author
-            </Link>
+                letterSpacing: "1.2px",
+                textTransform: "uppercase",
+                marginBottom: "1rem",
+                color: "#1D4ED8"
+              }}>
+                Operating Intelligence
+              </div>
+              <h2 style={{ fontSize: "clamp(1.85rem, 3.4vw, 2.65rem)", fontWeight: 800, color: "#0F172A", lineHeight: 1.2, letterSpacing: "-0.025em", margin: "0 0 1rem" }}>
+                Diagnose Your Channel Economics in Under 3 Minutes
+              </h2>
+              <p style={{ fontSize: "1.05rem", color: "#475569", lineHeight: 1.65, margin: "0 auto 2rem auto", maxWidth: "620px" }}>
+                Our proprietary Commerce Diagnostic benchmarks your inventory run-rates, platform deductions, and logistics SLAs against top-tier category leaders.
+              </p>
+              <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
+                <button
+                  onClick={() => setDiagOpen(true)}
+                  style={{
+                    height: "52px",
+                    padding: "0 2.2rem",
+                    borderRadius: "12px",
+                    background: "#2563EB",
+                    color: "#FFFFFF",
+                    fontSize: "0.95rem",
+                    fontWeight: 800,
+                    border: "none",
+                    cursor: "pointer",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    boxShadow: "0 4px 14px rgba(37, 99, 235, 0.3)",
+                    transition: "all 0.2s ease"
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "#1D4ED8")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "#2563EB")}
+                >
+                  <span>UNLOCK YOUR GROWTH</span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </button>
+                <Link
+                  href="/contact"
+                  style={{
+                    height: "52px",
+                    padding: "0 1.8rem",
+                    borderRadius: "12px",
+                    background: "#FFFFFF",
+                    border: "1px solid #BFDBFE",
+                    color: "#2563EB",
+                    fontSize: "0.95rem",
+                    fontWeight: 700,
+                    textDecoration: "none",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    boxShadow: "0 2px 6px rgba(15, 23, 42, 0.04)",
+                    transition: "all 0.2s ease"
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "#EFF6FF";
+                    e.currentTarget.style.borderColor = "#2563EB";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "#FFFFFF";
+                    e.currentTarget.style.borderColor = "#BFDBFE";
+                  }}
+                >
+                  Speak With Author
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>

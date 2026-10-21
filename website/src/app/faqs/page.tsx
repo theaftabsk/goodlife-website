@@ -5,9 +5,9 @@ import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CommerceDiagnosticModal from "../components/CommerceDiagnosticModal";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800", "900"] });
+const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
 interface FAQItem {
   id: string;
@@ -28,7 +28,7 @@ export default function FaqsPage() {
   useEffect(() => {
     async function loadFaqs() {
       try {
-        const res = await fetch("https://g.zyvocrm.in/api/v1/faqs");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://api.brandorbit.tech"}/api/v1/faqs`);
         if (res.ok) {
           const data = await res.json();
           if (Array.isArray(data) && data.length > 0) {
@@ -64,13 +64,13 @@ export default function FaqsPage() {
     : faqs.filter(f => (f.category || "General") === selectedCat);
 
   return (
-    <div className={`faqs-root ${inter.className}`} style={{ background: "#F8FAFC", color: "#0F172A", minHeight: "100vh" }}>
+    <div className={`faqs-root ${plusJakartaSans.className}`} style={{ background: "#F8FAFC", color: "#0F172A", minHeight: "100vh" }}>
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* Hero Section */}
       <section style={{
         position: "relative",
-        paddingTop: "9rem",
+        paddingTop: "3.5rem",
         paddingBottom: "4.5rem",
         background: "linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%)",
         borderBottom: "1px solid #E2E8F0",

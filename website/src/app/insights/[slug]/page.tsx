@@ -5,10 +5,10 @@ import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CommerceDiagnosticModal from "../../components/CommerceDiagnosticModal";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import { DEFAULT_INSIGHTS, InsightArticle } from "@/data/insightsData";
 
-const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800", "900"] });
+const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
 type ArticleData = InsightArticle;
 
@@ -23,16 +23,19 @@ export default function SingleInsightPage({ params }: { params: Promise<{ slug: 
 
   useEffect(() => {
     async function loadArticle() {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.brandorbit.tech";
       let allArticles: ArticleData[] = [];
       try {
-        const res = await fetch("https://g.zyvocrm.in/api/v1/articles");
+        const res = await fetch(`${apiUrl}/api/v1/articles`);
         if (res.ok) {
           const data = await res.json();
           if (Array.isArray(data) && data.length > 0) {
             allArticles = data;
           }
         }
-      } catch (_) {}
+      } catch (err) {
+        console.error("Failed to fetch article from API:", err);
+      }
 
       if (allArticles.length === 0) {
         try {
@@ -46,17 +49,12 @@ export default function SingleInsightPage({ params }: { params: Promise<{ slug: 
         } catch (_) {}
       }
 
-      if (allArticles.length === 0) {
-        allArticles = DEFAULT_INSIGHTS;
-      }
-
       const found = allArticles.find(a => a.slug === slug);
       if (found) {
         setArticle(found);
         const related = allArticles.filter(a => a.id !== found.id && a.status === "Published").slice(0, 3);
         setRelatedArticles(related);
       } else {
-        // Fallback to first available
         setArticle(allArticles[0] || null);
       }
     }
@@ -74,7 +72,7 @@ export default function SingleInsightPage({ params }: { params: Promise<{ slug: 
 
   if (!article) {
     return (
-      <div className={`insight-detail-root ${inter.className}`} style={{ minHeight: "100vh", background: "#F8FAFC" }}>
+      <div className={`insight-detail-root ${plusJakartaSans.className}`} style={{ minHeight: "100vh", background: "#F8FAFC" }}>
         <Header onOpenDiagnostic={() => setDiagOpen(true)} />
         <div style={{ paddingTop: "12rem", textAlign: "center", paddingBottom: "8rem" }}>
           <h2>Loading Insight Briefing...</h2>
@@ -85,12 +83,12 @@ export default function SingleInsightPage({ params }: { params: Promise<{ slug: 
   }
 
   return (
-    <div className={`insight-detail-root ${inter.className}`} style={{ background: "#F8FAFC", color: "#0F172A", minHeight: "100vh" }}>
+    <div className={`insight-detail-root ${plusJakartaSans.className}`} style={{ background: "#F8FAFC", color: "#0F172A", minHeight: "100vh" }}>
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* Breadcrumbs & Hero Bar */}
       <section style={{
-        paddingTop: "8.5rem",
+        paddingTop: "2.5rem",
         paddingBottom: "3rem",
         background: "linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%)",
         borderBottom: "1px solid #E2E8F0"
@@ -316,24 +314,36 @@ export default function SingleInsightPage({ params }: { params: Promise<{ slug: 
           <div style={{
             marginTop: "4rem",
             padding: "2.5rem",
-            borderRadius: "16px",
-            background: "linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%)",
-            color: "#FFFFFF",
+            borderRadius: "20px",
+            background: "linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 100%)",
+            border: "1.5px solid #BFDBFE",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             flexWrap: "wrap",
             gap: "1.5rem",
-            boxShadow: "0 15px 30px -10px rgba(15,23,42,0.4)"
+            boxShadow: "0 10px 30px rgba(37, 99, 235, 0.06)"
           }}>
             <div style={{ maxWidth: "560px" }}>
-              <div style={{ fontSize: "0.76rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1px", color: "#38BDF8", marginBottom: "0.5rem" }}>
+              <div style={{
+                display: "inline-block",
+                padding: "0.25rem 0.75rem",
+                borderRadius: "999px",
+                background: "#DBEAFE",
+                border: "1px solid #BFDBFE",
+                fontSize: "0.72rem",
+                fontWeight: 800,
+                textTransform: "uppercase",
+                letterSpacing: "1px",
+                color: "#1D4ED8",
+                marginBottom: "0.6rem"
+              }}>
                 Executive Commerce Consultation
               </div>
-              <h3 style={{ fontSize: "1.5rem", fontWeight: 900, margin: "0 0 0.5rem 0", color: "#FFFFFF" }}>
+              <h3 style={{ fontSize: "1.45rem", fontWeight: 900, margin: "0 0 0.5rem 0", color: "#0F172A", letterSpacing: "-0.02em" }}>
                 Diagnose Your Channel Economics in Under 3 Minutes
               </h3>
-              <p style={{ fontSize: "0.88rem", color: "#CBD5E1", margin: 0, lineHeight: 1.5 }}>
+              <p style={{ fontSize: "0.92rem", color: "#475569", margin: 0, lineHeight: 1.6 }}>
                 Schedule a complimentary operational audit of your marketplace listing health, multi-state inventory placement, and payment reconciliation.
               </p>
             </div>
@@ -341,18 +351,29 @@ export default function SingleInsightPage({ params }: { params: Promise<{ slug: 
             <button
               onClick={() => setDiagOpen(true)}
               style={{
-                padding: "0.85rem 1.75rem",
-                borderRadius: "10px",
-                background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
+                height: "48px",
+                padding: "0 1.8rem",
+                borderRadius: "12px",
+                background: "#2563EB",
                 color: "#FFFFFF",
                 fontWeight: 800,
                 fontSize: "0.92rem",
                 border: "none",
                 cursor: "pointer",
-                boxShadow: "0 4px 15px rgba(37,99,235,0.4)"
+                boxShadow: "0 4px 14px rgba(37, 99, 235, 0.25)",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                transition: "all 0.2s ease"
               }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "#1D4ED8")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "#2563EB")}
             >
-              REQUEST FREE AUDIT →
+              <span>REQUEST FREE AUDIT</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
             </button>
           </div>
 

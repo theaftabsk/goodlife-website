@@ -28,7 +28,7 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
   });
 
   useEffect(() => {
-    fetch("https://g.zyvocrm.in/api/v1/settings")
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://api.brandorbit.tech"}/api/v1/settings`)
       .then((res) => {
         if (res.ok) return res.json();
         throw new Error();
@@ -260,7 +260,7 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
                 <span style={{
                   fontSize: scrolled ? "0.94rem" : "0.96rem",
                   fontWeight: 600,
-                  fontFamily: "var(--font-inter), 'Inter', sans-serif",
+                  fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)",
                   color: isActive ? "#1D4ED8" : "#0F172A",
                   cursor: "pointer",
                   display: "flex",
@@ -309,7 +309,7 @@ export default function Header({ onOpenDiagnostic }: HeaderProps) {
               fontSize: "0.82rem",
               fontWeight: 750,
               letterSpacing: "0.3px",
-              fontFamily: "var(--font-inter), 'Inter', sans-serif",
+              fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)",
               padding: scrolled ? "0 1.15rem" : "0 1.35rem",
               borderRadius: "999px",
               background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",

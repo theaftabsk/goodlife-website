@@ -2,11 +2,11 @@
 
 import React, { useState, useRef } from "react";
 import Link from "next/link";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 
-const inter = Inter({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
@@ -248,7 +248,7 @@ export default function CommerceNetwork() {
   };
 
   return (
-    <section className={`commerce-network-section ${inter.className}`} id="commerce-network" style={{
+    <section className={`commerce-network-section ${plusJakartaSans.className}`} id="commerce-network" style={{
       position: "relative",
       width: "100%",
       padding: "5rem 0 5.5rem",
@@ -319,7 +319,7 @@ export default function CommerceNetwork() {
             lineHeight: 1.18,
             letterSpacing: "-1.5px",
             margin: "0 0 0.85rem",
-            fontFamily: "var(--font-inter), 'Inter', sans-serif"
+            fontFamily: "var(--font-sans), 'Plus Jakarta Sans', sans-serif"
           }}>
             We don&apos;t just advise businesses. <span style={{ background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>We build, operate and scale them.</span>
           </h2>
@@ -536,7 +536,7 @@ export default function CommerceNetwork() {
                     fontSize="22"
                     fontWeight="900"
                     fill="#0B1736"
-                    fontFamily="var(--font-inter), 'Inter', sans-serif"
+                    fontFamily="var(--font-sans), 'Plus Jakarta Sans', sans-serif"
                     letterSpacing="2.2px"
                   >
                     GOOD LIFE
@@ -598,7 +598,7 @@ export default function CommerceNetwork() {
                         dominantBaseline="central"
                         fontSize="15.5"
                         fontWeight="800"
-                        fontFamily="var(--font-inter), 'Inter', sans-serif"
+                        fontFamily="var(--font-sans), 'Plus Jakarta Sans', sans-serif"
                         fill={isActive ? "#FFFFFF" : "#475569"}
                       >
                         {node.num}
@@ -614,7 +614,7 @@ export default function CommerceNetwork() {
                         fontWeight="800"
                         className="node-text"
                         fill={isActive ? "#FFFFFF" : "#0B1736"}
-                        fontFamily="var(--font-inter), 'Inter', sans-serif"
+                        fontFamily="var(--font-sans), 'Plus Jakarta Sans', sans-serif"
                         letterSpacing="-0.2px"
                       >
                         {node.shortLabel}
@@ -630,7 +630,7 @@ export default function CommerceNetwork() {
                         fontWeight="700"
                         fill={isActive ? "#FFFFFF" : "#94A3B8"}
                         opacity={isActive ? "0.9" : "0.55"}
-                        fontFamily="var(--font-inter), 'Inter', sans-serif"
+                        fontFamily="var(--font-sans), 'Plus Jakarta Sans', sans-serif"
                       >
                         ›
                       </text>
@@ -668,7 +668,7 @@ export default function CommerceNetwork() {
                       fontWeight: 800,
                       color: "#0B1736",
                       margin: "0 0 0.5rem",
-                      fontFamily: "var(--font-inter), 'Inter', sans-serif",
+                      fontFamily: "var(--font-sans), 'Plus Jakarta Sans', sans-serif",
                       letterSpacing: "-0.5px",
                       lineHeight: 1.2
                     }}>
@@ -799,7 +799,7 @@ export default function CommerceNetwork() {
         }
 
         .commerce-network-section {
-          font-family: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          font-family: var(--font-sans), 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         /* SVG Node Hover & Interactive State */

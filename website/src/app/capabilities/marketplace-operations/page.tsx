@@ -305,28 +305,52 @@ export default function MarketplaceOperationsPage() {
           scrollbar-width: thin;
           padding-bottom: 0.5rem;
         }
+        .ops-hero-section {
+          padding-top: 3.5rem;
+          padding-bottom: 4rem;
+        }
+        .ops-section-block {
+          padding: 4.5rem 0;
+        }
+        .ops-section-header {
+          text-align: center;
+          max-width: 720px;
+          margin: 0 auto 2.75rem;
+        }
         @media (max-width: 991px) {
-          .ops-hero-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
+          .ops-hero-section {
+            padding-top: 2rem !important;
+            padding-bottom: 2.75rem !important;
+          }
+          .ops-hero-grid { grid-template-columns: 1fr !important; gap: 2.25rem !important; }
+          .ops-section-block { padding: 3rem 0 !important; }
+          .ops-section-header { margin-bottom: 1.85rem !important; }
           .ops-modules-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          .ops-detail-split { grid-template-columns: 1fr !important; gap: 2rem !important; }
+          .ops-detail-split { grid-template-columns: 1fr !important; gap: 1.75rem !important; }
           .metrics-4-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .timeline-desktop { display: none !important; }
           .timeline-mobile { display: flex !important; }
         }
         @media (max-width: 640px) {
-          .ops-modules-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .ops-hero-section {
+            padding-top: 1.5rem !important;
+            padding-bottom: 2rem !important;
+          }
+          .ops-hero-grid { gap: 1.5rem !important; }
+          .ops-section-block { padding: 2.25rem 0 !important; }
+          .ops-section-header { margin-bottom: 1.35rem !important; }
+          .ops-modules-grid { grid-template-columns: 1fr !important; gap: 0.65rem !important; }
           .metrics-4-grid { grid-template-columns: 1fr !important; }
           .cadence-tabs { flex-wrap: wrap !important; }
-          .cta-inner-box { padding: 2rem 1.5rem !important; }
+          .cta-inner-box { padding: 2rem 1.25rem !important; border-radius: 18px !important; }
+          .ops-detail-card { padding: 1.35rem 1.15rem !important; border-radius: 18px !important; }
         }
       `}</style>
       
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* ── 1. LIGHT BESPOKE HERO ── */}
-      <section style={{
-        paddingTop: "9rem",
-        paddingBottom: "5.5rem",
+      <section className="ops-hero-section" style={{
         background: "linear-gradient(180deg, #F4F8FF 0%, #FFFFFF 100%)",
         borderBottom: "1px solid #E2E8F0",
         position: "relative"
@@ -466,8 +490,9 @@ export default function MarketplaceOperationsPage() {
                           {tm.label}
                         </span>
                       </div>
-                      <div style={{ fontSize: "0.72rem", fontWeight: 700, color: tm.statusColor, background: tm.statusBg, padding: "0.2rem 0.5rem", borderRadius: "6px" }}>
-                        ✓ {tm.status}
+                      <div style={{ fontSize: "0.72rem", fontWeight: 700, color: tm.statusColor, background: tm.statusBg, padding: "0.2rem 0.5rem", borderRadius: "6px", display: "inline-flex", alignItems: "center", gap: "0.3rem" }}>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                        <span>{tm.status}</span>
                       </div>
                     </div>
 
@@ -505,8 +530,9 @@ export default function MarketplaceOperationsPage() {
                 AUTOMATED EVENT STREAM
               </span>
             </div>
-            <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#16A34A", background: "#ECFDF3", padding: "0.25rem 0.75rem", borderRadius: "999px", border: "1px solid #A7F3D0" }}>
-              ✓ 142 incidents prevented this quarter
+            <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#16A34A", background: "#ECFDF3", padding: "0.25rem 0.75rem", borderRadius: "999px", border: "1px solid #A7F3D0", display: "inline-flex", alignItems: "center", gap: "0.4rem" }}>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+              <span>142 incidents prevented this quarter</span>
             </div>
           </div>
 
@@ -543,10 +569,10 @@ export default function MarketplaceOperationsPage() {
       </section>
 
       {/* ── 3. FOUR OPERATIONS METRICS (Subtle Variations) ── */}
-      <section style={{ padding: "4.5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="ops-section-block" style={{ background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "680px", margin: "0 auto 3rem" }}>
+          <div className="ops-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#2563EB", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               OPERATIONAL PERFORMANCE BENCHMARKS
             </span>
@@ -591,10 +617,10 @@ export default function MarketplaceOperationsPage() {
       </section>
 
       {/* ── 4. SIX ENGINEERED DELIVERABLES (Interactive Module Selector) ── */}
-      <section style={{ padding: "5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="ops-section-block" style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "720px", margin: "0 auto 3rem" }}>
+          <div className="ops-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#2563EB", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               COMPREHENSIVE OPERATIONS SUITE
             </span>
@@ -641,6 +667,7 @@ export default function MarketplaceOperationsPage() {
             const cur = pillars[activeModule];
             return (
               <div
+                className="ops-detail-card"
                 style={{
                   background: "#FFFFFF",
                   border: "1px solid #BFDBFE",
@@ -666,7 +693,7 @@ export default function MarketplaceOperationsPage() {
                     <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                       {cur.deliverables.map((d, dIdx) => (
                         <div key={dIdx} style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem" }}>
-                          <span style={{ color: "#16A34A", fontWeight: 800, fontSize: "0.95rem", marginTop: "1px" }}>✓</span>
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: "3px", flexShrink: 0 }}><polyline points="20 6 9 17 4 12" /></svg>
                           <span style={{ fontSize: "0.88rem", color: "#334155", lineHeight: 1.5, fontWeight: 500 }}>{d}</span>
                         </div>
                       ))}
@@ -710,10 +737,10 @@ export default function MarketplaceOperationsPage() {
       </section>
 
       {/* ── 5. 24-HOUR OPERATOR CADENCE TIMELINE ── */}
-      <section style={{ padding: "5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="ops-section-block" style={{ background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+          <div className="ops-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#2563EB", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               PRECISION OPERATIONAL RHYTHM
             </span>
@@ -798,10 +825,10 @@ export default function MarketplaceOperationsPage() {
       </section>
 
       {/* ── 6. OPERATIONAL COMPARISON (Light Enterprise Table) ── */}
-      <section style={{ padding: "5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="ops-section-block" style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1150px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+          <div className="ops-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#2563EB", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               OPERATIONAL DIFFERENTIATION
             </span>
@@ -830,11 +857,11 @@ export default function MarketplaceOperationsPage() {
                         {cr.metric}
                       </td>
                       <td style={{ padding: "1.1rem 1.5rem", color: "#64748B", fontSize: "0.85rem", lineHeight: 1.5 }}>
-                        <span style={{ color: "#EF4444", fontWeight: 800, marginRight: "0.4rem" }}>✕</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", marginRight: "0.45rem" }}><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
                         {cr.traditional}
                       </td>
                       <td style={{ padding: "1.1rem 1.5rem", color: "#0F172A", fontSize: "0.85rem", lineHeight: 1.5, fontWeight: 600 }}>
-                        <span style={{ color: "#16A34A", fontWeight: 800, marginRight: "0.4rem" }}>✓</span>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", marginRight: "0.45rem" }}><polyline points="20 6 9 17 4 12" /></svg>
                         {cr.goodlife}
                       </td>
                     </tr>
@@ -848,7 +875,7 @@ export default function MarketplaceOperationsPage() {
       </section>
 
       {/* ── 7. LIGHT ENTERPRISE EXECUTIVE AUDIT BANNER ── */}
-      <section style={{ padding: "5rem 0", background: "#FFFFFF" }}>
+      <section className="ops-section-block" style={{ background: "#FFFFFF" }}>
         <div style={{ maxWidth: "1150px", margin: "0 auto", padding: "0 1.5rem" }}>
           
           <div
