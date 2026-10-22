@@ -26,6 +26,7 @@ import {
   ChevronRight,
   Globe2
 } from "lucide-react";
+import "./scale-pan-india.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -257,7 +258,7 @@ export default function ScalePanIndiaPage() {
                 }}
               >
                 {/* Active Hub Status Bar */}
-                <div style={{
+                <div className="active-hub-bar" style={{
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",

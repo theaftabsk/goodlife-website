@@ -31,6 +31,7 @@ import {
   Building2,
   Award
 } from "lucide-react";
+import "./launch-online.css";
 
 // ── ANIMATED COUNTER COMPONENT (Same as Homepage) ──
 const AnimatedCounter: React.FC<{ target: string }> = ({ target }) => {
@@ -463,7 +464,7 @@ export default function LaunchOnlinePage() {
           
           <div style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))",
             gap: "clamp(1.8rem, 3.5vw, 3rem)",
             alignItems: "center"
           }}>
@@ -522,7 +523,7 @@ export default function LaunchOnlinePage() {
               </p>
 
               {/* CTA Buttons */}
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem", marginBottom: "1.5rem" }}>
+              <div className="hero-btn-group" style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem", marginBottom: "1.5rem" }}>
                 <button
                   onClick={() => setDiagOpen(true)}
                   className="btn-gradient-blue"
@@ -581,7 +582,7 @@ export default function LaunchOnlinePage() {
             <div style={{ position: "relative" }}>
               
               {/* Floating Pill Top Left */}
-              <div style={{
+              <div className="floating-live-pill" style={{
                 position: "absolute",
                 top: "-14px",
                 left: "-10px",
@@ -655,7 +656,7 @@ export default function LaunchOnlinePage() {
                 </div>
 
                 {/* Live Realization Box */}
-                <div style={{
+                <div className="cockpit-realization-box" style={{
                   background: "linear-gradient(135deg, #0B1736 0%, #172554 100%)",
                   borderRadius: "12px",
                   padding: "0.95rem 1.25rem",
@@ -688,7 +689,7 @@ export default function LaunchOnlinePage() {
           maxWidth: "1240px",
           margin: "0 auto",
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))",
           gap: "1.25rem"
         }}>
           {[
@@ -755,7 +756,7 @@ export default function LaunchOnlinePage() {
             onMouseLeave={() => setIsAutoPlayRoadmap(true)}
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))",
               gap: "1rem",
               marginBottom: "2rem"
             }}
@@ -848,7 +849,7 @@ export default function LaunchOnlinePage() {
               <div style={{ fontSize: "0.85rem", fontWeight: "800", color: "#0B1736", textTransform: "uppercase", letterSpacing: "1px", marginBottom: "1.25rem" }}>
                 Mandatory Deliverables Executed in this Sprint:
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))", gap: "1.25rem" }}>
                 {phases[activePhase].deliverables.map((item, i) => (
                   <div key={i} style={{
                     display: "flex",
@@ -889,7 +890,7 @@ export default function LaunchOnlinePage() {
 
           <div style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))",
             gap: "2.5rem",
             alignItems: "center"
           }}>
@@ -1057,7 +1058,7 @@ export default function LaunchOnlinePage() {
 
           <div style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))",
             gap: "1.5rem"
           }}>
             {pipelineNodes.map((node, i) => {
@@ -1151,7 +1152,7 @@ export default function LaunchOnlinePage() {
 
             <div className="case-study-split" style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))",
               gap: "clamp(1.75rem, 3.5vw, 3rem)",
               alignItems: "center",
               position: "relative",

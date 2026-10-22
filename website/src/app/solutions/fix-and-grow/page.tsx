@@ -37,6 +37,7 @@ import {
   Boxes,
   XCircle
 } from "lucide-react";
+import "./fix-and-grow.css";
 
 // ── DETERMINISTIC NUMBER FORMATTER (Prevents SSR / Client Hydration Mismatches) ──
 const fmtNumber = (n: number) => {
@@ -471,7 +472,7 @@ export default function FixAndGrowPage() {
           
           <div className="triage-hero-grid" style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))",
             gap: "clamp(1.8rem, 3.5vw, 3rem)",
             alignItems: "center"
           }}>
@@ -602,7 +603,7 @@ export default function FixAndGrowPage() {
             <div style={{ position: "relative" }}>
               
               {/* Floating Pill Top Left */}
-              <div style={{
+              <div className="floating-live-pill" style={{
                 position: "absolute",
                 top: "-14px",
                 left: "-10px",
@@ -647,7 +648,7 @@ export default function FixAndGrowPage() {
                 </div>
 
                 {/* Category Selector Tabs */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "0.4rem", marginBottom: "0.85rem" }}>
+                <div className="triage-cat-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "0.4rem", marginBottom: "0.85rem" }}>
                   {categories.map((cat, cIdx) => (
                     <button
                       key={cIdx}
@@ -699,7 +700,7 @@ export default function FixAndGrowPage() {
                 </div>
 
                 {/* Dual Mode Switcher: Bleeding vs Recovered */}
-                <div style={{
+                <div className="triage-mode-switcher" style={{
                   display: "grid",
                   gridTemplateColumns: "1fr 1fr",
                   background: "#F1F5F9",
@@ -760,7 +761,7 @@ export default function FixAndGrowPage() {
                   color: "#FFFFFF",
                   marginBottom: "0.85rem"
                 }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div className="realization-header-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <div>
                       <div style={{ fontSize: "0.7rem", color: "#93C5FD", fontWeight: "750", textTransform: "uppercase" }}>
                         {shieldActive ? "Monthly Cash Recovered To Bank" : "Current Capital Draining / Month"}
@@ -786,7 +787,7 @@ export default function FixAndGrowPage() {
                 </div>
 
                 {/* Granular Breakdown 3-Tile Row */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.45rem", marginBottom: "0.85rem" }}>
+                <div className="triage-breakdown-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.45rem", marginBottom: "0.85rem" }}>
                   <div style={{ background: "#F8FAFC", padding: "0.6rem 0.5rem", borderRadius: "10px", border: "1px solid #E2E8F0", textAlign: "center" }}>
                     <div style={{ fontSize: "0.66rem", color: "#64748B", fontWeight: "700" }}>Weight Disputes</div>
                     <div style={{ fontSize: "0.9rem", fontWeight: "800", color: "#0B1736", marginTop: "0.1rem" }}>{fmt(weightSaved)}</div>
@@ -836,7 +837,7 @@ export default function FixAndGrowPage() {
           
           <div className="triage-telemetry-row" style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 230px), 1fr))",
             gap: "1.15rem"
           }}>
             {[
@@ -919,6 +920,7 @@ export default function FixAndGrowPage() {
                   <button
                     key={idx}
                     onClick={() => setSelectedLeak(idx)}
+                    className="leak-selector-btn"
                     style={{
                       background: isSelected ? "linear-gradient(135deg, #0B1736 0%, #1E293B 100%)" : "rgba(255, 255, 255, 0.85)",
                       border: isSelected ? "1.5px solid #0B1736" : "1px solid #E2E8F0",
@@ -1194,7 +1196,7 @@ export default function FixAndGrowPage() {
                   </span>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: "1rem" }}>
                   <div style={{
                     background: "#FFF5F5",
                     padding: "1rem 1.25rem",
@@ -1236,7 +1238,7 @@ export default function FixAndGrowPage() {
       <section style={{ padding: "clamp(3.5rem, 6vw, 5.5rem) 1.5rem", position: "relative", zIndex: 1 }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           
-          <div style={{
+          <div className="case-study-hero-card" style={{
             position: "relative",
             background: "linear-gradient(135deg, rgba(11, 23, 54, 0.94) 0%, rgba(15, 23, 42, 0.96) 50%, rgba(10, 16, 32, 0.98) 100%)",
             backdropFilter: "blur(28px) saturate(210%)",
@@ -1276,7 +1278,7 @@ export default function FixAndGrowPage() {
 
             <div style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))",
               gap: "clamp(1.75rem, 3.5vw, 3rem)",
               alignItems: "center",
               position: "relative",
@@ -1444,7 +1446,7 @@ export default function FixAndGrowPage() {
               </div>
 
               {/* 4 Frosted Specular Glass Metric Tiles */}
-              <div style={{
+              <div className="case-study-metric-grid" style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(2, 1fr)",
                 gap: "0.85rem"
@@ -1600,7 +1602,7 @@ export default function FixAndGrowPage() {
       {/* ── 08. PRE-FOOTER CTA BANNER ── */}
       <section style={{ padding: "clamp(3rem, 6vw, 5.5rem) 1.5rem" }}>
         <div style={{ maxWidth: "1040px", margin: "0 auto", textAlign: "center" }}>
-          <div style={{
+          <div className="cta-banner-card" style={{
             background: "radial-gradient(ellipse at 30% 20%, rgba(37, 99, 235, 0.4) 0%, rgba(15, 23, 42, 0.98) 75%), #0B1736",
             borderRadius: "28px",
             padding: "clamp(2.5rem, 6vw, 4.5rem) clamp(1.25rem, 4vw, 3rem)",
@@ -1628,7 +1630,7 @@ export default function FixAndGrowPage() {
             }}>
               Book a complimentary forensic audit with our financial reconciliation team to identify unclaimed SAFE-T windows, courier weight overcharges, and unverified return fraud.
             </p>
-            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "1rem" }}>
+            <div className="cta-banner-buttons" style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "1rem" }}>
               <button
                 onClick={() => setDiagOpen(true)}
                 className="btn-gradient-blue"

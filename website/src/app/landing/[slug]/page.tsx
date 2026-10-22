@@ -5,6 +5,7 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CommerceDiagnosticModal from "../../components/CommerceDiagnosticModal";
 import Link from "next/link";
+import "./landing.css";
 
 type SectionType =
   | "hero"
@@ -392,6 +393,7 @@ export default function DynamicLandingPage({
       return (
         <section
           key={`sec-${idx}-${secName}`}
+          className="landing-hero"
           style={{
             background: "radial-gradient(ellipse at top, #EFF6FF 0%, #FFFFFF 70%)",
             padding: "5rem 1.5rem 4rem",
@@ -402,7 +404,7 @@ export default function DynamicLandingPage({
           }}
         >
           <div style={{ maxWidth: "860px", margin: "0 auto", position: "relative", zIndex: 10 }}>
-            <div style={{
+            <div className="landing-badge" style={{
               display: "inline-flex",
               alignItems: "center",
               gap: "0.5rem",
@@ -440,7 +442,7 @@ export default function DynamicLandingPage({
               {hero?.subheadline || "Single-point operational accountability for marketplace volume surges, 12-state inventory placement, zero stock-out dark store logistics, and guaranteed payment settlement."}
             </p>
 
-            <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
+            <div className="landing-hero-btns" style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
               <button
                 onClick={() => setDiagOpen(true)}
                 style={{
@@ -514,7 +516,7 @@ export default function DynamicLandingPage({
 
             <div style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))",
               gap: "1.5rem"
             }}>
               {statsList.map((stat, sIdx) => (
@@ -578,7 +580,7 @@ export default function DynamicLandingPage({
 
             <div style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))",
               gap: "1.75rem"
             }}>
               {itemsList.map((feat, fIdx) => (
@@ -874,6 +876,7 @@ export default function DynamicLandingPage({
             ) : (
               <form
                 onSubmit={handleFormSubmit}
+                className="landing-form-card"
                 style={{
                   background: "#F8FAFC",
                   padding: "2rem",
@@ -884,7 +887,7 @@ export default function DynamicLandingPage({
                   gap: "1.2rem"
                 }}
               >
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                <div className="landing-form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                   <div>
                     <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#334155", marginBottom: "0.3rem" }}>
                       Company / Brand Name *
@@ -914,7 +917,7 @@ export default function DynamicLandingPage({
                   </div>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                <div className="landing-form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                   <div>
                     <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#334155", marginBottom: "0.3rem" }}>
                       Official Work Email *
@@ -944,7 +947,7 @@ export default function DynamicLandingPage({
                   </div>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                <div className="landing-form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                   <div>
                     <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#334155", marginBottom: "0.3rem" }}>
                       Product Category
@@ -1031,6 +1034,7 @@ export default function DynamicLandingPage({
       return (
         <section
           key={section.id || `norm-hero-${idx}`}
+          className="landing-hero"
           style={{
             background: themeConfig.background,
             color: themeConfig.text,
@@ -1042,7 +1046,7 @@ export default function DynamicLandingPage({
           }}
         >
           <div style={{ maxWidth: "860px", margin: "0 auto", position: "relative", zIndex: 10 }}>
-            <div style={{
+            <div className="landing-badge" style={{
               display: "inline-flex",
               alignItems: "center",
               gap: "0.5rem",
@@ -1080,7 +1084,7 @@ export default function DynamicLandingPage({
               {content?.subheadline || "Single-point operational accountability for marketplace volume surges, 12-state inventory placement, zero stock-out dark store logistics, and guaranteed payment settlement."}
             </p>
 
-            <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
+            <div className="landing-hero-btns" style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
               <button
                 onClick={() => setDiagOpen(true)}
                 style={{
@@ -1154,7 +1158,7 @@ export default function DynamicLandingPage({
 
             <div style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))",
               gap: "1.5rem"
             }}>
               {statsList.map((stat: any, sIdx: number) => (
@@ -1217,7 +1221,7 @@ export default function DynamicLandingPage({
 
             <div style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))",
               gap: "1.75rem"
             }}>
               {itemsList.map((feat: any, fIdx: number) => (
@@ -1496,6 +1500,7 @@ export default function DynamicLandingPage({
             ) : (
               <form
                 onSubmit={handleFormSubmit}
+                className="landing-form-card"
                 style={{
                   background: "#F8FAFC",
                   padding: "2rem",
@@ -1506,7 +1511,7 @@ export default function DynamicLandingPage({
                   gap: "1.2rem"
                 }}
               >
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                <div className="landing-form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                   <div>
                     <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#334155", marginBottom: "0.3rem" }}>
                       Company / Brand Name *
@@ -1536,7 +1541,7 @@ export default function DynamicLandingPage({
                   </div>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                <div className="landing-form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                   <div>
                     <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#334155", marginBottom: "0.3rem" }}>
                       Official Work Email *
@@ -1566,7 +1571,7 @@ export default function DynamicLandingPage({
                   </div>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                <div className="landing-form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                   <div>
                     <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#334155", marginBottom: "0.3rem" }}>
                       Product Category
@@ -1644,7 +1649,7 @@ export default function DynamicLandingPage({
     if (type === "about") {
       return (
         <section key={section.id || `norm-about-${idx}`} style={{ padding: "4.5rem 1.5rem", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
-          <div style={{ maxWidth: "1140px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "3rem", alignItems: "center" }}>
+          <div style={{ maxWidth: "1140px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))", gap: "3rem", alignItems: "center" }}>
             <div>
               <span style={{ fontSize: "0.8rem", fontWeight: 800, color: "#2563EB", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                 {content?.badge || "ABOUT GOOD LIFE SUTRA"}
@@ -1655,7 +1660,7 @@ export default function DynamicLandingPage({
               <p style={{ fontSize: "0.95rem", color: "#475569", lineHeight: 1.7, marginBottom: "1.5rem" }}>
                 {content?.description || "Founded to solve fragmented agencies, stockouts, and delayed settlement. We operate the entire commerce chain under unified commercial accountability."}
               </p>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+              <div className="landing-form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                 <div style={{ padding: "1rem", background: "#F8FAFC", borderRadius: "10px", border: "1px solid #E2E8F0" }}>
                   <div style={{ fontSize: "1.6rem", fontWeight: 900, color: "#2563EB" }}>12 States</div>
                   <div style={{ fontSize: "0.8rem", color: "#64748B" }}>Bonded Warehouse Hubs</div>
@@ -1696,7 +1701,7 @@ export default function DynamicLandingPage({
                 {content?.subtitle || "Comprehensive turnkey modules engineered for appliance manufacturers"}
               </p>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: "1.5rem" }}>
               {services.map((svc: any, sIdx: number) => (
                 <div key={sIdx} style={{ background: "#FFFFFF", padding: "1.75rem", borderRadius: "14px", border: "1px solid #E2E8F0", boxShadow: "0 2px 6px rgba(0,0,0,0.04)" }}>
                   <div style={{ width: "40px", height: "40px", borderRadius: "10px", background: "#EFF6FF", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1rem" }}>
@@ -1731,7 +1736,7 @@ export default function DynamicLandingPage({
             <p style={{ fontSize: "0.95rem", color: "#64748B", marginBottom: "2.5rem" }}>
               {content?.subtitle || "Decades of marketplace operations, logistics & FMCG scale leadership"}
             </p>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.5rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: "1.5rem" }}>
               {members.map((m: any, mIdx: number) => (
                 <div key={mIdx} style={{ background: "#F8FAFC", borderRadius: "14px", padding: "1.75rem", border: "1px solid #E2E8F0" }}>
                   <img src={m.img} alt={m.name} style={{ width: "90px", height: "90px", borderRadius: "50%", objectFit: "cover", margin: "0 auto 1rem" }} />
@@ -1761,7 +1766,7 @@ export default function DynamicLandingPage({
             <p style={{ fontSize: "0.95rem", color: "#64748B", marginBottom: "2.5rem" }}>
               {content?.subtitle || "Read how top consumer durable brands eliminate stockouts with Good Life"}
             </p>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: "1.5rem" }}>
               {testimonials.map((t: any, tIdx: number) => (
                 <div key={tIdx} style={{ background: "#FFFFFF", padding: "2rem 1.75rem", borderRadius: "14px", border: "1px solid #E2E8F0", textAlign: "left", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                   <div>
@@ -1804,7 +1809,7 @@ export default function DynamicLandingPage({
             <p style={{ fontSize: "0.95rem", color: "#64748B", marginBottom: "2.5rem" }}>
               {content?.subtitle || "Tour our bonded warehouses, triage inspection centers and dispatch docks"}
             </p>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: "1.5rem" }}>
               {images.map((img: any, iIdx: number) => (
                 <div key={iIdx} style={{ borderRadius: "12px", overflow: "hidden", border: "1px solid #E2E8F0" }}>
                   <img src={img.url} alt={img.cap} style={{ width: "100%", height: "220px", objectFit: "cover" }} />
@@ -1828,7 +1833,7 @@ export default function DynamicLandingPage({
             <p style={{ fontSize: "0.95rem", color: "#64748B", marginBottom: "2.5rem" }}>
               {content?.subtitle || "Transparent SLAs tailored to your annual online GMV volume"}
             </p>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))", gap: "1.5rem" }}>
               {[
                 { name: "Emerging Brand", vol: "Under ₹5 Cr GMV", fee: "Fixed Base + 3% GMV", feats: ["4 Regional Hubs", "24h Return Triage", "Bi-Weekly Settlement Audit"] },
                 { name: "Growth Surge", vol: "₹5 Cr - ₹25 Cr GMV", fee: "Performance SLA + 2.2%", highlight: true, feats: ["8 Regional Hubs", "Zero Stockout Guarantee", "Dedicated Marketplace Director"] },
@@ -1873,7 +1878,7 @@ export default function DynamicLandingPage({
     if (type === "contact_map") {
       return (
         <section key={section.id || `norm-contact-${idx}`} style={{ padding: "4.5rem 1.5rem", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
-          <div style={{ maxWidth: "1140px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "3rem", alignItems: "center" }}>
+          <div style={{ maxWidth: "1140px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))", gap: "3rem", alignItems: "center" }}>
             <div>
               <span style={{ fontSize: "0.8rem", fontWeight: 800, color: "#2563EB", textTransform: "uppercase" }}>CONNECT WITH US</span>
               <h2 style={{ fontSize: "2rem", fontWeight: 900, color: "#0F172A", margin: "0.5rem 0 1rem" }}>
@@ -1910,7 +1915,7 @@ export default function DynamicLandingPage({
                 {content?.title || "Marketplace Insights & Intelligence"}
               </h2>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: "1.5rem" }}>
               {[
                 { title: "Diwali 2026 Appliance Surge Playbook", tag: "Logistics", date: "Sept 2026", img: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=600&auto=format&fit=crop&q=80" },
                 { title: "Reducing Reverse Logistics QC Damage by 43%", tag: "Operations", date: "Aug 2026", img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&auto=format&fit=crop&q=80" },
@@ -1939,7 +1944,7 @@ export default function DynamicLandingPage({
             <h2 style={{ fontSize: "2rem", fontWeight: 900, marginBottom: "2.5rem" }}>
               {content?.title || "Proven Enterprise Case Studies"}
             </h2>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "1.75rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))", gap: "1.75rem" }}>
               {[
                 { brand: "Tier-1 Water Heater OEM", result: "4.2x GMV Surge with Zero Stockouts", summary: "Scaled from ₹12 Cr to ₹51 Cr annual online sales through 12-state dark store distribution." },
                 { brand: "Smart Kitchen Chimney Brand", result: "43% Reduction in Return Transit Damages", summary: "Automated reverse QC packaging triage implemented across North and West hubs." }
@@ -1967,7 +1972,7 @@ export default function DynamicLandingPage({
             <p style={{ fontSize: "0.95rem", color: "#64748B", marginBottom: "3rem" }}>
               {content?.subtitle || "How we onboard and scale your brand across marketplaces in 14 days"}
             </p>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1.25rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: "1.25rem" }}>
               {[
                 { step: "01", title: "Diagnostic Audit", desc: "Catalog indexing, margin leak & inventory assessment." },
                 { step: "02", title: "Regional Inbound", desc: "Goods placement into 12 bonded warehouse hubs." },
@@ -2044,7 +2049,7 @@ export default function DynamicLandingPage({
             <h2 style={{ fontSize: "2rem", fontWeight: 900, color: "#0F172A" }}>
               {content?.title || "Featured Product Range"}
             </h2>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.75rem", marginTop: "2.5rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))", gap: "1.75rem", marginTop: "2.5rem" }}>
               {[
                 { name: "Smart Auto-Clean Chimney 90cm", img: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=500&auto=format&fit=crop&q=80", tag: "Festive Star SKU" },
                 { name: "Heavy-Duty Inverter 1100VA Pure Sine", img: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500&auto=format&fit=crop&q=80", tag: "Power Backup" },
@@ -2098,7 +2103,7 @@ export default function DynamicLandingPage({
             <h2 style={{ fontSize: "2.2rem", fontWeight: 900, margin: "0.5rem 0 1.75rem" }}>
               {content?.title || "Diwali 2026 Inbound Window Closing In"}
             </h2>
-            <div style={{ display: "flex", justifyContent: "center", gap: "1.25rem", marginBottom: "2rem" }}>
+            <div className="landing-countdown-wrap" style={{ display: "flex", justifyContent: "center", gap: "1.25rem", marginBottom: "2rem", flexWrap: "wrap" }}>
               {[{ num: "14", unit: "Days" }, { num: "08", unit: "Hours" }, { num: "32", unit: "Mins" }, { num: "45", unit: "Secs" }].map((c, idx) => (
                 <div key={idx} style={{ background: "rgba(255,255,255,0.08)", padding: "1.2rem 1.5rem", borderRadius: "12px", minWidth: "85px" }}>
                   <div style={{ fontSize: "2.2rem", fontWeight: 900, color: "#38BDF8" }}>{c.num}</div>
@@ -2160,7 +2165,7 @@ export default function DynamicLandingPage({
             <h2 style={{ fontSize: "2rem", fontWeight: 900, color: "#0F172A", marginBottom: "2.5rem" }}>
               {content?.title || "Why Brands Choose Good Life Over Fragmented Vendors"}
             </h2>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "2rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))", gap: "2rem" }}>
               <div style={{ background: "#FEF2F2", border: "1px solid #FEE2E2", borderRadius: "16px", padding: "2rem", textAlign: "left" }}>
                 <h3 style={{ fontSize: "1.2rem", fontWeight: 900, color: "#991B1B", marginBottom: "1.25rem" }}>
                   Conventional Model (Fragmented 4+ Agencies)
@@ -2214,7 +2219,7 @@ export default function DynamicLandingPage({
       return (
         <section key={section.id || `norm-prob-${idx}`} style={{ padding: "4.5rem 1.5rem", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
           <div style={{ maxWidth: "1050px", margin: "0 auto" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "2.5rem", alignItems: "center" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))", gap: "2.5rem", alignItems: "center" }}>
               <div>
                 <span style={{ fontSize: "0.8rem", fontWeight: 900, color: "#DC2626", textTransform: "uppercase" }}>THE BOTTLENECK</span>
                 <h3 style={{ fontSize: "1.75rem", fontWeight: 900, color: "#0F172A", margin: "0.5rem 0 0.85rem" }}>

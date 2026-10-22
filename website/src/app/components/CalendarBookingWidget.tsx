@@ -205,6 +205,21 @@ END:VCALENDAR`;
 
   return (
     <div style={{ width: "100%" }}>
+      <style>{`
+        .cal-booking-form {
+          padding: 2.5rem 2rem;
+        }
+        @media (max-width: 640px) {
+          .cal-booking-form {
+            padding: 1.4rem 1.1rem !important;
+            border-radius: 16px !important;
+          }
+          .cal-booking-form h3 {
+            font-size: 1.25rem !important;
+          }
+        }
+      `}</style>
+
       {/* Provider Header Tab / Mode Switcher */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.2rem", flexWrap: "wrap", gap: "0.8rem" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
@@ -244,7 +259,7 @@ END:VCALENDAR`;
           <div
             className="calendly-inline-widget"
             data-url={`${config.bookingUrl}?hide_landing_page_details=1&hide_gdpr_banner=1&primary_color=2563eb`}
-            style={{ minWidth: "320px", height: "720px", width: "100%" }}
+            style={{ minWidth: "100%", height: "720px", width: "100%" }}
           />
         </div>
       ) : !useFallbackForm && config.provider === "Google_Calendar" ? (
@@ -264,10 +279,9 @@ END:VCALENDAR`;
         </div>
       ) : (
         /* Direct Fast Booking Form */
-        <form onSubmit={handleDirectBooking} style={{
+        <form onSubmit={handleDirectBooking} className="cal-booking-form" style={{
           background: "#FFFFFF",
           borderRadius: "18px",
-          padding: "2.5rem 2rem",
           border: "1.5px solid #E2E8F0",
           boxShadow: "0 10px 30px rgba(0,0,0,0.04)"
         }}>
@@ -280,7 +294,7 @@ END:VCALENDAR`;
             </p>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1.2rem", marginBottom: "1.2rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 240px), 1fr))", gap: "1.2rem", marginBottom: "1.2rem" }}>
             <div>
               <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#475569", marginBottom: "0.4rem" }}>
                 Full Name *

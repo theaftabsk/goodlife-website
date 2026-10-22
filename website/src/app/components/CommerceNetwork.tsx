@@ -855,6 +855,15 @@ export default function CommerceNetwork() {
             font-size: 1.35rem !important;
           }
         }
+
+        @media (max-width: 480px) {
+          .network-svg-viewport {
+            min-height: 380px !important;
+          }
+          .network-console-container {
+            padding: 1rem 0.5rem;
+          }
+        }
       `}</style>
     </section>
   );

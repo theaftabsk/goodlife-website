@@ -1,0 +1,64 @@
+/* Responsive styles for Heavy & Bulky Commerce Page */
+
+/* Desktop view 100% preserved */
+
+@media (max-width: 900px) {
+  .heavy-bulky-page .stats-grid-responsive {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem !important;
+  }
+  .heavy-bulky-page .overview-split-responsive {
+    grid-template-columns: 1fr !important;
+    gap: 2.25rem !important;
+  }
+  .heavy-bulky-page .workflow-grid-responsive {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .heavy-bulky-page .subpage-pill-badge {
+    font-size: 0.72rem !important;
+    letter-spacing: 0.5px !important;
+    white-space: normal !important;
+    padding: 0.4rem 0.85rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .heavy-bulky-page .subpage-hero-title {
+    font-size: clamp(1.8rem, 6vw, 2.3rem) !important;
+    letter-spacing: -0.7px !important;
+    line-height: 1.2 !important;
+  }
+
+  .heavy-bulky-page .mobile-btn-stack {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 0.75rem !important;
+  }
+
+  .heavy-bulky-page .mobile-btn-stack button,
+  .heavy-bulky-page .mobile-btn-stack a {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .heavy-bulky-page .cta-banner-responsive {
+    padding: 2rem 1.25rem !important;
+    border-radius: 18px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .heavy-bulky-page .stats-grid-responsive {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  .heavy-bulky-page .subpage-hero-title {
+    font-size: 1.6rem !important;
+    letter-spacing: -0.5px !important;
+  }
+}

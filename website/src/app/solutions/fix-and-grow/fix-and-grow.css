@@ -1,0 +1,163 @@
+/* ==========================================================================
+   FIX AND GROW SOLUTION PAGE - MOBILE RESPONSIVE STYLES
+   Desktop view remains 100% pristine and unaltered.
+   Mobile view optimized for 320px - 768px screens.
+   ========================================================================== */
+
+/* Tablet & Smaller Screens (< 991px) */
+@media (max-width: 991px) {
+  .surgery-station-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  .gantt-stages-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+}
+
+/* Mobile Screens (< 768px) */
+@media (max-width: 768px) {
+  .solution-hero-section {
+    padding-top: 2rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  .solution-hero-section h1 {
+    font-size: clamp(1.85rem, 5.5vw, 2.5rem) !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.6px !important;
+  }
+
+  .hero-cta-group {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 0.85rem !important;
+  }
+
+  .hero-cta-group button,
+  .hero-cta-group a {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+    min-height: 48px !important;
+  }
+
+  .triage-hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2.25rem !important;
+  }
+
+  .floating-live-pill {
+    top: -10px !important;
+    left: 10px !important;
+    font-size: 0.72rem !important;
+    padding: 0.35rem 0.75rem !important;
+  }
+
+  .luxury-glass-card {
+    padding: 1.35rem 1.15rem !important;
+    border-radius: 16px !important;
+  }
+
+  .realization-header-row {
+    flex-wrap: wrap !important;
+    gap: 0.6rem !important;
+  }
+
+  .realization-header-row > div:last-child {
+    text-align: left !important;
+    width: 100% !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding-top: 0.5rem !important;
+    margin-top: 0.25rem !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+
+  .case-study-hero-card {
+    padding: 1.5rem 1.15rem !important;
+    border-radius: 18px !important;
+  }
+
+  .cta-banner-card {
+    padding: 2.5rem 1.25rem !important;
+    border-radius: 20px !important;
+  }
+
+  .cta-banner-buttons {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 0.85rem !important;
+  }
+
+  .cta-banner-buttons button,
+  .cta-banner-buttons a {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+    min-height: 48px !important;
+  }
+}
+
+/* Extra Small Phones (< 480px & down to 320px) */
+@media (max-width: 480px) {
+  .solution-hero-section {
+    padding-top: 1.5rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .solution-hero-section h1 {
+    font-size: 1.7rem !important;
+    line-height: 1.22 !important;
+  }
+
+  .floating-live-pill {
+    position: static !important;
+    display: inline-flex !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .triage-cat-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.4rem !important;
+  }
+
+  .triage-mode-switcher button {
+    font-size: 0.7rem !important;
+    padding: 0.4rem 0.35rem !important;
+  }
+
+  .triage-breakdown-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.45rem !important;
+  }
+
+  .triage-breakdown-grid > div {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 0.6rem 0.85rem !important;
+    text-align: left !important;
+  }
+
+  .triage-breakdown-grid > div > div:last-child {
+    margin-top: 0 !important;
+  }
+
+  .case-study-metric-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+
+  .leak-selector-btn {
+    padding: 1rem 0.85rem !important;
+  }
+
+  .leak-selector-btn h4,
+  .leak-selector-btn div {
+    font-size: 0.95rem !important;
+  }
+}

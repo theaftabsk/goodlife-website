@@ -1,0 +1,302 @@
+/* ═════════════════════════════════════════════════════════════════════════
+   CASE STUDY DETAIL RESPONSIVE STYLES (Good Life Enterprise)
+   Desktop retains exact pristine design; Mobile (< 768px & < 480px) is optimized
+   ═════════════════════════════════════════════════════════════════════════ */
+
+.csd-page-root {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Breadcrumb Bar */
+.csd-breadcrumb-bar {
+  background: #FFFFFF;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.csd-breadcrumb-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.85rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: #64748B;
+  flex-wrap: wrap;
+}
+
+.csd-breadcrumb-current {
+  color: #0F172A;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 450px;
+}
+
+/* Hero Header */
+.csd-hero-section {
+  position: relative;
+  padding-top: 4rem;
+  padding-bottom: 4.5rem;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F0F7FF 50%, #F8FAFC 100%);
+  border-bottom: 1px solid #E2E8F0;
+  overflow: hidden;
+}
+
+.csd-hero-glow {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1100px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(37,99,235,0.08) 0%, rgba(56,189,248,0.03) 50%, transparent 70%);
+  pointer-events: none;
+}
+
+.csd-hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  position: relative;
+  z-index: 2;
+}
+
+.csd-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.csd-hero-title {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  max-width: 980px;
+  color: #0F172A;
+  margin: 0 0 1.2rem;
+}
+
+.csd-hero-desc {
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  color: #475569;
+  max-width: 860px;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Floating Outcome Metrics Bar */
+.csd-metrics-wrap {
+  max-width: 1200px;
+  margin: -2rem auto 3rem;
+  padding: 0 1.25rem;
+  position: relative;
+  z-index: 10;
+}
+
+.csd-metrics-bar {
+  background: #FFFFFF;
+  border-radius: 16px;
+  border: 1.5px solid #E2E8F0;
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.07);
+  padding: 1.6rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Main Content Grid (Article + Sidebar) */
+.csd-content-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.25rem 5rem;
+}
+
+.csd-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.csd-article-column {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.csd-cover-image-box {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  max-height: 440px;
+  background: #0F172A;
+}
+
+.csd-article-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  border: 1px solid #E2E8F0;
+  padding: 2.2rem 2.4rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.csd-testimonial-box {
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+  border-radius: 16px;
+  padding: 2.4rem 2.6rem;
+  color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+}
+
+.csd-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: sticky;
+  top: 2rem;
+}
+
+/* Related Studies */
+.csd-related-wrap {
+  margin-top: 5rem;
+  padding-top: 3rem;
+  border-top: 1px solid #E2E8F0;
+}
+
+.csd-related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   TABLET RESPONSIVENESS (max-width: 991px)
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 991px) {
+  .csd-content-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  .csd-sidebar {
+    position: static !important;
+  }
+
+  .csd-related-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.25rem !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   MOBILE RESPONSIVENESS (max-width: 768px)
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .csd-breadcrumb-current {
+    max-width: 200px !important;
+  }
+
+  .csd-hero-section {
+    padding-top: 2rem !important;
+    padding-bottom: 2.75rem !important;
+  }
+
+  .csd-meta-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .csd-hero-title {
+    font-size: 1.85rem !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.5px !important;
+    margin-bottom: 0.85rem !important;
+  }
+
+  .csd-hero-desc {
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+  }
+
+  .csd-metrics-wrap {
+    margin: -1.2rem auto 2.2rem !important;
+  }
+
+  .csd-metrics-bar {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+    padding: 1.15rem 1rem !important;
+    border-radius: 14px !important;
+  }
+
+  .csd-content-wrap {
+    padding: 0 1rem 3.5rem !important;
+  }
+
+  .csd-article-column {
+    gap: 1.75rem !important;
+  }
+
+  .csd-cover-image-box {
+    max-height: 240px !important;
+  }
+
+  .csd-article-card {
+    padding: 1.35rem 1.1rem !important;
+    border-radius: 14px !important;
+  }
+
+  .csd-article-card h2 {
+    font-size: 1.25rem !important;
+  }
+
+  .csd-testimonial-box {
+    padding: 1.5rem 1.2rem !important;
+    border-radius: 14px !important;
+  }
+
+  .csd-testimonial-box p {
+    font-size: 1rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .csd-related-wrap {
+    margin-top: 3.5rem !important;
+    padding-top: 2rem !important;
+  }
+
+  .csd-related-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.2rem !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SMALL PHONES (max-width: 480px / 360px)
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .csd-hero-title {
+    font-size: 1.65rem !important;
+  }
+
+  .csd-metrics-bar {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
+    padding: 1rem 0.85rem !important;
+  }
+
+  .csd-article-card {
+    padding: 1.15rem 0.9rem !important;
+  }
+}

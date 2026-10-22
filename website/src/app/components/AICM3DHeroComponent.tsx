@@ -294,7 +294,7 @@ export default function AICM3DHeroComponent({ onOpenDiagnostic, onOpenVideo }: A
               </p>
 
               {/* Primary CTA & Secondary Action Row */}
-              <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap", marginBottom: "1.5rem" }}>
+              <div className="hero-btn-row" style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap", marginBottom: "1.5rem" }}>
                 <button
                   className="btn-primary-hero"
                   onClick={onOpenDiagnostic}
@@ -320,11 +320,30 @@ export default function AICM3DHeroComponent({ onOpenDiagnostic, onOpenVideo }: A
             </div>
 
             {/* Right Column Spacer for Desktop */}
-            <div style={{ height: "480px", pointerEvents: "none" }} />
+            <div className="hero-right-spacer" style={{ height: "480px", pointerEvents: "none" }} />
 
           </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 1024px) {
+          .hero-right-spacer {
+            display: none !important;
+            height: 0 !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .hero-btn-row {
+            flex-direction: column !important;
+            width: 100% !important;
+          }
+          .hero-btn-row button {
+            width: 100% !important;
+            justify-content: center !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

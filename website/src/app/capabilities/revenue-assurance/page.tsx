@@ -5,6 +5,7 @@ import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CommerceDiagnosticModal from "../../components/CommerceDiagnosticModal";
+import "./revenue-assurance.css";
 
 export default function RevenueAssurancePage() {
   const [diagOpen, setDiagOpen] = useState(false);
@@ -123,124 +124,35 @@ export default function RevenueAssurancePage() {
   ];
 
   return (
-    <div style={{ background: "#FFFFFF", color: "#0F172A", minHeight: "100vh", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
-      <style>{`
-        .light-panel {
-          background: #FFFFFF;
-          border: 1px solid #E2E8F0;
-          border-radius: 20px;
-          box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
-          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-        }
-        .light-panel:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 12px 30px rgba(16, 185, 129, 0.08);
-          border-color: #A7F3D0;
-        }
-        .touch-slider-green {
-          -webkit-appearance: none;
-          appearance: none;
-          width: 100%;
-          height: 8px;
-          border-radius: 999px;
-          background: #E2E8F0;
-          outline: none;
-          margin: 1.25rem 0;
-          cursor: pointer;
-        }
-        .touch-slider-green::-webkit-slider-thumb {
-          -webkit-appearance: none;
-          appearance: none;
-          width: 26px;
-          height: 26px;
-          border-radius: 50%;
-          background: #10B981;
-          border: 3px solid #FFFFFF;
-          box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
-          cursor: pointer;
-        }
-        .rev-hero-section {
-          padding-top: 3.5rem;
-          padding-bottom: 4rem;
-        }
-        .rev-section-block {
-          padding: 4.5rem 0;
-        }
-        .rev-section-header {
-          text-align: center;
-          max-width: 720px;
-          margin: 0 auto 2.75rem;
-        }
-        @media (max-width: 991px) {
-          .rev-hero-section {
-            padding-top: 2rem !important;
-            padding-bottom: 2.75rem !important;
-          }
-          .rev-hero-grid { grid-template-columns: 1fr !important; gap: 2.25rem !important; }
-          .rev-section-block { padding: 3rem 0 !important; }
-          .rev-section-header { margin-bottom: 1.85rem !important; }
-          .calc-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
-          .radar-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          .waterfall-desktop { display: none !important; }
-          .waterfall-mobile { display: flex !important; }
-          .dossier-grid { grid-template-columns: 1fr !important; }
-        }
-        @media (max-width: 640px) {
-          .rev-hero-section {
-            padding-top: 1.5rem !important;
-            padding-bottom: 2rem !important;
-          }
-          .rev-hero-grid { gap: 1.5rem !important; }
-          .rev-section-block { padding: 2.25rem 0 !important; }
-          .rev-section-header { margin-bottom: 1.35rem !important; }
-          .radar-grid { grid-template-columns: 1fr !important; }
-          .calc-breakdown-grid { grid-template-columns: 1fr 1fr !important; }
-          .cta-inner-box { padding: 2rem 1.25rem !important; border-radius: 18px !important; }
-        }
-      `}</style>
-      
+    <div className="rev-page-root" style={{ background: "#FFFFFF", color: "#0F172A", minHeight: "100vh", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* ── 1. LIGHT BESPOKE HERO ── */}
-      <section className="rev-hero-section" style={{
-        background: "linear-gradient(180deg, #ECFDF5 0%, #FFFFFF 100%)",
-        borderBottom: "1px solid #E2E8F0"
-      }}>
+      <section className="rev-hero-section">
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div className="rev-hero-grid" style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: "3.5rem", alignItems: "center" }}>
+          <div className="rev-hero-grid">
             
             {/* Left: Messaging */}
             <div>
-              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.35rem 0.85rem", background: "#D1FAE5", border: "1px solid #A7F3D0", borderRadius: "999px", marginBottom: "1.25rem" }}>
-                <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10B981" }} />
-                <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#065F46", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-                  CAPABILITY 06 // FINANCIAL RECONCILIATION & FEE LEAKAGE
+              <div className="rev-hero-badge">
+                <span className="rev-badge-tag">
+                  <span className="rev-pulse" />
+                  CAPABILITY 06
                 </span>
+                <span className="rev-badge-sep">//</span>
+                <span className="rev-badge-title">FINANCIAL RECONCILIATION & FEE LEAKAGE</span>
               </div>
 
-              <h1 style={{
-                fontSize: "clamp(2.3rem, 4.5vw, 3.8rem)",
-                fontWeight: 800,
-                color: "#0F172A",
-                lineHeight: 1.05,
-                letterSpacing: "-0.03em",
-                margin: "0 0 1.25rem"
-              }}>
+              <h1 className="rev-hero-title">
                 Stop Marketplace Fee Leakage. Reclaim Trapped Brand Capital.
               </h1>
 
-              <p style={{
-                fontSize: "clamp(1rem, 1.8vw, 1.15rem)",
-                color: "#475569",
-                lineHeight: 1.65,
-                margin: "0 0 2rem",
-                maxWidth: "580px"
-              }}>
+              <p className="rev-hero-desc">
                 Marketplace algorithms silently overcharge brands 2% to 5% of GMV through volumetric weight miscalculations, uncredited customer returns, and incorrect commission rates. We audit every order and recover every rupee.
               </p>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="rev-hero-actions mobile-btn-stack">
                 <button
                   onClick={() => setDiagOpen(true)}
                   style={{
@@ -276,6 +188,7 @@ export default function RevenueAssurancePage() {
                     textDecoration: "none",
                     display: "inline-flex",
                     alignItems: "center",
+                    justifyContent: "center",
                     transition: "all 0.2s ease"
                   }}
                   onMouseEnter={(e) => {
@@ -293,23 +206,10 @@ export default function RevenueAssurancePage() {
             </div>
 
             {/* Right: Financial Assurance Terminal (White Dashboard) */}
-            <div style={{
-              background: "#FFFFFF",
-              border: "1.5px solid #A7F3D0",
-              borderRadius: "24px",
-              boxShadow: "0 12px 35px rgba(16, 185, 129, 0.05), 0 2px 6px rgba(15, 23, 42, 0.03)",
-              overflow: "hidden"
-            }}>
-              <div style={{
-                padding: "1rem 1.5rem",
-                background: "#ECFDF5",
-                borderBottom: "1px solid #D1FAE5",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between"
-              }}>
+            <div className="rev-cockpit-card">
+              <div className="rev-cockpit-header">
                 <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10B981" }} />
+                  <span className="rev-pulse" />
                   <span style={{ fontSize: "0.8rem", fontWeight: 800, color: "#065F46", letterSpacing: "0.06em", textTransform: "uppercase" }}>
                     FINANCIAL ASSURANCE TERMINAL
                   </span>
@@ -319,7 +219,7 @@ export default function RevenueAssurancePage() {
                 </div>
               </div>
 
-              <div style={{ padding: "1.75rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+              <div className="rev-cockpit-body">
                 
                 {/* Metric 1 */}
                 <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "1.1rem 1.25rem" }}>
@@ -371,31 +271,22 @@ export default function RevenueAssurancePage() {
       </section>
 
       {/* ── 2. REAL INTERACTIVE FEE LEAKAGE CALCULATOR ── */}
-      <section style={{ padding: "5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="rev-section-block" style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "720px", margin: "0 auto 3rem" }}>
+          <div className="rev-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#10B981", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               INTERACTIVE REVENUE RECOVERY ESTIMATOR
             </span>
             <h2 style={{ fontSize: "clamp(1.9rem, 3.2vw, 2.6rem)", fontWeight: 800, color: "#0F172A", margin: "0 0 0.75rem", letterSpacing: "-0.02em" }}>
-              Calculate Your Brand's Hidden Fee Leakage
+              Calculate Your Brand&apos;s Hidden Fee Leakage
             </h2>
             <p style={{ fontSize: "1rem", color: "#64748B", lineHeight: 1.6, margin: 0 }}>
               Adjust your monthly marketplace GMV (₹20 Lakhs – ₹10 Crores) to calculate exact capital recoverable across commission errors, weight discrepancies, and uncredited returns.
             </p>
           </div>
 
-          <div className="calc-grid" style={{
-            display: "grid",
-            gridTemplateColumns: "1.1fr 1fr",
-            gap: "2.5rem",
-            background: "#FFFFFF",
-            border: "1px solid #E2E8F0",
-            borderRadius: "24px",
-            padding: "2.5rem",
-            boxShadow: "0 8px 30px rgba(15, 23, 42, 0.04)"
-          }}>
+          <div className="calc-grid">
             {/* Input Slider */}
             <div>
               <div style={{ marginBottom: "2rem" }}>
@@ -458,11 +349,11 @@ export default function RevenueAssurancePage() {
                   ₹{(annualCapitalRecoverable / 100000).toFixed(1)} Lakhs <span style={{ fontSize: "1rem", color: "#64748B", fontWeight: 500 }}>/ year</span>
                 </div>
                 <p style={{ fontSize: "0.88rem", color: "#475569", lineHeight: 1.5, margin: "0 0 1.5rem" }}>
-                  Total bottom-line cash reclaimed via Good Life's daily order-level reconciliation and automated dispute filing.
+                  Total bottom-line cash reclaimed via Good Life&apos;s daily order-level reconciliation and automated dispute filing.
                 </p>
               </div>
 
-              <div className="calc-breakdown-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", borderTop: "1px solid #A7F3D0", paddingTop: "1.25rem" }}>
+              <div className="calc-breakdown-grid">
                 <div>
                   <div style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 600, marginBottom: "0.2rem" }}>Blended Leakage Rate</div>
                   <div style={{ fontSize: "1.3rem", fontWeight: 800, color: "#10B981" }}>3.6% of GMV</div>
@@ -482,10 +373,10 @@ export default function RevenueAssurancePage() {
       </section>
 
       {/* ── 3. 6-POINT LEAKAGE RADAR ── */}
-      <section style={{ padding: "5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="rev-section-block" style={{ background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+          <div className="rev-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#2563EB", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               COMPREHENSIVE AUDIT PERIMETER
             </span>
@@ -497,7 +388,7 @@ export default function RevenueAssurancePage() {
             </p>
           </div>
 
-          <div className="radar-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem" }}>
+          <div className="radar-grid">
             {sixRadarPoints.map((rp, idx) => (
               <div key={idx} className="light-panel" style={{ padding: "1.75rem 1.5rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.85rem" }}>
@@ -526,10 +417,10 @@ export default function RevenueAssurancePage() {
       </section>
 
       {/* ── 4. DAILY ESCROW AUDIT WATERFALL ── */}
-      <section style={{ padding: "5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="rev-section-block" style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+          <div className="rev-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#10B981", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               AUTOMATED RECONCILIATION PIPELINE
             </span>
@@ -542,7 +433,7 @@ export default function RevenueAssurancePage() {
           </div>
 
           {/* Desktop Horizontal */}
-          <div className="waterfall-desktop" style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "1rem" }}>
+          <div className="waterfall-desktop">
             {waterfallSteps.map((ws, idx) => (
               <div key={idx} style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "16px", padding: "1.5rem 1.25rem", boxShadow: "0 2px 6px rgba(15, 23, 42, 0.02)" }}>
                 <div style={{ width: "32px", height: "32px", borderRadius: "8px", background: "#ECFDF5", color: "#10B981", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: "0.95rem", marginBottom: "1rem" }}>
@@ -559,7 +450,7 @@ export default function RevenueAssurancePage() {
           </div>
 
           {/* Mobile Vertical */}
-          <div className="waterfall-mobile" style={{ display: "none", flexDirection: "column", gap: "1rem" }}>
+          <div className="waterfall-mobile">
             {waterfallSteps.map((ws, idx) => (
               <div key={idx} style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "16px", padding: "1.25rem" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
@@ -581,10 +472,10 @@ export default function RevenueAssurancePage() {
       </section>
 
       {/* ── 5. SETTLEMENT DISCREPANCY AUDIT DOSSIERS ── */}
-      <section style={{ padding: "5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="rev-section-block" style={{ background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+          <div className="rev-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#10B981", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               LINE-ITEM AUDIT EVIDENCE
             </span>
@@ -596,7 +487,7 @@ export default function RevenueAssurancePage() {
             </p>
           </div>
 
-          <div className="dossier-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
+          <div className="dossier-grid">
             {discrepancyDossiers.map((dd, idx) => (
               <div key={idx} className="light-panel" style={{ padding: "2rem 1.75rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.75rem" }}>
@@ -626,19 +517,10 @@ export default function RevenueAssurancePage() {
       </section>
 
       {/* ── 6. LIGHT ENTERPRISE EXECUTIVE CTA BANNER ── */}
-      <section style={{ padding: "5rem 0", background: "#F8FAFC" }}>
+      <section className="rev-section-block" style={{ background: "#F8FAFC" }}>
         <div style={{ maxWidth: "1150px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div
-            className="cta-inner-box"
-            style={{
-              background: "linear-gradient(135deg, #ECFDF5 0%, #FFFFFF 100%)",
-              border: "1.5px solid #A7F3D0",
-              borderRadius: "24px",
-              padding: "3.5rem 3rem",
-              boxShadow: "0 10px 30px rgba(16, 185, 129, 0.06)"
-            }}
-          >
+          <div className="cta-inner-box">
             <div style={{ maxWidth: "720px" }}>
               <span style={{ display: "inline-block", fontSize: "0.78rem", fontWeight: 800, letterSpacing: "0.08em", color: "#10B981", textTransform: "uppercase", marginBottom: "0.75rem" }}>
                 COMPLIMENTARY REVENUE AUDIT
@@ -650,7 +532,7 @@ export default function RevenueAssurancePage() {
                 Let our financial forensics team run an automated audit on your last 90 days of Amazon and Flipkart settlement files. We identify your exact fee leakage down to the paisa within 48 hours under NDA.
               </p>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="rev-cta-actions mobile-btn-stack">
                 <Link
                   href="/book-meeting"
                   style={{
@@ -664,6 +546,7 @@ export default function RevenueAssurancePage() {
                     textDecoration: "none",
                     display: "inline-flex",
                     alignItems: "center",
+                    justifyContent: "center",
                     boxShadow: "0 4px 14px rgba(37, 99, 235, 0.25)",
                     transition: "all 0.2s ease"
                   }}
@@ -685,6 +568,9 @@ export default function RevenueAssurancePage() {
                     fontWeight: 700,
                     fontSize: "0.95rem",
                     cursor: "pointer",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                     transition: "all 0.2s ease"
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.background = "#EFF6FF")}

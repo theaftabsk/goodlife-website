@@ -224,7 +224,7 @@ export default function CommercialModels({ onOpenDiag }: { onOpenDiag: () => voi
         {/* 4 Models Compact Liquid Glass Grid */}
         <div className="models-grid" style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))",
           gap: "1.25rem",
           marginBottom: "2.6rem"
         }}>
@@ -446,7 +446,7 @@ export default function CommercialModels({ onOpenDiag }: { onOpenDiag: () => voi
 
           <div className="non-negotiables-grid" style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))",
             gap: "1rem"
           }}>
             {[

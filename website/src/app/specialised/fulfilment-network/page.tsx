@@ -6,6 +6,7 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CommerceDiagnosticModal from "../../components/CommerceDiagnosticModal";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import "./fulfilment-network.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
@@ -183,7 +184,7 @@ export default function FulfilmentNetworkPage() {
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* Hero Section */}
-      <section style={{
+      <section className="fulfilment-hero-section" style={{
         position: "relative",
         paddingTop: "3.5rem",
         paddingBottom: "4.5rem",
@@ -210,7 +211,7 @@ export default function FulfilmentNetworkPage() {
           </div>
 
           <div style={{ maxWidth: "920px" }}>
-            <div style={{
+            <div className="fulfilment-pill-badge" style={{
               display: "inline-flex",
               alignItems: "center",
               gap: "0.5rem",
@@ -229,7 +230,7 @@ export default function FulfilmentNetworkPage() {
               Pan-India Footprint • 12 Managed Regional Hubs
             </div>
 
-            <h1 style={{
+            <h1 className="fulfilment-hero-title" style={{
               fontSize: "clamp(2.4rem, 4.8vw, 3.8rem)",
               fontWeight: 900,
               lineHeight: 1.15,
@@ -252,7 +253,7 @@ export default function FulfilmentNetworkPage() {
               Eliminate multi-day shipping delays and costly national zone freight rates. Good Life operates 12 managed warehouse hubs across India, giving your brand localized Prime and Next-Day delivery badges across 92% of India&apos;s online purchasing population.
             </p>
 
-            <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+            <div className="mobile-btn-stack" style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
               <button
                 onClick={() => setDiagOpen(true)}
                 style={{
@@ -305,7 +306,7 @@ export default function FulfilmentNetworkPage() {
       {/* Stats Strip */}
       <section style={{ background: "#FFFFFF", borderBottom: "1px solid #E2E8F0", padding: "2.2rem 0" }}>
         <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "2rem" }}>
+          <div className="fulfilment-stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: "2rem" }}>
             {[
               { val: "12 Hubs", label: "Operational Regional Hubs", sub: "Strategically located across 4 key zones" },
               { val: "19,000+", label: "Pin Codes Serviced", sub: "Reaching Tier-1, Tier-2, and Tier-3 India" },
@@ -337,11 +338,12 @@ export default function FulfilmentNetworkPage() {
             </p>
 
             {/* Zone Filter Buttons */}
-            <div style={{ display: "flex", justifyContent: "center", gap: "0.5rem", marginTop: "1.8rem", flexWrap: "wrap" }}>
+            <div className="zone-filter-bar" style={{ display: "flex", justifyContent: "center", gap: "0.5rem", marginTop: "1.8rem", flexWrap: "wrap" }}>
               {(["All", "West", "North", "South", "East"] as const).map(zone => (
                 <button
                   key={zone}
                   onClick={() => setSelectedZone(zone)}
+                  className="zone-filter-btn"
                   style={{
                     padding: "0.55rem 1.25rem",
                     borderRadius: "999px",
@@ -364,7 +366,7 @@ export default function FulfilmentNetworkPage() {
           <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "2.5rem", alignItems: "start" }} className="network-grid-responsive">
             
             {/* Hub List */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1rem" }}>
+            <div className="hub-list-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))", gap: "1rem" }}>
               {filteredHubs.map((hub) => {
                 const isSelected = selectedHub.id === hub.id;
                 return (
@@ -414,7 +416,7 @@ export default function FulfilmentNetworkPage() {
             </div>
 
             {/* Selected Hub Deep Dive Card (Sticky) */}
-            <div style={{
+            <div className="network-detail-sticky hub-detail-card" style={{
               background: "#FFFFFF",
               borderRadius: "24px",
               padding: "2.4rem",
@@ -449,7 +451,7 @@ export default function FulfilmentNetworkPage() {
                 </div>
               </div>
 
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", margin: "1.5rem 0", padding: "1.2rem", background: "#F8FAFC", borderRadius: "14px", border: "1px solid #E2E8F0" }}>
+              <div className="hub-specs-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", margin: "1.5rem 0", padding: "1.2rem", background: "#F8FAFC", borderRadius: "14px", border: "1px solid #E2E8F0" }}>
                 <div>
                   <div style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 600 }}>Active Storage Capacity</div>
                   <div style={{ fontSize: "1.05rem", fontWeight: 800, color: "#0F172A", marginTop: "0.2rem" }}>{selectedHub.sqft}</div>
@@ -535,7 +537,7 @@ export default function FulfilmentNetworkPage() {
             </p>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "2rem" }}>
+          <div className="compliance-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: "2rem" }}>
             {[
               {
                 title: "Additional Place of Business (APOB) Registration",
@@ -565,7 +567,7 @@ export default function FulfilmentNetworkPage() {
       {/* Conversion Banner */}
       <section style={{ padding: "4rem 0 4.5rem", background: "#FFFFFF", borderTop: "1px solid #E2E8F0" }}>
         <div className="container" style={{ maxWidth: "1140px", margin: "0 auto", padding: "0 1.5rem" }}>
-          <div style={{
+          <div className="network-cta-banner" style={{
             background: "linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 100%)",
             border: "1.5px solid #BFDBFE",
             borderRadius: "24px",
@@ -597,7 +599,7 @@ export default function FulfilmentNetworkPage() {
               <p style={{ fontSize: "1.05rem", color: "#475569", lineHeight: 1.65, margin: "0 auto 2rem auto", maxWidth: "620px" }}>
                 Run our Commerce Diagnostic to simulate your optimal regional inventory split and projected freight cost savings across all 12 warehouse nodes.
               </p>
-              <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="mobile-btn-stack" style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
                 <button
                   onClick={() => setDiagOpen(true)}
                   style={{

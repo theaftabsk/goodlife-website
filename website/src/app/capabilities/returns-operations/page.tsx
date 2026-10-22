@@ -5,6 +5,7 @@ import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CommerceDiagnosticModal from "../../components/CommerceDiagnosticModal";
+import "./returns-operations.css";
 
 export default function ReturnsOperationsPage() {
   const [diagOpen, setDiagOpen] = useState(false);
@@ -154,101 +155,35 @@ export default function ReturnsOperationsPage() {
   ];
 
   return (
-    <div style={{ background: "#FFFFFF", color: "#0F172A", minHeight: "100vh", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
-      <style>{`
-        .light-panel {
-          background: #FFFFFF;
-          border: 1px solid #E2E8F0;
-          border-radius: 20px;
-          box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
-          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-        }
-        .light-panel:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 12px 30px rgba(225, 29, 72, 0.08);
-          border-color: #FECDD3;
-        }
-        .ret-hero-section {
-          padding-top: 3.5rem;
-          padding-bottom: 4rem;
-        }
-        .ret-section-block {
-          padding: 4.5rem 0;
-        }
-        .ret-section-header {
-          text-align: center;
-          max-width: 720px;
-          margin: 0 auto 2.75rem;
-        }
-        @media (max-width: 991px) {
-          .ret-hero-section {
-            padding-top: 2rem !important;
-            padding-bottom: 2.75rem !important;
-          }
-          .ret-hero-grid { grid-template-columns: 1fr !important; gap: 2.25rem !important; }
-          .ret-section-block { padding: 3rem 0 !important; }
-          .ret-section-header { margin-bottom: 1.85rem !important; }
-          .grading-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          .rto-pipeline-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          .forensics-grid { grid-template-columns: 1fr !important; }
-          .dossier-grid { grid-template-columns: 1fr !important; }
-        }
-        @media (max-width: 640px) {
-          .ret-hero-section {
-            padding-top: 1.5rem !important;
-            padding-bottom: 2rem !important;
-          }
-          .ret-hero-grid { gap: 1.5rem !important; }
-          .ret-section-block { padding: 2.25rem 0 !important; }
-          .ret-section-header { margin-bottom: 1.35rem !important; }
-          .grading-grid { grid-template-columns: 1fr !important; }
-          .rto-pipeline-grid { grid-template-columns: 1fr !important; }
-          .cta-inner-box { padding: 2rem 1.25rem !important; border-radius: 18px !important; }
-        }
-      `}</style>
-      
+    <div className="ret-page-root" style={{ background: "#FFFFFF", color: "#0F172A", minHeight: "100vh", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* ── 1. LIGHT BESPOKE HERO ── */}
-      <section className="ret-hero-section" style={{
-        background: "linear-gradient(180deg, #FFF1F2 0%, #FFFFFF 100%)",
-        borderBottom: "1px solid #E2E8F0"
-      }}>
+      <section className="ret-hero-section">
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div className="ret-hero-grid" style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: "3.5rem", alignItems: "center" }}>
+          <div className="ret-hero-grid">
             
             {/* Left: Messaging */}
             <div>
-              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.35rem 0.85rem", background: "#FFE4E6", border: "1px solid #FECDD3", borderRadius: "999px", marginBottom: "1.25rem" }}>
-                <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#E11D48" }} />
-                <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#9F1239", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-                  CAPABILITY 05 // REVERSE LOGISTICS & DISPUTE FORENSICS
+              <div className="ret-hero-badge">
+                <span className="ret-badge-tag">
+                  <span className="ret-pulse" />
+                  CAPABILITY 05
                 </span>
+                <span className="ret-badge-sep">//</span>
+                <span className="ret-badge-title">REVERSE LOGISTICS & DISPUTE FORENSICS</span>
               </div>
 
-              <h1 style={{
-                fontSize: "clamp(2.3rem, 4.5vw, 3.8rem)",
-                fontWeight: 800,
-                color: "#0F172A",
-                lineHeight: 1.05,
-                letterSpacing: "-0.03em",
-                margin: "0 0 1.25rem"
-              }}>
+              <h1 className="ret-hero-title">
                 Transform Costly Returns into Automated Capital Recovery
               </h1>
 
-              <p style={{
-                fontSize: "clamp(1rem, 1.8vw, 1.15rem)",
-                color: "#475569",
-                lineHeight: 1.65,
-                margin: "0 0 2rem",
-                maxWidth: "580px"
-              }}>
+              <p className="ret-hero-desc">
                 Recover margin leakage from customer returns, fraudulent courier swaps, and in-transit RTO damages with 24-hour grading triage and forensic SAFE-T reimbursement filing.
               </p>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="ret-hero-actions mobile-btn-stack">
                 <button
                   onClick={() => setDiagOpen(true)}
                   style={{
@@ -284,6 +219,7 @@ export default function ReturnsOperationsPage() {
                     textDecoration: "none",
                     display: "inline-flex",
                     alignItems: "center",
+                    justifyContent: "center",
                     transition: "all 0.2s ease"
                   }}
                   onMouseEnter={(e) => {
@@ -301,23 +237,10 @@ export default function ReturnsOperationsPage() {
             </div>
 
             {/* Right: Reverse Logistics Control Station (White Dashboard) */}
-            <div style={{
-              background: "#FFFFFF",
-              border: "1.5px solid #FECDD3",
-              borderRadius: "24px",
-              boxShadow: "0 12px 35px rgba(225, 29, 72, 0.05), 0 2px 6px rgba(15, 23, 42, 0.03)",
-              overflow: "hidden"
-            }}>
-              <div style={{
-                padding: "1rem 1.5rem",
-                background: "#FFF1F2",
-                borderBottom: "1px solid #FFE4E6",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between"
-              }}>
+            <div className="ret-cockpit-card">
+              <div className="ret-cockpit-header">
                 <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#E11D48" }} />
+                  <span className="ret-pulse" />
                   <span style={{ fontSize: "0.8rem", fontWeight: 800, color: "#9F1239", letterSpacing: "0.06em", textTransform: "uppercase" }}>
                     REVERSE LOGISTICS CONTROL STATION
                   </span>
@@ -327,7 +250,7 @@ export default function ReturnsOperationsPage() {
                 </div>
               </div>
 
-              <div style={{ padding: "1.75rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+              <div className="ret-cockpit-body">
                 
                 {/* Metric 1 */}
                 <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "1.1rem 1.25rem" }}>
@@ -379,10 +302,10 @@ export default function ReturnsOperationsPage() {
       </section>
 
       {/* ── 2. 4-TIER RETURN GRADING STATION ── */}
-      <section style={{ padding: "5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="ret-section-block" style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "720px", margin: "0 auto 3rem" }}>
+          <div className="ret-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#E11D48", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               INWARDING TRIAGE WORKBENCH
             </span>
@@ -394,22 +317,18 @@ export default function ReturnsOperationsPage() {
             </p>
           </div>
 
-          <div className="grading-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem", marginBottom: "2rem" }}>
+          <div className="grading-grid">
             {gradingTiers.map((t, idx) => {
               const isSelected = activeGrade === idx;
               return (
                 <button
                   key={idx}
                   onClick={() => setActiveGrade(idx)}
+                  className="grading-btn"
                   style={{
-                    padding: "1.25rem 1rem",
-                    borderRadius: "16px",
                     border: isSelected ? `1.5px solid ${t.color}` : "1px solid #E2E8F0",
                     background: isSelected ? t.bg : "#FFFFFF",
-                    textAlign: "left",
-                    cursor: "pointer",
-                    boxShadow: isSelected ? "0 4px 14px rgba(15, 23, 42, 0.08)" : "0 2px 6px rgba(15, 23, 42, 0.02)",
-                    transition: "all 0.2s ease"
+                    boxShadow: isSelected ? "0 4px 14px rgba(15, 23, 42, 0.08)" : "0 2px 6px rgba(15, 23, 42, 0.02)"
                   }}
                 >
                   <div style={{ fontSize: "0.72rem", fontWeight: 800, color: t.color, marginBottom: "0.3rem" }}>
@@ -418,7 +337,7 @@ export default function ReturnsOperationsPage() {
                   <div style={{ fontSize: "0.95rem", fontWeight: 800, color: "#0F172A", marginBottom: "0.4rem" }}>
                     {t.name}
                   </div>
-                  <span style={{ fontSize: "0.68rem", fontWeight: 700, color: t.color, background: "#FFFFFF", padding: "0.15rem 0.45rem", borderRadius: "4px", border: `1px solid ${t.border}` }}>
+                  <span style={{ fontSize: "0.68rem", fontWeight: 700, color: t.color, background: "#FFFFFF", padding: "0.15rem 0.45rem", borderRadius: "4px", border: `1px solid ${t.border}`, display: "inline-block" }}>
                     {t.badge}
                   </span>
                 </button>
@@ -430,8 +349,8 @@ export default function ReturnsOperationsPage() {
           {(() => {
             const cur = gradingTiers[activeGrade];
             return (
-              <div style={{ background: "#FFFFFF", border: `1px solid ${cur.border}`, borderRadius: "22px", padding: "2.5rem", boxShadow: "0 8px 30px rgba(15, 23, 42, 0.04)" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.5rem", flexWrap: "wrap", gap: "1rem" }}>
+              <div className="grading-detail-panel" style={{ border: `1px solid ${cur.border}` }}>
+                <div className="grading-detail-header">
                   <div>
                     <span style={{ fontSize: "0.75rem", fontWeight: 800, color: cur.color, background: cur.bg, padding: "0.25rem 0.65rem", borderRadius: "6px" }}>
                       {cur.grade}: {cur.badge}
@@ -439,11 +358,11 @@ export default function ReturnsOperationsPage() {
                     <h3 style={{ fontSize: "1.6rem", fontWeight: 800, color: "#0F172A", margin: "0.75rem 0 0.35rem" }}>
                       {cur.name}
                     </h3>
-                    <p style={{ fontSize: "0.95rem", color: "#475569", margin: 0, maxWidth: "700px" }}>
+                    <p style={{ fontSize: "0.95rem", color: "#475569", margin: 0, maxWidth: "700px", lineHeight: 1.6 }}>
                       {cur.desc}
                     </p>
                   </div>
-                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "12px", padding: "0.75rem 1.25rem", textAlign: "right" }}>
+                  <div className="grading-triage-share-box" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "12px", padding: "0.75rem 1.25rem", textAlign: "right" }}>
                     <div style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 600 }}>Triage Share</div>
                     <div style={{ fontSize: "1.3rem", fontWeight: 800, color: cur.color }}>{cur.recoveryShare}</div>
                   </div>
@@ -453,11 +372,11 @@ export default function ReturnsOperationsPage() {
                   <div style={{ fontSize: "0.85rem", fontWeight: 800, color: "#0F172A", textTransform: "uppercase", marginBottom: "1rem" }}>
                     OPERATIONAL PROTOCOL STEPS:
                   </div>
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "0.75rem" }}>
+                  <div className="grading-steps-grid">
                     {cur.steps.map((s, sIdx) => (
-                      <div key={sIdx} style={{ display: "flex", alignItems: "flex-start", gap: "0.5rem" }}>
+                      <div key={sIdx} className="grading-step-item">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={cur.color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: "2px", flexShrink: 0 }}><polyline points="20 6 9 17 4 12" /></svg>
-                        <span style={{ fontSize: "0.88rem", color: "#334155", fontWeight: 500 }}>{s}</span>
+                        <span style={{ fontSize: "0.88rem", color: "#334155", fontWeight: 500, lineHeight: 1.45 }}>{s}</span>
                       </div>
                     ))}
                   </div>
@@ -470,10 +389,10 @@ export default function ReturnsOperationsPage() {
       </section>
 
       {/* ── 3. RTO MINIMIZATION ENGINE ── */}
-      <section style={{ padding: "5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="ret-section-block" style={{ background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+          <div className="ret-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#E11D48", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               PRE-RETURN PREVENTION ENGINE
             </span>
@@ -485,7 +404,7 @@ export default function ReturnsOperationsPage() {
             </p>
           </div>
 
-          <div className="rto-pipeline-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem" }}>
+          <div className="rto-pipeline-grid">
             {rtoEngineSteps.map((re, idx) => (
               <div key={idx} className="light-panel" style={{ padding: "1.75rem 1.5rem" }}>
                 <div style={{ width: "32px", height: "32px", borderRadius: "8px", background: "#FFF1F2", color: "#E11D48", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: "0.95rem", marginBottom: "1rem" }}>
@@ -508,10 +427,10 @@ export default function ReturnsOperationsPage() {
       </section>
 
       {/* ── 4. DISPUTE FORENSICS EVIDENCE WORKFLOW ── */}
-      <section style={{ padding: "5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="ret-section-block" style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+          <div className="ret-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#2563EB", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               IRREFUTABLE EVIDENCE CHAIN
             </span>
@@ -523,7 +442,7 @@ export default function ReturnsOperationsPage() {
             </p>
           </div>
 
-          <div className="forensics-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
+          <div className="forensics-grid">
             {forensicWorkflow.map((fw, idx) => (
               <div key={idx} className="light-panel" style={{ padding: "2rem 1.75rem" }}>
                 <div style={{ fontSize: "0.72rem", fontWeight: 800, color: "#2563EB", background: "#EFF6FF", padding: "0.2rem 0.6rem", borderRadius: "6px", display: "inline-block", marginBottom: "0.85rem" }}>
@@ -546,10 +465,10 @@ export default function ReturnsOperationsPage() {
       </section>
 
       {/* ── 5. REAL-WORLD FORENSIC CASE DOSSIERS ── */}
-      <section style={{ padding: "5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="ret-section-block" style={{ background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+          <div className="ret-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#E11D48", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               DOCUMENTED CASE ARCHIVE
             </span>
@@ -561,7 +480,7 @@ export default function ReturnsOperationsPage() {
             </p>
           </div>
 
-          <div className="dossier-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
+          <div className="dossier-grid">
             {caseDossiers.map((cd, idx) => (
               <div key={idx} className="light-panel" style={{ padding: "2rem 1.75rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.75rem" }}>
@@ -588,19 +507,10 @@ export default function ReturnsOperationsPage() {
       </section>
 
       {/* ── 6. LIGHT ENTERPRISE EXECUTIVE CTA BANNER ── */}
-      <section style={{ padding: "5rem 0", background: "#F8FAFC" }}>
+      <section className="ret-section-block" style={{ background: "#F8FAFC" }}>
         <div style={{ maxWidth: "1150px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div
-            className="cta-inner-box"
-            style={{
-              background: "linear-gradient(135deg, #FFF1F2 0%, #FFFFFF 100%)",
-              border: "1.5px solid #FECDD3",
-              borderRadius: "24px",
-              padding: "3.5rem 3rem",
-              boxShadow: "0 10px 30px rgba(225, 29, 72, 0.06)"
-            }}
-          >
+          <div className="cta-inner-box">
             <div style={{ maxWidth: "720px" }}>
               <span style={{ display: "inline-block", fontSize: "0.78rem", fontWeight: 800, letterSpacing: "0.08em", color: "#E11D48", textTransform: "uppercase", marginBottom: "0.75rem" }}>
                 COMPLIMENTARY REVERSE AUDIT
@@ -612,7 +522,7 @@ export default function ReturnsOperationsPage() {
                 Let our reverse supply chain specialists audit your last 90 days of return manifests, identify unfiled SAFE-T claims, and calculate your exact RTO margin leakage within 48 hours under NDA.
               </p>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="ret-cta-actions mobile-btn-stack">
                 <Link
                   href="/book-meeting"
                   style={{
@@ -626,6 +536,7 @@ export default function ReturnsOperationsPage() {
                     textDecoration: "none",
                     display: "inline-flex",
                     alignItems: "center",
+                    justifyContent: "center",
                     boxShadow: "0 4px 14px rgba(37, 99, 235, 0.25)",
                     transition: "all 0.2s ease"
                   }}
@@ -647,6 +558,9 @@ export default function ReturnsOperationsPage() {
                     fontWeight: 700,
                     fontSize: "0.95rem",
                     cursor: "pointer",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                     transition: "all 0.2s ease"
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.background = "#EFF6FF")}

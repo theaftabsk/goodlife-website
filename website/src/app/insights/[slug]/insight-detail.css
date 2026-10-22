@@ -1,0 +1,111 @@
+/* ==========================================================================
+   INSIGHT DETAIL PAGE - MOBILE RESPONSIVE STYLES
+   Desktop view remains 100% pristine and unaltered.
+   Mobile view optimized for 320px - 768px screens.
+   ========================================================================== */
+
+/* Tablet & Mobile Layout (< 992px) */
+@media (max-width: 991px) {
+  .insight-detail-hero {
+    padding-top: 2rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  .insight-detail-body-section {
+    padding: 2.5rem 0 4rem 0 !important;
+  }
+}
+
+/* Mobile Screens (< 768px) */
+@media (max-width: 768px) {
+  .insight-detail-container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .insight-detail-title {
+    font-size: clamp(1.75rem, 5vw, 2.2rem) !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.6px !important;
+    margin-bottom: 1.2rem !important;
+  }
+
+  .insight-author-bar {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1rem !important;
+  }
+
+  .insight-share-btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .insight-excerpt-callout {
+    padding: 1.25rem 1.25rem !important;
+    border-radius: 0 10px 10px 0 !important;
+    margin-bottom: 2rem !important;
+  }
+
+  .insight-excerpt-callout p {
+    font-size: 0.96rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .insight-content-body {
+    font-size: 0.98rem !important;
+    line-height: 1.7 !important;
+  }
+
+  .insight-author-card {
+    padding: 1.4rem 1.15rem !important;
+    border-radius: 12px !important;
+    gap: 1rem !important;
+  }
+
+  .insight-bottom-audit-cta {
+    padding: 1.8rem 1.25rem !important;
+    border-radius: 16px !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .insight-bottom-audit-cta button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}
+
+/* Phablets & Mobile Phones (< 640px) */
+@media (max-width: 640px) {
+  .insight-author-card {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+  }
+
+  .insight-related-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.2rem !important;
+  }
+}
+
+/* Extra Small Phones (< 480px & down to 320px) */
+@media (max-width: 480px) {
+  .insight-detail-title {
+    font-size: 1.65rem !important;
+    letter-spacing: -0.4px !important;
+  }
+
+  .insight-excerpt-callout {
+    padding: 1rem 0.85rem !important;
+  }
+
+  .insight-bottom-audit-cta {
+    padding: 1.4rem 0.95rem !important;
+  }
+
+  .insight-bottom-audit-cta h3 {
+    font-size: 1.25rem !important;
+  }
+}

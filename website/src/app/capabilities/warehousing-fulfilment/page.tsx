@@ -5,6 +5,7 @@ import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CommerceDiagnosticModal from "../../components/CommerceDiagnosticModal";
+import "./warehousing-fulfilment.css";
 
 export default function WarehousingFulfilmentPage() {
   const [diagOpen, setDiagOpen] = useState(false);
@@ -122,99 +123,37 @@ export default function WarehousingFulfilmentPage() {
   ];
 
   return (
-    <div style={{ background: "#FFFFFF", color: "#0F172A", minHeight: "100vh", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
-      <style>{`
-        .light-panel {
-          background: #FFFFFF;
-          border: 1px solid #E2E8F0;
-          border-radius: 20px;
-          box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
-          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-        }
-        .light-panel:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 12px 30px rgba(217, 119, 6, 0.08);
-          border-color: #FDE68A;
-        }
-        .wh-hero-section {
-          padding-top: 3.5rem;
-          padding-bottom: 4rem;
-        }
-        .wh-section-block {
-          padding: 4.5rem 0;
-        }
-        .wh-section-header {
-          text-align: center;
-          max-width: 720px;
-          margin: 0 auto 2.75rem;
-        }
-        @media (max-width: 991px) {
-          .wh-hero-section {
-            padding-top: 2rem !important;
-            padding-bottom: 2.75rem !important;
-          }
-          .wh-hero-grid { grid-template-columns: 1fr !important; gap: 2.25rem !important; }
-          .wh-section-block { padding: 3rem 0 !important; }
-          .wh-section-header { margin-bottom: 1.85rem !important; }
-          .hubs-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          .conveyor-desktop { display: none !important; }
-          .conveyor-mobile { display: flex !important; }
-        }
-        @media (max-width: 640px) {
-          .wh-hero-section {
-            padding-top: 1.5rem !important;
-            padding-bottom: 2rem !important;
-          }
-          .wh-hero-grid { gap: 1.5rem !important; }
-          .wh-section-block { padding: 2.25rem 0 !important; }
-          .wh-section-header { margin-bottom: 1.35rem !important; }
-          .hubs-grid { grid-template-columns: 1fr !important; }
-          .cta-inner-box { padding: 2rem 1.25rem !important; border-radius: 18px !important; }
-        }
-      `}</style>
-      
+    <div className="wh-page-root" style={{ background: "#FFFFFF", color: "#0F172A", minHeight: "100vh", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* ── 1. LIGHT BESPOKE HERO ── */}
-      <section className="wh-hero-section" style={{
-        background: "linear-gradient(180deg, #FFFBEB 0%, #FFFFFF 100%)",
-        borderBottom: "1px solid #E2E8F0"
-      }}>
+      <section className="wh-hero-section">
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div className="wh-hero-grid" style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: "3.5rem", alignItems: "center" }}>
+          <div className="wh-hero-grid">
             
             {/* Left: Messaging */}
             <div>
-              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.35rem 0.85rem", background: "#FEF3C7", border: "1px solid #FDE68A", borderRadius: "999px", marginBottom: "1.25rem" }}>
-                <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#D97706" }} />
-                <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#92400E", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-                  CAPABILITY 04 // REGIONAL FULFILMENT INFRASTRUCTURE
+              <div className="wh-hero-badge">
+                <span className="wh-badge-tag">
+                  <span className="wh-pulse" />
+                  CAPABILITY 04
+                </span>
+                <span className="wh-badge-sep">//</span>
+                <span className="wh-badge-title">
+                  REGIONAL FULFILMENT INFRASTRUCTURE
                 </span>
               </div>
 
-              <h1 style={{
-                fontSize: "clamp(2.3rem, 4.5vw, 3.8rem)",
-                fontWeight: 800,
-                color: "#0F172A",
-                lineHeight: 1.05,
-                letterSpacing: "-0.03em",
-                margin: "0 0 1.25rem"
-              }}>
+              <h1 className="wh-hero-title">
                 Institutional Warehousing Built for Zero-Defect Marketplace SLAs
               </h1>
 
-              <p style={{
-                fontSize: "clamp(1rem, 1.8vw, 1.15rem)",
-                color: "#475569",
-                lineHeight: 1.65,
-                margin: "0 0 2rem",
-                maxWidth: "580px"
-              }}>
+              <p className="wh-hero-desc">
                 Over 645,000 sq. ft. of enterprise-grade Grade-A fulfillment centers across North, West, South, and East India. Integrated with Amazon Seller Flex, Flipkart Smart, and leading logistics networks.
               </p>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="wh-hero-actions mobile-btn-stack">
                 <button
                   onClick={() => setDiagOpen(true)}
                   style={{
@@ -267,23 +206,10 @@ export default function WarehousingFulfilmentPage() {
             </div>
 
             {/* Right: Live Warehouse Dock Terminal (White Dashboard) */}
-            <div style={{
-              background: "#FFFFFF",
-              border: "1.5px solid #FDE68A",
-              borderRadius: "24px",
-              boxShadow: "0 12px 35px rgba(217, 119, 6, 0.05), 0 2px 6px rgba(15, 23, 42, 0.03)",
-              overflow: "hidden"
-            }}>
-              <div style={{
-                padding: "1rem 1.5rem",
-                background: "#FFFBEB",
-                borderBottom: "1px solid #FEF3C7",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between"
-              }}>
+            <div className="wh-cockpit-card">
+              <div className="wh-cockpit-header">
                 <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#D97706" }} />
+                  <span className="wh-pulse" />
                   <span style={{ fontSize: "0.8rem", fontWeight: 800, color: "#92400E", letterSpacing: "0.06em", textTransform: "uppercase" }}>
                     LIVE WAREHOUSE DOCK TERMINAL
                   </span>
@@ -293,7 +219,7 @@ export default function WarehousingFulfilmentPage() {
                 </div>
               </div>
 
-              <div style={{ padding: "1.75rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+              <div className="wh-cockpit-body">
                 
                 {/* Metric 1 */}
                 <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "1.1rem 1.25rem" }}>
@@ -345,10 +271,10 @@ export default function WarehousingFulfilmentPage() {
       </section>
 
       {/* ── 2. 12-NODE REGIONAL NETWORK EXPLORER ── */}
-      <section style={{ padding: "5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="wh-section-block" style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "720px", margin: "0 auto 3rem" }}>
+          <div className="wh-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#D97706", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               PAN-INDIA SUPER-HUB DIRECTORY
             </span>
@@ -360,22 +286,18 @@ export default function WarehousingFulfilmentPage() {
             </p>
           </div>
 
-          <div className="hubs-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem", marginBottom: "2rem" }}>
+          <div className="hubs-grid">
             {regionalHubs.map((h, idx) => {
               const isSelected = activeRegion === idx;
               return (
                 <button
                   key={idx}
+                  className="hub-btn"
                   onClick={() => setActiveRegion(idx)}
                   style={{
-                    padding: "1.5rem",
-                    borderRadius: "18px",
                     border: isSelected ? "1.5px solid #D97706" : "1px solid #E2E8F0",
                     background: isSelected ? "#FFFBEB" : "#FFFFFF",
-                    textAlign: "left",
-                    cursor: "pointer",
                     boxShadow: isSelected ? "0 4px 14px rgba(217, 119, 6, 0.08)" : "0 2px 6px rgba(15, 23, 42, 0.02)",
-                    transition: "all 0.2s ease"
                   }}
                 >
                   <div style={{ fontSize: "0.72rem", fontWeight: 800, color: isSelected ? "#D97706" : "#94A3B8", marginBottom: "0.35rem" }}>
@@ -396,8 +318,8 @@ export default function WarehousingFulfilmentPage() {
           {(() => {
             const cur = regionalHubs[activeRegion];
             return (
-              <div style={{ background: "#FFFFFF", border: "1px solid #FDE68A", borderRadius: "22px", padding: "2.5rem", boxShadow: "0 8px 30px rgba(217, 119, 6, 0.04)" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.25rem", flexWrap: "wrap", gap: "1rem" }}>
+              <div className="hub-detail-panel">
+                <div className="hub-detail-header">
                   <div>
                     <span style={{ fontSize: "0.75rem", fontWeight: 800, color: "#D97706", background: "#FEF3C7", padding: "0.25rem 0.65rem", borderRadius: "6px" }}>
                       {cur.badge}
@@ -409,22 +331,22 @@ export default function WarehousingFulfilmentPage() {
                       {cur.highlight}
                     </p>
                   </div>
-                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "12px", padding: "0.75rem 1.25rem", textAlign: "right" }}>
+                  <div className="hub-throughput-box" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "12px", padding: "0.75rem 1.25rem", textAlign: "right" }}>
                     <div style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 600 }}>Daily Throughput</div>
                     <div style={{ fontSize: "1.4rem", fontWeight: 800, color: "#0F172A" }}>{cur.throughput}</div>
                   </div>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem", borderTop: "1px solid #E2E8F0", paddingTop: "1.5rem" }}>
-                  <div style={{ background: "#F8FAFC", padding: "1rem", borderRadius: "12px" }}>
+                <div className="hub-specs-grid">
+                  <div className="hub-spec-item" style={{ background: "#F8FAFC", padding: "1rem", borderRadius: "12px" }}>
                     <div style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 600, marginBottom: "0.25rem" }}>Integrated Carriers</div>
                     <div style={{ fontSize: "0.88rem", fontWeight: 700, color: "#0F172A" }}>{cur.carriers}</div>
                   </div>
-                  <div style={{ background: "#F8FAFC", padding: "1rem", borderRadius: "12px" }}>
+                  <div className="hub-spec-item" style={{ background: "#F8FAFC", padding: "1rem", borderRadius: "12px" }}>
                     <div style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 600, marginBottom: "0.25rem" }}>Storage Infrastructure</div>
                     <div style={{ fontSize: "0.88rem", fontWeight: 700, color: "#0F172A" }}>{cur.storageType}</div>
                   </div>
-                  <div style={{ background: "#F8FAFC", padding: "1rem", borderRadius: "12px" }}>
+                  <div className="hub-spec-item" style={{ background: "#F8FAFC", padding: "1rem", borderRadius: "12px" }}>
                     <div style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 600, marginBottom: "0.25rem" }}>Pallet Capacity</div>
                     <div style={{ fontSize: "0.88rem", fontWeight: 700, color: "#0F172A" }}>{cur.palletCapacity}</div>
                   </div>
@@ -437,10 +359,10 @@ export default function WarehousingFulfilmentPage() {
       </section>
 
       {/* ── 3. HEAVY & BULKY PACKAGING ANATOMY ── */}
-      <section style={{ padding: "5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="wh-section-block" style={{ background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+          <div className="wh-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#2563EB", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               ZERO-DAMAGE TRANSIT ENGINEERING
             </span>
@@ -452,7 +374,7 @@ export default function WarehousingFulfilmentPage() {
             </p>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
+          <div className="packaging-grid">
             {packagingAnatomy.map((pa, idx) => (
               <div key={idx} className="light-panel" style={{ padding: "2rem 1.75rem" }}>
                 <div style={{ fontSize: "0.72rem", fontWeight: 800, color: "#D97706", background: "#FEF3C7", padding: "0.2rem 0.6rem", borderRadius: "6px", display: "inline-block", marginBottom: "0.85rem" }}>
@@ -479,10 +401,10 @@ export default function WarehousingFulfilmentPage() {
       </section>
 
       {/* ── 4. 5-STAGE WAREHOUSE CONVEYOR FLOW ── */}
-      <section style={{ padding: "5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="wh-section-block" style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+          <div className="wh-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#D97706", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               DOCK-TO-CARRIER EXECUTION
             </span>
@@ -495,7 +417,7 @@ export default function WarehousingFulfilmentPage() {
           </div>
 
           {/* Desktop Horizontal */}
-          <div className="conveyor-desktop" style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "1rem" }}>
+          <div className="conveyor-desktop">
             {conveyorStages.map((cs, idx) => (
               <div key={idx} style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "16px", padding: "1.5rem 1.25rem", boxShadow: "0 2px 6px rgba(15, 23, 42, 0.02)" }}>
                 <div style={{ width: "32px", height: "32px", borderRadius: "8px", background: "#FEF3C7", color: "#D97706", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: "0.95rem", marginBottom: "1rem" }}>
@@ -512,7 +434,7 @@ export default function WarehousingFulfilmentPage() {
           </div>
 
           {/* Mobile Vertical */}
-          <div className="conveyor-mobile" style={{ display: "none", flexDirection: "column", gap: "1rem" }}>
+          <div className="conveyor-mobile">
             {conveyorStages.map((cs, idx) => (
               <div key={idx} style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "16px", padding: "1.25rem" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
@@ -534,10 +456,10 @@ export default function WarehousingFulfilmentPage() {
       </section>
 
       {/* ── 5. CARRIER OUTBOUND CUTOFF BOARD ── */}
-      <section style={{ padding: "5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="wh-section-block" style={{ background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1150px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+          <div className="wh-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#2563EB", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               CARRIER CUTOFF SLA DISPATCH BOARD
             </span>
@@ -549,7 +471,8 @@ export default function WarehousingFulfilmentPage() {
             </p>
           </div>
 
-          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+          {/* Desktop Table View */}
+          <div className="wh-carrier-table-wrap" style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
             <div style={{ background: "#FFFFFF", borderRadius: "20px", border: "1px solid #E2E8F0", overflow: "hidden", minWidth: "620px", boxShadow: "0 4px 20px rgba(15, 23, 42, 0.03)" }}>
               <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
                 <thead>
@@ -585,23 +508,37 @@ export default function WarehousingFulfilmentPage() {
             </div>
           </div>
 
+          {/* Mobile Carrier Cards */}
+          <div className="wh-carrier-mobile-cards">
+            {carrierCutoffs.map((cc, idx) => (
+              <div key={idx} className="wh-carrier-card">
+                <div className="wh-carrier-card-top">
+                  <div className="wh-carrier-name">{cc.carrier}</div>
+                  <div className="wh-carrier-badge">{cc.badge}</div>
+                </div>
+                <div className="wh-carrier-row">
+                  <span className="wh-carrier-row-label">Manifest Cutoff</span>
+                  <span className="wh-carrier-cutoff">{cc.cutoff}</span>
+                </div>
+                <div className="wh-carrier-row">
+                  <span className="wh-carrier-row-label">Processing SLA</span>
+                  <span className="wh-carrier-sla">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                    <span>{cc.sla}</span>
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
 
       {/* ── 6. LIGHT ENTERPRISE EXECUTIVE CTA BANNER ── */}
-      <section style={{ padding: "5rem 0", background: "#F8FAFC" }}>
+      <section className="wh-section-block" style={{ background: "#F8FAFC" }}>
         <div style={{ maxWidth: "1150px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div
-            className="cta-inner-box"
-            style={{
-              background: "linear-gradient(135deg, #FFFBEB 0%, #FFFFFF 100%)",
-              border: "1.5px solid #FDE68A",
-              borderRadius: "24px",
-              padding: "3.5rem 3rem",
-              boxShadow: "0 10px 30px rgba(217, 119, 6, 0.06)"
-            }}
-          >
+          <div className="cta-inner-box">
             <div style={{ maxWidth: "720px" }}>
               <span style={{ display: "inline-block", fontSize: "0.78rem", fontWeight: 800, letterSpacing: "0.08em", color: "#D97706", textTransform: "uppercase", marginBottom: "0.75rem" }}>
                 COMPLIMENTARY WAREHOUSING DIAGNOSTIC
@@ -613,7 +550,7 @@ export default function WarehousingFulfilmentPage() {
                 Let our logistics leadership evaluate your dispatch latency, transit breakage rates, and regional hub coverage. We deliver a custom multi-node warehousing blueprint within 48 hours under NDA.
               </p>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="wh-cta-actions mobile-btn-stack">
                 <Link
                   href="/book-meeting"
                   style={{

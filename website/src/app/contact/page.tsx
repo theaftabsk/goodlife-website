@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import CommerceDiagnosticModal from "../components/CommerceDiagnosticModal";
 import CalendarBookingWidget from "../components/CalendarBookingWidget";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import "./contact.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
@@ -58,7 +59,7 @@ export default function ContactPage() {
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* Hero Section */}
-      <section style={{
+      <section className="contact-hero" style={{
         position: "relative",
         paddingTop: "3.5rem",
         paddingBottom: "4.5rem",
@@ -77,7 +78,7 @@ export default function ContactPage() {
           pointerEvents: "none"
         }} />
 
-        <div className="container" style={{ position: "relative", zIndex: 2, maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem" }}>
+        <div className="container contact-hero-container" style={{ position: "relative", zIndex: 2, maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.85rem", color: "#64748B", marginBottom: "1.5rem", fontWeight: 500 }}>
             <Link href="/" style={{ color: "#2563EB", textDecoration: "none", fontWeight: 600 }}>Home</Link>
             <span>/</span>
@@ -85,7 +86,7 @@ export default function ContactPage() {
           </div>
 
           <div style={{ maxWidth: "880px" }}>
-            <div style={{
+            <div className="contact-badge" style={{
               display: "inline-flex",
               alignItems: "center",
               gap: "0.5rem",
@@ -104,7 +105,7 @@ export default function ContactPage() {
               Enterprise Enquiries • Direct Operator Access
             </div>
 
-            <h1 style={{
+            <h1 className="contact-heading" style={{
               fontSize: "clamp(2.4rem, 4.8vw, 3.8rem)",
               fontWeight: 900,
               lineHeight: 1.15,
@@ -116,7 +117,7 @@ export default function ContactPage() {
               <span style={{ color: "#2563EB" }}>Speak with Our Leadership Team</span>
             </h1>
 
-            <p style={{
+            <p className="contact-lead" style={{
               fontSize: "clamp(1.08rem, 1.8vw, 1.22rem)",
               color: "#475569",
               lineHeight: 1.7,
@@ -131,8 +132,8 @@ export default function ContactPage() {
       </section>
 
       {/* Main Form & Contact Info Section */}
-      <section style={{ padding: "4.5rem 0 6rem", background: "#F8FAFC" }}>
-        <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem" }}>
+      <section className="contact-main-section" style={{ padding: "4.5rem 0 6rem", background: "#F8FAFC" }}>
+        <div className="container contact-main-container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem" }}>
           <div style={{ display: "grid", gridTemplateColumns: "1.3fr 0.9fr", gap: "3.5rem", alignItems: "start" }} className="contact-grid-responsive">
             
             {/* Form Column */}
@@ -146,10 +147,10 @@ export default function ContactPage() {
               {!formSubmitted ? (
                 <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.4rem" }}>
                   <div>
-                    <h2 style={{ fontSize: "1.45rem", fontWeight: 900, color: "#0B1736", margin: "0 0 0.4rem" }}>
+                    <h2 className="contact-form-title" style={{ fontSize: "1.45rem", fontWeight: 900, color: "#0B1736", margin: "0 0 0.4rem" }}>
                       Submit a Qualified Business Enquiry
                     </h2>
-                    <p style={{ fontSize: "0.88rem", color: "#64748B", margin: 0, fontWeight: 500 }}>
+                    <p className="contact-form-desc" style={{ fontSize: "0.88rem", color: "#64748B", margin: 0, fontWeight: 500 }}>
                       Complete this form for a prompt executive evaluation and solution design discussion.
                     </p>
                   </div>
@@ -234,6 +235,7 @@ export default function ContactPage() {
 
                   <button
                     type="submit"
+                    className="contact-submit-btn"
                     style={{
                       height: "54px",
                       borderRadius: "12px",
@@ -251,7 +253,7 @@ export default function ContactPage() {
                       marginTop: "0.5rem"
                     }}
                   >
-                    <span>SUBMIT ENQUIRY & SCHEDULE DISCUSSION</span>
+                    <span>SUBMIT ENQUIRY &amp; SCHEDULE DISCUSSION</span>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <line x1="5" y1="12" x2="19" y2="12" />
                       <polyline points="12 5 19 12 12 19" />
@@ -263,7 +265,7 @@ export default function ContactPage() {
                   </div>
                 </form>
               ) : (
-                <div style={{ textAlign: "center", padding: "2rem 1.5rem" }}>
+                <div className="contact-success-box" style={{ textAlign: "center", padding: "2rem 1.5rem" }}>
                   <div style={{
                     width: "56px",
                     height: "56px",
@@ -317,10 +319,10 @@ export default function ContactPage() {
             </div>
 
             {/* Direct Contact Cards Column */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+            <div className="contact-direct-cards" style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
               
               {/* Commerce Diagnostic Quick Access Card */}
-              <div style={{
+              <div className="contact-diag-card" style={{
                 background: "linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 100%)",
                 border: "1.5px solid #BFDBFE",
                 borderRadius: "22px",
@@ -379,7 +381,7 @@ export default function ContactPage() {
               </div>
 
               {/* Registered Office Info */}
-              <div style={{
+              <div className="contact-info-card" style={{
                 background: "#FFFFFF",
                 borderRadius: "22px",
                 padding: "2.2rem",

@@ -5,6 +5,8 @@ import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CommerceDiagnosticModal from "../../components/CommerceDiagnosticModal";
+import { ArrowRight, Check, X, Box, Layers, ShieldCheck, Zap } from "lucide-react";
+import "./inventory-planning.css";
 
 export default function InventoryPlanningPage() {
   const [diagOpen, setDiagOpen] = useState(false);
@@ -134,122 +136,35 @@ export default function InventoryPlanningPage() {
   ];
 
   return (
-    <div style={{ background: "#FFFFFF", color: "#0F172A", minHeight: "100vh", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
-      <style>{`
-        .light-panel {
-          background: #FFFFFF;
-          border: 1px solid #E2E8F0;
-          border-radius: 20px;
-          box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
-          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-        }
-        .light-panel:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 12px 30px rgba(13, 148, 136, 0.08);
-          border-color: #99F6E4;
-        }
-        .touch-slider-teal {
-          -webkit-appearance: none;
-          appearance: none;
-          width: 100%;
-          height: 8px;
-          border-radius: 999px;
-          background: #E2E8F0;
-          outline: none;
-          margin: 1.25rem 0;
-          cursor: pointer;
-        }
-        .touch-slider-teal::-webkit-slider-thumb {
-          -webkit-appearance: none;
-          appearance: none;
-          width: 26px;
-          height: 26px;
-          border-radius: 50%;
-          background: #0D9488;
-          border: 3px solid #FFFFFF;
-          box-shadow: 0 2px 8px rgba(13, 148, 136, 0.4);
-          cursor: pointer;
-        }
-        .inv-hero-section {
-          padding-top: 3.5rem;
-          padding-bottom: 4rem;
-        }
-        .inv-section-block {
-          padding: 4.5rem 0;
-        }
-        .inv-section-header {
-          text-align: center;
-          max-width: 720px;
-          margin: 0 auto 2.75rem;
-        }
-        @media (max-width: 991px) {
-          .inv-hero-section {
-            padding-top: 2rem !important;
-            padding-bottom: 2.75rem !important;
-          }
-          .inv-hero-grid { grid-template-columns: 1fr !important; gap: 2.25rem !important; }
-          .inv-section-block { padding: 3rem 0 !important; }
-          .inv-section-header { margin-bottom: 1.85rem !important; }
-          .rop-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
-          .hubs-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          .velocity-grid { grid-template-columns: 1fr 1fr !important; }
-        }
-        @media (max-width: 640px) {
-          .inv-hero-section {
-            padding-top: 1.5rem !important;
-            padding-bottom: 2rem !important;
-          }
-          .inv-hero-grid { gap: 1.5rem !important; }
-          .inv-section-block { padding: 2.25rem 0 !important; }
-          .inv-section-header { margin-bottom: 1.35rem !important; }
-          .hubs-grid { grid-template-columns: 1fr !important; }
-          .velocity-grid { grid-template-columns: 1fr !important; }
-          .cta-inner-box { padding: 2rem 1.25rem !important; border-radius: 18px !important; }
-        }
-      `}</style>
-      
+    <div className="inv-page-root" style={{ background: "#FFFFFF", color: "#0F172A", minHeight: "100vh", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* ── 1. LIGHT BESPOKE HERO ── */}
-      <section className="inv-hero-section" style={{
-        background: "linear-gradient(180deg, #F0FDFA 0%, #FFFFFF 100%)",
-        borderBottom: "1px solid #E2E8F0"
-      }}>
+      <section className="inv-hero-section">
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div className="inv-hero-grid" style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: "3.5rem", alignItems: "center" }}>
+          <div className="inv-hero-grid">
             
             {/* Left: Messaging */}
             <div>
-              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.35rem 0.85rem", background: "#CCFBF1", border: "1px solid #99F6E4", borderRadius: "999px", marginBottom: "1.25rem" }}>
-                <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#0D9488" }} />
-                <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#0F766E", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-                  CAPABILITY 03 // WORKING CAPITAL & REPLENISHMENT
+              <div className="inv-hero-badge">
+                <span className="inv-badge-tag">
+                  <span className="inv-badge-dot" />
+                  CAPABILITY 03
                 </span>
+                <span className="inv-badge-sep">//</span>
+                <span className="inv-badge-title">WORKING CAPITAL &amp; REPLENISHMENT</span>
               </div>
 
-              <h1 style={{
-                fontSize: "clamp(2.3rem, 4.5vw, 3.8rem)",
-                fontWeight: 800,
-                color: "#0F172A",
-                lineHeight: 1.05,
-                letterSpacing: "-0.03em",
-                margin: "0 0 1.25rem"
-              }}>
+              <h1 className="inv-hero-title">
                 Zero Stockouts. Zero Trapped Capital. Machine-Paced Supply Chains.
               </h1>
 
-              <p style={{
-                fontSize: "clamp(1rem, 1.8vw, 1.15rem)",
-                color: "#475569",
-                lineHeight: 1.65,
-                margin: "0 0 2rem",
-                maxWidth: "580px"
-              }}>
+              <p className="inv-hero-desc">
                 Good Life eliminates stockouts and warehouse aged-storage penalties by continuously calculating dynamic reorder points, buffer stock alerts, and multi-state inventory balancing across 12 regional fulfillment hubs.
               </p>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="inv-hero-actions mobile-btn-stack">
                 <button
                   onClick={() => setDiagOpen(true)}
                   style={{
@@ -263,12 +178,17 @@ export default function InventoryPlanningPage() {
                     border: "none",
                     cursor: "pointer",
                     boxShadow: "0 4px 14px rgba(37, 99, 235, 0.25)",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "0.5rem",
                     transition: "all 0.2s ease"
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.background = "#1D4ED8")}
                   onMouseLeave={(e) => (e.currentTarget.style.background = "#2563EB")}
                 >
-                  REQUEST DIAGNOSTIC →
+                  <span>REQUEST DIAGNOSTIC</span>
+                  <ArrowRight size={16} strokeWidth={2.5} />
                 </button>
 
                 <Link
@@ -285,6 +205,7 @@ export default function InventoryPlanningPage() {
                     textDecoration: "none",
                     display: "inline-flex",
                     alignItems: "center",
+                    justifyContent: "center",
                     transition: "all 0.2s ease"
                   }}
                   onMouseEnter={(e) => {
@@ -302,33 +223,20 @@ export default function InventoryPlanningPage() {
             </div>
 
             {/* Right: Predictive Inventory Health Radar (White Dashboard) */}
-            <div style={{
-              background: "#FFFFFF",
-              border: "1.5px solid #99F6E4",
-              borderRadius: "24px",
-              boxShadow: "0 12px 35px rgba(13, 148, 136, 0.05), 0 2px 6px rgba(15, 23, 42, 0.03)",
-              overflow: "hidden"
-            }}>
-              <div style={{
-                padding: "1rem 1.5rem",
-                background: "#F0FDFA",
-                borderBottom: "1px solid #CCFBF1",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between"
-              }}>
+            <div className="inv-radar-card">
+              <div className="inv-radar-header">
                 <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#0D9488" }} />
-                  <span style={{ fontSize: "0.8rem", fontWeight: 800, color: "#115E59", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#0D9488", flexShrink: 0 }} />
+                  <span style={{ fontSize: "0.78rem", fontWeight: 800, color: "#115E59", letterSpacing: "0.06em", textTransform: "uppercase" }}>
                     PREDICTIVE INVENTORY HEALTH RADAR
                   </span>
                 </div>
-                <div style={{ fontSize: "0.72rem", color: "#0D9488", fontWeight: 700, background: "#CCFBF1", padding: "0.2rem 0.5rem", borderRadius: "4px" }}>
+                <div style={{ fontSize: "0.7rem", color: "#0D9488", fontWeight: 700, background: "#CCFBF1", padding: "0.2rem 0.5rem", borderRadius: "4px" }}>
                   REAL-TIME PO ENGINE
                 </div>
               </div>
 
-              <div style={{ padding: "1.75rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+              <div className="inv-radar-body">
                 
                 {/* Metric 1 */}
                 <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "1.1rem 1.25rem" }}>
@@ -347,30 +255,26 @@ export default function InventoryPlanningPage() {
                 </div>
 
                 {/* Metric 2 & 3 */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "1rem 1.2rem" }}>
-                    <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#64748B", marginBottom: "0.2rem" }}>Stockout Risk Index</div>
-                    <div style={{ fontSize: "1.6rem", fontWeight: 800, color: "#16A34A" }}>0.02%</div>
-                    <div style={{ fontSize: "0.72rem", color: "#64748B", fontWeight: 600 }}>Floor threshold &lt;0.5%</div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.85rem" }}>
+                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "0.95rem 1rem" }}>
+                    <div style={{ fontSize: "0.76rem", fontWeight: 700, color: "#64748B", marginBottom: "0.2rem" }}>Stockout Risk Index</div>
+                    <div style={{ fontSize: "1.5rem", fontWeight: 800, color: "#16A34A" }}>0.02%</div>
+                    <div style={{ fontSize: "0.7rem", color: "#64748B", fontWeight: 600 }}>Threshold &lt;0.5%</div>
                   </div>
-                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "1rem 1.2rem" }}>
-                    <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#64748B", marginBottom: "0.2rem" }}>Dead Stock Depletion</div>
-                    <div style={{ fontSize: "1.6rem", fontWeight: 800, color: "#0F172A" }}>+41%</div>
-                    <div style={{ fontSize: "0.72rem", color: "#0D9488", fontWeight: 700 }}>60-day liquidation pace</div>
+                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "0.95rem 1rem" }}>
+                    <div style={{ fontSize: "0.76rem", fontWeight: 700, color: "#64748B", marginBottom: "0.2rem" }}>Dead Stock Depletion</div>
+                    <div style={{ fontSize: "1.5rem", fontWeight: 800, color: "#0F172A" }}>+41%</div>
+                    <div style={{ fontSize: "0.7rem", color: "#0D9488", fontWeight: 700 }}>60-day pace</div>
                   </div>
                 </div>
 
                 {/* Live Inwarding Sync */}
-                <div style={{ background: "#F0FDFA", border: "1px solid #99F6E4", borderRadius: "12px", padding: "0.85rem 1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <div style={{ background: "#F0FDFA", border: "1px solid #99F6E4", borderRadius: "12px", padding: "0.85rem 1rem", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.4rem" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0D9488" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle" }}>
-                      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-                      <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
-                      <line x1="12" y1="22.08" x2="12" y2="12" />
-                    </svg>
-                    <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#115E59" }}>Multi-Node Inbound PO Sync</span>
+                    <Box size={16} strokeWidth={2.2} color="#0D9488" />
+                    <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "#115E59" }}>Multi-Node Inbound PO Sync</span>
                   </div>
-                  <span style={{ fontSize: "0.72rem", fontWeight: 800, color: "#0D9488" }}>12 HUBS SYNCHRONIZED</span>
+                  <span style={{ fontSize: "0.7rem", fontWeight: 800, color: "#0D9488" }}>12 HUBS SYNCHRONIZED</span>
                 </div>
 
               </div>
@@ -382,10 +286,10 @@ export default function InventoryPlanningPage() {
       </section>
 
       {/* ── 2. REORDER POINT (ROP) VISUALIZER (Interactive Formula Workbench) ── */}
-      <section style={{ padding: "5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="inv-section-block" style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "720px", margin: "0 auto 3rem" }}>
+          <div className="inv-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#0D9488", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               ALGORITHMIC REPLENISHMENT WORKBENCH
             </span>
@@ -393,21 +297,12 @@ export default function InventoryPlanningPage() {
               Interactive Reorder Point (ROP) Calculator
             </h2>
             <p style={{ fontSize: "1rem", color: "#64748B", lineHeight: 1.6, margin: 0 }}>
-              Test your SKU's velocity and lead times using Good Life's institutional formula: <br />
-              <strong style={{ color: "#0F172A" }}>ROP = (Average Daily Sales × Lead Time) + (Safety Buffer × Seasonal Multiplier)</strong>
+              Test your SKU&apos;s velocity and lead times using Good Life&apos;s institutional formula: <br />
+              <strong style={{ color: "#0F172A", wordBreak: "break-word" }}>ROP = (Average Daily Sales × Lead Time) + (Safety Buffer × Seasonal Multiplier)</strong>
             </p>
           </div>
 
-          <div className="rop-grid" style={{
-            display: "grid",
-            gridTemplateColumns: "1.1fr 1fr",
-            gap: "2.5rem",
-            background: "#FFFFFF",
-            border: "1px solid #E2E8F0",
-            borderRadius: "24px",
-            padding: "2.5rem",
-            boxShadow: "0 8px 30px rgba(15, 23, 42, 0.04)"
-          }}>
+          <div className="rop-grid">
             {/* Sliders */}
             <div style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }}>
               
@@ -482,7 +377,7 @@ export default function InventoryPlanningPage() {
                 <label style={{ fontSize: "0.9rem", fontWeight: 700, color: "#0F172A", display: "block", marginBottom: "0.5rem" }}>
                   Seasonal Multiplier
                 </label>
-                <div style={{ display: "flex", gap: "0.5rem" }}>
+                <div className="inv-multiplier-grid" style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                   {[
                     { label: "Normal (1.0x)", val: 1.0 },
                     { label: "Festive Ramp (1.2x)", val: 1.2 },
@@ -499,7 +394,8 @@ export default function InventoryPlanningPage() {
                         color: seasonalMultiplier === s.val ? "#0F766E" : "#475569",
                         fontWeight: seasonalMultiplier === s.val ? 700 : 500,
                         fontSize: "0.82rem",
-                        cursor: "pointer"
+                        cursor: "pointer",
+                        transition: "all 0.15s ease"
                       }}
                     >
                       {s.label}
@@ -511,16 +407,16 @@ export default function InventoryPlanningPage() {
             </div>
 
             {/* Calculated Output Workbench Card */}
-            <div style={{ background: "#F0FDFA", border: "1.5px solid #99F6E4", borderRadius: "18px", padding: "2rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+            <div className="rop-output-card">
               <div>
                 <div style={{ fontSize: "0.75rem", fontWeight: 800, color: "#0D9488", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.5rem" }}>
                   AUTOMATED PURCHASE ORDER TRIGGER
                 </div>
-                <div style={{ fontSize: "2.5rem", fontWeight: 800, color: "#0F172A", letterSpacing: "-0.03em", marginBottom: "0.4rem" }}>
+                <div className="rop-output-val" style={{ fontSize: "2.5rem", fontWeight: 800, color: "#0F172A", letterSpacing: "-0.03em", marginBottom: "0.4rem" }}>
                   {calculatedROP.toLocaleString()} Units
                 </div>
                 <p style={{ fontSize: "0.88rem", color: "#475569", lineHeight: 1.5, margin: "0 0 1.5rem" }}>
-                  When total available warehouse stock drops to this threshold, Good Life's system triggers an automated purchase order to prevent stockout strikes.
+                  When total available warehouse stock drops to this threshold, Good Life&apos;s system triggers an automated purchase order to prevent stockout strikes.
                 </p>
               </div>
 
@@ -546,10 +442,10 @@ export default function InventoryPlanningPage() {
       </section>
 
       {/* ── 3. REGIONAL ALLOCATION (12-State Visualization) ── */}
-      <section style={{ padding: "5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="inv-section-block" style={{ background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+          <div className="inv-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#2563EB", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               PAN-INDIA MULTI-NODE NETWORK
             </span>
@@ -561,7 +457,7 @@ export default function InventoryPlanningPage() {
             </p>
           </div>
 
-          <div className="hubs-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem" }}>
+          <div className="hubs-grid">
             {hubs.map((h, idx) => {
               const isSelected = activeHub === idx;
               return (
@@ -595,11 +491,11 @@ export default function InventoryPlanningPage() {
 
                   <div style={{ display: "flex", flexDirection: "column", gap: "0.45rem", fontSize: "0.78rem", borderTop: "1px solid #E2E8F0", paddingTop: "0.85rem" }}>
                     <div style={{ color: "#16A34A", fontWeight: 700, display: "inline-flex", alignItems: "center", gap: "0.35rem" }}>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                      <Check size={13} strokeWidth={3} />
                       <span>{h.coverage}</span>
                     </div>
                     <div style={{ color: "#334155", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "0.35rem" }}>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" /><polyline points="3.27 6.96 12 12.01 20.73 6.96" /></svg>
+                      <Box size={13} strokeWidth={2.2} />
                       <span>{h.palletCapacity}</span>
                     </div>
                     <div style={{ color: "#64748B" }}>{h.status}</div>
@@ -613,10 +509,10 @@ export default function InventoryPlanningPage() {
       </section>
 
       {/* ── 4. SKU VELOCITY MATRIX ── */}
-      <section style={{ padding: "5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="inv-section-block" style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+          <div className="inv-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#0D9488", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               PORTFOLIO VELOCITY PROFILES
             </span>
@@ -628,15 +524,15 @@ export default function InventoryPlanningPage() {
             </p>
           </div>
 
-          <div className="velocity-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem" }}>
+          <div className="velocity-grid">
             {skuVelocityMatrix.map((m, idx) => (
               <div key={idx} className="light-panel" style={{ padding: "1.75rem 1.5rem" }}>
                 <div style={{ display: "inline-block", fontSize: "0.72rem", fontWeight: 800, color: m.badgeColor, background: m.badgeBg, padding: "0.2rem 0.6rem", borderRadius: "6px", marginBottom: "0.85rem" }}>
                   {m.badge}
                 </div>
-                <h4 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#0F172A", margin: "0 0 0.4rem" }}>
+                <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#0F172A", margin: "0 0 0.4rem" }}>
                   {m.category}
-                </h4>
+                </h3>
                 <div style={{ fontSize: "0.82rem", fontWeight: 700, color: "#0D9488", marginBottom: "0.6rem" }}>
                   {m.volumeShare}
                 </div>
@@ -653,11 +549,11 @@ export default function InventoryPlanningPage() {
         </div>
       </section>
 
-      {/* ── 5. COMPARISON TABLE ── */}
-      <section style={{ padding: "5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
+      {/* ── 5. COMPARISON SECTION ── */}
+      <section className="inv-section-block" style={{ background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1150px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+          <div className="inv-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#2563EB", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               INVENTORY GOVERNANCE
             </span>
@@ -665,11 +561,12 @@ export default function InventoryPlanningPage() {
               Spreadsheet Guesswork vs. Machine-Assisted Replenishment
             </h2>
             <p style={{ fontSize: "0.98rem", color: "#64748B", lineHeight: 1.6, margin: 0 }}>
-              Why brands switch from manual inventory forecasting to Good Life's algorithmic stock orchestration.
+              Why brands switch from manual inventory forecasting to Good Life&apos;s algorithmic stock orchestration.
             </p>
           </div>
 
-          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+          {/* Desktop Table View */}
+          <div className="inv-comparison-table-wrap" style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
             <div style={{ background: "#FFFFFF", borderRadius: "20px", border: "1px solid #E2E8F0", overflow: "hidden", minWidth: "620px", boxShadow: "0 4px 20px rgba(15, 23, 42, 0.03)" }}>
               <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
                 <thead>
@@ -686,11 +583,11 @@ export default function InventoryPlanningPage() {
                         {cr.factor}
                       </td>
                       <td style={{ padding: "1.1rem 1.5rem", color: "#64748B", fontSize: "0.85rem", lineHeight: 1.5 }}>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", marginRight: "0.45rem" }}><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                        <X size={12} strokeWidth={3} color="#EF4444" style={{ display: "inline-block", verticalAlign: "middle", marginRight: "0.45rem" }} />
                         {cr.traditional}
                       </td>
                       <td style={{ padding: "1.1rem 1.5rem", color: "#0F172A", fontSize: "0.85rem", lineHeight: 1.5, fontWeight: 600 }}>
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0D9488" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", marginRight: "0.45rem" }}><polyline points="20 6 9 17 4 12" /></svg>
+                        <Check size={13} strokeWidth={3} color="#0D9488" style={{ display: "inline-block", verticalAlign: "middle", marginRight: "0.45rem" }} />
                         {cr.goodlife}
                       </td>
                     </tr>
@@ -700,23 +597,42 @@ export default function InventoryPlanningPage() {
             </div>
           </div>
 
+          {/* Mobile Comparison Cards View */}
+          <div className="inv-comparison-mobile-cards">
+            {comparisonRows.map((cr, idx) => (
+              <div key={idx} className="inv-comp-card">
+                <div className="inv-comp-factor">
+                  <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#2563EB", display: "inline-block" }} />
+                  <span>{cr.factor}</span>
+                </div>
+
+                <div className="inv-comp-traditional">
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.35rem", color: "#DC2626", fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", marginBottom: "0.35rem" }}>
+                    <X size={12} strokeWidth={3} />
+                    <span>Traditional Spreadsheet</span>
+                  </div>
+                  <div>{cr.traditional}</div>
+                </div>
+
+                <div className="inv-comp-goodlife">
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.35rem", color: "#0D9488", fontWeight: 800, fontSize: "0.75rem", textTransform: "uppercase", marginBottom: "0.35rem" }}>
+                    <Check size={12} strokeWidth={3} />
+                    <span>Good Life Inventory Engine</span>
+                  </div>
+                  <div>{cr.goodlife}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
 
       {/* ── 6. LIGHT ENTERPRISE EXECUTIVE CTA BANNER ── */}
-      <section style={{ padding: "5rem 0", background: "#F8FAFC" }}>
+      <section className="inv-section-block" style={{ background: "#F8FAFC" }}>
         <div style={{ maxWidth: "1150px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div
-            className="cta-inner-box"
-            style={{
-              background: "linear-gradient(135deg, #F0FDFA 0%, #FFFFFF 100%)",
-              border: "1.5px solid #99F6E4",
-              borderRadius: "24px",
-              padding: "3.5rem 3rem",
-              boxShadow: "0 10px 30px rgba(13, 148, 136, 0.06)"
-            }}
-          >
+          <div className="cta-inner-box">
             <div style={{ maxWidth: "720px" }}>
               <span style={{ display: "inline-block", fontSize: "0.78rem", fontWeight: 800, letterSpacing: "0.08em", color: "#0D9488", textTransform: "uppercase", marginBottom: "0.75rem" }}>
                 COMPLIMENTARY STOCK AUDIT
@@ -728,7 +644,7 @@ export default function InventoryPlanningPage() {
                 Let our supply chain operations directors run a forensic audit on your last 90 days of sales run-rates. We identify stockout risks, overstocked long-tail SKUs, and aging storage fees within 48 hours under NDA.
               </p>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="inv-cta-actions mobile-btn-stack">
                 <Link
                   href="/book-meeting"
                   style={{
@@ -742,13 +658,15 @@ export default function InventoryPlanningPage() {
                     textDecoration: "none",
                     display: "inline-flex",
                     alignItems: "center",
+                    justifyContent: "center",
                     boxShadow: "0 4px 14px rgba(37, 99, 235, 0.25)",
                     transition: "all 0.2s ease"
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.background = "#1D4ED8")}
                   onMouseLeave={(e) => (e.currentTarget.style.background = "#2563EB")}
                 >
-                  SCHEDULE 30-MIN STRATEGY SESSION →
+                  <span>SCHEDULE 30-MIN STRATEGY SESSION</span>
+                  <ArrowRight size={15} strokeWidth={2.5} style={{ marginLeft: "0.4rem" }} />
                 </Link>
 
                 <button
@@ -763,6 +681,9 @@ export default function InventoryPlanningPage() {
                     fontWeight: 700,
                     fontSize: "0.95rem",
                     cursor: "pointer",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                     transition: "all 0.2s ease"
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.background = "#EFF6FF")}

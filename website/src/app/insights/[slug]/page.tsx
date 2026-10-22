@@ -7,6 +7,7 @@ import Footer from "../../components/Footer";
 import CommerceDiagnosticModal from "../../components/CommerceDiagnosticModal";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { DEFAULT_INSIGHTS, InsightArticle } from "@/data/insightsData";
+import "./insight-detail.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
@@ -87,13 +88,13 @@ export default function SingleInsightPage({ params }: { params: Promise<{ slug: 
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* Breadcrumbs & Hero Bar */}
-      <section style={{
+      <section className="insight-detail-hero" style={{
         paddingTop: "2.5rem",
         paddingBottom: "3rem",
         background: "linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%)",
         borderBottom: "1px solid #E2E8F0"
       }}>
-        <div className="container" style={{ maxWidth: "920px", margin: "0 auto", padding: "0 1.5rem" }}>
+        <div className="container insight-detail-container" style={{ maxWidth: "920px", margin: "0 auto", padding: "0 1.5rem" }}>
           {/* Breadcrumb Navigation */}
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.82rem", color: "#64748B", marginBottom: "1.5rem" }}>
             <Link href="/" style={{ color: "#2563EB", textDecoration: "none", fontWeight: 600 }}>Home</Link>
@@ -125,7 +126,7 @@ export default function SingleInsightPage({ params }: { params: Promise<{ slug: 
           </div>
 
           {/* Headline Title */}
-          <h1 style={{
+          <h1 className="insight-detail-title" style={{
             fontSize: "clamp(2rem, 4vw, 2.75rem)",
             fontWeight: 900,
             lineHeight: 1.25,
@@ -137,7 +138,7 @@ export default function SingleInsightPage({ params }: { params: Promise<{ slug: 
           </h1>
 
           {/* Author Header Row */}
-          <div style={{
+          <div className="insight-author-bar" style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
@@ -161,6 +162,7 @@ export default function SingleInsightPage({ params }: { params: Promise<{ slug: 
             </div>
 
             <button
+              className="insight-share-btn"
               onClick={handleShare}
               style={{
                 padding: "0.5rem 1rem",
@@ -201,8 +203,8 @@ export default function SingleInsightPage({ params }: { params: Promise<{ slug: 
       </section>
 
       {/* Main Content Article Body */}
-      <section style={{ padding: "3.5rem 0 5rem 0" }}>
-        <div className="container" style={{ maxWidth: "920px", margin: "0 auto", padding: "0 1.5rem" }}>
+      <section className="insight-detail-body-section" style={{ padding: "3.5rem 0 5rem 0" }}>
+        <div className="container insight-detail-container" style={{ maxWidth: "920px", margin: "0 auto", padding: "0 1.5rem" }}>
           
           {/* Featured Image */}
           {article.featuredImage && (
@@ -223,7 +225,7 @@ export default function SingleInsightPage({ params }: { params: Promise<{ slug: 
 
           {/* Excerpt Executive Callout */}
           {article.excerpt && (
-            <div style={{
+            <div className="insight-excerpt-callout" style={{
               padding: "1.5rem 2rem",
               background: "linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%)",
               borderLeft: "5px solid #2563EB",
@@ -241,7 +243,7 @@ export default function SingleInsightPage({ params }: { params: Promise<{ slug: 
           )}
 
           {/* Markdown / Body Content */}
-          <div style={{
+          <div className="insight-content-body" style={{
             fontSize: "1.05rem",
             lineHeight: 1.8,
             color: "#334155",
@@ -279,7 +281,7 @@ export default function SingleInsightPage({ params }: { params: Promise<{ slug: 
           )}
 
           {/* Author Biography Card */}
-          <div style={{
+          <div className="insight-author-card" style={{
             marginTop: "3rem",
             padding: "2rem",
             borderRadius: "14px",
@@ -311,7 +313,7 @@ export default function SingleInsightPage({ params }: { params: Promise<{ slug: 
           </div>
 
           {/* Complimentary Diagnostic Callout Banner */}
-          <div style={{
+          <div className="insight-bottom-audit-cta" style={{
             marginTop: "4rem",
             padding: "2.5rem",
             borderRadius: "20px",
@@ -389,7 +391,7 @@ export default function SingleInsightPage({ params }: { params: Promise<{ slug: 
                 </Link>
               </div>
 
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.5rem" }}>
+              <div className="insight-related-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: "1.5rem" }}>
                 {relatedArticles.map((rel) => (
                   <Link
                     key={rel.id}

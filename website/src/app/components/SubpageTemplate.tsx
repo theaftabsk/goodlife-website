@@ -101,12 +101,31 @@ export default function SubpageTemplate({
             padding-bottom: 2rem !important;
           }
           .stats-grid-responsive {
-            grid-template-columns: 1fr !important;
-            gap: 1.25rem !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 1rem 0.75rem !important;
           }
           .workflow-grid-responsive {
             grid-template-columns: 1fr !important;
             gap: 1rem !important;
+          }
+          .cta-banner-responsive {
+            padding: 2.2rem 1.25rem !important;
+            border-radius: 18px !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .stats-grid-responsive {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 0.85rem 0.5rem !important;
+          }
+          .mobile-btn-stack {
+            flex-direction: column !important;
+            width: 100% !important;
+          }
+          .mobile-btn-stack > * {
+            width: 100% !important;
+            justify-content: center !important;
+            text-align: center !important;
           }
         }
       `}</style>
@@ -154,7 +173,7 @@ export default function SubpageTemplate({
 
           <div style={{ maxWidth: "900px" }}>
             {/* Pill Badge */}
-            <div style={{
+            <div className="subpage-pill-badge" style={{
               display: "inline-flex",
               alignItems: "center",
               gap: "0.55rem",
@@ -177,7 +196,7 @@ export default function SubpageTemplate({
             </div>
 
             {/* Main Headline */}
-            <h1 style={{
+            <h1 className="subpage-hero-title" style={{
               fontSize: "clamp(2.4rem, 4.8vw, 3.8rem)",
               fontWeight: 900,
               lineHeight: 1.15,
@@ -885,7 +904,7 @@ export default function SubpageTemplate({
                 Complete our interactive Commerce Diagnostic to assess your category maturity, revenue leakage, and warehouse readiness in under 3 minutes.
               </p>
 
-              <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="mobile-btn-stack" style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
                 <button
                   onClick={() => setDiagOpen(true)}
                   style={{
@@ -979,6 +998,43 @@ export default function SubpageTemplate({
           }
           .cta-banner-responsive {
             padding: 2.5rem 1.5rem !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .mobile-btn-stack {
+            flex-direction: column !important;
+            width: 100% !important;
+          }
+          .mobile-btn-stack button,
+          .mobile-btn-stack a {
+            width: 100% !important;
+            justify-content: center !important;
+            text-align: center !important;
+          }
+          .subpage-hero-title {
+            font-size: clamp(1.85rem, 6.5vw, 2.4rem) !important;
+            letter-spacing: -0.8px !important;
+            line-height: 1.2 !important;
+          }
+          .subpage-pill-badge {
+            font-size: 0.72rem !important;
+            letter-spacing: 0.8px !important;
+            white-space: normal !important;
+            padding: 0.4rem 0.85rem !important;
+            word-break: break-word !important;
+          }
+          .cta-banner-responsive {
+            padding: 2rem 1.2rem !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .stats-grid-responsive {
+            grid-template-columns: 1fr !important;
+            gap: 1.5rem !important;
+          }
+          .subpage-hero-title {
+            font-size: 1.65rem !important;
+            letter-spacing: -0.5px !important;
           }
         }
       `}</style>

@@ -1,0 +1,518 @@
+/* ═════════════════════════════════════════════════════════════════════════
+   RETURNS OPERATIONS RESPONSIVE STYLES (Good Life Enterprise)
+   Desktop retains exact pristine design; Mobile (< 768px & < 480px) is optimized
+   ═════════════════════════════════════════════════════════════════════════ */
+
+/* Base & Panels */
+.ret-page-root {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.light-panel {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.light-panel:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(225, 29, 72, 0.08);
+  border-color: #FECDD3;
+}
+
+.ret-pulse {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #E11D48;
+  box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.5);
+  animation: retPulseRing 2s infinite;
+  flex-shrink: 0;
+}
+
+@keyframes retPulseRing {
+  0% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.5); }
+  70% { box-shadow: 0 0 0 8px rgba(225, 29, 72, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
+}
+
+/* Desktop Defaults */
+.ret-hero-section {
+  padding-top: 3.5rem;
+  padding-bottom: 4rem;
+  background: linear-gradient(180deg, #FFF1F2 0%, #FFFFFF 100%);
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.ret-hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+/* Hero Badge */
+.ret-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  background: #FFE4E6;
+  border: 1px solid #FECDD3;
+  border-radius: 999px;
+  margin-bottom: 1.25rem;
+  max-width: 100%;
+}
+
+.ret-badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #9F1239;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ret-badge-sep {
+  color: #FB7185;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin: 0 0.15rem;
+}
+
+.ret-badge-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #9F1239;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ret-hero-title {
+  font-size: clamp(2.3rem, 4.5vw, 3.8rem);
+  font-weight: 800;
+  color: #0F172A;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: 0 0 1.25rem;
+}
+
+.ret-hero-desc {
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  color: #475569;
+  line-height: 1.65;
+  margin: 0 0 2rem;
+  max-width: 580px;
+}
+
+.ret-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.ret-cockpit-card {
+  background: #FFFFFF;
+  border: 1.5px solid #FECDD3;
+  border-radius: 24px;
+  box-shadow: 0 12px 35px rgba(225, 29, 72, 0.05), 0 2px 6px rgba(15, 23, 42, 0.03);
+  overflow: hidden;
+}
+
+.ret-cockpit-header {
+  padding: 1rem 1.5rem;
+  background: #FFF1F2;
+  border-bottom: 1px solid #FFE4E6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ret-cockpit-body {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.ret-section-block {
+  padding: 5rem 0;
+}
+
+.ret-section-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 3rem;
+}
+
+/* Grading Workstation */
+.grading-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.grading-btn {
+  padding: 1.25rem 1rem;
+  border-radius: 16px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.grading-detail-panel {
+  background: #FFFFFF;
+  border-radius: 22px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.04);
+}
+
+.grading-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.grading-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.grading-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+/* RTO Pipeline */
+.rto-pipeline-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+/* Forensics Grid */
+.forensics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* Case Dossiers Grid */
+.dossier-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* CTA */
+.cta-inner-box {
+  background: linear-gradient(135deg, #FFF1F2 0%, #FFFFFF 100%);
+  border: 1.5px solid #FECDD3;
+  border-radius: 24px;
+  padding: 3.5rem 3rem;
+  box-shadow: 0 10px 30px rgba(225, 29, 72, 0.06);
+}
+
+.ret-cta-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   TABLET RESPONSIVENESS (max-width: 991px)
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 991px) {
+  .ret-hero-section {
+    padding-top: 2rem !important;
+    padding-bottom: 2.75rem !important;
+  }
+  .ret-hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2.25rem !important;
+  }
+  .ret-section-block {
+    padding: 3.5rem 0 !important;
+  }
+  .ret-section-header {
+    margin-bottom: 2rem !important;
+  }
+  .grading-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
+  }
+  .grading-steps-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+  .rto-pipeline-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+  }
+  .forensics-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+  .dossier-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   MOBILE RESPONSIVENESS (max-width: 768px & 640px)
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .ret-hero-section {
+    padding-top: 1.75rem !important;
+    padding-bottom: 2.25rem !important;
+  }
+
+  .ret-hero-grid {
+    gap: 1.75rem !important;
+  }
+
+  /* Hero Badge */
+  .ret-hero-badge {
+    padding: 0.35rem 0.75rem !important;
+    gap: 0.4rem !important;
+    margin-bottom: 1.15rem !important;
+    background: #FFF1F2 !important;
+    border: 1px solid #FECDD3 !important;
+    border-radius: 999px !important;
+    box-shadow: 0 2px 8px rgba(225, 29, 72, 0.06) !important;
+  }
+
+  .ret-badge-tag {
+    font-size: 0.7rem !important;
+    letter-spacing: 0.05em !important;
+    background: #FFE4E6 !important;
+    padding: 0.15rem 0.45rem !important;
+    border-radius: 6px !important;
+    color: #9F1239 !important;
+  }
+
+  .ret-pulse {
+    width: 6px !important;
+    height: 6px !important;
+  }
+
+  .ret-badge-sep {
+    font-size: 0.7rem !important;
+    color: #F43F5E !important;
+    margin: 0 !important;
+  }
+
+  .ret-badge-title {
+    font-size: 0.7rem !important;
+    font-weight: 700 !important;
+    color: #881337 !important;
+    letter-spacing: 0.04em !important;
+  }
+
+  .ret-hero-title {
+    font-size: 1.95rem !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.6px !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .ret-hero-desc {
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .ret-cockpit-card {
+    border-radius: 18px !important;
+  }
+
+  .ret-cockpit-header {
+    padding: 0.85rem 1rem !important;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .ret-cockpit-body {
+    padding: 1.15rem 1rem !important;
+    gap: 1rem !important;
+  }
+
+  .ret-section-block {
+    padding: 2.75rem 0 !important;
+  }
+
+  .ret-section-header {
+    margin-bottom: 1.75rem !important;
+    text-align: left !important;
+  }
+
+  .ret-section-header h2 {
+    font-size: 1.6rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .ret-section-header p {
+    font-size: 0.92rem !important;
+    line-height: 1.55 !important;
+  }
+
+  /* Section 2: Grading Station 2-column mobile grid */
+  .grading-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.65rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+
+  .grading-btn {
+    padding: 0.85rem 0.85rem !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    min-height: 78px !important;
+  }
+
+  .grading-detail-panel {
+    padding: 1.35rem 1.1rem !important;
+    border-radius: 18px !important;
+  }
+
+  .grading-detail-header {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 1rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+
+  .grading-triage-share-box {
+    text-align: left !important;
+    padding: 0.75rem 1rem !important;
+  }
+
+  .grading-steps-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.6rem !important;
+  }
+
+  .grading-step-item {
+    padding: 0.6rem 0.75rem !important;
+    background: #F8FAFC !important;
+    border: 1px solid #F1F5F9 !important;
+    border-radius: 10px !important;
+  }
+
+  /* Section 3: RTO Pipeline mobile stack */
+  .rto-pipeline-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.85rem !important;
+  }
+
+  /* Section 4: Forensics */
+  .forensics-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  /* Section 5: Dossiers */
+  .dossier-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .cta-inner-box {
+    padding: 2rem 1.25rem !important;
+    border-radius: 18px !important;
+  }
+
+  .cta-inner-box h2 {
+    font-size: 1.55rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .cta-inner-box p {
+    font-size: 0.94rem !important;
+    line-height: 1.55 !important;
+    margin-bottom: 1.5rem !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SMALL PHONES (max-width: 480px / 360px)
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  /* Hero Badge */
+  .ret-hero-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 0.3rem 0.45rem !important;
+    padding: 0.32rem 0.65rem !important;
+    border-radius: 10px !important;
+    line-height: 1.35 !important;
+    width: auto !important;
+    max-width: 100% !important;
+  }
+
+  .ret-badge-tag {
+    font-size: 0.66rem !important;
+    letter-spacing: 0.04em !important;
+    padding: 0.12rem 0.4rem !important;
+  }
+
+  .ret-badge-sep {
+    display: none !important;
+  }
+
+  .ret-badge-title {
+    font-size: 0.68rem !important;
+    letter-spacing: 0.02em !important;
+    font-weight: 700 !important;
+  }
+
+  .ret-hero-title {
+    font-size: 1.75rem !important;
+  }
+
+  .ret-hero-actions,
+  .ret-cta-actions {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+  }
+
+  .ret-hero-actions > *,
+  .ret-cta-actions > * {
+    width: 100% !important;
+    height: 50px !important;
+    justify-content: center !important;
+    text-align: center !important;
+    font-size: 0.92rem !important;
+  }
+
+  .grading-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+
+  .grading-btn {
+    padding: 0.65rem 0.65rem !important;
+    min-height: 72px !important;
+  }
+}

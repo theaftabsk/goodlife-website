@@ -1,0 +1,155 @@
+/* ==========================================================================
+   INSIGHTS LISTING PAGE - MOBILE RESPONSIVE STYLES
+   Desktop view remains 100% pristine and unaltered.
+   Mobile view optimized for 320px - 768px screens.
+   ========================================================================== */
+
+/* Tablet & Mobile Layout (< 992px) */
+@media (max-width: 991px) {
+  .insights-hero {
+    padding-top: 2.5rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .insights-featured-card {
+    grid-template-columns: 1fr !important;
+  }
+
+  .insights-featured-img-wrap {
+    min-height: 240px !important;
+    max-height: 280px !important;
+  }
+
+  .insights-featured-body {
+    padding: 1.8rem 1.5rem !important;
+  }
+
+  .insights-grid-section {
+    padding: 2.5rem 0 4.5rem !important;
+  }
+}
+
+/* Mobile Screens (< 768px) */
+@media (max-width: 768px) {
+  .insights-hero {
+    padding-top: 2rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  .insights-hero-container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .insights-heading {
+    font-size: clamp(1.85rem, 5.5vw, 2.4rem) !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.8px !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .insights-lead {
+    font-size: 0.98rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 1.6rem !important;
+  }
+
+  .insights-search-box {
+    max-width: 100% !important;
+  }
+
+  .insights-cat-bar {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .insights-featured-body {
+    padding: 1.5rem 1.25rem !important;
+  }
+
+  .insights-featured-title {
+    font-size: 1.35rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .insights-articles-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.4rem !important;
+  }
+
+  .insights-diag-cta {
+    padding: 2.2rem 1.4rem !important;
+    border-radius: 20px !important;
+  }
+
+  .insights-diag-cta h2 {
+    font-size: 1.5rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .insights-diag-cta p {
+    font-size: 0.92rem !important;
+    margin-bottom: 1.6rem !important;
+  }
+}
+
+/* Phablets & Mobile Phones (< 640px) */
+@media (max-width: 640px) {
+  .insights-diag-btns {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  .insights-diag-btns button,
+  .insights-diag-btns a {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}
+
+/* Extra Small Phones (< 480px & down to 320px) */
+@media (max-width: 480px) {
+  .insights-hero {
+    padding-top: 1.75rem !important;
+    padding-bottom: 2.2rem !important;
+  }
+
+  .insights-badge {
+    font-size: 0.72rem !important;
+    padding: 0.32rem 0.85rem !important;
+    white-space: normal !important;
+    line-height: 1.3 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    text-align: left !important;
+    margin-bottom: 1.2rem !important;
+  }
+
+  .insights-heading {
+    font-size: 1.75rem !important;
+    letter-spacing: -0.5px !important;
+  }
+
+  .insights-featured-img-wrap {
+    min-height: 200px !important;
+    max-height: 220px !important;
+  }
+
+  .insights-featured-body {
+    padding: 1.25rem 1rem !important;
+  }
+
+  .insights-featured-title {
+    font-size: 1.2rem !important;
+  }
+
+  .insights-diag-cta {
+    padding: 1.8rem 1rem !important;
+    border-radius: 16px !important;
+  }
+
+  .insights-diag-cta h2 {
+    font-size: 1.35rem !important;
+  }
+}

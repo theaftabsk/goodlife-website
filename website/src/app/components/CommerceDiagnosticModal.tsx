@@ -115,11 +115,21 @@ export default function CommerceDiagnosticModal({ isOpen = true, onClose }: Comm
           60% { transform: scale(1.15); opacity: 1; }
           100% { transform: scale(1); opacity: 1; }
         }
+        .diag-modal-card {
+          padding: 1.75rem 1.75rem 1.5rem;
+        }
+        @media (max-width: 480px) {
+          .diag-modal-card {
+            padding: 1.35rem 1.1rem 1.25rem !important;
+            border-radius: 18px !important;
+          }
+        }
       `}</style>
 
       {/* Modal Card */}
       <div
         onClick={(e) => e.stopPropagation()}
+        className="diag-modal-card"
         style={{
           width: "100%",
           maxWidth: "460px",
@@ -127,7 +137,6 @@ export default function CommerceDiagnosticModal({ isOpen = true, onClose }: Comm
           borderRadius: "22px",
           border: "1px solid rgba(226, 232, 240, 0.95)",
           boxShadow: "0 25px 65px -12px rgba(11, 23, 54, 0.25), 0 8px 24px -6px rgba(0, 0, 0, 0.04)",
-          padding: "1.75rem 1.75rem 1.5rem",
           position: "relative",
           animation: "modalPopUp 0.26s cubic-bezier(0.16, 1, 0.3, 1) forwards",
           overflow: "hidden"

@@ -7,6 +7,7 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CommerceDiagnosticModal from "../../components/CommerceDiagnosticModal";
 import { getCaseStudyBySlug, getCaseStudies, CaseStudyDetail } from "../caseStudiesData";
+import "./case-study-detail.css";
 
 export default function CaseStudyDetailPage() {
   const params = useParams();
@@ -35,7 +36,7 @@ export default function CaseStudyDetailPage() {
 
   if (!study) {
     return (
-      <div style={{ background: "#F8FAFC", minHeight: "100vh", color: "#0F172A", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
+      <div className="csd-page-root" style={{ background: "#F8FAFC", minHeight: "100vh", color: "#0F172A", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
         <Header onOpenDiagnostic={() => setIsDiagnosticOpen(true)} />
         <div style={{ maxWidth: "800px", margin: "6rem auto", textAlign: "center", padding: "2rem" }}>
           <div style={{ width: 64, height: 64, borderRadius: "50%", background: "#EFF6FF", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.5rem" }}>
@@ -74,56 +75,30 @@ export default function CaseStudyDetailPage() {
   const relatedStudies = allStudies.filter((c) => c.slug !== study.slug).slice(0, 3);
 
   return (
-    <div style={{ background: "#F8FAFC", minHeight: "100vh", color: "#0F172A", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
+    <div className="csd-page-root" style={{ background: "#F8FAFC", minHeight: "100vh", color: "#0F172A", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
       <Header onOpenDiagnostic={() => setIsDiagnosticOpen(true)} />
 
       {/* Top Breadcrumb Bar */}
-      <div style={{ background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
-        <div style={{
-          maxWidth: "1200px",
-          margin: "0 auto",
-          padding: "0.85rem 1.5rem",
-          display: "flex",
-          alignItems: "center",
-          gap: "0.5rem",
-          fontSize: "0.82rem",
-          color: "#64748B",
-          flexWrap: "wrap"
-        }}>
+      <div className="csd-breadcrumb-bar">
+        <div className="csd-breadcrumb-container">
           <Link href="/" style={{ color: "#64748B", textDecoration: "none", fontWeight: 600 }}>Home</Link>
           <span>›</span>
           <Link href="/case-studies" style={{ color: "#64748B", textDecoration: "none", fontWeight: 600 }}>Case Studies</Link>
           <span>›</span>
-          <span style={{ color: "#0F172A", fontWeight: 700, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "450px" }}>
+          <span className="csd-breadcrumb-current">
             {study.title}
           </span>
         </div>
       </div>
 
       {/* Hero Header Section — Light, Crisp, High-Contrast & Beautiful */}
-      <section style={{
-        position: "relative",
-        paddingTop: "4rem",
-        paddingBottom: "4.5rem",
-        background: "linear-gradient(180deg, #FFFFFF 0%, #F0F7FF 50%, #F8FAFC 100%)",
-        borderBottom: "1px solid #E2E8F0",
-        overflow: "hidden"
-      }}>
+      <section className="csd-hero-section">
         {/* Soft Aurora Glow */}
-        <div style={{
-          position: "absolute",
-          top: "0",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "1100px",
-          height: "450px",
-          background: "radial-gradient(circle, rgba(37,99,235,0.08) 0%, rgba(56,189,248,0.03) 50%, transparent 70%)",
-          pointerEvents: "none"
-        }} />
+        <div className="csd-hero-glow" />
 
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.25rem", position: "relative", zIndex: 2 }}>
+        <div className="csd-hero-container">
           {/* Metadata Badges & Share Button */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "1rem", marginBottom: "1.2rem" }}>
+          <div className="csd-meta-row">
             <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap" }}>
               <span style={{
                 background: "#EFF6FF",
@@ -205,42 +180,19 @@ export default function CaseStudyDetailPage() {
             CLIENT OEM: {study.client}
           </div>
 
-          <h1 style={{
-            fontSize: "clamp(2rem, 4vw, 3.2rem)",
-            fontWeight: 900,
-            lineHeight: 1.2,
-            letterSpacing: "-0.025em",
-            maxWidth: "980px",
-            color: "#0F172A",
-            margin: "0 0 1.2rem"
-          }}>
+          <h1 className="csd-hero-title">
             {study.title}
           </h1>
 
-          <p style={{
-            fontSize: "clamp(1.05rem, 2vw, 1.2rem)",
-            color: "#475569",
-            maxWidth: "860px",
-            lineHeight: 1.65,
-            margin: 0
-          }}>
+          <p className="csd-hero-desc">
             {study.shortDescription}
           </p>
         </div>
       </section>
 
       {/* Outcome Metrics Bar (Floating Grid) */}
-      <div style={{ maxWidth: "1200px", margin: "-2rem auto 3rem", padding: "0 1.25rem", position: "relative", zIndex: 10 }}>
-        <div style={{
-          background: "#FFFFFF",
-          borderRadius: "16px",
-          border: "1.5px solid #E2E8F0",
-          boxShadow: "0 10px 30px -10px rgba(0,0,0,0.07)",
-          padding: "1.6rem 2rem",
-          display: "grid",
-          gridTemplateColumns: `repeat(auto-fit, minmax(190px, 1fr))`,
-          gap: "1.5rem"
-        }}>
+      <div className="csd-metrics-wrap">
+        <div className="csd-metrics-bar">
           {study.metrics.map((m, idx) => (
             <div key={idx} style={{
               display: "flex",
@@ -258,25 +210,13 @@ export default function CaseStudyDetailPage() {
       </div>
 
       {/* Main Content Layout (Responsive) */}
-      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.25rem 5rem" }}>
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-          gap: "2.5rem",
-          alignItems: "start"
-        }}>
+      <div className="csd-content-wrap">
+        <div className="csd-content-grid">
           {/* Left Column: Full Case Study Breakdown */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
+          <div className="csd-article-column">
             {/* Facility / Product Cover Image */}
             {study.coverImage && (
-              <div style={{
-                borderRadius: "16px",
-                overflow: "hidden",
-                border: "1px solid #E2E8F0",
-                boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
-                maxHeight: "440px",
-                background: "#0F172A"
-              }}>
+              <div className="csd-cover-image-box">
                 <img
                   src={study.coverImage}
                   alt={study.title}
@@ -286,13 +226,7 @@ export default function CaseStudyDetailPage() {
             )}
 
             {/* Section 1: The Challenge */}
-            <div style={{
-              background: "#FFFFFF",
-              borderRadius: "16px",
-              border: "1px solid #E2E8F0",
-              padding: "2.2rem 2.4rem",
-              boxShadow: "0 1px 3px rgba(0,0,0,0.02)"
-            }}>
+            <div className="csd-article-card">
               <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.8rem" }}>
                 <div style={{
                   width: 36,
@@ -301,7 +235,8 @@ export default function CaseStudyDetailPage() {
                   background: "#FEF2F2",
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "center"
+                  justifyContent: "center",
+                  flexShrink: 0
                 }}>
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="10" />
@@ -320,13 +255,7 @@ export default function CaseStudyDetailPage() {
             </div>
 
             {/* Section 2: The Solution */}
-            <div style={{
-              background: "#FFFFFF",
-              borderRadius: "16px",
-              border: "1px solid #E2E8F0",
-              padding: "2.2rem 2.4rem",
-              boxShadow: "0 1px 3px rgba(0,0,0,0.02)"
-            }}>
+            <div className="csd-article-card">
               <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.8rem" }}>
                 <div style={{
                   width: 36,
@@ -335,7 +264,8 @@ export default function CaseStudyDetailPage() {
                   background: "#ECFDF5",
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "center"
+                  justifyContent: "center",
+                  flexShrink: 0
                 }}>
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
@@ -387,14 +317,7 @@ export default function CaseStudyDetailPage() {
 
             {/* Section 3: Client Testimonial */}
             {study.testimonial && study.testimonial.quote && (
-              <div style={{
-                background: "linear-gradient(135deg, #0F172A 0%, #1E293B 100%)",
-                borderRadius: "16px",
-                padding: "2.4rem 2.6rem",
-                color: "#FFFFFF",
-                position: "relative",
-                overflow: "hidden"
-              }}>
+              <div className="csd-testimonial-box">
                 <div style={{ position: "absolute", top: "1rem", right: "1.5rem", fontSize: "5rem", color: "rgba(255,255,255,0.06)", fontFamily: "Georgia, serif", lineHeight: 1 }}>
                   “
                 </div>
@@ -436,7 +359,8 @@ export default function CaseStudyDetailPage() {
                     alignItems: "center",
                     justifyContent: "center",
                     fontWeight: 900,
-                    fontSize: "1.1rem"
+                    fontSize: "1.1rem",
+                    flexShrink: 0
                   }}>
                     {study.testimonial.author.charAt(0)}
                   </div>
@@ -454,12 +378,7 @@ export default function CaseStudyDetailPage() {
 
             {/* Section 4: Capabilities Deployed */}
             {study.capabilities && study.capabilities.length > 0 && (
-              <div style={{
-                background: "#FFFFFF",
-                borderRadius: "16px",
-                border: "1px solid #E2E8F0",
-                padding: "1.8rem 2.2rem"
-              }}>
+              <div className="csd-article-card" style={{ padding: "1.8rem 2.2rem" }}>
                 <h3 style={{ fontSize: "1.05rem", fontWeight: 800, color: "#0F172A", margin: "0 0 0.85rem" }}>
                   GoodLife Capabilities & Services Deployed
                 </h3>
@@ -486,7 +405,7 @@ export default function CaseStudyDetailPage() {
           </div>
 
           {/* Right Sidebar: OEM Profile & Diagnostic CTA */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", position: "sticky", top: "2rem" }}>
+          <div className="csd-sidebar">
             {/* OEM Profile Card */}
             <div style={{
               background: "#FFFFFF",
@@ -615,8 +534,8 @@ export default function CaseStudyDetailPage() {
 
         {/* Related Case Studies Grid at Bottom */}
         {relatedStudies.length > 0 && (
-          <div style={{ marginTop: "5rem", paddingTop: "3rem", borderTop: "1px solid #E2E8F0" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.8rem" }}>
+          <div className="csd-related-wrap">
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.8rem", flexWrap: "wrap", gap: "0.8rem" }}>
               <div>
                 <h3 style={{ fontSize: "1.45rem", fontWeight: 800, color: "#0F172A", margin: 0 }}>
                   Explore More Enterprise Case Studies
@@ -641,7 +560,7 @@ export default function CaseStudyDetailPage() {
               </Link>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "1.5rem" }}>
+            <div className="csd-related-grid">
               {relatedStudies.map((rel) => (
                 <div
                   key={rel.id}

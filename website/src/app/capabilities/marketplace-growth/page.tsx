@@ -5,6 +5,8 @@ import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CommerceDiagnosticModal from "../../components/CommerceDiagnosticModal";
+import { ArrowRight, Check, X, Shield, Zap } from "lucide-react";
+import "./marketplace-growth.css";
 
 export default function MarketplaceGrowthPage() {
   const [diagOpen, setDiagOpen] = useState(false);
@@ -195,123 +197,35 @@ export default function MarketplaceGrowthPage() {
   ];
 
   return (
-    <div style={{ background: "#FFFFFF", color: "#0F172A", minHeight: "100vh", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
-      <style>{`
-        .light-panel {
-          background: #FFFFFF;
-          border: 1px solid #E2E8F0;
-          border-radius: 20px;
-          box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
-          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-        }
-        .light-panel:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 12px 30px rgba(124, 58, 237, 0.08);
-          border-color: #DDD6FE;
-        }
-        .touch-slider {
-          -webkit-appearance: none;
-          appearance: none;
-          width: 100%;
-          height: 8px;
-          border-radius: 999px;
-          background: #E2E8F0;
-          outline: none;
-          margin: 1.25rem 0;
-          cursor: pointer;
-        }
-        .touch-slider::-webkit-slider-thumb {
-          -webkit-appearance: none;
-          appearance: none;
-          width: 26px;
-          height: 26px;
-          border-radius: 50%;
-          background: #7C3AED;
-          border: 3px solid #FFFFFF;
-          box-shadow: 0 2px 8px rgba(124, 58, 237, 0.4);
-          cursor: pointer;
-        }
-        .growth-hero-section {
-          padding-top: 3.5rem;
-          padding-bottom: 4rem;
-        }
-        .growth-section-block {
-          padding: 4.5rem 0;
-        }
-        .growth-section-header {
-          text-align: center;
-          max-width: 720px;
-          margin: 0 auto 2.75rem;
-        }
-        @media (max-width: 991px) {
-          .growth-hero-section {
-            padding-top: 2rem !important;
-            padding-bottom: 2.75rem !important;
-          }
-          .growth-hero-grid { grid-template-columns: 1fr !important; gap: 2.25rem !important; }
-          .growth-section-block { padding: 3rem 0 !important; }
-          .growth-section-header { margin-bottom: 1.85rem !important; }
-          .sim-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
-          .levers-grid { grid-template-columns: 1fr !important; }
-          .timeline-desktop { display: none !important; }
-          .timeline-mobile { display: flex !important; }
-        }
-        @media (max-width: 640px) {
-          .growth-hero-section {
-            padding-top: 1.5rem !important;
-            padding-bottom: 2rem !important;
-          }
-          .growth-hero-grid { gap: 1.5rem !important; }
-          .growth-section-block { padding: 2.25rem 0 !important; }
-          .growth-section-header { margin-bottom: 1.35rem !important; }
-          .cat-selector { flex-wrap: wrap !important; }
-          .calc-output-grid { grid-template-columns: 1fr !important; }
-          .cta-inner-box { padding: 2rem 1.25rem !important; border-radius: 18px !important; }
-        }
-      `}</style>
-      
+    <div className="growth-page-root" style={{ background: "#FFFFFF", color: "#0F172A", minHeight: "100vh", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* ── 1. LIGHT BESPOKE HERO ── */}
-      <section className="growth-hero-section" style={{
-        background: "linear-gradient(180deg, #FAF5FF 0%, #FFFFFF 100%)",
-        borderBottom: "1px solid #E2E8F0"
-      }}>
+      <section className="growth-hero-section">
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div className="growth-hero-grid" style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: "3.5rem", alignItems: "center" }}>
+          <div className="growth-hero-grid">
             
             {/* Left: Messaging */}
             <div>
-              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.35rem 0.85rem", background: "#F5F3FF", border: "1px solid #DDD6FE", borderRadius: "999px", marginBottom: "1.25rem" }}>
-                <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#7C3AED" }} />
-                <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#7C3AED", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-                  CAPABILITY 02 // REVENUE EXPANSION & ADS
+              <div className="growth-hero-badge">
+                <span className="growth-badge-tag">
+                  <span className="growth-badge-dot" />
+                  CAPABILITY 02
                 </span>
+                <span className="growth-badge-sep">//</span>
+                <span className="growth-badge-title">REVENUE EXPANSION &amp; ADS</span>
               </div>
 
-              <h1 style={{
-                fontSize: "clamp(2.3rem, 4.5vw, 3.8rem)",
-                fontWeight: 800,
-                color: "#0F172A",
-                lineHeight: 1.05,
-                letterSpacing: "-0.03em",
-                margin: "0 0 1.25rem"
-              }}>
+              <h1 className="growth-hero-title">
                 Algorithmic Ads &amp; Market Dominance Without Profit Erosion
               </h1>
 
-              <p style={{
-                fontSize: "clamp(1rem, 1.8vw, 1.15rem)",
-                color: "#475569",
-                lineHeight: 1.65,
-                margin: "0 0 2rem",
-                maxWidth: "580px"
-              }}>
+              <p className="growth-hero-desc">
                 We engineer performance marketing on Amazon and Flipkart around strict blended TACOS targets. Stop burning ad budgets on vanity ROAS while third-party resellers hijack your organic rank.
               </p>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="growth-hero-actions mobile-btn-stack">
                 <button
                   onClick={() => setDiagOpen(true)}
                   style={{
@@ -325,12 +239,17 @@ export default function MarketplaceGrowthPage() {
                     border: "none",
                     cursor: "pointer",
                     boxShadow: "0 4px 14px rgba(37, 99, 235, 0.25)",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "0.5rem",
                     transition: "all 0.2s ease"
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.background = "#1D4ED8")}
                   onMouseLeave={(e) => (e.currentTarget.style.background = "#2563EB")}
                 >
-                  REQUEST DIAGNOSTIC →
+                  <span>REQUEST DIAGNOSTIC</span>
+                  <ArrowRight size={16} strokeWidth={2.5} />
                 </button>
 
                 <Link
@@ -347,6 +266,7 @@ export default function MarketplaceGrowthPage() {
                     textDecoration: "none",
                     display: "inline-flex",
                     alignItems: "center",
+                    justifyContent: "center",
                     transition: "all 0.2s ease"
                   }}
                   onMouseEnter={(e) => {
@@ -364,33 +284,20 @@ export default function MarketplaceGrowthPage() {
             </div>
 
             {/* Right: Growth Accelerator Command Cockpit (White Card) */}
-            <div style={{
-              background: "#FFFFFF",
-              border: "1.5px solid #DDD6FE",
-              borderRadius: "24px",
-              boxShadow: "0 12px 35px rgba(124, 58, 237, 0.05), 0 2px 6px rgba(15, 23, 42, 0.03)",
-              overflow: "hidden"
-            }}>
-              <div style={{
-                padding: "1rem 1.5rem",
-                background: "#FAF5FF",
-                borderBottom: "1px solid #EDE9FE",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between"
-              }}>
+            <div className="growth-cockpit-card">
+              <div className="growth-cockpit-header">
                 <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#7C3AED" }} />
-                  <span style={{ fontSize: "0.8rem", fontWeight: 800, color: "#4C1D95", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#7C3AED", flexShrink: 0 }} />
+                  <span style={{ fontSize: "0.78rem", fontWeight: 800, color: "#4C1D95", letterSpacing: "0.06em", textTransform: "uppercase" }}>
                     GROWTH ACCELERATOR COMMAND COCKPIT
                   </span>
                 </div>
-                <div style={{ fontSize: "0.72rem", color: "#7C3AED", fontWeight: 700, background: "#EDE9FE", padding: "0.2rem 0.5rem", borderRadius: "4px" }}>
+                <div style={{ fontSize: "0.7rem", color: "#7C3AED", fontWeight: 700, background: "#EDE9FE", padding: "0.2rem 0.5rem", borderRadius: "4px" }}>
                   BID SHADING ACTIVE
                 </div>
               </div>
 
-              <div style={{ padding: "1.75rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+              <div className="growth-cockpit-body">
                 
                 {/* Metric 1 */}
                 <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "1.1rem 1.25rem" }}>
@@ -409,28 +316,26 @@ export default function MarketplaceGrowthPage() {
                 </div>
 
                 {/* Metric 2 & 3 in 2-col */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "1rem 1.2rem" }}>
-                    <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#64748B", marginBottom: "0.2rem" }}>Ad-to-Organic Multiplier</div>
-                    <div style={{ fontSize: "1.6rem", fontWeight: 800, color: "#0F172A" }}>3.4x</div>
-                    <div style={{ fontSize: "0.72rem", color: "#16A34A", fontWeight: 700 }}>Organic rank flywheel</div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.85rem" }}>
+                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "0.95rem 1rem" }}>
+                    <div style={{ fontSize: "0.76rem", fontWeight: 700, color: "#64748B", marginBottom: "0.2rem" }}>Ad-to-Organic Multiplier</div>
+                    <div style={{ fontSize: "1.5rem", fontWeight: 800, color: "#0F172A" }}>3.4x</div>
+                    <div style={{ fontSize: "0.7rem", color: "#16A34A", fontWeight: 700 }}>Organic rank flywheel</div>
                   </div>
-                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "1rem 1.2rem" }}>
-                    <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#64748B", marginBottom: "0.2rem" }}>Ad-Attributed GMV</div>
-                    <div style={{ fontSize: "1.6rem", fontWeight: 800, color: "#0F172A" }}>₹4.8 Cr</div>
-                    <div style={{ fontSize: "0.72rem", color: "#2563EB", fontWeight: 700 }}>Active monthly flow</div>
+                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "0.95rem 1rem" }}>
+                    <div style={{ fontSize: "0.76rem", fontWeight: 700, color: "#64748B", marginBottom: "0.2rem" }}>Ad-Attributed GMV</div>
+                    <div style={{ fontSize: "1.5rem", fontWeight: 800, color: "#0F172A" }}>₹4.8 Cr</div>
+                    <div style={{ fontSize: "0.7rem", color: "#2563EB", fontWeight: 700 }}>Active monthly flow</div>
                   </div>
                 </div>
 
                 {/* Live Buybox Pauser Status */}
-                <div style={{ background: "#EFF6FF", border: "1px solid #BFDBFE", borderRadius: "12px", padding: "0.85rem 1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <div style={{ background: "#EFF6FF", border: "1px solid #BFDBFE", borderRadius: "12px", padding: "0.85rem 1rem", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.4rem" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle" }}>
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                    </svg>
-                    <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#1E40AF" }}>Buybox Ad-Pauser Daemon</span>
+                    <Shield size={16} strokeWidth={2.2} color="#2563EB" />
+                    <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "#1E40AF" }}>Buybox Ad-Pauser Daemon</span>
                   </div>
-                  <span style={{ fontSize: "0.72rem", fontWeight: 800, color: "#16A34A" }}>100% PROTECTED</span>
+                  <span style={{ fontSize: "0.7rem", fontWeight: 800, color: "#16A34A" }}>100% PROTECTED</span>
                 </div>
 
               </div>
@@ -442,31 +347,22 @@ export default function MarketplaceGrowthPage() {
       </section>
 
       {/* ── 2. REAL INTERACTIVE ROAS / TACOS SIMULATOR ── */}
-      <section style={{ padding: "5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="growth-section-block" style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "720px", margin: "0 auto 3rem" }}>
+          <div className="growth-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#7C3AED", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               INTERACTIVE PROFIT &amp; TACOS CALCULATOR
             </span>
             <h2 style={{ fontSize: "clamp(1.9rem, 3.2vw, 2.6rem)", fontWeight: 800, color: "#0F172A", margin: "0 0 0.75rem", letterSpacing: "-0.02em" }}>
-              Simulate Your Brand's Ad Efficiency &amp; Capital Recovery
+              Simulate Your Brand&apos;s Ad Efficiency &amp; Capital Recovery
             </h2>
             <p style={{ fontSize: "1rem", color: "#64748B", lineHeight: 1.6, margin: 0 }}>
-              Adjust your monthly marketplace GMV and category to see the estimated wasted ad spend eliminated by Good Life's algorithmic dayparting and search term harvesting.
+              Adjust your monthly marketplace GMV and category to see the estimated wasted ad spend eliminated by Good Life&apos;s algorithmic dayparting and search term harvesting.
             </p>
           </div>
 
-          <div className="sim-grid" style={{
-            display: "grid",
-            gridTemplateColumns: "1.1fr 1fr",
-            gap: "2.5rem",
-            background: "#FFFFFF",
-            border: "1px solid #E2E8F0",
-            borderRadius: "24px",
-            padding: "2.5rem",
-            boxShadow: "0 8px 30px rgba(15, 23, 42, 0.04)"
-          }}>
+          <div className="sim-grid">
             {/* Controls */}
             <div>
               <div style={{ marginBottom: "2rem" }}>
@@ -524,7 +420,7 @@ export default function MarketplaceGrowthPage() {
             </div>
 
             {/* Calculated Output Card */}
-            <div style={{ background: "#FAF5FF", border: "1.5px solid #DDD6FE", borderRadius: "18px", padding: "2rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+            <div className="sim-output-card">
               <div>
                 <div style={{ fontSize: "0.75rem", fontWeight: 800, color: "#7C3AED", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.5rem" }}>
                   ESTIMATED CAPITAL RECOVERED
@@ -557,10 +453,10 @@ export default function MarketplaceGrowthPage() {
       </section>
 
       {/* ── 3. FOUR GROWTH LEVERS (4-Step Architecture) ── */}
-      <section style={{ padding: "5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="growth-section-block" style={{ background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+          <div className="growth-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#2563EB", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               ENGINEERED AD ARCHITECTURE
             </span>
@@ -573,7 +469,7 @@ export default function MarketplaceGrowthPage() {
           </div>
 
           {/* Lever Selector Grid */}
-          <div className="levers-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem", marginBottom: "2rem" }}>
+          <div className="levers-grid">
             {growthLevers.map((gl, idx) => {
               const isSelected = activeLever === idx;
               return (
@@ -606,8 +502,8 @@ export default function MarketplaceGrowthPage() {
           {(() => {
             const cur = growthLevers[activeLever];
             return (
-              <div style={{ background: "#F8FAFC", border: "1px solid #DDD6FE", borderRadius: "22px", padding: "2.5rem" }}>
-                <div className="growth-hero-grid" style={{ display: "grid", gridTemplateColumns: "1.25fr 1fr", gap: "3rem", alignItems: "center" }}>
+              <div className="lever-deepdive-card">
+                <div className="lever-deepdive-grid">
                   
                   <div>
                     <div style={{ display: "inline-block", fontSize: "0.75rem", fontWeight: 800, color: "#7C3AED", background: "#FAF5FF", padding: "0.25rem 0.65rem", borderRadius: "6px", marginBottom: "0.75rem" }}>
@@ -623,7 +519,7 @@ export default function MarketplaceGrowthPage() {
                     <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                       {cur.deliverables.map((d, dIdx) => (
                         <div key={dIdx} style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem" }}>
-                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: "3px", flexShrink: 0 }}><polyline points="20 6 9 17 4 12" /></svg>
+                          <Check size={14} strokeWidth={3} color="#7C3AED" style={{ marginTop: "3px", flexShrink: 0 }} />
                           <span style={{ fontSize: "0.88rem", color: "#334155", lineHeight: 1.5, fontWeight: 500 }}>{d}</span>
                         </div>
                       ))}
@@ -666,10 +562,10 @@ export default function MarketplaceGrowthPage() {
       </section>
 
       {/* ── 4. 45-DAY FESTIVE BLUEPRINT TIMELINE ── */}
-      <section style={{ padding: "5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="growth-section-block" style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+          <div className="growth-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#7C3AED", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               MEGA SALE EVENT STAGING
             </span>
@@ -682,7 +578,7 @@ export default function MarketplaceGrowthPage() {
           </div>
 
           {/* Desktop Horizontal Timeline */}
-          <div className="timeline-desktop" style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+          <div className="timeline-desktop">
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem" }}>
               {festivePhases.map((fp, idx) => {
                 const isSelected = activeFestiveDay === idx;
@@ -721,7 +617,7 @@ export default function MarketplaceGrowthPage() {
               <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                 {festivePhases[activeFestiveDay].tasks.map((t, tIdx) => (
                   <div key={tIdx} style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem" }}>
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: "3px", flexShrink: 0 }}><polyline points="20 6 9 17 4 12" /></svg>
+                    <Check size={14} strokeWidth={3} color="#7C3AED" style={{ marginTop: "3px", flexShrink: 0 }} />
                     <span style={{ fontSize: "0.9rem", color: "#475569", lineHeight: 1.5 }}>{t}</span>
                   </div>
                 ))}
@@ -730,7 +626,7 @@ export default function MarketplaceGrowthPage() {
           </div>
 
           {/* Mobile Vertical Timeline */}
-          <div className="timeline-mobile" style={{ display: "none", flexDirection: "column", gap: "1.25rem" }}>
+          <div className="timeline-mobile">
             {festivePhases.map((fp, idx) => (
               <div key={idx} style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "16px", padding: "1.25rem" }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.4rem" }}>
@@ -744,8 +640,9 @@ export default function MarketplaceGrowthPage() {
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                   {fp.tasks.map((t, tIdx) => (
-                    <div key={tIdx} style={{ fontSize: "0.82rem", color: "#475569", lineHeight: 1.45 }}>
-                      • {t}
+                    <div key={tIdx} style={{ fontSize: "0.82rem", color: "#475569", lineHeight: 1.45, display: "flex", alignItems: "flex-start", gap: "0.4rem" }}>
+                      <span style={{ color: "#7C3AED", fontWeight: 700 }}>•</span>
+                      <span>{t}</span>
                     </div>
                   ))}
                 </div>
@@ -757,10 +654,10 @@ export default function MarketplaceGrowthPage() {
       </section>
 
       {/* ── 5. KEYWORD DOMINANCE MATRIX ── */}
-      <section style={{ padding: "5rem 0", background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="growth-section-block" style={{ background: "#FFFFFF", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1150px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+          <div className="growth-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#2563EB", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               SEARCH INTELLIGENCE MATRIX
             </span>
@@ -768,11 +665,12 @@ export default function MarketplaceGrowthPage() {
               High-Intent Keyword Dominance Tracker
             </h2>
             <p style={{ fontSize: "0.98rem", color: "#64748B", lineHeight: 1.6, margin: 0 }}>
-              Live telemetry tracking our partner brands' share of search voice vs competing category incumbents.
+              Live telemetry tracking our partner brands&apos; share of search voice vs competing category incumbents.
             </p>
           </div>
 
-          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+          {/* Desktop Table View */}
+          <div className="growth-kw-table-wrap" style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
             <div style={{ background: "#FFFFFF", borderRadius: "20px", border: "1px solid #E2E8F0", overflow: "hidden", minWidth: "620px", boxShadow: "0 4px 20px rgba(15, 23, 42, 0.03)" }}>
               <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
                 <thead>
@@ -810,14 +708,33 @@ export default function MarketplaceGrowthPage() {
             </div>
           </div>
 
+          {/* Mobile Keyword Cards View */}
+          <div className="growth-kw-mobile-cards">
+            {keywordMatrix.map((km, idx) => (
+              <div key={idx} className="growth-kw-card">
+                <div className="growth-kw-header">
+                  <div className="growth-kw-phrase">{km.keyword}</div>
+                  <div className="growth-kw-pos">{km.status}</div>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "0.78rem", color: "#64748B", marginBottom: "0.5rem" }}>
+                  <span>Searches: <strong style={{ color: "#0F172A" }}>{km.volume}</strong></span>
+                  <span style={{ fontWeight: 800, color: "#7C3AED" }}>{km.brandShare}% Brand Share</span>
+                </div>
+                <div style={{ width: "100%", height: "8px", background: "#E2E8F0", borderRadius: "999px", overflow: "hidden" }}>
+                  <div style={{ width: `${km.brandShare}%`, height: "100%", background: "#7C3AED", borderRadius: "999px" }} />
+                </div>
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
 
       {/* ── 6. PERFORMANCE COMPARISON ── */}
-      <section style={{ padding: "5rem 0", background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+      <section className="growth-section-block" style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
         <div style={{ maxWidth: "1150px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 3rem" }}>
+          <div className="growth-section-header">
             <span style={{ fontSize: "0.75rem", fontWeight: 800, letterSpacing: "0.08em", color: "#2563EB", textTransform: "uppercase", display: "inline-block", marginBottom: "0.5rem" }}>
               PERFORMANCE METHODOLOGY
             </span>
@@ -829,7 +746,8 @@ export default function MarketplaceGrowthPage() {
             </p>
           </div>
 
-          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+          {/* Desktop Table View */}
+          <div className="growth-comparison-table-wrap" style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
             <div style={{ background: "#FFFFFF", borderRadius: "20px", border: "1px solid #E2E8F0", overflow: "hidden", minWidth: "620px", boxShadow: "0 4px 20px rgba(15, 23, 42, 0.03)" }}>
               <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
                 <thead>
@@ -846,11 +764,11 @@ export default function MarketplaceGrowthPage() {
                         {cr.factor}
                       </td>
                       <td style={{ padding: "1.1rem 1.5rem", color: "#64748B", fontSize: "0.85rem", lineHeight: 1.5 }}>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", marginRight: "0.45rem" }}><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                        <X size={12} strokeWidth={3} color="#EF4444" style={{ display: "inline-block", verticalAlign: "middle", marginRight: "0.45rem" }} />
                         {cr.traditional}
                       </td>
                       <td style={{ padding: "1.1rem 1.5rem", color: "#0F172A", fontSize: "0.85rem", lineHeight: 1.5, fontWeight: 600 }}>
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", marginRight: "0.45rem" }}><polyline points="20 6 9 17 4 12" /></svg>
+                        <Check size={13} strokeWidth={3} color="#16A34A" style={{ display: "inline-block", verticalAlign: "middle", marginRight: "0.45rem" }} />
                         {cr.goodlife}
                       </td>
                     </tr>
@@ -860,23 +778,42 @@ export default function MarketplaceGrowthPage() {
             </div>
           </div>
 
+          {/* Mobile Comparison Cards View */}
+          <div className="growth-comparison-mobile-cards">
+            {comparisonRows.map((cr, idx) => (
+              <div key={idx} className="growth-comp-card">
+                <div className="growth-comp-factor">
+                  <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#7C3AED", display: "inline-block" }} />
+                  <span>{cr.factor}</span>
+                </div>
+
+                <div className="growth-comp-traditional">
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.35rem", color: "#DC2626", fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", marginBottom: "0.35rem" }}>
+                    <X size={12} strokeWidth={3} />
+                    <span>Traditional PPC Agency</span>
+                  </div>
+                  <div>{cr.traditional}</div>
+                </div>
+
+                <div className="growth-comp-goodlife">
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.35rem", color: "#7C3AED", fontWeight: 800, fontSize: "0.75rem", textTransform: "uppercase", marginBottom: "0.35rem" }}>
+                    <Check size={12} strokeWidth={3} />
+                    <span>Good Life Growth Cell</span>
+                  </div>
+                  <div>{cr.goodlife}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
 
       {/* ── 7. LIGHT ENTERPRISE EXECUTIVE CTA BANNER ── */}
-      <section style={{ padding: "5rem 0", background: "#FFFFFF" }}>
+      <section className="growth-section-block" style={{ background: "#FFFFFF" }}>
         <div style={{ maxWidth: "1150px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div
-            className="cta-inner-box"
-            style={{
-              background: "linear-gradient(135deg, #FAF5FF 0%, #F8FAFC 100%)",
-              border: "1.5px solid #DDD6FE",
-              borderRadius: "24px",
-              padding: "3.5rem 3rem",
-              boxShadow: "0 10px 30px rgba(124, 58, 237, 0.06)"
-            }}
-          >
+          <div className="cta-inner-box">
             <div style={{ maxWidth: "720px" }}>
               <span style={{ display: "inline-block", fontSize: "0.78rem", fontWeight: 800, letterSpacing: "0.08em", color: "#7C3AED", textTransform: "uppercase", marginBottom: "0.75rem" }}>
                 COMPLIMENTARY AD AUDIT
@@ -888,7 +825,7 @@ export default function MarketplaceGrowthPage() {
                 Let our performance directors audit your last 60 days of search query reports. We uncover wasted broad-match spend, cannibalized organic rankings, and Buybox leaks within 48 hours under NDA.
               </p>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="growth-cta-actions mobile-btn-stack">
                 <Link
                   href="/book-meeting"
                   style={{
@@ -902,13 +839,15 @@ export default function MarketplaceGrowthPage() {
                     textDecoration: "none",
                     display: "inline-flex",
                     alignItems: "center",
+                    justifyContent: "center",
                     boxShadow: "0 4px 14px rgba(37, 99, 235, 0.25)",
                     transition: "all 0.2s ease"
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.background = "#1D4ED8")}
                   onMouseLeave={(e) => (e.currentTarget.style.background = "#2563EB")}
                 >
-                  SCHEDULE 30-MIN STRATEGY SESSION →
+                  <span>SCHEDULE 30-MIN STRATEGY SESSION</span>
+                  <ArrowRight size={15} strokeWidth={2.5} style={{ marginLeft: "0.4rem" }} />
                 </Link>
 
                 <button
@@ -923,6 +862,9 @@ export default function MarketplaceGrowthPage() {
                     fontWeight: 700,
                     fontSize: "0.95rem",
                     cursor: "pointer",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                     transition: "all 0.2s ease"
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.background = "#EFF6FF")}

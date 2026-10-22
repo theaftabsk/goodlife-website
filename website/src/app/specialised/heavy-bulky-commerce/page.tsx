@@ -2,10 +2,12 @@
 
 import React from "react";
 import SubpageTemplate from "../../components/SubpageTemplate";
+import "./heavy-bulky-commerce.css";
 
 export default function HeavyBulkyCommercePage() {
   return (
-    <SubpageTemplate
+    <div className="heavy-bulky-page">
+      <SubpageTemplate
       badge="Specialised Commerce • Large Appliances & Fragile Bulky"
       title={
         <>
@@ -157,5 +159,6 @@ export default function HeavyBulkyCommercePage() {
         { name: "Scale Pan-India Solution", href: "/solutions/scale-pan-india", tag: "Solution 03" }
       ]}
     />
+    </div>
   );
 }

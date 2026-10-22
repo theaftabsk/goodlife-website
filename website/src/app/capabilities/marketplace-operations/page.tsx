@@ -5,6 +5,8 @@ import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CommerceDiagnosticModal from "../../components/CommerceDiagnosticModal";
+import { ArrowRight, Check, X, Shield, Activity } from "lucide-react";
+import "./marketplace-operations.css";
 
 export default function MarketplaceOperationsPage() {
   const [diagOpen, setDiagOpen] = useState(false);
@@ -269,127 +271,35 @@ export default function MarketplaceOperationsPage() {
   ];
 
   return (
-    <div style={{ background: "#FFFFFF", color: "#0F172A", minHeight: "100vh", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
-      <style>{`
-        .light-panel {
-          background: #FFFFFF;
-          border: 1px solid #E2E8F0;
-          border-radius: 20px;
-          box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
-          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-        }
-        .light-panel:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 12px 30px rgba(37, 99, 235, 0.08);
-          border-color: #BFDBFE;
-        }
-        .ops-pulse {
-          display: inline-block;
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: #16A34A;
-          box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.5);
-          animation: opsPulseRing 2s infinite;
-        }
-        @keyframes opsPulseRing {
-          0% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.5); }
-          70% { box-shadow: 0 0 0 8px rgba(22, 163, 74, 0); }
-          100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
-        }
-        .touch-scroll-row {
-          display: flex;
-          gap: 1rem;
-          overflow-x: auto;
-          -webkit-overflow-scrolling: touch;
-          scrollbar-width: thin;
-          padding-bottom: 0.5rem;
-        }
-        .ops-hero-section {
-          padding-top: 3.5rem;
-          padding-bottom: 4rem;
-        }
-        .ops-section-block {
-          padding: 4.5rem 0;
-        }
-        .ops-section-header {
-          text-align: center;
-          max-width: 720px;
-          margin: 0 auto 2.75rem;
-        }
-        @media (max-width: 991px) {
-          .ops-hero-section {
-            padding-top: 2rem !important;
-            padding-bottom: 2.75rem !important;
-          }
-          .ops-hero-grid { grid-template-columns: 1fr !important; gap: 2.25rem !important; }
-          .ops-section-block { padding: 3rem 0 !important; }
-          .ops-section-header { margin-bottom: 1.85rem !important; }
-          .ops-modules-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          .ops-detail-split { grid-template-columns: 1fr !important; gap: 1.75rem !important; }
-          .metrics-4-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          .timeline-desktop { display: none !important; }
-          .timeline-mobile { display: flex !important; }
-        }
-        @media (max-width: 640px) {
-          .ops-hero-section {
-            padding-top: 1.5rem !important;
-            padding-bottom: 2rem !important;
-          }
-          .ops-hero-grid { gap: 1.5rem !important; }
-          .ops-section-block { padding: 2.25rem 0 !important; }
-          .ops-section-header { margin-bottom: 1.35rem !important; }
-          .ops-modules-grid { grid-template-columns: 1fr !important; gap: 0.65rem !important; }
-          .metrics-4-grid { grid-template-columns: 1fr !important; }
-          .cadence-tabs { flex-wrap: wrap !important; }
-          .cta-inner-box { padding: 2rem 1.25rem !important; border-radius: 18px !important; }
-          .ops-detail-card { padding: 1.35rem 1.15rem !important; border-radius: 18px !important; }
-        }
-      `}</style>
-      
+    <div className="ops-page-root" style={{ background: "#FFFFFF", color: "#0F172A", minHeight: "100vh", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* ── 1. LIGHT BESPOKE HERO ── */}
-      <section className="ops-hero-section" style={{
-        background: "linear-gradient(180deg, #F4F8FF 0%, #FFFFFF 100%)",
-        borderBottom: "1px solid #E2E8F0",
-        position: "relative"
-      }}>
+      <section className="ops-hero-section">
         <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div className="ops-hero-grid" style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: "3.5rem", alignItems: "center" }}>
+          <div className="ops-hero-grid">
             
             {/* Left: Authority & Messaging */}
             <div>
-              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.35rem 0.85rem", background: "#EFF6FF", border: "1px solid #BFDBFE", borderRadius: "999px", marginBottom: "1.25rem" }}>
-                <span className="ops-pulse" />
-                <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#2563EB", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-                  CAPABILITY 01 // MISSION-CRITICAL PLATFORM OPERATIONS
+              <div className="ops-hero-badge">
+                <span className="ops-badge-tag">
+                  <span className="ops-pulse" />
+                  CAPABILITY 01
                 </span>
+                <span className="ops-badge-sep">//</span>
+                <span className="ops-badge-title">MISSION-CRITICAL PLATFORM OPERATIONS</span>
               </div>
 
-              <h1 style={{
-                fontSize: "clamp(2.3rem, 4.5vw, 3.8rem)",
-                fontWeight: 800,
-                color: "#0F172A",
-                lineHeight: 1.05,
-                letterSpacing: "-0.03em",
-                margin: "0 0 1.25rem"
-              }}>
+              <h1 className="ops-hero-title">
                 Commerce Mission Control for High-Growth Enterprise Brands
               </h1>
 
-              <p style={{
-                fontSize: "clamp(1rem, 1.8vw, 1.15rem)",
-                color: "#475569",
-                lineHeight: 1.65,
-                margin: "0 0 2rem",
-                maxWidth: "580px"
-              }}>
+              <p className="ops-hero-desc">
                 Good Life provides dedicated brand operations cells executing daily catalog maintenance, buybox defense, order synchronization, and account health compliance across Amazon, Flipkart, Blinkit, and quick commerce.
               </p>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="ops-hero-actions mobile-btn-stack">
                 <button
                   onClick={() => setDiagOpen(true)}
                   style={{
@@ -403,12 +313,17 @@ export default function MarketplaceOperationsPage() {
                     border: "none",
                     cursor: "pointer",
                     boxShadow: "0 4px 14px rgba(37, 99, 235, 0.25)",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "0.5rem",
                     transition: "all 0.2s ease"
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.background = "#1D4ED8")}
                   onMouseLeave={(e) => (e.currentTarget.style.background = "#2563EB")}
                 >
-                  REQUEST DIAGNOSTIC →
+                  <span>REQUEST DIAGNOSTIC</span>
+                  <ArrowRight size={16} strokeWidth={2.5} />
                 </button>
 
                 <Link
@@ -425,6 +340,7 @@ export default function MarketplaceOperationsPage() {
                     textDecoration: "none",
                     display: "inline-flex",
                     alignItems: "center",
+                    justifyContent: "center",
                     transition: "all 0.2s ease"
                   }}
                   onMouseEnter={(e) => {
@@ -442,35 +358,22 @@ export default function MarketplaceOperationsPage() {
             </div>
 
             {/* Right: Bespoke Live Operations Control Center (Large White Dashboard) */}
-            <div style={{
-              background: "#FFFFFF",
-              border: "1.5px solid #BFDBFE",
-              borderRadius: "24px",
-              boxShadow: "0 12px 35px rgba(15, 23, 42, 0.05), 0 2px 6px rgba(37, 99, 235, 0.04)",
-              overflow: "hidden"
-            }}>
+            <div className="ops-cockpit-card">
               {/* Dashboard Header Bar */}
-              <div style={{
-                padding: "1rem 1.5rem",
-                background: "#F8FAFC",
-                borderBottom: "1px solid #E2E8F0",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between"
-              }}>
+              <div className="ops-cockpit-header">
                 <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
                   <span className="ops-pulse" />
-                  <span style={{ fontSize: "0.8rem", fontWeight: 800, color: "#0F172A", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+                  <span style={{ fontSize: "0.78rem", fontWeight: 800, color: "#0F172A", letterSpacing: "0.06em", textTransform: "uppercase" }}>
                     LIVE OPERATIONS CONTROL CENTER
                   </span>
                 </div>
-                <div style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 600 }}>
+                <div style={{ fontSize: "0.72rem", color: "#64748B", fontWeight: 600 }}>
                   UPDATED JUST NOW • UTC+05:30
                 </div>
               </div>
 
               {/* 4 Telemetry Rows */}
-              <div style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
+              <div className="ops-cockpit-body">
                 {telemetryMetrics.map((tm, idx) => (
                   <div
                     key={idx}
@@ -478,35 +381,35 @@ export default function MarketplaceOperationsPage() {
                       background: "#F8FAFC",
                       border: "1px solid #E2E8F0",
                       borderRadius: "14px",
-                      padding: "1rem 1.25rem"
+                      padding: "0.95rem 1.15rem"
                     }}
                   >
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.4rem" }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                        <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#2563EB", background: "#EFF6FF", padding: "0.15rem 0.45rem", borderRadius: "6px" }}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.35rem", flexWrap: "wrap", gap: "0.35rem" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.45rem" }}>
+                        <span style={{ fontSize: "0.7rem", fontWeight: 700, color: "#2563EB", background: "#EFF6FF", padding: "0.15rem 0.45rem", borderRadius: "6px" }}>
                           {tm.platform}
                         </span>
-                        <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "#1E293B" }}>
+                        <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#1E293B" }}>
                           {tm.label}
                         </span>
                       </div>
-                      <div style={{ fontSize: "0.72rem", fontWeight: 700, color: tm.statusColor, background: tm.statusBg, padding: "0.2rem 0.5rem", borderRadius: "6px", display: "inline-flex", alignItems: "center", gap: "0.3rem" }}>
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                      <div style={{ fontSize: "0.7rem", fontWeight: 700, color: tm.statusColor, background: tm.statusBg, padding: "0.15rem 0.45rem", borderRadius: "6px", display: "inline-flex", alignItems: "center", gap: "0.25rem" }}>
+                        <Check size={11} strokeWidth={3} />
                         <span>{tm.status}</span>
                       </div>
                     </div>
 
-                    <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: "0.5rem" }}>
-                      <div style={{ fontSize: "1.65rem", fontWeight: 800, color: "#0F172A", letterSpacing: "-0.02em" }}>
+                    <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: "0.4rem" }}>
+                      <div style={{ fontSize: "1.5rem", fontWeight: 800, color: "#0F172A", letterSpacing: "-0.02em" }}>
                         {tm.value}
                       </div>
-                      <div style={{ fontSize: "0.78rem", color: "#64748B", fontWeight: 600 }}>
+                      <div style={{ fontSize: "0.74rem", color: "#64748B", fontWeight: 600 }}>
                         {tm.target}
                       </div>
                     </div>
 
                     {/* Progress Fill Visualization */}
-                    <div style={{ width: "100%", height: "6px", background: "#E2E8F0", borderRadius: "999px", overflow: "hidden" }}>
+                    <div style={{ width: "100%", height: "5px", background: "#E2E8F0", borderRadius: "999px", overflow: "hidden" }}>
                       <div style={{ width: `${Math.min(tm.progress, 100)}%`, height: "100%", background: "linear-gradient(90deg, #2563EB 0%, #16A34A 100%)", borderRadius: "999px" }} />
                     </div>
                   </div>
@@ -531,7 +434,7 @@ export default function MarketplaceOperationsPage() {
               </span>
             </div>
             <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#16A34A", background: "#ECFDF3", padding: "0.25rem 0.75rem", borderRadius: "999px", border: "1px solid #A7F3D0", display: "inline-flex", alignItems: "center", gap: "0.4rem" }}>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+              <Check size={12} strokeWidth={3} />
               <span>142 incidents prevented this quarter</span>
             </div>
           </div>
@@ -541,20 +444,20 @@ export default function MarketplaceOperationsPage() {
               <div
                 key={idx}
                 style={{
-                  minWidth: "280px",
-                  flex: "1 1 280px",
+                  minWidth: "260px",
+                  flex: "1 1 260px",
                   background: "#FFFFFF",
                   border: "1px solid #E2E8F0",
                   borderRadius: "14px",
-                  padding: "1rem 1.2rem",
+                  padding: "0.95rem 1.15rem",
                   boxShadow: "0 2px 8px rgba(15, 23, 42, 0.02)"
                 }}
               >
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.4rem" }}>
-                  <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#64748B" }}>
+                  <span style={{ fontSize: "0.74rem", fontWeight: 700, color: "#64748B" }}>
                     {evt.time} • {evt.platform}
                   </span>
-                  <span style={{ fontSize: "0.7rem", fontWeight: 700, color: "#2563EB", background: "#EFF6FF", padding: "0.15rem 0.45rem", borderRadius: "4px" }}>
+                  <span style={{ fontSize: "0.68rem", fontWeight: 700, color: "#2563EB", background: "#EFF6FF", padding: "0.15rem 0.45rem", borderRadius: "4px" }}>
                     {evt.tag}
                   </span>
                 </div>
@@ -584,7 +487,7 @@ export default function MarketplaceOperationsPage() {
             </p>
           </div>
 
-          <div className="metrics-4-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem" }}>
+          <div className="metrics-4-grid">
             {fourMetrics.map((m, idx) => (
               <div
                 key={idx}
@@ -632,29 +535,21 @@ export default function MarketplaceOperationsPage() {
             </p>
           </div>
 
-          {/* Module Selector (2 rows x 3 modules on desktop / 2-col on mobile) */}
-          <div className="ops-modules-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem", marginBottom: "2rem" }}>
+          {/* Module Selector */}
+          <div className="ops-modules-grid">
             {pillars.map((p, idx) => {
               const isSelected = activeModule === idx;
               return (
                 <button
                   key={p.id}
                   onClick={() => setActiveModule(idx)}
-                  style={{
-                    padding: "1.2rem 1.25rem",
-                    borderRadius: "16px",
-                    border: isSelected ? "1.5px solid #2563EB" : "1px solid #E2E8F0",
-                    background: isSelected ? "#EFF6FF" : "#FFFFFF",
-                    textAlign: "left",
-                    cursor: "pointer",
-                    boxShadow: isSelected ? "0 4px 14px rgba(37, 99, 235, 0.08)" : "0 2px 6px rgba(15, 23, 42, 0.02)",
-                    transition: "all 0.2s ease"
-                  }}
+                  className={`ops-module-btn ${isSelected ? "ops-module-btn--active" : ""}`}
                 >
-                  <div style={{ fontSize: "0.72rem", fontWeight: 800, color: isSelected ? "#2563EB" : "#94A3B8", letterSpacing: "0.06em", marginBottom: "0.3rem" }}>
-                    {p.tag}
+                  <div className="ops-module-top">
+                    <span className="ops-module-tag">{p.tag}</span>
+                    {isSelected && <span className="ops-module-active-dot" />}
                   </div>
-                  <div style={{ fontSize: "0.95rem", fontWeight: 700, color: isSelected ? "#1E40AF" : "#0F172A", lineHeight: 1.35 }}>
+                  <div className="ops-module-title">
                     {p.title.split("&")[0]}
                   </div>
                 </button>
@@ -666,61 +561,51 @@ export default function MarketplaceOperationsPage() {
           {(() => {
             const cur = pillars[activeModule];
             return (
-              <div
-                className="ops-detail-card"
-                style={{
-                  background: "#FFFFFF",
-                  border: "1px solid #BFDBFE",
-                  borderRadius: "22px",
-                  padding: "2.5rem",
-                  boxShadow: "0 8px 30px rgba(37, 99, 235, 0.05)"
-                }}
-              >
-                <div className="ops-detail-split" style={{ display: "grid", gridTemplateColumns: "1.25fr 1fr", gap: "3rem", alignItems: "center" }}>
+              <div className="ops-detail-card">
+                <div className="ops-detail-split">
                   
                   {/* Left: Operational Deliverables */}
                   <div>
-                    <div style={{ display: "inline-block", fontSize: "0.75rem", fontWeight: 800, color: "#2563EB", background: "#EFF6FF", padding: "0.25rem 0.65rem", borderRadius: "6px", marginBottom: "0.75rem" }}>
-                      {cur.tag} ACTIVE SYSTEM
+                    <div className="ops-pillar-badge">
+                      <span className="ops-pillar-pulse" />
+                      <span>{cur.tag} ACTIVE SYSTEM</span>
                     </div>
-                    <h3 style={{ fontSize: "1.6rem", fontWeight: 800, color: "#0F172A", margin: "0 0 0.75rem", letterSpacing: "-0.02em" }}>
+                    <h3 className="ops-pillar-title">
                       {cur.title}
                     </h3>
-                    <p style={{ fontSize: "0.95rem", color: "#475569", lineHeight: 1.6, margin: "0 0 1.5rem" }}>
+                    <p className="ops-pillar-desc">
                       {cur.desc}
                     </p>
 
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                    <div className="ops-pillar-deliverables">
                       {cur.deliverables.map((d, dIdx) => (
-                        <div key={dIdx} style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem" }}>
-                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: "3px", flexShrink: 0 }}><polyline points="20 6 9 17 4 12" /></svg>
-                          <span style={{ fontSize: "0.88rem", color: "#334155", lineHeight: 1.5, fontWeight: 500 }}>{d}</span>
+                        <div key={dIdx} className="ops-deliverable-item">
+                          <Check size={14} strokeWidth={3} color="#16A34A" className="ops-deliverable-check" />
+                          <span className="ops-deliverable-text">{d}</span>
                         </div>
                       ))}
                     </div>
                   </div>
 
                   {/* Right: Target Benchmark Scorecard */}
-                  <div style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "18px", padding: "1.75rem" }}>
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.25rem", borderBottom: "1px solid #E2E8F0", paddingBottom: "0.75rem" }}>
-                      <span style={{ fontSize: "0.85rem", fontWeight: 800, color: "#0F172A", textTransform: "uppercase", letterSpacing: "0.04em" }}>
+                  <div className="ops-scorecard-box">
+                    <div className="ops-scorecard-header">
+                      <span className="ops-scorecard-title">
                         TARGET BENCHMARK SCORECARD
                       </span>
-                      <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#16A34A", background: "#ECFDF3", padding: "0.2rem 0.5rem", borderRadius: "6px" }}>
+                      <span className="ops-scorecard-sla">
                         Active SLA
                       </span>
                     </div>
 
-                    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                    <div className="ops-scorecard-grid">
                       {cur.scorecard.map((sc, sIdx) => (
-                        <div key={sIdx} style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "12px", padding: "0.85rem 1.1rem" }}>
-                          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.3rem" }}>
-                            <span style={{ fontSize: "0.82rem", color: "#64748B", fontWeight: 600 }}>{sc.label}</span>
-                            <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#2563EB", background: "#EFF6FF", padding: "0.15rem 0.45rem", borderRadius: "4px" }}>
-                              {sc.status}
-                            </span>
+                        <div key={sIdx} className="ops-scorecard-item">
+                          <div className="ops-sc-header-row">
+                            <span className="ops-sc-label">{sc.label}</span>
+                            <span className="ops-sc-status">{sc.status}</span>
                           </div>
-                          <div style={{ fontSize: "1.25rem", fontWeight: 800, color: "#0F172A" }}>
+                          <div className="ops-sc-value">
                             {sc.value}
                           </div>
                         </div>
@@ -753,7 +638,7 @@ export default function MarketplaceOperationsPage() {
           </div>
 
           {/* Desktop Horizontal Timeline */}
-          <div className="timeline-desktop" style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+          <div className="timeline-desktop">
             <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "0.75rem" }}>
               {cadenceSchedule.map((c, idx) => {
                 const isSelected = activeCadence === idx;
@@ -802,7 +687,7 @@ export default function MarketplaceOperationsPage() {
           </div>
 
           {/* Mobile Vertical Timeline */}
-          <div className="timeline-mobile" style={{ display: "none", flexDirection: "column", gap: "1.25rem" }}>
+          <div className="timeline-mobile">
             {cadenceSchedule.map((c, idx) => (
               <div key={idx} style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "16px", padding: "1.25rem" }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.4rem" }}>
@@ -836,11 +721,12 @@ export default function MarketplaceOperationsPage() {
               Legacy / Junior In-House Model vs. Good Life Operating Cell
             </h2>
             <p style={{ fontSize: "0.98rem", color: "#64748B", lineHeight: 1.6, margin: 0 }}>
-              Why scaling brands replace junior portal executives with Good Life's institutional operations infrastructure.
+              Why scaling brands replace junior portal executives with Good Life&apos;s institutional operations infrastructure.
             </p>
           </div>
 
-          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+          {/* Desktop Table View */}
+          <div className="ops-comparison-table-wrap" style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
             <div style={{ background: "#FFFFFF", borderRadius: "20px", border: "1px solid #E2E8F0", overflow: "hidden", minWidth: "620px", boxShadow: "0 4px 20px rgba(15, 23, 42, 0.03)" }}>
               <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
                 <thead>
@@ -857,11 +743,11 @@ export default function MarketplaceOperationsPage() {
                         {cr.metric}
                       </td>
                       <td style={{ padding: "1.1rem 1.5rem", color: "#64748B", fontSize: "0.85rem", lineHeight: 1.5 }}>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", marginRight: "0.45rem" }}><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                        <X size={12} strokeWidth={3} color="#EF4444" style={{ display: "inline-block", verticalAlign: "middle", marginRight: "0.45rem" }} />
                         {cr.traditional}
                       </td>
                       <td style={{ padding: "1.1rem 1.5rem", color: "#0F172A", fontSize: "0.85rem", lineHeight: 1.5, fontWeight: 600 }}>
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", marginRight: "0.45rem" }}><polyline points="20 6 9 17 4 12" /></svg>
+                        <Check size={13} strokeWidth={3} color="#16A34A" style={{ display: "inline-block", verticalAlign: "middle", marginRight: "0.45rem" }} />
                         {cr.goodlife}
                       </td>
                     </tr>
@@ -871,6 +757,34 @@ export default function MarketplaceOperationsPage() {
             </div>
           </div>
 
+          {/* Mobile Comparison Cards View */}
+          <div className="ops-comparison-mobile-cards">
+            {comparisonRows.map((cr, idx) => (
+              <div key={idx} className="ops-comp-card">
+                <div className="ops-comp-factor">
+                  <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#2563EB", display: "inline-block" }} />
+                  <span>{cr.metric}</span>
+                </div>
+
+                <div className="ops-comp-traditional">
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.35rem", color: "#DC2626", fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", marginBottom: "0.35rem" }}>
+                    <X size={12} strokeWidth={3} />
+                    <span>Legacy / Junior In-House</span>
+                  </div>
+                  <div>{cr.traditional}</div>
+                </div>
+
+                <div className="ops-comp-goodlife">
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.35rem", color: "#2563EB", fontWeight: 800, fontSize: "0.75rem", textTransform: "uppercase", marginBottom: "0.35rem" }}>
+                    <Check size={12} strokeWidth={3} />
+                    <span>Good Life Dedicated Cell</span>
+                  </div>
+                  <div>{cr.goodlife}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
 
@@ -878,16 +792,7 @@ export default function MarketplaceOperationsPage() {
       <section className="ops-section-block" style={{ background: "#FFFFFF" }}>
         <div style={{ maxWidth: "1150px", margin: "0 auto", padding: "0 1.5rem" }}>
           
-          <div
-            className="cta-inner-box"
-            style={{
-              background: "linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 100%)",
-              border: "1.5px solid #BFDBFE",
-              borderRadius: "24px",
-              padding: "3.5rem 3rem",
-              boxShadow: "0 10px 30px rgba(37, 99, 235, 0.06)"
-            }}
-          >
+          <div className="cta-inner-box">
             <div style={{ maxWidth: "720px" }}>
               <span style={{ display: "inline-block", fontSize: "0.78rem", fontWeight: 800, letterSpacing: "0.08em", color: "#2563EB", textTransform: "uppercase", marginBottom: "0.75rem" }}>
                 COMPLIMENTARY EXECUTIVE DIAGNOSTIC
@@ -899,7 +804,7 @@ export default function MarketplaceOperationsPage() {
                 Let our senior operations leadership run a forensic review of your Amazon, Flipkart, and Blinkit accounts. We uncover hidden search suppressions, Buybox leaks, and logistics SLA bottlenecks within 48 hours under NDA.
               </p>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="ops-cta-actions mobile-btn-stack">
                 <Link
                   href="/book-meeting"
                   style={{
@@ -913,13 +818,15 @@ export default function MarketplaceOperationsPage() {
                     textDecoration: "none",
                     display: "inline-flex",
                     alignItems: "center",
+                    justifyContent: "center",
                     boxShadow: "0 4px 14px rgba(37, 99, 235, 0.25)",
                     transition: "all 0.2s ease"
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.background = "#1D4ED8")}
                   onMouseLeave={(e) => (e.currentTarget.style.background = "#2563EB")}
                 >
-                  SCHEDULE 30-MIN STRATEGY SESSION →
+                  <span>SCHEDULE 30-MIN STRATEGY SESSION</span>
+                  <ArrowRight size={15} strokeWidth={2.5} style={{ marginLeft: "0.4rem" }} />
                 </Link>
 
                 <button
@@ -934,6 +841,9 @@ export default function MarketplaceOperationsPage() {
                     fontWeight: 700,
                     fontSize: "0.95rem",
                     cursor: "pointer",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                     transition: "all 0.2s ease"
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.background = "#EFF6FF")}

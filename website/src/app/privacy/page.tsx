@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CommerceDiagnosticModal from "../components/CommerceDiagnosticModal";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import "./privacy.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
@@ -17,15 +18,15 @@ export default function PrivacyPage() {
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* Hero Section */}
-      <section style={{
+      <section className="privacy-hero" style={{
         position: "relative",
         paddingTop: "3.5rem",
         paddingBottom: "4rem",
         background: "linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%)",
         borderBottom: "1px solid #E2E8F0"
       }}>
-        <div className="container" style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.85rem", color: "#64748B", marginBottom: "1.2rem", fontWeight: 500 }}>
+        <div className="container privacy-hero-container" style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
+          <div className="privacy-breadcrumbs" style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.85rem", color: "#64748B", marginBottom: "1.2rem", fontWeight: 500 }}>
             <Link href="/" style={{ color: "#2563EB", textDecoration: "none", fontWeight: 600 }}>Home</Link>
             <span>/</span>
             <span style={{ color: "#0F172A", fontWeight: 600 }}>Privacy & Data Governance</span>
@@ -47,8 +48,8 @@ export default function PrivacyPage() {
       </section>
 
       {/* Policy Content */}
-      <main style={{ padding: "4rem 0 6rem" }}>
-        <div className="container" style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
+      <main className="privacy-main" style={{ padding: "4rem 0 6rem" }}>
+        <div className="container privacy-main-container" style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
           <div className="privacy-card" style={{
             background: "#FFFFFF",
             borderRadius: "20px",

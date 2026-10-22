@@ -339,7 +339,7 @@ export default function MarketplaceLeakageCalculator({ onOpenDiag }: { onOpenDia
                 </span>
               </div>
 
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "8px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))", gap: "8px" }}>
                 {channelOptions.map((opt) => {
                   const isSelected = channel === opt.name;
                   return (

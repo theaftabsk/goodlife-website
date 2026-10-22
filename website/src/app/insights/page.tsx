@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import CommerceDiagnosticModal from "../components/CommerceDiagnosticModal";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { DEFAULT_INSIGHTS, InsightArticle } from "@/data/insightsData";
+import "./insights.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
@@ -90,7 +91,7 @@ export default function InsightsPage() {
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* Hero Section */}
-      <section style={{
+      <section className="insights-hero" style={{
         position: "relative",
         paddingTop: "3.5rem",
         paddingBottom: "4.5rem",
@@ -109,7 +110,7 @@ export default function InsightsPage() {
           pointerEvents: "none"
         }} />
 
-        <div className="container" style={{ position: "relative", zIndex: 2, maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem" }}>
+        <div className="container insights-hero-container" style={{ position: "relative", zIndex: 2, maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.85rem", color: "#64748B", marginBottom: "1.5rem", fontWeight: 500 }}>
             <Link href="/" style={{ color: "#2563EB", textDecoration: "none", fontWeight: 600 }}>Home</Link>
             <span>/</span>
@@ -117,7 +118,7 @@ export default function InsightsPage() {
           </div>
 
           <div style={{ maxWidth: "880px" }}>
-            <div style={{
+            <div className="insights-badge" style={{
               display: "inline-flex",
               alignItems: "center",
               gap: "0.5rem",
@@ -136,7 +137,7 @@ export default function InsightsPage() {
               Executive Knowledge Hub • Commerce Operations Strategy
             </div>
 
-            <h1 style={{
+            <h1 className="insights-heading" style={{
               fontSize: "clamp(2.4rem, 5vw, 3.8rem)",
               fontWeight: 900,
               letterSpacing: "-0.03em",
@@ -155,12 +156,12 @@ export default function InsightsPage() {
               </span>
             </h1>
 
-            <p style={{ fontSize: "1.15rem", color: "#475569", lineHeight: 1.6, maxWidth: "720px", marginBottom: "2rem" }}>
+            <p className="insights-lead" style={{ fontSize: "1.15rem", color: "#475569", lineHeight: 1.6, maxWidth: "720px", marginBottom: "2rem" }}>
               Deep tactical briefings on marketplace unit economics, regional warehouse deployment, heavy-bulky freight management, and algorithmic settlement reconciliation written by hands-on commerce operators.
             </p>
 
             {/* Search Bar */}
-            <div style={{ position: "relative", maxWidth: "480px" }}>
+            <div className="insights-search-box" style={{ position: "relative", maxWidth: "480px" }}>
               <input
                 type="text"
                 placeholder="Search insights by topic, marketplace, keyword..."
@@ -190,13 +191,14 @@ export default function InsightsPage() {
 
       {/* Category Filter Navigation */}
       <section style={{ background: "#FFFFFF", borderBottom: "1px solid #E2E8F0", position: "sticky", top: "72px", zIndex: 30 }}>
-        <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0.75rem 1.5rem", overflowX: "auto" }}>
+        <div className="container insights-cat-bar" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0.75rem 1.5rem", overflowX: "auto" }}>
           <div style={{ display: "flex", gap: "0.6rem", minWidth: "max-content" }}>
             {CATEGORIES.map((cat) => {
               const active = selectedCat === cat;
               return (
                 <button
                   key={cat}
+                  className="insights-cat-pill"
                   onClick={() => setSelectedCat(cat)}
                   style={{
                     padding: "0.55rem 1.15rem",
@@ -231,7 +233,7 @@ export default function InsightsPage() {
             </div>
 
             <Link href={`/insights/${featured.slug}`} style={{ textDecoration: "none", color: "inherit" }}>
-              <div style={{
+              <div className="insights-featured-card" style={{
                 background: "#FFFFFF",
                 borderRadius: "20px",
                 border: "1.5px solid #E2E8F0",
@@ -241,7 +243,7 @@ export default function InsightsPage() {
                 boxShadow: "0 10px 30px -5px rgba(0,0,0,0.06)",
                 transition: "all 0.2s ease"
               }}>
-                <div style={{ height: "100%", minHeight: "340px", overflow: "hidden", background: "#F1F5F9" }}>
+                <div className="insights-featured-img-wrap" style={{ height: "100%", minHeight: "340px", overflow: "hidden", background: "#F1F5F9" }}>
                   <img
                     src={featured.featuredImage || "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&auto=format&fit=crop&q=80"}
                     alt={featured.title}
@@ -249,7 +251,7 @@ export default function InsightsPage() {
                   />
                 </div>
 
-                <div style={{ padding: "2.5rem 2.75rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                <div className="insights-featured-body" style={{ padding: "2.5rem 2.75rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                   <div>
                     <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.8rem" }}>
                       <span style={{ fontSize: "0.74rem", fontWeight: 800, color: "#1D4ED8", background: "#EFF6FF", padding: "0.25rem 0.65rem", borderRadius: "999px", border: "1px solid #BFDBFE" }}>
@@ -261,7 +263,7 @@ export default function InsightsPage() {
                       <span style={{ fontSize: "0.78rem", color: "#64748B", fontWeight: 600 }}>{featured.readTime || "6 min"}</span>
                     </div>
 
-                    <h2 style={{ fontSize: "1.65rem", fontWeight: 900, color: "#0F172A", lineHeight: 1.3, marginBottom: "0.9rem" }}>
+                    <h2 className="insights-featured-title" style={{ fontSize: "1.65rem", fontWeight: 900, color: "#0F172A", lineHeight: 1.3, marginBottom: "0.9rem" }}>
                       {featured.title}
                     </h2>
 
@@ -293,7 +295,7 @@ export default function InsightsPage() {
       )}
 
       {/* Latest Articles Grid (Point 14) */}
-      <section style={{ padding: "3.5rem 0 6rem 0" }}>
+      <section className="insights-grid-section" style={{ padding: "3.5rem 0 6rem 0" }}>
         <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
             <h3 style={{ fontSize: "1.5rem", fontWeight: 900, color: "#0F172A", margin: 0 }}>
@@ -313,7 +315,7 @@ export default function InsightsPage() {
               <p style={{ fontSize: "0.85rem", color: "#64748B" }}>Try searching for Amazon, Buybox, Inventory, or choose "All Categories".</p>
             </div>
           ) : (
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(350px, 1fr))", gap: "2rem" }}>
+            <div className="insights-articles-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 320px), 1fr))", gap: "2rem" }}>
               {filteredArticles.map((art) => (
                 <Link
                   key={art.id}
@@ -393,7 +395,7 @@ export default function InsightsPage() {
       {/* Complimentary Diagnostic CTA */}
       <section style={{ padding: "4rem 0 4.5rem", background: "#FFFFFF", borderTop: "1px solid #E2E8F0" }}>
         <div className="container" style={{ maxWidth: "1140px", margin: "0 auto", padding: "0 1.5rem" }}>
-          <div style={{
+          <div className="insights-diag-cta" style={{
             background: "linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 100%)",
             border: "1.5px solid #BFDBFE",
             borderRadius: "24px",
@@ -425,7 +427,7 @@ export default function InsightsPage() {
               <p style={{ fontSize: "1.05rem", color: "#475569", lineHeight: 1.65, margin: "0 auto 2rem auto", maxWidth: "620px" }}>
                 Our proprietary Commerce Diagnostic benchmarks your inventory run-rates, platform deductions, and logistics SLAs against top-tier category leaders.
               </p>
-              <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="insights-diag-btns" style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
                 <button
                   onClick={() => setDiagOpen(true)}
                   style={{

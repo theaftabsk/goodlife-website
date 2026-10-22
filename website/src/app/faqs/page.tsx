@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CommerceDiagnosticModal from "../components/CommerceDiagnosticModal";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import "./faqs.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
@@ -68,7 +69,7 @@ export default function FaqsPage() {
       <Header onOpenDiagnostic={() => setDiagOpen(true)} />
 
       {/* Hero Section */}
-      <section style={{
+      <section className="faqs-hero" style={{
         position: "relative",
         paddingTop: "3.5rem",
         paddingBottom: "4.5rem",
@@ -87,7 +88,7 @@ export default function FaqsPage() {
           pointerEvents: "none"
         }} />
 
-        <div className="container" style={{ position: "relative", zIndex: 2, maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem" }}>
+        <div className="container faqs-hero-container" style={{ position: "relative", zIndex: 2, maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.85rem", color: "#64748B", marginBottom: "1.5rem", fontWeight: 500 }}>
             <Link href="/" style={{ color: "#2563EB", textDecoration: "none", fontWeight: 600 }}>Home</Link>
             <span>/</span>
@@ -95,7 +96,7 @@ export default function FaqsPage() {
           </div>
 
           <div style={{ maxWidth: "880px" }}>
-            <div style={{
+            <div className="faqs-badge" style={{
               display: "inline-flex",
               alignItems: "center",
               gap: "0.5rem",
@@ -114,7 +115,7 @@ export default function FaqsPage() {
               Live Database Verified FAQs • Real-Time PostgreSQL
             </div>
 
-            <h1 style={{
+            <h1 className="faqs-heading" style={{
               fontSize: "clamp(2.4rem, 4.8vw, 3.8rem)",
               fontWeight: 900,
               lineHeight: 1.15,
@@ -126,7 +127,7 @@ export default function FaqsPage() {
               <span style={{ color: "#2563EB" }}>Clear Operational Answers</span>
             </h1>
 
-            <p style={{
+            <p className="faqs-lead" style={{
               fontSize: "clamp(1.08rem, 1.8vw, 1.22rem)",
               color: "#475569",
               lineHeight: 1.7,
@@ -139,6 +140,7 @@ export default function FaqsPage() {
 
             <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
               <button
+                className="faqs-hero-btn"
                 onClick={() => setDiagOpen(true)}
                 style={{
                   height: "54px",
@@ -168,12 +170,13 @@ export default function FaqsPage() {
       </section>
 
       {/* Category Tabs */}
-      <section style={{ padding: "3rem 0 1rem", background: "#F8FAFC" }}>
-        <div className="container" style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
+      <section className="faqs-category-section" style={{ padding: "3rem 0 1rem", background: "#F8FAFC" }}>
+        <div className="container faqs-cat-container" style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
           <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", justifyContent: "center" }}>
             {categories.map(cat => (
               <button
                 key={cat}
+                className="faqs-cat-pill"
                 onClick={() => {
                   setSelectedCat(cat);
                   setOpenIdx(0);
@@ -198,8 +201,8 @@ export default function FaqsPage() {
       </section>
 
       {/* FAQ Accordion List */}
-      <section style={{ padding: "2rem 0 6rem", background: "#F8FAFC" }}>
-        <div className="container" style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
+      <section className="faqs-list-section" style={{ padding: "2rem 0 6rem", background: "#F8FAFC" }}>
+        <div className="container faqs-list-container" style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
           {filteredFaqs.length === 0 ? (
             <div style={{ textAlign: "center", padding: "4rem 1rem", color: "#64748B" }}>
               <p style={{ fontSize: "1.1rem", fontWeight: 600 }}>Loading verified FAQs from database...</p>
@@ -211,6 +214,7 @@ export default function FaqsPage() {
                 return (
                   <div
                     key={faq.id || idx}
+                    className="faqs-accordion-item"
                     style={{
                       background: "#FFFFFF",
                       borderRadius: "16px",
@@ -221,6 +225,7 @@ export default function FaqsPage() {
                     }}
                   >
                     <button
+                      className="faqs-accordion-btn"
                       onClick={() => setOpenIdx(isOpen ? null : idx)}
                       style={{
                         width: "100%",
@@ -235,10 +240,10 @@ export default function FaqsPage() {
                         gap: "1rem"
                       }}
                     >
-                      <span style={{ fontSize: "1.05rem", fontWeight: 800, color: isOpen ? "#2563EB" : "#0B1736", lineHeight: 1.4 }}>
+                      <span className="faqs-question-text" style={{ fontSize: "1.05rem", fontWeight: 800, color: isOpen ? "#2563EB" : "#0B1736", lineHeight: 1.4 }}>
                         {faq.question}
                       </span>
-                      <span style={{
+                      <span className="faqs-chevron" style={{
                         display: "inline-flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -258,8 +263,8 @@ export default function FaqsPage() {
                     </button>
 
                     {isOpen && (
-                      <div style={{ padding: "0 1.8rem 1.6rem", borderTop: "1px solid #F1F5F9", paddingTop: "1rem" }}>
-                        <p style={{ fontSize: "0.96rem", color: "#475569", lineHeight: 1.7, margin: 0, fontWeight: 500 }}>
+                      <div className="faqs-answer-panel" style={{ padding: "0 1.8rem 1.6rem", borderTop: "1px solid #F1F5F9", paddingTop: "1rem" }}>
+                        <p className="faqs-answer-text" style={{ fontSize: "0.96rem", color: "#475569", lineHeight: 1.7, margin: 0, fontWeight: 500 }}>
                           {faq.answer}
                         </p>
                       </div>

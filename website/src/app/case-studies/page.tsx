@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CommerceDiagnosticModal from "../components/CommerceDiagnosticModal";
 import { getCaseStudies, CaseStudyDetail } from "./caseStudiesData";
+import "./case-studies.css";
 
 export default function CaseStudiesPage() {
   const [caseStudiesList, setCaseStudiesList] = useState<CaseStudyDetail[]>([]);
@@ -57,61 +58,24 @@ export default function CaseStudiesPage() {
   }, [caseStudiesList]);
 
   return (
-    <div style={{ background: "#F8FAFC", minHeight: "100vh", color: "#0F172A", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
+    <div className="cs-page-root" style={{ background: "#F8FAFC", minHeight: "100vh", color: "#0F172A", fontFamily: "var(--font-sans, 'Plus Jakarta Sans', sans-serif)" }}>
       <Header onOpenDiagnostic={() => setIsDiagnosticOpen(true)} />
 
       {/* Hero Section — Light, Crisp, High-Contrast & Beautiful */}
-      <section style={{
-        position: "relative",
-        paddingTop: "3.5rem",
-        paddingBottom: "4.5rem",
-        background: "linear-gradient(180deg, #FFFFFF 0%, #F0F7FF 45%, #F8FAFC 100%)",
-        borderBottom: "1px solid #E2E8F0",
-        overflow: "hidden"
-      }}>
+      <section className="cs-hero-section">
         {/* Soft Sky Blue Aurora Glow */}
-        <div style={{
-          position: "absolute",
-          top: "0",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "1200px",
-          height: "550px",
-          background: "radial-gradient(circle, rgba(37,99,235,0.09) 0%, rgba(56,189,248,0.04) 45%, transparent 70%)",
-          pointerEvents: "none"
-        }} />
+        <div className="cs-hero-glow" />
 
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.25rem", position: "relative", zIndex: 2 }}>
+        <div className="cs-hero-container">
           {/* Breadcrumb Navigation */}
-          <div style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            fontSize: "0.85rem",
-            color: "#64748B",
-            marginBottom: "1.2rem",
-            fontWeight: 500
-          }}>
+          <div className="cs-breadcrumb">
             <Link href="/" style={{ color: "#2563EB", textDecoration: "none", fontWeight: 600 }}>Home</Link>
             <span>/</span>
             <span style={{ color: "#0F172A", fontWeight: 700 }}>Case Studies &amp; Outcomes</span>
           </div>
 
           {/* Eyebrow Pill */}
-          <div style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            background: "#EFF6FF",
-            border: "1px solid #BFDBFE",
-            padding: "0.4rem 1rem",
-            borderRadius: "30px",
-            fontSize: "0.82rem",
-            fontWeight: 800,
-            color: "#1D4ED8",
-            marginBottom: "1.2rem",
-            letterSpacing: "0.4px"
-          }}>
+          <div className="cs-eyebrow">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
             </svg>
@@ -119,15 +83,7 @@ export default function CaseStudiesPage() {
           </div>
 
           {/* Main Headline — Crisp Dark Color for Perfect Visibility */}
-          <h1 style={{
-            fontSize: "clamp(2.3rem, 5vw, 3.8rem)",
-            fontWeight: 900,
-            lineHeight: 1.15,
-            letterSpacing: "-0.03em",
-            maxWidth: "960px",
-            color: "#0F172A",
-            margin: "0 0 1.2rem"
-          }}>
+          <h1 className="cs-hero-title">
             Real Proof Points in Appliance &amp;{" "}
             <span style={{
               background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
@@ -139,59 +95,44 @@ export default function CaseStudiesPage() {
           </h1>
 
           {/* Subtitle */}
-          <p style={{
-            fontSize: "clamp(1.05rem, 2vw, 1.25rem)",
-            color: "#475569",
-            maxWidth: "820px",
-            lineHeight: 1.6,
-            margin: "0 0 2.8rem"
-          }}>
+          <p className="cs-hero-desc">
             Explore how GoodLife engineers high-speed regional logistics, eliminates in-transit fragile damage, and scales Indian manufacturers to market-leading marketplace positions.
           </p>
 
-          {/* Key Enterprise Achievements Metric Bar — Light Card, 100% Mobile Responsive */}
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-            gap: "1.2rem",
-            background: "#FFFFFF",
-            border: "1.5px solid #E2E8F0",
-            borderRadius: "20px",
-            padding: "1.6rem 2rem",
-            boxShadow: "0 10px 30px -10px rgba(0,0,0,0.06)"
-          }}>
-            <div style={{ padding: "0.4rem 0" }}>
-              <div style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 900, color: "#2563EB", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+          {/* Key Enterprise Achievements Metric Bar */}
+          <div className="cs-hero-metrics">
+            <div className="cs-metric-cell">
+              <div className="cs-metric-num" style={{ color: "#2563EB" }}>
                 ₹420+ Cr
               </div>
-              <div style={{ fontSize: "0.85rem", color: "#64748B", fontWeight: 700, marginTop: "0.35rem" }}>
+              <div className="cs-metric-lbl">
                 Annual GMV Scaled
               </div>
             </div>
 
-            <div style={{ padding: "0.4rem 0" }}>
-              <div style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 900, color: "#059669", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+            <div className="cs-metric-cell">
+              <div className="cs-metric-num" style={{ color: "#059669" }}>
                 99.4%
               </div>
-              <div style={{ fontSize: "0.85rem", color: "#64748B", fontWeight: 700, marginTop: "0.35rem" }}>
+              <div className="cs-metric-lbl">
                 On-Time Dispatch SLA
               </div>
             </div>
 
-            <div style={{ padding: "0.4rem 0" }}>
-              <div style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 900, color: "#D97706", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+            <div className="cs-metric-cell">
+              <div className="cs-metric-num" style={{ color: "#D97706" }}>
                 0.4%
               </div>
-              <div style={{ fontSize: "0.85rem", color: "#64748B", fontWeight: 700, marginTop: "0.35rem" }}>
+              <div className="cs-metric-lbl">
                 Fragile Breakage (from 14%)
               </div>
             </div>
 
-            <div style={{ padding: "0.4rem 0" }}>
-              <div style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 900, color: "#7C3AED", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+            <div className="cs-metric-cell">
+              <div className="cs-metric-num" style={{ color: "#7C3AED" }}>
                 12 Hubs
               </div>
-              <div style={{ fontSize: "0.85rem", color: "#64748B", fontWeight: 700, marginTop: "0.35rem" }}>
+              <div className="cs-metric-lbl">
                 Multi-State GST Warehousing
               </div>
             </div>
@@ -200,21 +141,11 @@ export default function CaseStudiesPage() {
       </section>
 
       {/* Main Content Area */}
-      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "3.5rem 1.25rem 5rem" }}>
-        {/* Featured Case Study Spotlight Card (Clean & Responsive) */}
+      <div className="cs-main-wrap">
+        {/* Featured Case Study Spotlight Card */}
         {featuredStudy && activeFilter === "All" && !searchQuery && (
-          <div style={{
-            background: "#FFFFFF",
-            borderRadius: "20px",
-            border: "1.5px solid #E2E8F0",
-            boxShadow: "0 12px 32px -10px rgba(0,0,0,0.07)",
-            overflow: "hidden",
-            marginBottom: "3.5rem",
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-            gap: "0"
-          }}>
-            <div style={{ position: "relative", minHeight: "300px", background: "#0F172A" }}>
+          <div className="cs-featured-card">
+            <div className="cs-featured-media">
               <img
                 src={featuredStudy.coverImage}
                 alt={featuredStudy.title}
@@ -242,7 +173,7 @@ export default function CaseStudiesPage() {
               </div>
             </div>
 
-            <div style={{ padding: "clamp(1.5rem, 3vw, 2.5rem)", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+            <div className="cs-featured-body">
               <div>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap", marginBottom: "0.6rem" }}>
                   <span style={{
@@ -275,12 +206,7 @@ export default function CaseStudiesPage() {
                 </p>
 
                 {/* Outcome Metrics Grid */}
-                <div style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
-                  gap: "0.75rem",
-                  marginBottom: "1.8rem"
-                }}>
+                <div className="cs-featured-metrics">
                   {featuredStudy.metrics.slice(0, 3).map((m, i) => (
                     <div key={i} style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", padding: "0.75rem 0.9rem", borderRadius: "10px" }}>
                       <div style={{ fontSize: "1.3rem", fontWeight: 900, color: "#059669", lineHeight: 1.1 }}>{m.val}</div>
@@ -290,7 +216,7 @@ export default function CaseStudiesPage() {
                 </div>
               </div>
 
-              <div style={{ display: "flex", gap: "0.8rem", alignItems: "center", flexWrap: "wrap" }}>
+              <div className="cs-featured-actions">
                 <Link
                   href={`/case-studies/${featuredStudy.slug}`}
                   style={{
@@ -342,40 +268,21 @@ export default function CaseStudiesPage() {
           </div>
         )}
 
-        {/* Toolbar: Category Filters & Search (Mobile Responsive) */}
-        <div style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexWrap: "wrap",
-          gap: "1.2rem",
-          marginBottom: "2.2rem"
-        }}>
+        {/* Toolbar: Category Filters & Search */}
+        <div className="cs-toolbar">
           {/* Filter Pills with smooth mobile scroll */}
-          <div style={{
-            display: "flex",
-            gap: "0.5rem",
-            overflowX: "auto",
-            maxWidth: "100%",
-            paddingBottom: "0.3rem"
-          }}>
+          <div className="cs-filters-scroll">
             {categories.map((cat) => {
               const active = activeFilter === cat;
               return (
                 <button
                   key={cat}
+                  className="cs-filter-btn"
                   onClick={() => setActiveFilter(cat)}
                   style={{
-                    padding: "0.55rem 1.1rem",
-                    borderRadius: "30px",
-                    fontSize: "0.85rem",
-                    fontWeight: 700,
                     border: active ? "1.5px solid #2563EB" : "1px solid #CBD5E1",
                     background: active ? "#2563EB" : "#FFFFFF",
                     color: active ? "#FFFFFF" : "#475569",
-                    cursor: "pointer",
-                    whiteSpace: "nowrap",
-                    transition: "all 0.15s",
                     boxShadow: active ? "0 2px 8px rgba(37,99,235,0.2)" : "none"
                   }}
                 >
@@ -386,7 +293,7 @@ export default function CaseStudiesPage() {
           </div>
 
           {/* Search Bar */}
-          <div style={{ position: "relative", flex: "1 1 260px", maxWidth: "380px" }}>
+          <div className="cs-search-wrap">
             <span style={{ position: "absolute", left: "0.95rem", top: "50%", transform: "translateY(-50%)", color: "#94A3B8", display: "flex" }}>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="11" cy="11" r="8" />
@@ -411,28 +318,12 @@ export default function CaseStudiesPage() {
           </div>
         </div>
 
-        {/* Case Studies Grid (Fully Responsive) */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-          gap: "1.8rem"
-        }}>
+        {/* Case Studies Grid */}
+        <div className="cs-grid">
           {filteredStudies.map((cs) => (
-            <div
-              key={cs.id}
-              style={{
-                background: "#FFFFFF",
-                borderRadius: "16px",
-                border: "1.5px solid #E2E8F0",
-                overflow: "hidden",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.03)",
-                transition: "transform 0.2s, box-shadow 0.2s"
-              }}
-            >
+            <div key={cs.id} className="cs-card">
               {/* Cover Image Container */}
-              <div style={{ position: "relative", height: "200px", background: "#F1F5F9" }}>
+              <div className="cs-card-media">
                 <img
                   src={cs.coverImage}
                   alt={cs.title}
@@ -472,7 +363,7 @@ export default function CaseStudiesPage() {
               </div>
 
               {/* Card Body */}
-              <div style={{ padding: "1.5rem", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+              <div className="cs-card-body">
                 <div>
                   <div style={{ fontSize: "0.78rem", fontWeight: 800, color: "#2563EB", textTransform: "uppercase", marginBottom: "0.3rem" }}>
                     CLIENT: {cs.client}
@@ -489,7 +380,7 @@ export default function CaseStudiesPage() {
                   </p>
 
                   {/* Metrics Row */}
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.6rem", marginBottom: "1.2rem" }}>
+                  <div className="cs-card-metrics">
                     {cs.metrics.slice(0, 2).map((m, idx) => (
                       <div key={idx} style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", padding: "0.6rem 0.75rem", borderRadius: "8px" }}>
                         <div style={{ fontSize: "1.15rem", fontWeight: 900, color: "#059669" }}>{m.val}</div>
@@ -500,13 +391,7 @@ export default function CaseStudiesPage() {
                 </div>
 
                 {/* Card Actions */}
-                <div style={{
-                  paddingTop: "1rem",
-                  borderTop: "1px solid #F1F5F9",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center"
-                }}>
+                <div className="cs-card-actions">
                   <button
                     onClick={() => setQuickPreviewItem(cs)}
                     style={{
@@ -591,19 +476,7 @@ export default function CaseStudiesPage() {
         )}
 
         {/* Bottom Enterprise Diagnostic CTA Card */}
-        <div style={{
-          marginTop: "5rem",
-          background: "linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 100%)",
-          border: "1.5px solid #BFDBFE",
-          borderRadius: "20px",
-          padding: "clamp(2rem, 4vw, 3.5rem)",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexWrap: "wrap",
-          gap: "2rem",
-          boxShadow: "0 10px 30px rgba(37, 99, 235, 0.06)"
-        }}>
+        <div className="cs-cta-box">
           <div style={{ maxWidth: "650px" }}>
             <div style={{
               display: "inline-block",
@@ -630,22 +503,7 @@ export default function CaseStudiesPage() {
 
           <button
             onClick={() => setIsDiagnosticOpen(true)}
-            style={{
-              height: "48px",
-              padding: "0 1.8rem",
-              borderRadius: "12px",
-              background: "#2563EB",
-              color: "#FFFFFF",
-              border: "none",
-              fontWeight: 800,
-              fontSize: "0.95rem",
-              cursor: "pointer",
-              boxShadow: "0 4px 14px rgba(37, 99, 235, 0.25)",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              transition: "all 0.2s ease"
-            }}
+            className="cs-cta-btn"
             onMouseEnter={(e) => (e.currentTarget.style.background = "#1D4ED8")}
             onMouseLeave={(e) => (e.currentTarget.style.background = "#2563EB")}
           >
@@ -658,30 +516,10 @@ export default function CaseStudiesPage() {
         </div>
       </div>
 
-      {/* Quick Preview Modal (Mobile Responsive) */}
+      {/* Quick Preview Modal */}
       {quickPreviewItem && (
-        <div style={{
-          position: "fixed",
-          inset: 0,
-          background: "rgba(15, 23, 42, 0.7)",
-          backdropFilter: "blur(6px)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          zIndex: 1000,
-          padding: "1rem"
-        }}>
-          <div style={{
-            background: "#FFFFFF",
-            borderRadius: "20px",
-            maxWidth: "720px",
-            width: "100%",
-            maxHeight: "90vh",
-            overflowY: "auto",
-            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.3)",
-            padding: "clamp(1.2rem, 3vw, 2rem)",
-            position: "relative"
-          }}>
+        <div className="cs-modal-overlay">
+          <div className="cs-modal-card">
             <button
               onClick={() => setQuickPreviewItem(null)}
               style={{
@@ -730,7 +568,7 @@ export default function CaseStudiesPage() {
             </p>
 
             {/* Metrics Showcase */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: "0.75rem", marginBottom: "1.5rem" }}>
+            <div className="cs-modal-metrics">
               {quickPreviewItem.metrics.map((m, idx) => (
                 <div key={idx} style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", padding: "0.75rem 0.9rem", borderRadius: "10px", textAlign: "center" }}>
                   <div style={{ fontSize: "1.25rem", fontWeight: 900, color: "#059669" }}>{m.val}</div>
@@ -739,7 +577,7 @@ export default function CaseStudiesPage() {
               ))}
             </div>
 
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "1rem", borderTop: "1px solid #E2E8F0", flexWrap: "wrap", gap: "0.8rem" }}>
+            <div className="cs-modal-actions">
               <button
                 onClick={() => setQuickPreviewItem(null)}
                 style={{
